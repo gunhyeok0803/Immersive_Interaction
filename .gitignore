@@ -1,0 +1,24 @@
+# Local assignment source
+/학부연구생사전과제v3_clean.pdf
+
+# Temporary extraction/rendering outputs
+/tmp/
+
+# Planning notes stay local (only README.md files are published)
+/docs/
+
+# Dependencies and build outputs
+node_modules/
+dist/
+.venv/
+__pycache__/
+
+# Local credentials and environment
+.env
+.env.*
+!.env.example
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
