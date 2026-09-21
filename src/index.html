@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>손으로 펼치는 연구실 논문 지도</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+  <script src="js/hand-cursor.js"></script>
+  <script src="js/paper-field.js"></script>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .ui { position: fixed; z-index: 10; color: #e6f1ff; }
+    #top { top: 10px; left: 10px; background: rgba(10,14,26,.7); padding: 8px 12px; border-radius: 10px; font-size: 13px; max-width: 460px; line-height: 1.5; }
+    #top b { color: #9ef; }
+    #hint { bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(10,14,26,.7); padding: 8px 12px; border-radius: 10px; font-size: 13px; white-space: nowrap; }
+    #btn { left: 10px; bottom: 10px; padding: 8px 14px; font-size: 14px; border-radius: 8px; border: 0; background: #9ef; color: #0b0f1a; cursor: pointer; }
+    #cam { right: 10px; bottom: 10px; width: 160px; height: 120px; transform: scaleX(-1); border-radius: 8px; background: #000; object-fit: cover; opacity: .8; }
+    /* D4 미리보기 패널 (D5에서 3D 패널로 교체 예정) */
+    #preview { right: 10px; top: 60px; width: 380px; max-height: 70vh; overflow: auto; background: rgba(10,14,26,.88); border: 1px solid #2a3654; border-radius: 12px; padding: 14px 16px; font-size: 13px; line-height: 1.55; display: none; }
+    #preview h2 { font-size: 15px; margin: 0 0 6px; color: #ffd166; }
+    #preview .meta { color: #8892b0; margin-bottom: 8px; }
+    #preview a { color: #9ef; }
+  </style>
+</head>
+<body>
+  <div id="top" class="ui">
+    <div><b id="author">불러오는 중…</b> <span id="count"></span></div>
+    <div>입력: <b id="mode">마우스(폴백)</b> · FPS: <b id="fps">-</b> · <span id="status">카메라 대기</span></div>
+    <div id="hoverTitle" style="color:#ffd166; min-height:1.4em"></div>
+  </div>
+  <div id="hint" class="ui">손을 들어 논문을 가리키고, 엄지·검지를 붙여 집은 뒤 앞으로 당기세요</div>
+  <button id="btn" class="ui">카메라 시작</button>
+  <video id="cam" class="ui" autoplay playsinline muted></video>
+  <div id="preview" class="ui">
+    <h2 id="pTitle"></h2>
+    <div class="meta" id="pMeta"></div>
+    <div id="pAbstract"></div>
+    <div style="margin-top:8px"><a id="pLink" target="_blank" rel="noopener">원문 (DOI)</a></div>
+    <div style="margin-top:8px; color:#8892b0">노드를 다시 핀치하면 닫힙니다</div>
+  </div>
+
+  <a-scene background="color: #0b0f1a" renderer="antialias: true" vr-mode-ui="enabled: false"
+           device-orientation-permission-ui="enabled: false" hand-cursor>
+    <a-entity id="camera" camera="fov: 70" position="0 1.6 0" look-controls="enabled: false" wasd-controls="enabled: false">
+      <a-entity id="cursor" position="0 0 -1.5">
+        <a-ring radius-inner="0.02" radius-outer="0.035" color="#9ef" material="shader: flat"></a-ring>
+        <a-sphere radius="0.008" color="#fff" material="shader: flat"></a-sphere>
+      </a-entity>
+    </a-entity>
+    <a-entity id="ray" raycaster="objects: .target; useWorldCoordinates: true; far: 20; interval: 0"></a-entity>
+
+    <a-entity id="field" paper-field="src: data/papers.json"></a-entity>
+
+    <a-plane position="0 -1.7 -4" rotation="-90 0 0" width="16" height="12" color="#121828"></a-plane>
+    <a-entity light="type: ambient; intensity: 0.55"></a-entity>
+    <a-entity light="type: directional; intensity: 0.8" position="1 3 2"></a-entity>
+  </a-scene>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const scene = document.querySelector("a-scene");
+
+    scene.addEventListener("papers-loaded", (e) => {
+      $("author").textContent = e.detail.author?.name || "저자 미상";
+      $("count").textContent = `논문 ${e.detail.count}편 · ${new URL(e.detail.source).host}`;
+    });
+    scene.addEventListener("paper-hover", (e) => { $("hoverTitle").textContent = e.detail.paper?.title ?? ""; });
+    scene.addEventListener("paper-unhover", () => { $("hoverTitle").textContent = ""; });
+    scene.addEventListener("hand-cursor-mode", (e) => { $("mode").textContent = e.detail.mode === "hand" ? "손 추적" : "마우스(폴백)"; });
+
+    scene.addEventListener("paper-open", (e) => {
+      const p = e.detail.paper;
+      $("pTitle").textContent = p.title;
+      $("pMeta").textContent = `${p.year ?? "-"} · ${p.venue || "-"} · 피인용 ${p.cited}` + (p.is_oa ? " · 오픈액세스" : "");
+      $("pAbstract").textContent = p.abstract || "(OpenAlex에 초록 없음)";
+      $("pLink").href = p.url || "#";
+      $("preview").style.display = "block";
+    });
+    scene.addEventListener("paper-close", () => { $("preview").style.display = "none"; });
+
+    let starting = false;
+    $("btn").addEventListener("click", async () => {
+      if (starting) return;
+      starting = true;
+      $("status").textContent = "모델 로딩…";
+      try {
+        await startHandTracking({ videoEl: $("cam"), sceneEl: scene, onFps: (f) => ($("fps").textContent = f) });
+        $("status").textContent = "손 추적 중";
+        $("btn").remove();
+      } catch (err) {
+        starting = false;
+        $("status").textContent = `실패(${err.name}) → 마우스로 계속`;
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
