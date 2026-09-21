@@ -1,6 +1,6 @@
 {
   "source": "https://www.wrl.onl/",
-  "resolved_at": "2026-09-21T07:51:02.876Z",
+  "resolved_at": "2026-09-21T09:21:18.429Z",
   "author": {
     "id": "A5049168429",
     "name": "Byounghyun Yoo",
@@ -18,10 +18,30 @@
   },
   "papers": [
     {
+      "id": "W7211953241",
+      "doi": "10.1038/s41598-026-68104-6",
+      "title": "Trunk motion reflects center-of-pressure dynamics and supports markerless single-camera postural sway assessment",
+      "year": 2026,
+      "date": "2026-09-08",
+      "cited": 0,
+      "venue": "Scientific Reports",
+      "topic": "Balance, Gait, and Falls Prevention",
+      "abstract": "Abstract Postural sway provides important insight into balance control. Although center of pressure (CoP) is widely used to quantify postural sway, reliance on dedicated force-measurement systems can limit use beyond specialized settings. This has motivated the search for accessible kinematic measures of CoP-related sway. However, the relative correspondence of head and trunk motion with CoP remains unclear. We compared head and trunk motion with Wii Balance Board-derived CoP trajectories during quiet standing under six optic-flow conditions. In the anteroposterior direction, trunk motion showed stronger linear correspondence with CoP than head motion in both time- and frequency-domain analyses, whereas correspondence was comparable in the mediolateral direction. Trunk-derived positional sway measures showed consistently greater concordance with CoP-derived measures than the corresponding head-derived measures. We then evaluated trunk tracking using a single elevated rear-oblique camera and Lucas–Kanade optical flow. Video-derived anteroposterior trunk trajectories closely corresponded with motion-capture-derived trajectories, whereas mediolateral correspondence was weaker and more variable. A separate three-participant proof-of-concept further demonstrated simultaneous tracking within a shared camera view. Together, these findings identify trunk motion as a representative upper-body kinematic measure of CoP-related sway, particularly in the anteroposterior direction, and support the feasibility of infrastructure-light, markerless, single-camera tracking.",
+      "is_oa": true,
+      "oa_url": "https://www.nature.com/articles/s41598-026-68104-6_reference.pdf",
+      "url": "https://doi.org/10.1038/s41598-026-68104-6",
+      "authors": [
+        "Yechan Yang",
+        "Eunhee Chang",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
       "id": "W7134951410",
       "doi": "10.1016/j.ijhcs.2026.103797",
       "title": "Empathy in action: An empirical exploration of user perspectives on conversational agent empathy",
       "year": 2026,
+      "date": "2026-03-10",
       "cited": 1,
       "venue": "International Journal of Human-Computer Studies",
       "topic": "Social Robot Interaction and HRI",
@@ -40,6 +60,7 @@
       "doi": "10.26599/cvm.2025.9450524",
       "title": "Reference-guided Gaussian splatting for realistic and view-consistent 3D scene inpainting",
       "year": 2026,
+      "date": "2026-01-01",
       "cited": 0,
       "venue": "Computational Visual Media",
       "topic": "Generative Adversarial Networks and Image Synthesis",
@@ -54,45 +75,11 @@
       ]
     },
     {
-      "id": "W7211953241",
-      "doi": "10.1038/s41598-026-68104-6",
-      "title": "Trunk motion reflects center-of-pressure dynamics and supports markerless single-camera postural sway assessment",
-      "year": 2026,
-      "cited": 0,
-      "venue": "Scientific Reports",
-      "topic": "Balance, Gait, and Falls Prevention",
-      "abstract": "Abstract Postural sway provides important insight into balance control. Although center of pressure (CoP) is widely used to quantify postural sway, reliance on dedicated force-measurement systems can limit use beyond specialized settings. This has motivated the search for accessible kinematic measures of CoP-related sway. However, the relative correspondence of head and trunk motion with CoP remains unclear. We compared head and trunk motion with Wii Balance Board-derived CoP trajectories during quiet standing under six optic-flow conditions. In the anteroposterior direction, trunk motion showed stronger linear correspondence with CoP than head motion in both time- and frequency-domain analyses, whereas correspondence was comparable in the mediolateral direction. Trunk-derived positional sway measures showed consistently greater concordance with CoP-derived measures than the corresponding head-derived measures. We then evaluated trunk tracking using a single elevated rear-oblique camera and Lucas–Kanade optical flow. Video-derived anteroposterior trunk trajectories closely corresponded with motion-capture-derived trajectories, whereas mediolateral correspondence was weaker and more variable. A separate three-participant proof-of-concept further demonstrated simultaneous tracking within a shared camera view. Together, these findings identify trunk motion as a representative upper-body kinematic measure of CoP-related sway, particularly in the anteroposterior direction, and support the feasibility of infrastructure-light, markerless, single-camera tracking.",
-      "is_oa": true,
-      "oa_url": "https://www.nature.com/articles/s41598-026-68104-6_reference.pdf",
-      "url": "https://doi.org/10.1038/s41598-026-68104-6",
-      "authors": [
-        "Yechan Yang",
-        "Eunhee Chang",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W4412698102",
-      "doi": "10.1093/jcde/qwaf075",
-      "title": "Granular and explainable human activity recognition through sound segmentation and deep learning",
-      "year": 2025,
-      "cited": 4,
-      "venue": "Journal of Computational Design and Engineering",
-      "topic": "Human Pose and Action Recognition",
-      "abstract": "Abstract Human Activity Recognition (HAR) plays a crucial role in identifying and digitizing human behaviors. Among various approaches, sound-based HAR offers distinct advantages, such as overcoming visual limitations and enabling recognition in diverse environments. This study introduces an innovative application of sound segmentation with SegNet, originally designed for image segmentation, to sound-based HAR. Traditionally, labeling sound data has been challenging due to its limited scope, often restricted to specific events or time frames. To address this issue, a novel labeling approach was developed, allowing detailed annotations across the entire temporal and frequency domains. This method facilitates the use of SegNet, which requires pixel-level labeling for accurate segmentation, leading to more granular and explainable activity recognition. A dataset comprising six distinct human activities—speech, groaning, screaming, coughing, toilet and snoring—was constructed to enable comprehensive evaluation. The trained neural network, utilizing this annotated dataset, achieved F1 scores ranging from 0.68 to 0.95. The model’s practical applicability was further validated through recognition tests conducted in a professional office environment. This study presents a novel framework for quantifying daily human activities through sound segmentation, contributing to advancements in intelligent system technology.",
-      "is_oa": true,
-      "oa_url": "https://academic.oup.com/jcde/advance-article-pdf/doi/10.1093/jcde/qwaf075/63862340/qwaf075.pdf",
-      "url": "https://doi.org/10.1093/jcde/qwaf075",
-      "authors": [
-        "Jisoo Kim",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
       "id": "W4415751904",
       "doi": "10.1016/j.jobe.2025.114512",
       "title": "Evaluation of thermal control based on spatial thermal comfort with reconstructed environmental data",
       "year": 2025,
+      "date": "2025-10-31",
       "cited": 2,
       "venue": "Journal of Building Engineering",
       "topic": "Building Energy and Comfort Optimization",
@@ -111,10 +98,31 @@
       ]
     },
     {
+      "id": "W4413820694",
+      "doi": "10.1145/3746237.3746316",
+      "title": "StreamSplat: A Hybrid Client-Server Architecture for Neural Graphics using Depth-based Fusion on the Web",
+      "year": 2025,
+      "date": "2025-08-28",
+      "cited": 0,
+      "venue": "",
+      "topic": "Computer Graphics and Visualization Techniques",
+      "abstract": "",
+      "is_oa": true,
+      "oa_url": "https://doi.org/10.1145/3746237.3746316",
+      "url": "https://doi.org/10.1145/3746237.3746316",
+      "authors": [
+        "Sehyeon Park",
+        "Yechan Yang",
+        "Myeongseong Kim",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
       "id": "W4413143040",
       "doi": "10.1016/j.soildyn.2025.109707",
       "title": "Real-time reconstruction of ground motion during small magnitude earthquakes: A pilot study",
       "year": 2025,
+      "date": "2025-08-11",
       "cited": 0,
       "venue": "Soil Dynamics and Earthquake Engineering",
       "topic": "Seismology and Earthquake Studies",
@@ -131,76 +139,40 @@
       ]
     },
     {
-      "id": "W4413820694",
-      "doi": "10.1145/3746237.3746316",
-      "title": "StreamSplat: A Hybrid Client-Server Architecture for Neural Graphics using Depth-based Fusion on the Web",
+      "id": "W4412698102",
+      "doi": "10.1093/jcde/qwaf075",
+      "title": "Granular and explainable human activity recognition through sound segmentation and deep learning",
       "year": 2025,
-      "cited": 0,
-      "venue": "",
-      "topic": "Computer Graphics and Visualization Techniques",
-      "abstract": "",
+      "date": "2025-07-28",
+      "cited": 4,
+      "venue": "Journal of Computational Design and Engineering",
+      "topic": "Human Pose and Action Recognition",
+      "abstract": "Abstract Human Activity Recognition (HAR) plays a crucial role in identifying and digitizing human behaviors. Among various approaches, sound-based HAR offers distinct advantages, such as overcoming visual limitations and enabling recognition in diverse environments. This study introduces an innovative application of sound segmentation with SegNet, originally designed for image segmentation, to sound-based HAR. Traditionally, labeling sound data has been challenging due to its limited scope, often restricted to specific events or time frames. To address this issue, a novel labeling approach was developed, allowing detailed annotations across the entire temporal and frequency domains. This method facilitates the use of SegNet, which requires pixel-level labeling for accurate segmentation, leading to more granular and explainable activity recognition. A dataset comprising six distinct human activities—speech, groaning, screaming, coughing, toilet and snoring—was constructed to enable comprehensive evaluation. The trained neural network, utilizing this annotated dataset, achieved F1 scores ranging from 0.68 to 0.95. The model’s practical applicability was further validated through recognition tests conducted in a professional office environment. This study presents a novel framework for quantifying daily human activities through sound segmentation, contributing to advancements in intelligent system technology.",
       "is_oa": true,
-      "oa_url": "https://doi.org/10.1145/3746237.3746316",
-      "url": "https://doi.org/10.1145/3746237.3746316",
+      "oa_url": "https://academic.oup.com/jcde/advance-article-pdf/doi/10.1093/jcde/qwaf075/63862340/qwaf075.pdf",
+      "url": "https://doi.org/10.1093/jcde/qwaf075",
       "authors": [
-        "Sehyeon Park",
-        "Yechan Yang",
-        "Myeongseong Kim",
+        "Jisoo Kim",
         "Byounghyun Yoo"
       ]
     },
     {
-      "id": "W4399556957",
-      "doi": "10.1016/j.ijhcs.2024.103304",
-      "title": "Efficient VR-AR communication method using virtual replicas in XR remote collaboration",
+      "id": "W4405266536",
+      "doi": "10.7315/cde.2024.506",
+      "title": "Improving the Accuracy of Spatial Thermal Comfort Assessment through Gappy Data Reconstruction",
       "year": 2024,
-      "cited": 26,
-      "venue": "International Journal of Human-Computer Studies",
-      "topic": "Augmented Reality Applications",
-      "abstract": "When using Virtual Reality (VR) and Augmented Reality (AR) to support remote collaboration, effective communication between a remote expert in VR and a local worker in AR is important for guiding and following task instructions. This is especially crucial for assembly tasks, which require precise identification of parts and clear directions for their combination. Despite the increasing interest in efficient VR-AR communication methods, previous studies have been limited to complex hardware setups and simplified assembly tasks. In this research, we introduce a communication approach for remote collaboration in complex assembly tasks, utilizing simplified hardware configurations. We conducted a user study (n=30) and compared three interaction interfaces (hand gestures, 3D drawing, and virtual replicas) in task completion time, subjective questionnaires, and preference rank. The results showed that the use of virtual replicas not only enhances task efficiency but also receives strong preference by users. These findings indicate that virtual replicas can provide intuitive instructions to local workers, resulting in a clearer understanding of the expert’s guidance.",
-      "is_oa": true,
-      "oa_url": "https://doi.org/10.1016/j.ijhcs.2024.103304",
-      "url": "https://doi.org/10.1016/j.ijhcs.2024.103304",
+      "date": "2024-12-11",
+      "cited": 3,
+      "venue": "Korean Journal of Computational Design and Engineering",
+      "topic": "Building Energy and Comfort Optimization",
+      "abstract": "The health and well-being of building occupants are largely influenced by a comfortable indoor thermal environment. To achieve this, building systems must be controlled based on the occupants' actual thermal comfort needs. Thermal comfort is affected by both environmental and personal factors, and conditions such as building type, system characteristics, and airflow can cause variations in thermal sensation within the same space. Thus, accurately assessing thermal comfort requires the use of environmental data around the occupants. This study aims to predict environmental variables throughout a space from limited sensor data and evaluate spatial thermal comfort. Data reconstruction algorithms, such as Gappy POD and Gappy Autoencoder (AE), were used to restore temperature and air velocity data. DesignBuilder and EnergyPlus simulations were employed for algorithm training and evaluation, with a standard office building as the test case. Results show that using reconstructed data allows for more precise thermal comfort assessments based on location, compared to relying solely on measured data. It was also observed that comfort zones vary by location, highlighting the critical role of precise environmental data predictions for spatial thermal comfort evaluations.",
+      "is_oa": false,
+      "oa_url": "",
+      "url": "https://doi.org/10.7315/cde.2024.506",
       "authors": [
-        "Eunhee Chang",
-        "Yongjae Lee",
-        "Mark Billinghurst",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W4391461004",
-      "doi": "10.1016/j.autcon.2024.105291",
-      "title": "Autonomous view planning methods for 3D scanning",
-      "year": 2024,
-      "cited": 17,
-      "venue": "Automation in Construction",
-      "topic": "Robotics and Sensor-Based Localization",
-      "abstract": "Recent advancements in three-dimensional (3D) scanning technology have broadened its applicability across fields like reverse engineering and autonomous robot navigation, which require a 3D representation of real-world objects. A key aspect of this digitalization process is autonomous view planning. This paper comprehensively reviews autonomous view planning techniques for 3D scanning of unknown or partially known geometries. The objective is to plan optimal scanning paths or views that supplement areas with insufficient or missing data. While the fields of graphics and robotics have approached automatic 3D scanning from different perspectives, they share a common goal of finding optimal views or paths to enhance an object’s 3D digital model. This review examines the essential properties of the autonomous view planning process and classifies selected studies based on these aspects, with research trends visualized through a Sankey diagram. Finally, current limitations are discussed, and future directions necessary for practical implementation are explored.",
-      "is_oa": true,
-      "oa_url": "https://doi.org/10.1016/j.autcon.2024.105291",
-      "url": "https://doi.org/10.1016/j.autcon.2024.105291",
-      "authors": [
-        "Inhwan Dennis Lee",
-        "Ji Hyun Seo",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W4394676192",
-      "doi": "10.1016/j.cma.2024.116978",
-      "title": "Gappy AE: A nonlinear approach for Gappy data reconstruction using auto-encoder",
-      "year": 2024,
-      "cited": 16,
-      "venue": "Computer Methods in Applied Mechanics and Engineering",
-      "topic": "Model Reduction and Neural Networks",
-      "abstract": "We introduce a novel data reconstruction algorithm known as Gappy auto-encoder (Gappy AE) to address the limitations associated with Gappy proper orthogonal decomposition (Gappy POD), a widely used method for data reconstruction when dealing with sparse measurements or missing data. Gappy POD has inherent constraints in accurately representing solutions characterized by slowly decaying Kolmogorov N-widths, primarily due to its reliance on linear subspaces for data prediction. In contrast, Gappy AE leverages the power of nonlinear manifold representations to address data reconstruction challenges of conventional Gappy POD. It excels at real-time state prediction in scenarios where only sparsely measured data is available, filling in the gaps effectively. This capability makes Gappy AE particularly valuable, such as for digital twin and image correction applications. To demonstrate the superior data reconstruction performance of Gappy AE with sparse measurements, we provide several numerical examples, including scenarios like 2D diffusion, 2D radial advection, and 2D wave equation problems. Additionally, we assess the impact of four distinct sampling algorithms – discrete empirical interpolation method, the S-OPT algorithm, Latin hypercube sampling, and uniformly distributed sampling – on data reconstruction accuracy. Our findings conclusively show that Gappy AE outperforms Gappy POD in data reconstruction when sparse measurements are given.",
-      "is_oa": true,
-      "oa_url": "https://doi.org/10.1016/j.cma.2024.116978",
-      "url": "https://doi.org/10.1016/j.cma.2024.116978",
-      "authors": [
+        "Eun‐Ji Choi",
         "Youngkyu Kim",
-        "Youngsoo Choi",
+        "Jin-Woo Moon",
         "Byounghyun Yoo"
       ]
     },
@@ -209,6 +181,7 @@
       "doi": "10.1038/s41598-024-70774-z",
       "title": "Deep learning approach for dysphagia detection by syllable-based speech analysis with daily conversations",
       "year": 2024,
+      "date": "2024-08-31",
       "cited": 10,
       "venue": "Scientific Reports",
       "topic": "Dysphagia Assessment and Management",
@@ -227,21 +200,60 @@
       ]
     },
     {
-      "id": "W4405266536",
-      "doi": "10.7315/cde.2024.506",
-      "title": "Improving the Accuracy of Spatial Thermal Comfort Assessment through Gappy Data Reconstruction",
+      "id": "W4399556957",
+      "doi": "10.1016/j.ijhcs.2024.103304",
+      "title": "Efficient VR-AR communication method using virtual replicas in XR remote collaboration",
       "year": 2024,
-      "cited": 3,
-      "venue": "Korean Journal of Computational Design and Engineering",
-      "topic": "Building Energy and Comfort Optimization",
-      "abstract": "The health and well-being of building occupants are largely influenced by a comfortable indoor thermal environment. To achieve this, building systems must be controlled based on the occupants' actual thermal comfort needs. Thermal comfort is affected by both environmental and personal factors, and conditions such as building type, system characteristics, and airflow can cause variations in thermal sensation within the same space. Thus, accurately assessing thermal comfort requires the use of environmental data around the occupants. This study aims to predict environmental variables throughout a space from limited sensor data and evaluate spatial thermal comfort. Data reconstruction algorithms, such as Gappy POD and Gappy Autoencoder (AE), were used to restore temperature and air velocity data. DesignBuilder and EnergyPlus simulations were employed for algorithm training and evaluation, with a standard office building as the test case. Results show that using reconstructed data allows for more precise thermal comfort assessments based on location, compared to relying solely on measured data. It was also observed that comfort zones vary by location, highlighting the critical role of precise environmental data predictions for spatial thermal comfort evaluations.",
-      "is_oa": false,
-      "oa_url": "",
-      "url": "https://doi.org/10.7315/cde.2024.506",
+      "date": "2024-06-12",
+      "cited": 26,
+      "venue": "International Journal of Human-Computer Studies",
+      "topic": "Augmented Reality Applications",
+      "abstract": "When using Virtual Reality (VR) and Augmented Reality (AR) to support remote collaboration, effective communication between a remote expert in VR and a local worker in AR is important for guiding and following task instructions. This is especially crucial for assembly tasks, which require precise identification of parts and clear directions for their combination. Despite the increasing interest in efficient VR-AR communication methods, previous studies have been limited to complex hardware setups and simplified assembly tasks. In this research, we introduce a communication approach for remote collaboration in complex assembly tasks, utilizing simplified hardware configurations. We conducted a user study (n=30) and compared three interaction interfaces (hand gestures, 3D drawing, and virtual replicas) in task completion time, subjective questionnaires, and preference rank. The results showed that the use of virtual replicas not only enhances task efficiency but also receives strong preference by users. These findings indicate that virtual replicas can provide intuitive instructions to local workers, resulting in a clearer understanding of the expert’s guidance.",
+      "is_oa": true,
+      "oa_url": "https://doi.org/10.1016/j.ijhcs.2024.103304",
+      "url": "https://doi.org/10.1016/j.ijhcs.2024.103304",
       "authors": [
-        "Eun‐Ji Choi",
+        "Eunhee Chang",
+        "Yongjae Lee",
+        "Mark Billinghurst",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W4394676192",
+      "doi": "10.1016/j.cma.2024.116978",
+      "title": "Gappy AE: A nonlinear approach for Gappy data reconstruction using auto-encoder",
+      "year": 2024,
+      "date": "2024-04-10",
+      "cited": 16,
+      "venue": "Computer Methods in Applied Mechanics and Engineering",
+      "topic": "Model Reduction and Neural Networks",
+      "abstract": "We introduce a novel data reconstruction algorithm known as Gappy auto-encoder (Gappy AE) to address the limitations associated with Gappy proper orthogonal decomposition (Gappy POD), a widely used method for data reconstruction when dealing with sparse measurements or missing data. Gappy POD has inherent constraints in accurately representing solutions characterized by slowly decaying Kolmogorov N-widths, primarily due to its reliance on linear subspaces for data prediction. In contrast, Gappy AE leverages the power of nonlinear manifold representations to address data reconstruction challenges of conventional Gappy POD. It excels at real-time state prediction in scenarios where only sparsely measured data is available, filling in the gaps effectively. This capability makes Gappy AE particularly valuable, such as for digital twin and image correction applications. To demonstrate the superior data reconstruction performance of Gappy AE with sparse measurements, we provide several numerical examples, including scenarios like 2D diffusion, 2D radial advection, and 2D wave equation problems. Additionally, we assess the impact of four distinct sampling algorithms – discrete empirical interpolation method, the S-OPT algorithm, Latin hypercube sampling, and uniformly distributed sampling – on data reconstruction accuracy. Our findings conclusively show that Gappy AE outperforms Gappy POD in data reconstruction when sparse measurements are given.",
+      "is_oa": true,
+      "oa_url": "https://doi.org/10.1016/j.cma.2024.116978",
+      "url": "https://doi.org/10.1016/j.cma.2024.116978",
+      "authors": [
         "Youngkyu Kim",
-        "Jin-Woo Moon",
+        "Youngsoo Choi",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W4391461004",
+      "doi": "10.1016/j.autcon.2024.105291",
+      "title": "Autonomous view planning methods for 3D scanning",
+      "year": 2024,
+      "date": "2024-02-01",
+      "cited": 17,
+      "venue": "Automation in Construction",
+      "topic": "Robotics and Sensor-Based Localization",
+      "abstract": "Recent advancements in three-dimensional (3D) scanning technology have broadened its applicability across fields like reverse engineering and autonomous robot navigation, which require a 3D representation of real-world objects. A key aspect of this digitalization process is autonomous view planning. This paper comprehensively reviews autonomous view planning techniques for 3D scanning of unknown or partially known geometries. The objective is to plan optimal scanning paths or views that supplement areas with insufficient or missing data. While the fields of graphics and robotics have approached automatic 3D scanning from different perspectives, they share a common goal of finding optimal views or paths to enhance an object’s 3D digital model. This review examines the essential properties of the autonomous view planning process and classifies selected studies based on these aspects, with research trends visualized through a Sankey diagram. Finally, current limitations are discussed, and future directions necessary for practical implementation are explored.",
+      "is_oa": true,
+      "oa_url": "https://doi.org/10.1016/j.autcon.2024.105291",
+      "url": "https://doi.org/10.1016/j.autcon.2024.105291",
+      "authors": [
+        "Inhwan Dennis Lee",
+        "Ji Hyun Seo",
         "Byounghyun Yoo"
       ]
     },
@@ -250,6 +262,7 @@
       "doi": "10.1109/icce59016.2024.10444143",
       "title": "Device Free Wireless Sensing based Human Activity Recognition Using Commercial Off-the-Shelf IoT Single-Board Computers",
       "year": 2024,
+      "date": "2024-01-06",
       "cited": 2,
       "venue": "",
       "topic": "Context-Aware Activity Recognition Systems",
@@ -264,46 +277,11 @@
       ]
     },
     {
-      "id": "W4365150374",
-      "doi": "10.1007/s10055-023-00795-y",
-      "title": "Brain activity during cybersickness: a scoping review",
-      "year": 2023,
-      "cited": 48,
-      "venue": "Virtual Reality",
-      "topic": "Virtual Reality Applications and Impacts",
-      "abstract": "Virtual reality (VR) experiences can cause a range of negative symptoms such as nausea, disorientation, and oculomotor discomfort, which is collectively called cybersickness. Previous studies have attempted to develop a reliable measure for detecting cybersickness instead of using questionnaires, and electroencephalogram (EEG) has been regarded as one of the possible alternatives. However, despite the increasing interest, little is known about which brain activities are consistently associated with cybersickness and what types of methods should be adopted for measuring discomfort through brain activity. We conducted a scoping review of 33 experimental studies in cybersickness and EEG found through database searches and screening. To understand these studies, we organized the pipeline of EEG analysis into four steps (preprocessing, feature extraction, feature selection, classification) and surveyed the characteristics of each step. The results showed that most studies performed frequency or time-frequency analysis for EEG feature extraction. A part of the studies applied a classification model to predict cybersickness indicating an accuracy between 79 and 100%. These studies tended to use HMD-based VR with a portable EEG headset for measuring brain activity. Most VR content shown was scenic views such as driving or navigating a road, and the age of participants was limited to people in their 20 s. This scoping review contributes to presenting an overview of cybersickness-related EEG research and establishing directions for future work. Supplementary Information: The online version contains supplementary material available at 10.1007/s10055-023-00795-y.",
-      "is_oa": true,
-      "oa_url": "https://link.springer.com/content/pdf/10.1007/s10055-023-00795-y.pdf",
-      "url": "https://doi.org/10.1007/s10055-023-00795-y",
-      "authors": [
-        "Eunhee Chang",
-        "Mark Billinghurst",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W4385982751",
-      "doi": "10.1080/10447318.2023.2241294",
-      "title": "A User Study on the Comparison of View Interfaces for VR-AR Communication in XR Remote Collaboration",
-      "year": 2023,
-      "cited": 28,
-      "venue": "International Journal of Human-Computer Interaction",
-      "topic": "Virtual Reality Applications and Impacts",
-      "abstract": "Previous studies have investigated which context-sharing interfaces are effective in improving task performance; however, consistent results have yet to be found. In this study, we developed a convenient remote collaboration system that provides multiple context-sharing interfaces in a single platform (2D video, 360° video, and 3D reconstruction view). All interfaces can reflect live updates of environmental changes, and we aimed to clarify the effect of the interface on the quality of remote collaboration. Thirty participants were recruited to perform a target-finding-and-placing scenario. Using both objective and subjective metrics, we compared the task performance among the three interface conditions. The results showed that participants completed the task faster and reported a better collaborative experience in the 3D interface condition. Moreover, we found a strong preference for the 3D view interface. These results suggest that providing 3D reconstructed spatial information can enable remote experts to instruct local workers more effectively.",
-      "is_oa": true,
-      "oa_url": "https://www.tandfonline.com/doi/pdf/10.1080/10447318.2023.2241294?needAccess=true&role=button",
-      "url": "https://doi.org/10.1080/10447318.2023.2241294",
-      "authors": [
-        "Eunhee Chang",
-        "Yongjae Lee",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
       "id": "W4389000805",
       "doi": "10.1016/j.iot.2023.101014",
       "title": "Addressing IoT storage constraints: A hybrid architecture for decentralized data storage and centralized management",
       "year": 2023,
+      "date": "2023-11-25",
       "cited": 22,
       "venue": "Internet of Things",
       "topic": "IoT and Edge/Fog Computing",
@@ -319,10 +297,68 @@
       ]
     },
     {
+      "id": "W4385982751",
+      "doi": "10.1080/10447318.2023.2241294",
+      "title": "A User Study on the Comparison of View Interfaces for VR-AR Communication in XR Remote Collaboration",
+      "year": 2023,
+      "date": "2023-08-17",
+      "cited": 28,
+      "venue": "International Journal of Human-Computer Interaction",
+      "topic": "Virtual Reality Applications and Impacts",
+      "abstract": "Previous studies have investigated which context-sharing interfaces are effective in improving task performance; however, consistent results have yet to be found. In this study, we developed a convenient remote collaboration system that provides multiple context-sharing interfaces in a single platform (2D video, 360° video, and 3D reconstruction view). All interfaces can reflect live updates of environmental changes, and we aimed to clarify the effect of the interface on the quality of remote collaboration. Thirty participants were recruited to perform a target-finding-and-placing scenario. Using both objective and subjective metrics, we compared the task performance among the three interface conditions. The results showed that participants completed the task faster and reported a better collaborative experience in the 3D interface condition. Moreover, we found a strong preference for the 3D view interface. These results suggest that providing 3D reconstructed spatial information can enable remote experts to instruct local workers more effectively.",
+      "is_oa": true,
+      "oa_url": "https://www.tandfonline.com/doi/pdf/10.1080/10447318.2023.2241294?needAccess=true&role=button",
+      "url": "https://doi.org/10.1080/10447318.2023.2241294",
+      "authors": [
+        "Eunhee Chang",
+        "Yongjae Lee",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W4372259901",
+      "doi": "10.1109/icassp49357.2023.10095412",
+      "title": "Abusive Activity Detection with Multi-Modality Based on Convolutional Neural Network",
+      "year": 2023,
+      "date": "2023-05-05",
+      "cited": 0,
+      "venue": "",
+      "topic": "Anomaly Detection Techniques and Applications",
+      "abstract": "Abusive activity frequently occurs in various places, including nursing homes for the elderly. However, it is difficult to detect because it has various forms and is not easy to define. Therefore, in this study, we try to detect using the Convolutional Neural Network (CNN). Data based on multimodality (image and sound) was used to improve detection performance. In case of the image, a Motion History Image (MHI) was used to reflect motion information. The developed multi-modality-based detection system showed a performance of 0.807 (Accuracy) and 0.858 (F1 score). By comparing with the system using only image or sound, there is an improvement of 0.132 ~ 0.17 (Accuracy) and 0.094 ~ 0.138 (F1 score)",
+      "is_oa": false,
+      "oa_url": "",
+      "url": "https://doi.org/10.1109/icassp49357.2023.10095412",
+      "authors": [
+        "Jisoo Kim",
+        "Hyebin Ahn",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W4365150374",
+      "doi": "10.1007/s10055-023-00795-y",
+      "title": "Brain activity during cybersickness: a scoping review",
+      "year": 2023,
+      "date": "2023-04-12",
+      "cited": 48,
+      "venue": "Virtual Reality",
+      "topic": "Virtual Reality Applications and Impacts",
+      "abstract": "Virtual reality (VR) experiences can cause a range of negative symptoms such as nausea, disorientation, and oculomotor discomfort, which is collectively called cybersickness. Previous studies have attempted to develop a reliable measure for detecting cybersickness instead of using questionnaires, and electroencephalogram (EEG) has been regarded as one of the possible alternatives. However, despite the increasing interest, little is known about which brain activities are consistently associated with cybersickness and what types of methods should be adopted for measuring discomfort through brain activity. We conducted a scoping review of 33 experimental studies in cybersickness and EEG found through database searches and screening. To understand these studies, we organized the pipeline of EEG analysis into four steps (preprocessing, feature extraction, feature selection, classification) and surveyed the characteristics of each step. The results showed that most studies performed frequency or time-frequency analysis for EEG feature extraction. A part of the studies applied a classification model to predict cybersickness indicating an accuracy between 79 and 100%. These studies tended to use HMD-based VR with a portable EEG headset for measuring brain activity. Most VR content shown was scenic views such as driving or navigating a road, and the age of participants was limited to people in their 20 s. This scoping review contributes to presenting an overview of cybersickness-related EEG research and establishing directions for future work. Supplementary Information: The online version contains supplementary material available at 10.1007/s10055-023-00795-y.",
+      "is_oa": true,
+      "oa_url": "https://link.springer.com/content/pdf/10.1007/s10055-023-00795-y.pdf",
+      "url": "https://doi.org/10.1007/s10055-023-00795-y",
+      "authors": [
+        "Eunhee Chang",
+        "Mark Billinghurst",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
       "id": "W4367662842",
       "doi": "10.1109/vrw58643.2023.00202",
       "title": "Comparing Context-sharing Interfaces in XR Remote Collaboration",
       "year": 2023,
+      "date": "2023-03-01",
       "cited": 1,
       "venue": "",
       "topic": "Augmented Reality Applications",
@@ -338,64 +374,11 @@
       ]
     },
     {
-      "id": "W4372259901",
-      "doi": "10.1109/icassp49357.2023.10095412",
-      "title": "Abusive Activity Detection with Multi-Modality Based on Convolutional Neural Network",
-      "year": 2023,
-      "cited": 0,
-      "venue": "",
-      "topic": "Anomaly Detection Techniques and Applications",
-      "abstract": "Abusive activity frequently occurs in various places, including nursing homes for the elderly. However, it is difficult to detect because it has various forms and is not easy to define. Therefore, in this study, we try to detect using the Convolutional Neural Network (CNN). Data based on multimodality (image and sound) was used to improve detection performance. In case of the image, a Motion History Image (MHI) was used to reflect motion information. The developed multi-modality-based detection system showed a performance of 0.807 (Accuracy) and 0.858 (F1 score). By comparing with the system using only image or sound, there is an improvement of 0.132 ~ 0.17 (Accuracy) and 0.094 ~ 0.138 (F1 score)",
-      "is_oa": false,
-      "oa_url": "",
-      "url": "https://doi.org/10.1109/icassp49357.2023.10095412",
-      "authors": [
-        "Jisoo Kim",
-        "Hyebin Ahn",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W4212903058",
-      "doi": "10.1109/mce.2022.3151023",
-      "title": "Decentralized ME-Centric Framework—A Futuristic Architecture for Consumer IoT",
-      "year": 2022,
-      "cited": 16,
-      "venue": "IEEE Consumer Electronics Magazine",
-      "topic": "Blockchain Technology Applications and Security",
-      "abstract": "The Internet of Things (IoT) landscape is synergistic with various participating domains like smart healthcare, industrial IoT, and smart cities. With its massive potential, the Consumer Internet of Things (CIoT) landscape occupies a sizable chunk of the future Internet and is still immature due to its lack of interoperability and data sustainability among IoT applications. Most of the existing CIoT deployments are vertical solutions comprising CIoT devices, gateways, and centralized cloud services, resulting in fragmented silos of data. We need a contemporary, decentralized, semantic, data-centric, and interoperable approach to overcome the integration issues and provide a seamless global ecosystem for CIoT applications. In this article, we introduce a futuristic decentralized ME-centric state-of-the-art architecture for CIoT that can overcome the challenges of and enhance the agility, scalability, resiliency, and security of CIoT systems. In a decentralized ME-centric prototype, we integrate edge computing with decentralized storage solutions and new cutting-edge technologies like digital twins and blockchain with semantic ontologies to design a comprehensive beneficial outlook for consumers.",
-      "is_oa": false,
-      "oa_url": "",
-      "url": "https://doi.org/10.1109/mce.2022.3151023",
-      "authors": [
-        "Shapna Muralidharan",
-        "Byounghyun Yoo",
-        "Heedong Ko"
-      ]
-    },
-    {
-      "id": "W4207052223",
-      "doi": "10.1007/s10055-021-00622-2",
-      "title": "Identifying physiological correlates of cybersickness using heartbeat-evoked potential analysis",
-      "year": 2022,
-      "cited": 12,
-      "venue": "Virtual Reality",
-      "topic": "Virtual Reality Applications and Impacts",
-      "abstract": "Abstract Many studies have consistently proven that repeatedly watching virtual reality (VR) content can reduce cybersickness. Moreover, the discomfort level decreases when the VR content includes an unusual orientation, such as an inverted scene. However, few studies have investigated the physiological changes during these experiences. The present study aimed to identify psychophysiological correlates, especially the neural processing, of cybersickness. Twenty participants experienced two types of VR orientation (upright and inverted), which were repeated three times. During the experience, we recorded the participants’ subjective levels of discomfort, brain waves, cardiac signals, and eye trajectories. We performed a heartbeat-evoked potential (HEP) analysis to elucidate the cortical activity of heartbeats while experiencing cybersickness. The results showed that the severity of cybersickness decreased as the participants repeatedly watched the VR content. The participants also reported less nausea when watching the inverted orientation. We only found a significant suppression at the fronto-central HEP amplitudes in the upright orientation for the physiological changes. This study provides a comprehensive understanding of bodily responses to varying degrees of cybersickness. In addition, the HEP results suggest that this approach might reflect the neural correlates of transient changes in heartbeats caused by cybersickness.",
-      "is_oa": true,
-      "oa_url": "https://link.springer.com/content/pdf/10.1007/s10055-021-00622-2.pdf",
-      "url": "https://doi.org/10.1007/s10055-021-00622-2",
-      "authors": [
-        "Eunhee Chang",
-        "Hyun Taek Kim",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
       "id": "W4307472776",
       "doi": "10.1145/3564533.3564565",
       "title": "InstantXR: Instant XR Environment on the Web Using Hybrid Rendering of Cloud-based NeRF with 3D Assets",
       "year": 2022,
+      "date": "2022-10-28",
       "cited": 10,
       "venue": "",
       "topic": "Advanced Vision and Imaging",
@@ -415,6 +398,7 @@
       "doi": "10.1093/jcde/qwac037",
       "title": "COVID-Beat: a low-cost breath monitoring approach for people in quarantine during the pandemic",
       "year": 2022,
+      "date": "2022-04-21",
       "cited": 6,
       "venue": "Journal of Computational Design and Engineering",
       "topic": "Non-Invasive Vital Sign Monitoring",
@@ -430,37 +414,40 @@
       ]
     },
     {
-      "id": "W3134586965",
-      "doi": "10.1093/jcde/qwab010",
-      "title": "Predicting cybersickness based on user’s gaze behaviors in HMD-based virtual reality",
-      "year": 2021,
-      "cited": 72,
-      "venue": "Journal of Computational Design and Engineering",
-      "topic": "Virtual Reality Applications and Impacts",
-      "abstract": "Abstract Cybersickness refers to a group of uncomfortable symptoms experienced in virtual reality (VR). Among several theories of cybersickness, the subjective vertical mismatch (SVM) theory focuses on an individual’s internal model, which is created and updated through past experiences. Although previous studies have attempted to provide experimental evidence for the theory, most approaches are limited to subjective measures or body sway. In this study, we aimed to demonstrate the SVM theory on the basis of the participant’s eye movements and investigate whether the subjective level of cybersickness can be predicted using eye-related measures. 26 participants experienced roller coaster VR while wearing a head-mounted display with eye tracking. We designed four experimental conditions by changing the orientation of the VR scene (upright vs. inverted) or the controllability of the participant’s body (unrestrained vs. restrained body). The results indicated that participants reported more severe cybersickness when experiencing the upright VR content without controllability. Moreover, distinctive eye movements (e.g. fixation duration and distance between the eye gaze and the object position sequence) were observed according to the experimental conditions. On the basis of these results, we developed a regression model using eye-movement features and found that our model can explain 34.8% of the total variance of cybersickness, indicating a substantial improvement compared to the previous work (4.2%). This study provides empirical data for the SVM theory using both subjective and eye-related measures. In particular, the results suggest that participants’ eye movements can serve as a significant index for predicting cybersickness when considering natural gaze behaviors during a VR experience.",
-      "is_oa": true,
-      "oa_url": "https://academic.oup.com/jcde/article-pdf/8/2/728/37562475/qwab010.pdf",
-      "url": "https://doi.org/10.1093/jcde/qwab010",
+      "id": "W4212903058",
+      "doi": "10.1109/mce.2022.3151023",
+      "title": "Decentralized ME-Centric Framework—A Futuristic Architecture for Consumer IoT",
+      "year": 2022,
+      "date": "2022-02-15",
+      "cited": 16,
+      "venue": "IEEE Consumer Electronics Magazine",
+      "topic": "Blockchain Technology Applications and Security",
+      "abstract": "The Internet of Things (IoT) landscape is synergistic with various participating domains like smart healthcare, industrial IoT, and smart cities. With its massive potential, the Consumer Internet of Things (CIoT) landscape occupies a sizable chunk of the future Internet and is still immature due to its lack of interoperability and data sustainability among IoT applications. Most of the existing CIoT deployments are vertical solutions comprising CIoT devices, gateways, and centralized cloud services, resulting in fragmented silos of data. We need a contemporary, decentralized, semantic, data-centric, and interoperable approach to overcome the integration issues and provide a seamless global ecosystem for CIoT applications. In this article, we introduce a futuristic decentralized ME-centric state-of-the-art architecture for CIoT that can overcome the challenges of and enhance the agility, scalability, resiliency, and security of CIoT systems. In a decentralized ME-centric prototype, we integrate edge computing with decentralized storage solutions and new cutting-edge technologies like digital twins and blockchain with semantic ontologies to design a comprehensive beneficial outlook for consumers.",
+      "is_oa": false,
+      "oa_url": "",
+      "url": "https://doi.org/10.1109/mce.2022.3151023",
       "authors": [
-        "Eunhee Chang",
-        "Hyun Taek Kim",
-        "Byounghyun Yoo"
+        "Shapna Muralidharan",
+        "Byounghyun Yoo",
+        "Heedong Ko"
       ]
     },
     {
-      "id": "W3136467879",
-      "doi": "10.1093/jcde/qwab012",
-      "title": "XR collaboration beyond virtual reality: work in the real world",
-      "year": 2021,
-      "cited": 72,
-      "venue": "Journal of Computational Design and Engineering",
-      "topic": "Augmented Reality Applications",
-      "abstract": "Abstract Collaborating in a physically remote location saves time and money. Many remote collaboration systems have been studied and commercialized. Their capabilities have been confined to virtual objects and information. More recent studies have focused on collaborating in a physical environment and with physical objects. However, they have limitations including shaky and unstable views (scenes), view dependence, low scalability, and poor content expression. In this paper, we propose a web-based extended reality (XR) collaboration system that alleviates the aforementioned issues and enables effective, reproducible cooperation. Our proposed system comprises three parts: interaction device webization, which expands the web browser’s device interfaces; unified XR representation, which describes content interoperable in both virtual reality (VR) and augmented reality (AR); and unified coordinate creation, which enables presenting physical objects’ pose in world coordinates. With this system, a user in VR can intuitively instruct the manipulation of a physical object by manipulating a virtual object representative of the physical object. Conversely, a user in AR can catch up with the instruction by observing the augmented virtual object on the physical object. Moreover, as the pose of the physical object at the AR user’s worksite is reflected in the virtual object, the VR user can recognize the working progress and give feedback to the AR user. To improve remote collaboration, we surveyed XR collaboration studies and proposed a new method for classifying XR collaborative applications based on the virtual–real engagement and ubiquitous computing continuum. We implemented a prototype and conducted a survey among submarine crews, most of whom were positively inclined to use our system, to convey that the system would be helpful in improving their job performance. Furthermore, we suggested possible improvements to it to enhance each participant’s understanding of the other user’s context within the XR collaboration.",
+      "id": "W4207052223",
+      "doi": "10.1007/s10055-021-00622-2",
+      "title": "Identifying physiological correlates of cybersickness using heartbeat-evoked potential analysis",
+      "year": 2022,
+      "date": "2022-01-24",
+      "cited": 12,
+      "venue": "Virtual Reality",
+      "topic": "Virtual Reality Applications and Impacts",
+      "abstract": "Abstract Many studies have consistently proven that repeatedly watching virtual reality (VR) content can reduce cybersickness. Moreover, the discomfort level decreases when the VR content includes an unusual orientation, such as an inverted scene. However, few studies have investigated the physiological changes during these experiences. The present study aimed to identify psychophysiological correlates, especially the neural processing, of cybersickness. Twenty participants experienced two types of VR orientation (upright and inverted), which were repeated three times. During the experience, we recorded the participants’ subjective levels of discomfort, brain waves, cardiac signals, and eye trajectories. We performed a heartbeat-evoked potential (HEP) analysis to elucidate the cortical activity of heartbeats while experiencing cybersickness. The results showed that the severity of cybersickness decreased as the participants repeatedly watched the VR content. The participants also reported less nausea when watching the inverted orientation. We only found a significant suppression at the fronto-central HEP amplitudes in the upright orientation for the physiological changes. This study provides a comprehensive understanding of bodily responses to varying degrees of cybersickness. In addition, the HEP results suggest that this approach might reflect the neural correlates of transient changes in heartbeats caused by cybersickness.",
       "is_oa": true,
-      "oa_url": "https://academic.oup.com/jcde/article-pdf/8/2/756/37562008/qwab012.pdf",
-      "url": "https://doi.org/10.1093/jcde/qwab012",
+      "oa_url": "https://link.springer.com/content/pdf/10.1007/s10055-021-00622-2.pdf",
+      "url": "https://doi.org/10.1007/s10055-021-00622-2",
       "authors": [
-        "Yongjae Lee",
+        "Eunhee Chang",
+        "Hyun Taek Kim",
         "Byounghyun Yoo"
       ]
     },
@@ -469,6 +456,7 @@
       "doi": "10.1145/3485444.3487642",
       "title": "Sharing Ambient Objects Using Real-time Point Cloud Streaming in Web-based XR Remote Collaboration",
       "year": 2021,
+      "date": "2021-11-08",
       "cited": 23,
       "venue": "",
       "topic": "3D Surveying and Cultural Heritage",
@@ -487,6 +475,7 @@
       "doi": "10.1093/jcde/qwab049",
       "title": "Effectiveness of rough initial scan for high-precision automatic 3D scanning",
       "year": 2021,
+      "date": "2021-08-04",
       "cited": 7,
       "venue": "Journal of Computational Design and Engineering",
       "topic": "Optical measurement and interference techniques",
@@ -501,17 +490,36 @@
       ]
     },
     {
-      "id": "W3038372909",
-      "doi": "10.1080/10447318.2020.1778351",
-      "title": "Virtual Reality Sickness: A Review of Causes and Measurements",
-      "year": 2020,
-      "cited": 973,
-      "venue": "International Journal of Human-Computer Interaction",
-      "topic": "Virtual Reality Applications and Impacts",
-      "abstract": "In virtual reality (VR), users can experience symptoms of motion sickness, which is referred to as VR sickness or cybersickness. The symptoms include but are not limited to eye fatigue, disorientation, and nausea, which can impair the VR experience of users. Though many studies have attempted to reduce the discomfort, they produced conflicting results with varying degrees of VR sickness. In particular, a visually improved VR does not necessarily result in decreased VR sickness. To understand these unexpected results, we surveyed the causes of VR sickness and measurement of symptoms. We reorganized the causes of the VR sickness into three major factors (hardware, content, and human factors) and investigated the sub-component of each factor. We then surveyed frequently used measures of VR sickness, both subjective and objective approaches. We also investigated emerging approaches for reducing VR sickness and proposed a multimodal fidelity hypothesis to give an insight into future studies.",
+      "id": "W3136467879",
+      "doi": "10.1093/jcde/qwab012",
+      "title": "XR collaboration beyond virtual reality: work in the real world",
+      "year": 2021,
+      "date": "2021-02-10",
+      "cited": 72,
+      "venue": "Journal of Computational Design and Engineering",
+      "topic": "Augmented Reality Applications",
+      "abstract": "Abstract Collaborating in a physically remote location saves time and money. Many remote collaboration systems have been studied and commercialized. Their capabilities have been confined to virtual objects and information. More recent studies have focused on collaborating in a physical environment and with physical objects. However, they have limitations including shaky and unstable views (scenes), view dependence, low scalability, and poor content expression. In this paper, we propose a web-based extended reality (XR) collaboration system that alleviates the aforementioned issues and enables effective, reproducible cooperation. Our proposed system comprises three parts: interaction device webization, which expands the web browser’s device interfaces; unified XR representation, which describes content interoperable in both virtual reality (VR) and augmented reality (AR); and unified coordinate creation, which enables presenting physical objects’ pose in world coordinates. With this system, a user in VR can intuitively instruct the manipulation of a physical object by manipulating a virtual object representative of the physical object. Conversely, a user in AR can catch up with the instruction by observing the augmented virtual object on the physical object. Moreover, as the pose of the physical object at the AR user’s worksite is reflected in the virtual object, the VR user can recognize the working progress and give feedback to the AR user. To improve remote collaboration, we surveyed XR collaboration studies and proposed a new method for classifying XR collaborative applications based on the virtual–real engagement and ubiquitous computing continuum. We implemented a prototype and conducted a survey among submarine crews, most of whom were positively inclined to use our system, to convey that the system would be helpful in improving their job performance. Furthermore, we suggested possible improvements to it to enhance each participant’s understanding of the other user’s context within the XR collaboration.",
       "is_oa": true,
-      "oa_url": "https://www.tandfonline.com/doi/pdf/10.1080/10447318.2020.1778351?needAccess=true",
-      "url": "https://doi.org/10.1080/10447318.2020.1778351",
+      "oa_url": "https://academic.oup.com/jcde/article-pdf/8/2/756/37562008/qwab012.pdf",
+      "url": "https://doi.org/10.1093/jcde/qwab012",
+      "authors": [
+        "Yongjae Lee",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W3134586965",
+      "doi": "10.1093/jcde/qwab010",
+      "title": "Predicting cybersickness based on user’s gaze behaviors in HMD-based virtual reality",
+      "year": 2021,
+      "date": "2021-02-04",
+      "cited": 72,
+      "venue": "Journal of Computational Design and Engineering",
+      "topic": "Virtual Reality Applications and Impacts",
+      "abstract": "Abstract Cybersickness refers to a group of uncomfortable symptoms experienced in virtual reality (VR). Among several theories of cybersickness, the subjective vertical mismatch (SVM) theory focuses on an individual’s internal model, which is created and updated through past experiences. Although previous studies have attempted to provide experimental evidence for the theory, most approaches are limited to subjective measures or body sway. In this study, we aimed to demonstrate the SVM theory on the basis of the participant’s eye movements and investigate whether the subjective level of cybersickness can be predicted using eye-related measures. 26 participants experienced roller coaster VR while wearing a head-mounted display with eye tracking. We designed four experimental conditions by changing the orientation of the VR scene (upright vs. inverted) or the controllability of the participant’s body (unrestrained vs. restrained body). The results indicated that participants reported more severe cybersickness when experiencing the upright VR content without controllability. Moreover, distinctive eye movements (e.g. fixation duration and distance between the eye gaze and the object position sequence) were observed according to the experimental conditions. On the basis of these results, we developed a regression model using eye-movement features and found that our model can explain 34.8% of the total variance of cybersickness, indicating a substantial improvement compared to the previous work (4.2%). This study provides empirical data for the SVM theory using both subjective and eye-related measures. In particular, the results suggest that participants’ eye movements can serve as a significant index for predicting cybersickness when considering natural gaze behaviors during a VR experience.",
+      "is_oa": true,
+      "oa_url": "https://academic.oup.com/jcde/article-pdf/8/2/728/37562475/qwab010.pdf",
+      "url": "https://doi.org/10.1093/jcde/qwab010",
       "authors": [
         "Eunhee Chang",
         "Hyun Taek Kim",
@@ -519,68 +527,11 @@
       ]
     },
     {
-      "id": "W3093448691",
-      "doi": "10.1093/jcde/qwaa048",
-      "title": "Wi-ESP—A tool for CSI-based Device-Free Wi-Fi Sensing (DFWS)",
-      "year": 2020,
-      "cited": 72,
-      "venue": "Journal of Computational Design and Engineering",
-      "topic": "Indoor and Outdoor Localization Technologies",
-      "abstract": "Abstract Recent progress in Device-Free Wi-Fi Sensing (DFWS) has established the use of wireless signals like Wi-Fi not only to communicate but also as a tool to enable device-free sensing. As an emerging technique, DFWS has many capable applications such as sensing activity and gesture and fall detection, monitoring elderly, surveillance, and many more applications while waiving out the necessity to mount devices on the object. A wide range of applications can use the channel state information (CSI) from commercial Wi-Fi devices pervasively for ubiquitous sensing. Existing CSI tools, such as the Intel 5300 network interface controller tool or the Atheros 9390 tool, have limitations when deployed in large-scale systems due to their high deployment costs and limitations in the resolution of CSI measurements. Due to these shortcomings, DFWS applications need an alternative CSI tool in order to perform efficiently. In this paper, we present ESP32-based Wi-ESP as a CSI gathering tool that can report detailed CSI measurements based on 802.11n standards. The proposed Wi-ESP tool works as a complete device by collecting the CSI measurements as well as processing further for DFWS applications. Wi-ESP can work as standalone device, unlike other CSI tools, and can offer large-scale deployment to many DFWS applications. In this paper, we have explored the options of Wi-ESP as a tool for CSI measurements and processing and propose it as a tool for DFWS.",
-      "is_oa": true,
-      "oa_url": "https://doi.org/10.1093/jcde/qwaa048",
-      "url": "https://doi.org/10.1093/jcde/qwaa048",
-      "authors": [
-        "Muhammad Atif",
-        "Shapna Muralidharan",
-        "Heedong Ko",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W3023139129",
-      "doi": "10.1109/tro.2020.2980161",
-      "title": "Automatic Pose Generation for Robotic 3-D Scanning of Mechanical Parts",
-      "year": 2020,
-      "cited": 43,
-      "venue": "IEEE Transactions on Robotics",
-      "topic": "Robotics and Sensor-Based Localization",
-      "abstract": "In this article, we present an automatic pose generation approach for robotic 3-D scanning systems designed for the reverse engineering of mechanical parts. 3-D scanning of an object is usually a highly complicated process that involves aligning multiple measurements from different viewpoints, fusing the merged data, and finally reconstructing the underlying surface. The reconstruction is often performed in isolation to the acquisition step. In contrast, the measured data often exhibit holes owing to limited viewpoints or noises in measurements, which can be observed after the postprocessing. Previous approaches either use the predefined scan paths without knowledge of the actual surface, or calculate the scan path based on the approximated smooth surface enclosing the incomplete scanned measurement. The need for an accurate 3-D scanning of mechanical parts often arises for reverse engineering purposes, as their shape often exhibits sharp corners or continuous shape of primitives (planes, cylinders, etc.), which the existing pipelines do not consider. We suggest a 3-D scan pipeline specifically designed to generate optimal scan paths of mechanical parts from incomplete data with limited fields of view. Our pipeline detects primitives from the scanned partial data, and utilizes the detection to approximate the underlying shape of the ground truth object; thus, it suggests the next-best-view of the scanner from the scarce measurements. In this regard, the suggested method is the first working pipeline specifically designed for scanning mechanical parts; furthermore, it outperforms previous approaches in terms of an efficient scan path generation.",
-      "is_oa": true,
-      "oa_url": "https://ieeexplore.ieee.org/ielx7/8860/9159950/09089042.pdf",
-      "url": "https://doi.org/10.1109/tro.2020.2980161",
-      "authors": [
-        "Inhwan Dennis Lee",
-        "Ji Hyun Seo",
-        "Young Min Kim",
-        "Jonghyun Choi",
-        "Soonhung Han",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
-      "id": "W3013433297",
-      "doi": "10.1109/icce46568.2020.9043088",
-      "title": "Designing a Semantic Digital Twin model for IoT",
-      "year": 2020,
-      "cited": 22,
-      "venue": "",
-      "topic": "IoT and Edge/Fog Computing",
-      "abstract": "Today there is exponential growth and convergence in technologies like the Internet of Things (IoT), machine learning, and other forms of Artificial Intelligence leveraging the way we collect and analyze data from smart sensors. A Digital Twin (DT) Technology is the creation of the virtual replicas of physical IoT devices that helps to monitor the applications, analyze data collected, and predict future behavior and performance of devices. In this paper, we propose a semantic DT based IoT model with support at the edge with container technology to mimic the IoT devices and enhance the interoperability of the heterogeneous IoT devices.",
-      "is_oa": false,
-      "oa_url": "",
-      "url": "https://doi.org/10.1109/icce46568.2020.9043088",
-      "authors": [
-        "Shapna Muralidharan",
-        "Byounghyun Yoo",
-        "Heedong Ko"
-      ]
-    },
-    {
       "id": "W3110515232",
       "doi": "10.1145/3424616.3424695",
       "title": "Unified Representation for XR Content and its Rendering Method",
       "year": 2020,
+      "date": "2020-11-09",
       "cited": 16,
       "venue": "",
       "topic": "Augmented Reality Applications",
@@ -597,27 +548,11 @@
       ]
     },
     {
-      "id": "W2997604678",
-      "doi": "10.1080/13658816.2019.1706739",
-      "title": "Interoperable information model for geovisualization and interaction in XR environments",
-      "year": 2020,
-      "cited": 9,
-      "venue": "International Journal of Geographical Information Systems",
-      "topic": "Geographic Information Systems Studies",
-      "abstract": "Since the vision of a Digital Earth (DE) was introduced in 1998, geo-browsers seem to have nearly fulfilled this vision. Virtual reality (VR) for visualizing the DE provides an immersive user experience in a mirror world. Location-based augmented reality (AR) browsers have been introduced and provide content according to user and environmental contexts. However, the content models of traditional geo-browsers and AR browsers have very limited interoperability, because they are described in application-specific formats using their domain standards. Each application is vertically integrated from content to application. The Web is an interoperable and open platform, and hundreds of millions of users are already using it to create and share content. To envision DE browsers for cross-reality (XR) environments that concurrently support geovisualization as well as VR, AR, and mixed-reality environments, we propose a DE content model based on Web standards and architecture that provides full interoperability and openness for XR browsers as a first-class citizen of the Web. This is expected to improve the DE content development efficiency by fully using the Web content development environment.",
-      "is_oa": false,
-      "oa_url": "",
-      "url": "https://doi.org/10.1080/13658816.2019.1706739",
-      "authors": [
-        "Daeil Seo",
-        "Byounghyun Yoo"
-      ]
-    },
-    {
       "id": "W3095985713",
       "doi": "10.1109/mfi49285.2020.9235269",
       "title": "Machine Assisted Video Tagging of Elderly Activities in K-Log Centre",
       "year": 2020,
+      "date": "2020-09-14",
       "cited": 4,
       "venue": "",
       "topic": "Human Pose and Action Recognition",
@@ -635,22 +570,101 @@
       ]
     },
     {
-      "id": "W2963237354",
-      "doi": "10.1145/3329714.3338137",
-      "title": "XR Collaboration Architecture based on Decentralized Web",
-      "year": 2019,
-      "cited": 22,
-      "venue": "",
-      "topic": "Peer-to-Peer Network Technologies",
-      "abstract": "The web has been an extremely effective collaboration platform, enabling services like Wikipedia article co-authoring, blogging, social messaging, video conferencing, and many others. However, the collaboration should ideally occur Peer to Peer (P2P) among the participants instead of going through a centralized server as in the current centralized web, which acts as a mediator as well as a repository of data, especially for face-to-face collaboration in 3D XR context. Most notable XR applications like MMORPG have been developed in a dedicated application platform with their own centralized game servers. Nowadays, the decentralized web is being promoted as the next web architecture in numerous fronts such as blockchain in cryptocurrency, reviving P2P storage, and networking technologies as the next web, Web 3.0. It would be beneficial if we could make an XR collaboration framework based on the recent developments of the decentralized web. This paper explores one possible amalgamation of the decentralized web technology stack toward a webized XR collaboration framework.",
-      "is_oa": false,
-      "oa_url": "",
-      "url": "https://doi.org/10.1145/3329714.3338137",
+      "id": "W3038372909",
+      "doi": "10.1080/10447318.2020.1778351",
+      "title": "Virtual Reality Sickness: A Review of Causes and Measurements",
+      "year": 2020,
+      "date": "2020-07-02",
+      "cited": 973,
+      "venue": "International Journal of Human-Computer Interaction",
+      "topic": "Virtual Reality Applications and Impacts",
+      "abstract": "In virtual reality (VR), users can experience symptoms of motion sickness, which is referred to as VR sickness or cybersickness. The symptoms include but are not limited to eye fatigue, disorientation, and nausea, which can impair the VR experience of users. Though many studies have attempted to reduce the discomfort, they produced conflicting results with varying degrees of VR sickness. In particular, a visually improved VR does not necessarily result in decreased VR sickness. To understand these unexpected results, we surveyed the causes of VR sickness and measurement of symptoms. We reorganized the causes of the VR sickness into three major factors (hardware, content, and human factors) and investigated the sub-component of each factor. We then surveyed frequently used measures of VR sickness, both subjective and objective approaches. We also investigated emerging approaches for reducing VR sickness and proposed a multimodal fidelity hypothesis to give an insight into future studies.",
+      "is_oa": true,
+      "oa_url": "https://www.tandfonline.com/doi/pdf/10.1080/10447318.2020.1778351?needAccess=true",
+      "url": "https://doi.org/10.1080/10447318.2020.1778351",
       "authors": [
-        "Seungyeon Huh",
+        "Eunhee Chang",
+        "Hyun Taek Kim",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W3023139129",
+      "doi": "10.1109/tro.2020.2980161",
+      "title": "Automatic Pose Generation for Robotic 3-D Scanning of Mechanical Parts",
+      "year": 2020,
+      "date": "2020-05-07",
+      "cited": 43,
+      "venue": "IEEE Transactions on Robotics",
+      "topic": "Robotics and Sensor-Based Localization",
+      "abstract": "In this article, we present an automatic pose generation approach for robotic 3-D scanning systems designed for the reverse engineering of mechanical parts. 3-D scanning of an object is usually a highly complicated process that involves aligning multiple measurements from different viewpoints, fusing the merged data, and finally reconstructing the underlying surface. The reconstruction is often performed in isolation to the acquisition step. In contrast, the measured data often exhibit holes owing to limited viewpoints or noises in measurements, which can be observed after the postprocessing. Previous approaches either use the predefined scan paths without knowledge of the actual surface, or calculate the scan path based on the approximated smooth surface enclosing the incomplete scanned measurement. The need for an accurate 3-D scanning of mechanical parts often arises for reverse engineering purposes, as their shape often exhibits sharp corners or continuous shape of primitives (planes, cylinders, etc.), which the existing pipelines do not consider. We suggest a 3-D scan pipeline specifically designed to generate optimal scan paths of mechanical parts from incomplete data with limited fields of view. Our pipeline detects primitives from the scanned partial data, and utilizes the detection to approximate the underlying shape of the ground truth object; thus, it suggests the next-best-view of the scanner from the scarce measurements. In this regard, the suggested method is the first working pipeline specifically designed for scanning mechanical parts; furthermore, it outperforms previous approaches in terms of an efficient scan path generation.",
+      "is_oa": true,
+      "oa_url": "https://ieeexplore.ieee.org/ielx7/8860/9159950/09089042.pdf",
+      "url": "https://doi.org/10.1109/tro.2020.2980161",
+      "authors": [
+        "Inhwan Dennis Lee",
+        "Ji Hyun Seo",
+        "Young Min Kim",
+        "Jonghyun Choi",
+        "Soonhung Han",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W3093448691",
+      "doi": "10.1093/jcde/qwaa048",
+      "title": "Wi-ESP—A tool for CSI-based Device-Free Wi-Fi Sensing (DFWS)",
+      "year": 2020,
+      "date": "2020-04-20",
+      "cited": 72,
+      "venue": "Journal of Computational Design and Engineering",
+      "topic": "Indoor and Outdoor Localization Technologies",
+      "abstract": "Abstract Recent progress in Device-Free Wi-Fi Sensing (DFWS) has established the use of wireless signals like Wi-Fi not only to communicate but also as a tool to enable device-free sensing. As an emerging technique, DFWS has many capable applications such as sensing activity and gesture and fall detection, monitoring elderly, surveillance, and many more applications while waiving out the necessity to mount devices on the object. A wide range of applications can use the channel state information (CSI) from commercial Wi-Fi devices pervasively for ubiquitous sensing. Existing CSI tools, such as the Intel 5300 network interface controller tool or the Atheros 9390 tool, have limitations when deployed in large-scale systems due to their high deployment costs and limitations in the resolution of CSI measurements. Due to these shortcomings, DFWS applications need an alternative CSI tool in order to perform efficiently. In this paper, we present ESP32-based Wi-ESP as a CSI gathering tool that can report detailed CSI measurements based on 802.11n standards. The proposed Wi-ESP tool works as a complete device by collecting the CSI measurements as well as processing further for DFWS applications. Wi-ESP can work as standalone device, unlike other CSI tools, and can offer large-scale deployment to many DFWS applications. In this paper, we have explored the options of Wi-ESP as a tool for CSI measurements and processing and propose it as a tool for DFWS.",
+      "is_oa": true,
+      "oa_url": "https://doi.org/10.1093/jcde/qwaa048",
+      "url": "https://doi.org/10.1093/jcde/qwaa048",
+      "authors": [
+        "Muhammad Atif",
         "Shapna Muralidharan",
         "Heedong Ko",
         "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W2997604678",
+      "doi": "10.1080/13658816.2019.1706739",
+      "title": "Interoperable information model for geovisualization and interaction in XR environments",
+      "year": 2020,
+      "date": "2020-01-03",
+      "cited": 9,
+      "venue": "International Journal of Geographical Information Systems",
+      "topic": "Geographic Information Systems Studies",
+      "abstract": "Since the vision of a Digital Earth (DE) was introduced in 1998, geo-browsers seem to have nearly fulfilled this vision. Virtual reality (VR) for visualizing the DE provides an immersive user experience in a mirror world. Location-based augmented reality (AR) browsers have been introduced and provide content according to user and environmental contexts. However, the content models of traditional geo-browsers and AR browsers have very limited interoperability, because they are described in application-specific formats using their domain standards. Each application is vertically integrated from content to application. The Web is an interoperable and open platform, and hundreds of millions of users are already using it to create and share content. To envision DE browsers for cross-reality (XR) environments that concurrently support geovisualization as well as VR, AR, and mixed-reality environments, we propose a DE content model based on Web standards and architecture that provides full interoperability and openness for XR browsers as a first-class citizen of the Web. This is expected to improve the DE content development efficiency by fully using the Web content development environment.",
+      "is_oa": false,
+      "oa_url": "",
+      "url": "https://doi.org/10.1080/13658816.2019.1706739",
+      "authors": [
+        "Daeil Seo",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W3013433297",
+      "doi": "10.1109/icce46568.2020.9043088",
+      "title": "Designing a Semantic Digital Twin model for IoT",
+      "year": 2020,
+      "date": "2020-01-01",
+      "cited": 22,
+      "venue": "",
+      "topic": "IoT and Edge/Fog Computing",
+      "abstract": "Today there is exponential growth and convergence in technologies like the Internet of Things (IoT), machine learning, and other forms of Artificial Intelligence leveraging the way we collect and analyze data from smart sensors. A Digital Twin (DT) Technology is the creation of the virtual replicas of physical IoT devices that helps to monitor the applications, analyze data collected, and predict future behavior and performance of devices. In this paper, we propose a semantic DT based IoT model with support at the edge with container technology to mimic the IoT devices and enhance the interoperability of the heterogeneous IoT devices.",
+      "is_oa": false,
+      "oa_url": "",
+      "url": "https://doi.org/10.1109/icce46568.2020.9043088",
+      "authors": [
+        "Shapna Muralidharan",
+        "Byounghyun Yoo",
+        "Heedong Ko"
       ]
     },
     {
@@ -658,6 +672,7 @@
       "doi": "10.1109/cse/euc.2019.00080",
       "title": "KLog-Home: A Holistic Approach of In-Situ Monitoring in Elderly-Care Home",
       "year": 2019,
+      "date": "2019-08-01",
       "cited": 8,
       "venue": "",
       "topic": "Context-Aware Activity Recognition Systems",
@@ -674,10 +689,50 @@
       ]
     },
     {
+      "id": "W2963237354",
+      "doi": "10.1145/3329714.3338137",
+      "title": "XR Collaboration Architecture based on Decentralized Web",
+      "year": 2019,
+      "date": "2019-07-22",
+      "cited": 22,
+      "venue": "",
+      "topic": "Peer-to-Peer Network Technologies",
+      "abstract": "The web has been an extremely effective collaboration platform, enabling services like Wikipedia article co-authoring, blogging, social messaging, video conferencing, and many others. However, the collaboration should ideally occur Peer to Peer (P2P) among the participants instead of going through a centralized server as in the current centralized web, which acts as a mediator as well as a repository of data, especially for face-to-face collaboration in 3D XR context. Most notable XR applications like MMORPG have been developed in a dedicated application platform with their own centralized game servers. Nowadays, the decentralized web is being promoted as the next web architecture in numerous fronts such as blockchain in cryptocurrency, reviving P2P storage, and networking technologies as the next web, Web 3.0. It would be beneficial if we could make an XR collaboration framework based on the recent developments of the decentralized web. This paper explores one possible amalgamation of the decentralized web technology stack toward a webized XR collaboration framework.",
+      "is_oa": false,
+      "oa_url": "",
+      "url": "https://doi.org/10.1145/3329714.3338137",
+      "authors": [
+        "Seungyeon Huh",
+        "Shapna Muralidharan",
+        "Heedong Ko",
+        "Byounghyun Yoo"
+      ]
+    },
+    {
+      "id": "W2809398922",
+      "doi": "10.1145/3208806.3208808",
+      "title": "Webizing collaborative interaction space for cross reality with various human interface devices",
+      "year": 2018,
+      "date": "2018-06-19",
+      "cited": 21,
+      "venue": "",
+      "topic": "Interactive and Immersive Displays",
+      "abstract": "Recently, web based cross reality (XR) concept embracing virtual reality (VR), augmented reality (AR), and mixed reality (MR) technology has emerged, but user interaction devices for collaborative work supported in web environments are limited. The Virtual-Reality Peripheral Network (VRPN) in the traditional VR environment provides a device-independent and network transparent interface. To promote the development of web based XR applications, a common method is required to support a collaborative interaction space in VR, AR, and MR contexts according to the user environment and various interaction devices that can be used without limitation of XR content in web based XR environments as well. In this paper, we propose a webizing method for a collaborative interaction space that provides user authentication and manages user sessions in XR environments. In addition, the webizing method supports human interface devices and related events via an interaction adaptor that delivers events based on user session and converts event messages according to XR content types such as VRPN messages, X3D sensor data, and HTML DOM events to deal with interaction events.",
+      "is_oa": true,
+      "oa_url": "https://dl.acm.org/doi/pdf/10.1145/3208806.3208808",
+      "url": "https://doi.org/10.1145/3208806.3208808",
+      "authors": [
+        "Daeil Seo",
+        "Byounghyun Yoo",
+        "Heedong Ko"
+      ]
+    },
+    {
       "id": "W2801545084",
       "doi": "10.5626/jok.2018.45.3.251",
       "title": "An Integrated Model of Cybersickness: Understanding User’s Discomfort in Virtual Reality",
       "year": 2018,
+      "date": "2018-03-31",
       "cited": 22,
       "venue": "Journal of KIISE",
       "topic": "Virtual Reality Applications and Impacts",
@@ -693,17 +748,37 @@
       ]
     },
     {
-      "id": "W2809398922",
-      "doi": "10.1145/3208806.3208808",
-      "title": "Webizing collaborative interaction space for cross reality with various human interface devices",
-      "year": 2018,
-      "cited": 21,
-      "venue": "",
-      "topic": "Interactive and Immersive Displays",
-      "abstract": "Recently, web based cross reality (XR) concept embracing virtual reality (VR), augmented reality (AR), and mixed reality (MR) technology has emerged, but user interaction devices for collaborative work supported in web environments are limited. The Virtual-Reality Peripheral Network (VRPN) in the traditional VR environment provides a device-independent and network transparent interface. To promote the development of web based XR applications, a common method is required to support a collaborative interaction space in VR, AR, and MR contexts according to the user environment and various interaction devices that can be used without limitation of XR content in web based XR environments as well. In this paper, we propose a webizing method for a collaborative interaction space that provides user authentication and manages user sessions in XR environments. In addition, the webizing method supports human interface devices and related events via an interaction adaptor that delivers events based on user session and converts event messages according to XR content types such as VRPN messages, X3D sensor data, and HTML DOM events to deal with interaction events.",
+      "id": "W2737383479",
+      "doi": "10.15701/kcgs.2017.23.3.77",
+      "title": "Webized Tangible Space",
+      "year": 2017,
+      "date": "2017-07-01",
+      "cited": 0,
+      "venue": "Journal of the Korea Computer Graphics Society",
+      "topic": "Digital Games and Media",
+      "abstract": "",
       "is_oa": true,
-      "oa_url": "https://dl.acm.org/doi/pdf/10.1145/3208806.3208808",
-      "url": "https://doi.org/10.1145/3208806.3208808",
+      "oa_url": "http://doi.org/10.15701/kcgs.2017.23.3.77",
+      "url": "https://doi.org/10.15701/kcgs.2017.23.3.77",
+      "authors": [
+        "고희동",
+        "Byounghyun Yoo",
+        "Daeil Seo"
+      ]
+    },
+    {
+      "id": "W2615665610",
+      "doi": "10.1145/3055624.3075940",
+      "title": "Webized 3D content streaming system for autostereoscopic 3D displays",
+      "year": 2017,
+      "date": "2017-05-19",
+      "cited": 4,
+      "venue": "",
+      "topic": "Advanced Vision and Imaging",
+      "abstract": "Various types of video content using 360° panoramic and virtual reality video have become widespread. However, wearing eyewear as well as a head-mounted display is still a burden of experiencing in 3D content. Glasses-free (i.e. autostereoscopic) super multi-view (SMV) 3D displays provide more comfortable 3D experience but have limited types of content. To provide enriched SMV content, we propose a webizing method for SMV 3D streaming content with time synchronization. The proposed method provides SMV 3D streaming content that contains real-world objects, 3D models, and HTML DOM elements through HTML documents. The method defines custom CSS extensions for transition and animation effects of the SMV 3D streaming content. We present an example of SMV 3D streaming content using a prototype implementation on the web to verify the usefulness of our approach.",
+      "is_oa": true,
+      "oa_url": "http://dl.acm.org/ft_gateway.cfm?id=3075940&type=pdf",
+      "url": "https://doi.org/10.1145/3055624.3075940",
       "authors": [
         "Daeil Seo",
         "Byounghyun Yoo",
@@ -715,6 +790,7 @@
       "doi": "10.1007/978-3-319-58753-0_11",
       "title": "Webizing Virtual Reality-Based Interactive Interior Design System",
       "year": 2017,
+      "date": "2017-01-01",
       "cited": 5,
       "venue": "Communications in computer and information science",
       "topic": "Augmented Reality Applications",
@@ -733,6 +809,7 @@
       "doi": "10.1007/978-3-319-58521-5_16",
       "title": "Points of Interest Density Based Zooming Interface for Map Exploration on Smart Glass",
       "year": 2017,
+      "date": "2017-01-01",
       "cited": 4,
       "venue": "Lecture notes in computer science",
       "topic": "Interactive and Immersive Displays",
@@ -748,28 +825,11 @@
       ]
     },
     {
-      "id": "W2615665610",
-      "doi": "10.1145/3055624.3075940",
-      "title": "Webized 3D content streaming system for autostereoscopic 3D displays",
-      "year": 2017,
-      "cited": 4,
-      "venue": "",
-      "topic": "Advanced Vision and Imaging",
-      "abstract": "Various types of video content using 360° panoramic and virtual reality video have become widespread. However, wearing eyewear as well as a head-mounted display is still a burden of experiencing in 3D content. Glasses-free (i.e. autostereoscopic) super multi-view (SMV) 3D displays provide more comfortable 3D experience but have limited types of content. To provide enriched SMV content, we propose a webizing method for SMV 3D streaming content with time synchronization. The proposed method provides SMV 3D streaming content that contains real-world objects, 3D models, and HTML DOM elements through HTML documents. The method defines custom CSS extensions for transition and animation effects of the SMV 3D streaming content. We present an example of SMV 3D streaming content using a prototype implementation on the web to verify the usefulness of our approach.",
-      "is_oa": true,
-      "oa_url": "http://dl.acm.org/ft_gateway.cfm?id=3075940&type=pdf",
-      "url": "https://doi.org/10.1145/3055624.3075940",
-      "authors": [
-        "Daeil Seo",
-        "Byounghyun Yoo",
-        "Heedong Ko"
-      ]
-    },
-    {
       "id": "W2599954028",
       "doi": "10.1109/icce.2017.7889212",
       "title": "Webized augmented reality mashup for legacy things",
       "year": 2017,
+      "date": "2017-01-01",
       "cited": 2,
       "venue": "",
       "topic": "IoT and Edge/Fog Computing",
@@ -789,6 +849,7 @@
       "doi": "10.1007/978-3-319-58753-0_10",
       "title": "Webizing Interactive CAD Review System Using Super Multiview Autostereoscopic Displays",
       "year": 2017,
+      "date": "2017-01-01",
       "cited": 1,
       "venue": "Communications in computer and information science",
       "topic": "Advanced Optical Imaging Technologies",
@@ -803,28 +864,11 @@
       ]
     },
     {
-      "id": "W2737383479",
-      "doi": "10.15701/kcgs.2017.23.3.77",
-      "title": "Webized Tangible Space",
-      "year": 2017,
-      "cited": 0,
-      "venue": "Journal of the Korea Computer Graphics Society",
-      "topic": "Digital Games and Media",
-      "abstract": "",
-      "is_oa": true,
-      "oa_url": "http://doi.org/10.15701/kcgs.2017.23.3.77",
-      "url": "https://doi.org/10.15701/kcgs.2017.23.3.77",
-      "authors": [
-        "고희동",
-        "Byounghyun Yoo",
-        "Daeil Seo"
-      ]
-    },
-    {
       "id": "W2567242639",
       "doi": "10.1504/ijahuc.2016.10001962",
       "title": "Information fusion of heterogeneous sensors for enriched personal healthcare activity logging",
       "year": 2016,
+      "date": "2016-01-01",
       "cited": 3,
       "venue": "International Journal of Ad Hoc and Ubiquitous Computing",
       "topic": "Context-Aware Activity Recognition Systems",

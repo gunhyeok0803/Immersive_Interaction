@@ -107,8 +107,8 @@
         this.dir = new THREE.Vector3();
         this.cursorWorld = new THREE.Vector3();
 
-        this.rayEl.addEventListener("raycaster-intersection", (e) => { this.target = e.detail.els[0] ?? null; });
-        this.rayEl.addEventListener("raycaster-intersection-cleared", () => { this.target = null; });
+        // 매 프레임 intersectedEls[0]을 직접 읽음 (이벤트는 새 대상이 들어올 때만 발생)
+        this.readRay = () => { this.target = this.rayEl.components.raycaster?.intersectedEls[0] ?? null; };
 
         // 마우스 폴백
         window.addEventListener("mousemove", (e) => {
@@ -160,6 +160,7 @@
           this.setPinch(false, 1);
           log("손 놓침 → 마우스 폴백");
         }
+        this.readRay();
         // 카메라 위치 → 커서 월드 위치 방향으로 raycast
         this.camEl.object3D.getWorldPosition(this.origin);
         this.cursorEl.object3D.getWorldPosition(this.cursorWorld);

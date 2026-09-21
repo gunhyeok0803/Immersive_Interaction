@@ -64,14 +64,14 @@ AFRAME.registerComponent("hand-cursor", {
     this.dir = new THREE.Vector3();
     this.cursorWorld = new THREE.Vector3();
 
-    this.rayEl.addEventListener("raycaster-intersection", (e) => {
-      this.rayHit = e.detail.els[0] ?? null;
-      if (this.rayHit) { this.target = this.rayHit; this.targetLostAt = 0; }
-    });
-    this.rayEl.addEventListener("raycaster-intersection-cleared", () => {
-      this.rayHit = null;
-      this.targetLostAt = performance.now();
-    });
+    // 주의: raycaster 이벤트는 "새로 들어온" 대상이 있을 때만 발생한다. 겹친 카드에서 앞 카드가 빠지고
+    // 이미 맞고 있던 뒤 카드가 첫 번째가 되는 경우엔 이벤트가 없다. 그래서 매 프레임 intersectedEls[0]을 직접 읽는다.
+    this.readRay = () => {
+      const els = this.rayEl.components.raycaster?.intersectedEls ?? [];
+      const first = els[0] ?? null;
+      if (first) { this.rayHit = first; this.target = first; this.targetLostAt = 0; }
+      else if (this.rayHit) { this.rayHit = null; this.targetLostAt = performance.now(); }
+    };
 
     // 마우스 폴백: 같은 setNorm / setPinch 경로
     window.addEventListener("mousemove", (e) => {
@@ -143,6 +143,7 @@ AFRAME.registerComponent("hand-cursor", {
       this.setPinch(false);
       this.setMode("mouse");
     }
+    this.readRay();
     // 대상 유지: 레이가 벗어난 뒤 graceMs 지나면 해제 (핀치 중에는 유지)
     if (!this.rayHit && this.target && !this.pinching && performance.now() - this.targetLostAt > this.data.graceMs) {
       this.target = null;

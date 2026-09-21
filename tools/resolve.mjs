@@ -79,7 +79,7 @@ function abstractFromInverted(idx) {
 async function openalexByDois(dois) {
   const out = [];
   const select = [
-    "id", "doi", "title", "publication_year", "cited_by_count", "abstract_inverted_index",
+    "id", "doi", "title", "publication_year", "publication_date", "cited_by_count", "abstract_inverted_index",
     "open_access", "primary_location", "authorships", "primary_topic",
   ].join(",");
   for (let i = 0; i < dois.length; i += 50) {
@@ -167,6 +167,7 @@ async function main() {
       doi: (w.doi ?? "").replace("https://doi.org/", ""),
       title: w.title ?? "",
       year: w.publication_year ?? null,
+      date: w.publication_date ?? null,
       cited: w.cited_by_count ?? 0,
       venue: w.primary_location?.source?.display_name ?? "",
       topic: w.primary_topic?.display_name ?? "",
@@ -176,7 +177,7 @@ async function main() {
       url: w.doi ?? "",
       authors: (w.authorships ?? []).slice(0, 8).map((a) => a.author?.display_name).filter(Boolean),
     }))
-    .sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || b.cited - a.cited);
+    .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "") || b.cited - a.cited);
 
   const result = {
     source: src,
