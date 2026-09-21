@@ -44,8 +44,9 @@
 </head>
 <body>
   <div id="top" class="ui box">
-    <h1 id="author">불러오는 중…</h1>
-    <div class="meta"><span id="count"></span> · 입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span></div>
+    <h1 id="projectTitle">손으로 펼치는 연구실 서가</h1>
+    <div class="meta"><span id="author">불러오는 중…</span> · <span id="count"></span></div>
+    <div class="meta">입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span></div>
     <div id="hoverTitle"></div>
   </div>
   <div id="hint" class="ui box">손을 들어 책등을 가리키고, 엄지와 검지를 붙여 책을 뽑은 뒤 당겨서 놓으세요 · 다시 집으면 꽂힙니다</div>
@@ -81,7 +82,7 @@
     </a-entity>
     <a-entity id="ray" raycaster="objects: .target; useWorldCoordinates: true; far: 20; interval: 0"></a-entity>
 
-    <a-entity id="field" paper-field="src: data/papers.json; depth: -3.2"></a-entity>
+    <a-entity id="field" paper-field="src: data/papers.json; depth: -2.5"></a-entity>
 
     <!-- 바닥과 독서등: 따뜻한 지향광 하나, 은은한 주변광 -->
     <a-plane position="0 -0.2 -3" rotation="-90 0 0" width="20" height="14" color="#14100c"></a-plane>
@@ -99,7 +100,7 @@
     };
 
     scene.addEventListener("papers-loaded", (e) => {
-      $("author").textContent = (e.detail.author?.name || "저자 미상") + "의 서가";
+      $("author").textContent = e.detail.author?.name || "저자 미상";
       $("count").textContent = `논문 ${e.detail.count}편 · ${new URL(e.detail.source).host}`;
     });
     scene.addEventListener("paper-hover", (e) => { $("hoverTitle").textContent = e.detail.paper?.title ?? ""; });
@@ -148,14 +149,21 @@
       starting = true;
       $("status").textContent = "모델 로딩…";
       try {
-        await startHandTracking({ videoEl: $("cam"), sceneEl: scene, onFps: (f) => ($("fps").textContent = f) });
+        await startHandTracking({
+          videoEl: $("cam"), sceneEl: scene,
+          onFps: (f) => ($("fps").textContent = f),
+          onError: (e) => dlog(`프레임 오류: ${e.name}: ${e.message}`),
+        });
         $("status").textContent = "손 추적 중";
         $("btn").remove();
         dlog("MediaPipe 시작");
       } catch (err) {
         starting = false;
         $("status").textContent = `실패(${err.name}) → 마우스로 계속`;
-        dlog(`카메라 실패: ${err.name}`);
+        // 원인 파악용: 메시지와 스택 첫 줄을 진단 로그에 그대로 남김
+        $("dbg").open = true;
+        dlog(`카메라 실패: ${err.name}: ${err.message}`);
+        if (err.stack) dlog(err.stack.split("\n").slice(0, 3).join(" ⏎ "));
         console.error(err);
       }
     });

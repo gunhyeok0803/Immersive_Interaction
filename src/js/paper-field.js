@@ -157,7 +157,7 @@ async function ensureFonts() {
 }
 
 // 책 한 권의 메시 만들기 (원본·복제 공용). 반환: {book, glow, hit}
-function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth) {
+function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth, hitW) {
   const book = document.createElement("a-entity");
   book.classList.add("book");
   const geo = new THREE.BoxGeometry(thick, height, depth);
@@ -179,9 +179,10 @@ function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth) {
   glow.addEventListener("loaded", () => { const m = glow.getObject3D("mesh"); m.material.map = glowTexture(); m.material.needsUpdate = true; }, { once: true });
   parent.appendChild(glow);
 
+  // 히트 박스는 이웃과 겹치지 않고 빈틈도 없게 (두께 + 간격). 겹치면 비스듬한 레이가 옆 책에 먼저 맞음
   const hit = document.createElement("a-box");
   hit.classList.add("target");
-  hit.setAttribute("width", Math.max(thick * 1.3, 0.09).toFixed(3)); hit.setAttribute("height", (height * 1.05).toFixed(3)); hit.setAttribute("depth", (depth + 0.02).toFixed(3));
+  hit.setAttribute("width", (hitW || thick).toFixed(3)); hit.setAttribute("height", (height * 1.05).toFixed(3)); hit.setAttribute("depth", (depth + 0.02).toFixed(3));
   hit.setAttribute("material", "opacity: 0; transparent: true; depthWrite: false");
   parent.appendChild(hit);
   return { book, glow, hit };
@@ -190,7 +191,7 @@ function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth) {
 AFRAME.registerComponent("paper-field", {
   schema: {
     src: { default: "data/papers.json" },
-    depth: { default: -3.2 },
+    depth: { default: -2.5 },
     centerY: { default: 1.5 },
     bookH: { default: 0.40 },
     bookD: { default: 0.28 },
@@ -280,7 +281,7 @@ AFRAME.registerComponent("paper-field", {
           const node = document.createElement("a-entity");
           node.setAttribute("position", `${x.toFixed(3)} ${(shelfY + h / 2).toFixed(3)} ${this.data.depth}`);
           node.paper = p;
-          node.setAttribute("paper-node", `thick: ${t.toFixed(3)}; height: ${h.toFixed(3)}; depth: ${D}`);
+          node.setAttribute("paper-node", `thick: ${t.toFixed(3)}; height: ${h.toFixed(3)}; depth: ${D}; hitW: ${(t + GAP).toFixed(3)}`);
           this.el.appendChild(node);
           x += t / 2 + GAP;
         }
@@ -295,6 +296,7 @@ AFRAME.registerComponent("paper-node", {
     thick: { default: 0.06 },
     height: { default: 0.4 },
     depth: { default: 0.28 },
+    hitW: { default: 0 },
     pullDist: { default: 1.4 },
     openDist: { default: 2.0 },
     openThreshold: { default: 0.8 },
@@ -315,13 +317,16 @@ AFRAME.registerComponent("paper-node", {
     this.glowT = 0; this.pulse = 0; this.ghost = null;
     this.spineCanvas = drawSpine(p); this.coverCanvas = drawCover(p);
 
-    const v = buildBook(el, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth);
+    const v = buildBook(el, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth, d.hitW);
     this.book = v.book; this.glow = v.glow; this.hit = v.hit;
     this.hit.paperEl = el;
 
     const isNearest = () => this.rayEl.components.raycaster?.intersectedEls[0] === this.hit;
     this.isNearest = isNearest;
     this.hit.addEventListener("pinchstart", () => this.onPinch());
+    el.sceneEl.addEventListener("paper-close-others", (e) => {
+      if (e.detail.except !== el && (this.state === "open" || this.state === "grabbed")) this.close();
+    });
     this.w1 = new THREE.Vector3(); this.w2 = new THREE.Vector3();
     el.sceneEl.addEventListener("pinchend-any", () => {
       if (this.state !== "grabbed" || !this.ghost) return;
@@ -335,6 +340,8 @@ AFRAME.registerComponent("paper-node", {
   onPinch() {
     this.pulse = 1;
     if (this.state === "idle" || this.state === "returning") {
+      // 한 번에 한 권만: 다른 책이 펼쳐져 있으면 먼저 꽂는다
+      this.el.sceneEl.emit("paper-close-others", { except: this.el });
       this.spawnGhost();
       this.state = "grabbed";
       this.el.emit("paper-grab", { paper: this.el.paper }, true);
@@ -348,7 +355,7 @@ AFRAME.registerComponent("paper-node", {
     ghost.object3D.position.copy(this.el.object3D.position);
     ghost.object3D.position.z += 0.02;
     this.el.parentNode.appendChild(ghost);
-    const v = buildBook(ghost, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth);
+    const v = buildBook(ghost, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth, Math.max(d.hitW, d.thick * 1.5));
     v.hit.paperEl = this.el;
     v.hit.addEventListener("pinchstart", () => this.onPinch());
     this.ghost = ghost; this.ghostGlow = v.glow; this.ghostBook = v.book;

@@ -36,8 +36,8 @@ class OneEuro {
 AFRAME.registerComponent("hand-cursor", {
   schema: {
     pointer: { default: "pinch" },  // 'pinch' = 엄지·검지 중간점 | 'tip' = 검지 끝
-    minCutoff: { default: 1.0 },    // One Euro: 낮을수록 정지 시 더 부드럽고(느림) 높을수록 반응 빠름
-    beta: { default: 0.3 },         // One Euro: 클수록 빠른 움직임에서 지연이 줄어듦
+    minCutoff: { default: 4.0 },    // One Euro: 낮을수록 정지 시 더 부드럽고(느림). 시정수 = 1/(2π·minCutoff) → 4Hz면 40ms. 책등(폭 ≈ 화면의 1.3%)은 손 떨림(≈0.3%)보다 훨씬 커서 강한 평활이 필요 없고, 대신 멈춘 뒤 빨리 수렴해야 함
+    beta: { default: 0.6 },         // One Euro: 클수록 빠른 움직임에서 지연이 줄어듦
     pinchStart: { default: 0.28 },  // 핀치 시작 비율 (엄지-검지 거리 / 손 폭)
     pinchEnd: { default: 0.45 },    // 핀치 종료 비율. 시작보다 크게 (히스테리시스)
     ratioSmooth: { default: 0.5 },  // 핀치 비율 EMA 계수 (1 = 필터 없음)
@@ -85,8 +85,12 @@ AFRAME.registerComponent("hand-cursor", {
   },
 
   // 화면 정규화 좌표 (0~1, 좌상단 원점) → One Euro → 카메라 앞 평면 위 3D 위치
+  // 필터는 표본이 들어올 때만 전진하므로, 마우스처럼 표본이 드문 입력은 tick에서 마지막 표본을 매 프레임 다시 넣어 수렴시킨다
   setNorm(x, y, t) {
-    const ax = this.fx.filter(x, t), ay = this.fy.filter(y, t);
+    this.lastRaw = [x, y];
+    // 마우스는 이미 정확하므로 필터를 거치지 않음 (필터는 손 떨림용)
+    const ax = this.mode === "mouse" ? x : this.fx.filter(x, t);
+    const ay = this.mode === "mouse" ? y : this.fy.filter(y, t);
     const cam = this.camEl.getObject3D("camera");
     const d = this.data.dist;
     const hh = d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
@@ -143,6 +147,9 @@ AFRAME.registerComponent("hand-cursor", {
       this.setPinch(false);
       this.setMode("mouse");
     }
+    // 마지막 표본을 다시 넣어 필터가 목표에 수렴하게 (손: 프레임 누락 보정, 마우스: 이벤트 없을 때 수렴)
+    const nowMs = performance.now(); // 필터 시계는 performance.now() 로 통일 (A-Frame의 t 와 섞지 않음)
+    if (this.mode === "hand" && this.lastRaw && nowMs - (this.fx.t ?? 0) > 12) this.setNorm(this.lastRaw[0], this.lastRaw[1], nowMs);
     this.readRay();
     // 대상 유지: 레이가 벗어난 뒤 graceMs 지나면 해제 (핀치 중에는 유지)
     if (!this.rayHit && this.target && !this.pinching && performance.now() - this.targetLostAt > this.data.graceMs) {
@@ -171,7 +178,7 @@ AFRAME.registerComponent("hand-cursor", {
 });
 
 /* MediaPipe 시작 도우미. 성공 시 매 프레임 hand-cursor.feedHand 호출. 실패 시 예외 */
-async function startHandTracking({ videoEl, sceneEl, version = "1.0.1", onFps } = {}) {
+async function startHandTracking({ videoEl, sceneEl, version = "1.0.1", onFps, onError } = {}) {
   const { HandLandmarker, FilesetResolver } = await import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${version}/vision_bundle.mjs`);
   const vision = await FilesetResolver.forVisionTasks(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${version}/wasm`);
   const landmarker = await HandLandmarker.createFromOptions(vision, {
@@ -186,22 +193,31 @@ async function startHandTracking({ videoEl, sceneEl, version = "1.0.1", onFps } 
   });
   videoEl.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: "user" } });
   await new Promise((r) => (videoEl.onloadeddata = r));
+  try { await videoEl.play(); } catch {}
+  // 일부 웹캠은 loadeddata 직후에도 크기가 0 → MediaPipe가 TypeError를 냄. 크기가 잡힐 때까지 대기
+  for (let i = 0; i < 100 && !(videoEl.videoWidth > 0 && videoEl.videoHeight > 0); i++) await new Promise((r) => setTimeout(r, 30));
+  if (!(videoEl.videoWidth > 0)) throw new Error("카메라 영상 크기를 읽지 못함 (videoWidth=0)");
 
-  let last = -1, frames = 0, fpsT = performance.now(), running = true;
+  let last = -1, frames = 0, fpsT = performance.now(), running = true, errCount = 0;
   const loop = () => {
     if (!running) return;
     const now = performance.now();
-    if (videoEl.currentTime !== last) {
+    if (videoEl.currentTime !== last && videoEl.videoWidth > 0) {
       last = videoEl.currentTime;
-      const res = landmarker.detectForVideo(videoEl, now);
-      const hc = sceneEl.components["hand-cursor"];
-      if (hc && res.landmarks && res.landmarks.length) hc.feedHand(res.landmarks[0], now);
-      frames++;
+      try {
+        const res = landmarker.detectForVideo(videoEl, now);
+        const hc = sceneEl.components["hand-cursor"];
+        if (hc && res.landmarks && res.landmarks.length) hc.feedHand(res.landmarks[0], now);
+        frames++;
+      } catch (e) {
+        // 프레임 하나의 오류로 추적 전체를 죽이지 않음. 처음 몇 번만 기록
+        if (errCount++ < 3) { console.error("detectForVideo", e); onError?.(e); }
+      }
       if (now - fpsT > 1000) { onFps?.(frames); frames = 0; fpsT = now; }
     }
     requestAnimationFrame(loop);
   };
-  loop();
+  requestAnimationFrame(loop);
   return { stop() { running = false; videoEl.srcObject?.getTracks().forEach((t) => t.stop()); } };
 }
 window.startHandTracking = startHandTracking;
