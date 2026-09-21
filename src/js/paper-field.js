@@ -57,6 +57,19 @@ function drawCard(p) {
   return c;
 }
 
+// 발광 테두리 텍스처: 카드와 같은 둥근 사각형, 바깥은 투명 (네모난 노란 판이 삐져나오지 않게)
+let _glowTex = null;
+function glowTexture() {
+  if (_glowTex) return _glowTex;
+  const c = document.createElement("canvas"); c.width = CARD_PX_W + 40; c.height = CARD_PX_H + 40;
+  const g = c.getContext("2d");
+  g.shadowColor = "rgba(255,209,102,0.95)"; g.shadowBlur = 26;
+  g.fillStyle = "rgba(255,209,102,0.9)";
+  g.beginPath(); g.roundRect(20, 20, CARD_PX_W, CARD_PX_H, 26); g.fill();
+  _glowTex = new THREE.CanvasTexture(c);
+  return _glowTex;
+}
+
 // 근접광 텍스처 (방사형)
 let _lightTex = null;
 function lightTexture() {
@@ -160,11 +173,12 @@ AFRAME.registerComponent("paper-node", {
     width: { default: 1 },
     height: { default: 0.42 },
     stackIndex: { default: 0 },
-    pullDist: { default: 1.3 },
+    pullDist: { default: 1.4 },     // 집는 동안 손 앞 거리
+    openDist: { default: 2.0 },     // 열렸을 때 거리 (너무 가까우면 카드가 화면을 덮음)
     openThreshold: { default: 0.8 },
     lerp: { default: 0.18 },
     hoverLift: { default: 0.035 },  // 호버 시 앞으로 떠오르는 거리 (작게: 뒤 카드를 가리지 않도록)
-    openScale: { default: 1.5 },
+    openScale: { default: 1.0 },
   },
 
   init() {
@@ -181,9 +195,11 @@ AFRAME.registerComponent("paper-node", {
     // 발광 테두리 (카드 뒤)
     const glow = document.createElement("a-plane");
     glow.classList.add("glow");
-    glow.setAttribute("width", (d.width + 0.05).toFixed(3)); glow.setAttribute("height", (d.height + 0.05).toFixed(3));
-    glow.setAttribute("material", "shader: flat; color: #ffd166; opacity: 0; transparent: true; depthWrite: false");
+    const gs = (CARD_PX_W + 40) / CARD_PX_W;
+    glow.setAttribute("width", (d.width * gs).toFixed(3)); glow.setAttribute("height", (d.height * gs * (CARD_PX_H / (CARD_PX_H + 40)) * ((CARD_PX_H + 40) / CARD_PX_H)).toFixed(3));
+    glow.setAttribute("material", "shader: flat; opacity: 0; transparent: true; depthWrite: false");
     glow.setAttribute("position", "0 0 -0.004");
+    glow.addEventListener("loaded", () => { const m = glow.getObject3D("mesh"); m.material.map = glowTexture(); m.material.needsUpdate = true; }, { once: true });
     el.appendChild(glow); this.glow = glow;
 
     // 카드
@@ -197,7 +213,7 @@ AFRAME.registerComponent("paper-node", {
     // 근접광 (additive)
     const light = document.createElement("a-circle");
     light.classList.add("light");
-    light.setAttribute("radius", (d.height * 0.55).toFixed(3));
+    light.setAttribute("radius", (d.height * 0.42).toFixed(3));
     light.setAttribute("material", "shader: flat; transparent: true; opacity: 0; depthWrite: false; blending: additive");
     light.setAttribute("position", "0 0 0.003");
     light.addEventListener("loaded", () => { const m = light.getObject3D("mesh"); m.material.map = lightTexture(); m.material.needsUpdate = true; }, { once: true });
@@ -259,9 +275,10 @@ AFRAME.registerComponent("paper-node", {
       this.camEl.object3D.getWorldPosition(this.camPos);
       this.camEl.object3D.getWorldDirection(this.camDir);
       const cam = this.camEl.getObject3D("camera");
-      const hw = d.pullDist * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * cam.aspect;
-      this.goal.copy(this.camPos).addScaledVector(this.camDir, -d.pullDist);
-      this.goal.x -= hw * 0.45; this.goal.y -= 0.05;
+      // 열린 카드는 화면 왼쪽 30% 지점, 패널(오른쪽)과 겹치지 않게
+      const hw = d.openDist * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * cam.aspect;
+      this.goal.copy(this.camPos).addScaledVector(this.camDir, -d.openDist);
+      this.goal.x -= hw * 0.42; this.goal.y += 0.05;
       pos.lerp(this.goal, d.lerp); targetScale = d.openScale;
     } else if (this.state === "returning") {
       pos.lerp(this.home, d.lerp);
@@ -284,8 +301,10 @@ AFRAME.registerComponent("paper-node", {
 
     const lightMat = this.light.getObject3D("mesh")?.material;
     if (lightMat) {
-      lightMat.opacity = 0.5 * this.glowT + 0.5 * this.pulse;
-      if (this.hovered) {
+      // 근접광은 idle 상태의 호버에서만. 집거나 열린 카드에서는 끔 (큰 빛 덩어리 방지)
+      const lightOn = this.hovered && this.state === "idle";
+      lightMat.opacity = lightOn ? 0.45 * this.glowT + 0.4 * this.pulse : 0;
+      if (lightOn) {
         const inter = this.rayEl.components.raycaster?.getIntersection(this.hit);
         if (inter) {
           this.tmp.copy(inter.point); el.object3D.worldToLocal(this.tmp);

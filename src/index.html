@@ -48,7 +48,9 @@
   <div id="preview" class="ui box">
     <h2 id="pTitle"></h2>
     <div class="meta" id="pMeta"></div>
-    <div id="pAbstract"></div>
+    <div id="pSummary" style="background:#16223f; border-left:3px solid #9ef; padding:8px 10px; border-radius:6px; margin-bottom:10px"></div>
+    <div id="pSummaryNote" style="color:#8892b0; font-size:11px; margin:-6px 0 10px"></div>
+    <details><summary style="cursor:pointer; color:#9ef">원문 초록 (영문)</summary><div id="pAbstract" style="margin-top:6px"></div></details>
     <div style="margin-top:8px"><a id="pLink" target="_blank" rel="noopener">원문 (DOI)</a></div>
     <div style="margin-top:8px; color:#8892b0">노드를 다시 핀치하면 닫힙니다</div>
   </div>
@@ -90,11 +92,18 @@
       dlog(`입력 → ${e.detail.mode}`);
     });
     scene.addEventListener("paper-grab", (e) => dlog(`집음: ${e.detail.paper.title.slice(0, 40)}`));
+    // 한글 요약: 지금은 사전 생성본(data/summaries.json). D6에서 OpenAI /study 결과로 교체
+    let summaries = {};
+    fetch("data/summaries.json").then((r) => r.json()).then((j) => (summaries = j)).catch(() => {});
+
     scene.addEventListener("paper-open", (e) => {
       const p = e.detail.paper;
       dlog(`열림: ${p.title.slice(0, 40)}`);
       $("pTitle").textContent = p.title;
       $("pMeta").textContent = `${p.year ?? "-"} · ${p.venue || "-"} · 피인용 ${p.cited}` + (p.is_oa ? " · 오픈액세스" : "");
+      const s = summaries[p.id];
+      $("pSummary").textContent = s ? s.summary_ko : "(요약 없음)";
+      $("pSummaryNote").textContent = s ? (s.basis === "abstract" ? "초록 기반 사전 요약 · D6에서 AI 학습 카드로 확장" : "초록이 없어 제목 기반으로 정리한 요약") : "";
       $("pAbstract").textContent = p.abstract || "(OpenAlex에 초록 없음)";
       $("pLink").href = p.url || "#";
       $("preview").style.display = "block";
