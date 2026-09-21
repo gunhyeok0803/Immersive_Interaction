@@ -2,74 +2,91 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <title>손으로 펼치는 연구실 논문 지도</title>
+  <title>손으로 펼치는 연구실 서가</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
   <script src="js/hand-cursor.js"></script>
   <script src="js/paper-field.js"></script>
   <style>
-    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
-    .ui { position: fixed; z-index: 10; color: #e6f1ff; }
-    .box { background: rgba(10,14,26,.72); border: 1px solid #22304f; border-radius: 10px; padding: 8px 12px; font-size: 13px; line-height: 1.5; }
-    #top { top: 10px; left: 10px; max-width: 480px; }
-    #top b { color: #9ef; }
-    #hint { bottom: 12px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
-    #btn { left: 10px; bottom: 10px; padding: 8px 14px; font-size: 14px; border-radius: 8px; border: 0; background: #9ef; color: #0b0f1a; cursor: pointer; }
-    #cam { right: 10px; bottom: 10px; width: 160px; height: 120px; transform: scaleX(-1); border-radius: 8px; background: #000; object-fit: cover; opacity: .8; }
-    /* 진단 HUD: 인식 문제 vs 조준 문제를 가르기 위한 것 */
-    #dbg { left: 10px; bottom: 56px; width: 330px; font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
-    #dbg .bar { height: 6px; background: #22304f; border-radius: 3px; margin: 4px 0; position: relative; }
-    #dbg .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #9ef; border-radius: 3px; }
-    #dbg .bar s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: #ffd166; }
+    :root { --bg:#17130f; --wood:#2b2016; --line:#4a3a2a; --cream:#efe6d3; --muted:#b9a98c; --gold:#d4a24c; --paper:#f1e8d6; --ink:#241d17; --rule:#cdbfa4; }
+    body { margin: 0; font-family: 'Noto Serif KR', 'EB Garamond', Georgia, serif; color: var(--cream); background: var(--bg); }
+    .ui { position: fixed; z-index: 10; }
+    .box { background: rgba(28,22,17,.88); border: 1px solid var(--line); padding: 10px 14px; font-size: 13.5px; line-height: 1.55; }
+    #top { top: 14px; left: 14px; max-width: 480px; }
+    #top h1 { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-weight: 600; font-size: 20px; margin: 0 0 2px; letter-spacing: .2px; }
+    #top .meta { font-family: system-ui, sans-serif; font-size: 12px; color: var(--muted); }
+    #hoverTitle { color: var(--gold); min-height: 1.5em; margin-top: 4px; font-style: italic; }
+    #hint { bottom: 14px; left: 150px; right: 190px; color: var(--muted); font-size: 12.5px; text-align: center; }
+    #btn { left: 14px; bottom: 14px; padding: 8px 14px; font-size: 13px; font-family: inherit; border: 1px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; }
+    #btn:hover { background: rgba(212,162,76,.12); }
+    #cam { right: 14px; bottom: 14px; width: 150px; height: 112px; transform: scaleX(-1); background: #000; object-fit: cover; opacity: .75; border: 1px solid var(--line); }
+    /* 진단 HUD: 접힘 기본 */
+    #dbg { left: 14px; bottom: 64px; width: 320px; font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+    #dbg summary { cursor: pointer; color: var(--muted); font-family: system-ui, sans-serif; }
+    #dbg .bar { height: 5px; background: #3a2e22; margin: 6px 0; position: relative; }
+    #dbg .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gold); }
+    #dbg .bar s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--cream); }
     #dbg .log { margin-top: 6px; max-height: 110px; overflow: auto; opacity: .9; }
-    #preview { right: 10px; top: 60px; width: 380px; max-height: 70vh; overflow: auto; display: none; }
-    #preview h2 { font-size: 15px; margin: 0 0 6px; color: #ffd166; }
-    #preview .meta { color: #8892b0; margin-bottom: 8px; }
-    #preview a { color: #9ef; }
+    /* 양피지 페이지 패널 */
+    #preview { right: 14px; top: 14px; width: 400px; max-height: 78vh; overflow: auto; display: none; background: var(--paper); color: var(--ink); border: 1px solid #b9a888; box-shadow: 0 12px 30px rgba(0,0,0,.45); padding: 22px 24px 18px; }
+    #preview h2 { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-weight: 600; font-size: 20px; line-height: 1.3; margin: 0 0 8px; }
+    #preview .meta { font-family: system-ui, sans-serif; font-size: 12px; color: #6b5d4b; border-bottom: 1px solid var(--rule); padding-bottom: 10px; margin-bottom: 12px; }
+    #preview .lead { font-size: 14.5px; line-height: 1.7; }
+    #preview .note { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin: 6px 0 12px; }
+    #preview details { border-top: 1px solid var(--rule); padding-top: 10px; margin-top: 6px; }
+    #preview summary { cursor: pointer; color: #6b5d4b; font-size: 13px; }
+    #preview .abs { font-size: 13px; line-height: 1.6; margin-top: 8px; color: #3a3028; }
+    #preview a { color: #7a3b2e; }
+    #preview .close { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin-top: 12px; }
   </style>
 </head>
 <body>
   <div id="top" class="ui box">
-    <div><b id="author">불러오는 중…</b> <span id="count"></span></div>
-    <div>입력: <b id="mode">마우스(폴백)</b> · FPS: <b id="fps">-</b> · <span id="status">카메라 대기</span></div>
-    <div id="hoverTitle" style="color:#ffd166; min-height:1.4em"></div>
+    <h1 id="author">불러오는 중…</h1>
+    <div class="meta"><span id="count"></span> · 입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span></div>
+    <div id="hoverTitle"></div>
   </div>
-  <div id="hint" class="ui box">손을 들어 카드를 가리키고, 엄지·검지를 붙여 집은 뒤 당겨서 놓으세요 · 다시 집으면 닫힘</div>
+  <div id="hint" class="ui box">손을 들어 책등을 가리키고, 엄지와 검지를 붙여 책을 뽑은 뒤 당겨서 놓으세요 · 다시 집으면 꽂힙니다</div>
   <button id="btn" class="ui">카메라 시작</button>
   <video id="cam" class="ui" autoplay playsinline muted></video>
 
-  <div id="dbg" class="ui box">
+  <details id="dbg" class="ui box">
+    <summary>진단</summary>
     <div>핀치 비율 <b id="dRatio">-</b> · 상태 <b id="dPinch">-</b> · 레이 <b id="dRay">-</b></div>
     <div class="bar"><i id="dBar" style="width:0"></i><s id="dS1"></s><s id="dS2"></s></div>
-    <div>대상: <span id="dTarget" style="color:#ffd166">-</span></div>
+    <div>대상: <span id="dTarget" style="color:var(--gold)">-</span></div>
     <div class="log" id="dLog"></div>
-  </div>
+  </details>
 
-  <div id="preview" class="ui box">
+  <div id="preview" class="ui">
     <h2 id="pTitle"></h2>
     <div class="meta" id="pMeta"></div>
-    <div id="pSummary" style="background:#16223f; border-left:3px solid #9ef; padding:8px 10px; border-radius:6px; margin-bottom:10px"></div>
-    <div id="pSummaryNote" style="color:#8892b0; font-size:11px; margin:-6px 0 10px"></div>
-    <details><summary style="cursor:pointer; color:#9ef">원문 초록 (영문)</summary><div id="pAbstract" style="margin-top:6px"></div></details>
-    <div style="margin-top:8px"><a id="pLink" target="_blank" rel="noopener">원문 (DOI)</a></div>
-    <div style="margin-top:8px; color:#8892b0">노드를 다시 핀치하면 닫힙니다</div>
+    <div class="lead" id="pSummary"></div>
+    <div class="note" id="pSummaryNote"></div>
+    <details><summary>원문 초록 (영문)</summary><div class="abs" id="pAbstract"></div></details>
+    <div style="margin-top:10px"><a id="pLink" target="_blank" rel="noopener">원문 보기 (DOI)</a></div>
+    <div class="close">책을 다시 집으면 서가로 돌아갑니다</div>
   </div>
 
-  <a-scene background="color: #0b0f1a" renderer="antialias: true" vr-mode-ui="enabled: false"
+  <a-scene background="color: #17130f" renderer="antialias: true; colorManagement: true" vr-mode-ui="enabled: false"
            device-orientation-permission-ui="enabled: false"
            hand-cursor="pointer: pinch; pinchStart: 0.28; pinchEnd: 0.45; graceMs: 300">
-    <a-entity id="camera" camera="fov: 70" position="0 1.6 0" look-controls="enabled: false" wasd-controls="enabled: false">
+    <a-entity id="camera" camera="fov: 70" position="0 1.5 0" look-controls="enabled: false" wasd-controls="enabled: false">
       <a-entity id="cursor" position="0 0 -1.5">
-        <a-ring id="cursor-ring" radius-inner="0.022" radius-outer="0.04" color="#9ef" material="shader: flat; opacity: 0.95; transparent: true"></a-ring>
-        <a-sphere radius="0.007" color="#fff" material="shader: flat"></a-sphere>
+        <a-ring id="cursor-ring" radius-inner="0.024" radius-outer="0.034" color="#e9dcc2" material="shader: flat; opacity: 0.9; transparent: true"></a-ring>
+        <a-sphere radius="0.005" color="#fff5dc" material="shader: flat"></a-sphere>
       </a-entity>
     </a-entity>
     <a-entity id="ray" raycaster="objects: .target; useWorldCoordinates: true; far: 20; interval: 0"></a-entity>
 
-    <a-entity id="field" paper-field="src: data/papers.json; depth: -3.5"></a-entity>
+    <a-entity id="field" paper-field="src: data/papers.json; depth: -3.2"></a-entity>
 
-    <a-plane position="0 -1.7 -4" rotation="-90 0 0" width="16" height="12" color="#0e1424"></a-plane>
-    <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+    <!-- 바닥과 독서등: 따뜻한 지향광 하나, 은은한 주변광 -->
+    <a-plane position="0 -0.2 -3" rotation="-90 0 0" width="20" height="14" color="#14100c"></a-plane>
+    <a-entity light="type: ambient; color: #6b5a48; intensity: 0.9"></a-entity>
+    <a-entity light="type: point; color: #ffd9a0; intensity: 1.3; distance: 9; decay: 1.6" position="0.6 3.0 -0.8"></a-entity>
   </a-scene>
 
   <script>
@@ -82,7 +99,7 @@
     };
 
     scene.addEventListener("papers-loaded", (e) => {
-      $("author").textContent = e.detail.author?.name || "저자 미상";
+      $("author").textContent = (e.detail.author?.name || "저자 미상") + "의 서가";
       $("count").textContent = `논문 ${e.detail.count}편 · ${new URL(e.detail.source).host}`;
     });
     scene.addEventListener("paper-hover", (e) => { $("hoverTitle").textContent = e.detail.paper?.title ?? ""; });
@@ -91,16 +108,16 @@
       $("mode").textContent = e.detail.mode === "hand" ? "손 추적" : "마우스(폴백)";
       dlog(`입력 → ${e.detail.mode}`);
     });
-    scene.addEventListener("paper-grab", (e) => dlog(`집음: ${e.detail.paper.title.slice(0, 40)}`));
-    // 한글 요약: 지금은 사전 생성본(data/summaries.json). D6에서 OpenAI /study 결과로 교체
+    scene.addEventListener("paper-grab", (e) => dlog(`뽑음: ${e.detail.paper.title.slice(0, 40)}`));
+
     let summaries = {};
     fetch("data/summaries.json").then((r) => r.json()).then((j) => (summaries = j)).catch(() => {});
 
     scene.addEventListener("paper-open", (e) => {
       const p = e.detail.paper;
-      dlog(`열림: ${p.title.slice(0, 40)}`);
+      dlog(`펼침: ${p.title.slice(0, 40)}`);
       $("pTitle").textContent = p.title;
-      $("pMeta").textContent = `${p.year ?? "-"} · ${p.venue || "-"} · 피인용 ${p.cited}` + (p.is_oa ? " · 오픈액세스" : "");
+      $("pMeta").textContent = `${p.year ?? "-"} · ${p.venue || "-"} · 인용 ${p.cited}` + (p.is_oa ? " · 오픈액세스" : "");
       const s = summaries[p.id];
       $("pSummary").textContent = s ? s.summary_ko : "(요약 없음)";
       $("pSummaryNote").textContent = s ? (s.basis === "abstract" ? "초록 기반 사전 요약 · D6에서 AI 학습 카드로 확장" : "초록이 없어 제목 기반으로 정리한 요약") : "";
@@ -108,10 +125,9 @@
       $("pLink").href = p.url || "#";
       $("preview").style.display = "block";
     });
-    scene.addEventListener("paper-close", (e) => { dlog(`닫힘/복귀: ${e.detail.paper.title.slice(0, 40)}`); $("preview").style.display = "none"; });
+    scene.addEventListener("paper-close", (e) => { dlog(`꽂음: ${e.detail.paper.title.slice(0, 40)}`); $("preview").style.display = "none"; });
     scene.addEventListener("pinch-empty", (e) => dlog(`핀치했지만 대상 없음 (비율 ${e.detail.ratio.toFixed(2)})`));
 
-    // 진단 HUD
     const hc = () => scene.components["hand-cursor"];
     scene.addEventListener("hand-cursor-debug", (e) => {
       const d = e.detail, c = hc();
@@ -120,8 +136,7 @@
       $("dRay").textContent = d.rayHit ? "맞음" : "-";
       $("dTarget").textContent = d.target ? d.target.slice(0, 48) : "-";
       if (c && d.mode === "hand") {
-        const w = Math.min(100, d.ratio / 0.8 * 100);
-        $("dBar").style.width = w + "%";
+        $("dBar").style.width = Math.min(100, d.ratio / 0.8 * 100) + "%";
         $("dS1").style.left = (c.data.pinchStart / 0.8 * 100) + "%";
         $("dS2").style.left = (c.data.pinchEnd / 0.8 * 100) + "%";
       }

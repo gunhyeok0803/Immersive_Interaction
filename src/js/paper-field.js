@@ -1,139 +1,200 @@
-/* paper-field v3.2: 글래스 카드(A) + 근접광·펄스(E) + 계단식 배치 + 복제 카드 열기.
- * 원리 설명: docs/09-how-it-works.md §3, §5, §7 / 디자인 근거: docs/10-design-references.md
+/* paper-field v4: 연구실 서가 (디자인 C). 사양: docs/11-design-c-spec.md
  *
- * 노드(paper-node) 구조
- *   .glow   카드 뒤 발광 테두리 (둥근 사각형 텍스처, 호버 시 밝아짐, 핀치 시 펄스)
- *   .card   캔버스 텍스처 카드. 제목 2줄·연도/학회 배지·피인용·왼쪽 학회 색 띠
- *   .light  근접광 (커서 위치를 따라다님, additive). idle 호버에서만
- *   .target 투명 히트 평면 (카드보다 8% 큼)
- * 계단식: 같은 해 카드는 앞(가장 최신, 맨 아래) → 뒤로 갈수록 위로 0.55H 씩. 각 카드의 위쪽 띠(제목)가 항상 보이고,
- *        레이는 가장 가까운 것만 인정하므로 겹친 부분은 앞 카드가 우선.
- * 열기: 원본 카드는 제자리에 흐리게 남고, 복제(ghost)가 손을 따라 나와 열린다. 닫으면 복제가 원본 자리로 돌아가 사라진다.
+ * 책(paper-node) 구조
+ *   .book   a-box. 앞면(+z) = 책등 캔버스(제목 세로·연도), 나머지 면 단색
+ *   .glow   책등 뒤 촛불 금 테두리 평면 (호버 시 밝아짐, 핀치 시 펄스)
+ *   .target 투명 히트 박스 (얇은 책도 잡히게 최소 폭)
+ * 선반: 연도 순으로 왼쪽→오른쪽. 연도 바뀌면 황동 구분판 + 라벨. 한 줄에 안 들어가면 아래 선반 추가.
+ * 열기: 원본은 제자리에 흐리게, 복제가 손을 따라 나오며 표지가 보이게 돌아간다. 닫으면 복제가 돌아가 사라진다.
  */
 
-function hueOf(str) {
+const SPINE_PALETTE = [
+  { bg: "#6e2f2f", fg: "#efe6d3" }, // 옥스블러드
+  { bg: "#2f4a3a", fg: "#efe6d3" }, // 포레스트
+  { bg: "#2b3a55", fg: "#efe6d3" }, // 잉크
+  { bg: "#a8842f", fg: "#241d17" }, // 머스터드
+  { bg: "#4a4f5a", fg: "#efe6d3" }, // 슬레이트
+  { bg: "#8a5a3c", fg: "#efe6d3" }, // 클레이
+  { bg: "#d9c9a8", fg: "#241d17" }, // 양피지
+];
+const GOLD = "#d4a24c";
+const FONT_DISPLAY = "'EB Garamond', 'Noto Serif KR', Georgia, serif";
+const FONT_META = "system-ui, 'Segoe UI', sans-serif";
+
+function hashOf(str) {
   let h = 0;
   for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return h % 360;
+  return h;
+}
+function paletteFor(p) { return SPINE_PALETTE[hashOf(p.venue || p.title || "?") % SPINE_PALETTE.length]; }
+
+// 종이 결 노이즈 (텍스처 위에 살짝)
+function grain(g, w, h, alpha) {
+  const img = g.getImageData(0, 0, w, h), d = img.data;
+  for (let i = 0; i < d.length; i += 4) {
+    const n = (Math.random() - 0.5) * 255 * alpha;
+    d[i] += n; d[i + 1] += n; d[i + 2] += n;
+  }
+  g.putImageData(img, 0, 0);
 }
 
-// ---------- 카드 텍스처 그리기 (512 x 216) ----------
-const CARD_PX_W = 512, CARD_PX_H = 216;
-function drawCard(p) {
-  const c = document.createElement("canvas");
-  c.width = CARD_PX_W; c.height = CARD_PX_H;
+// ---------- 책등 텍스처 (128 x 640) ----------
+const SPINE_W = 128, SPINE_H = 640;
+function drawSpine(p) {
+  const pal = paletteFor(p);
+  const c = document.createElement("canvas"); c.width = SPINE_W; c.height = SPINE_H;
   const g = c.getContext("2d");
-  const r = 22;
-  const grad = g.createLinearGradient(0, 0, 0, CARD_PX_H);
-  grad.addColorStop(0, "rgba(34,46,84,0.96)");
-  grad.addColorStop(1, "rgba(18,26,48,0.96)");
-  g.beginPath(); g.roundRect(2, 2, CARD_PX_W - 4, CARD_PX_H - 4, r); g.fillStyle = grad; g.fill();
-  g.lineWidth = 2; g.strokeStyle = "rgba(120,140,200,0.55)"; g.stroke();
-  g.save(); g.beginPath(); g.roundRect(2, 2, CARD_PX_W - 4, CARD_PX_H - 4, r); g.clip();
-  g.fillStyle = `hsl(${hueOf(p.venue || "?")}, 60%, 60%)`; g.fillRect(2, 2, 10, CARD_PX_H);
-  g.restore();
-  g.fillStyle = "#ffffff"; g.font = "600 30px system-ui, 'Segoe UI', sans-serif"; g.textBaseline = "top";
-  const words = (p.title || "").split(" "); const lines = []; let cur = "";
-  for (const w of words) {
-    const t = cur ? cur + " " + w : w;
-    if (g.measureText(t).width > CARD_PX_W - 60) { lines.push(cur); cur = w; if (lines.length === 2) break; } else cur = t;
+  g.fillStyle = pal.bg; g.fillRect(0, 0, SPINE_W, SPINE_H);
+  // 위아래 밴드 (제본 띠)
+  g.fillStyle = "rgba(0,0,0,0.18)"; g.fillRect(0, 26, SPINE_W, 3); g.fillRect(0, SPINE_H - 60, SPINE_W, 3);
+  g.fillStyle = "rgba(255,255,255,0.10)"; g.fillRect(0, 0, 6, SPINE_H); // 왼쪽 하이라이트
+  g.fillStyle = "rgba(0,0,0,0.22)"; g.fillRect(SPINE_W - 6, 0, 6, SPINE_H); // 오른쪽 그늘
+  // 제목: 세로 (위→아래로 읽음)
+  g.save();
+  g.translate(SPINE_W / 2, 44); g.rotate(Math.PI / 2);
+  g.fillStyle = pal.fg; g.textBaseline = "middle"; g.textAlign = "left";
+  const maxLen = SPINE_H - 44 - 76;
+  let size = 40; g.font = `600 ${size}px ${FONT_DISPLAY}`;
+  let title = p.title || "";
+  while (g.measureText(title).width > maxLen && size > 26) { size -= 2; g.font = `600 ${size}px ${FONT_DISPLAY}`; }
+  if (g.measureText(title).width > maxLen) {
+    while (title.length > 4 && g.measureText(title + "…").width > maxLen) title = title.slice(0, -1);
+    title = title.replace(/\s+$/, "") + "…";
   }
-  if (lines.length < 2 && cur) lines.push(cur);
-  if (lines.length === 2 && words.join(" ").length > lines.join(" ").length) lines[1] = lines[1].replace(/\s?\S*$/, "…");
-  lines.forEach((l, i) => g.fillText(l, 28, 24 + i * 38));
-  const venue = (p.venue || "").replace(/^(Proceedings of the|Proceedings of|The)\s+/i, "");
-  const badge = `${p.year ?? "-"} · ${venue.length > 34 ? venue.slice(0, 34) + "…" : venue || "-"}`;
-  g.font = "500 22px system-ui, 'Segoe UI', sans-serif";
-  const bw = g.measureText(badge).width + 28;
-  g.beginPath(); g.roundRect(28, 138, bw, 40, 20); g.fillStyle = "rgba(60,76,130,0.9)"; g.fill();
-  g.fillStyle = "#dbe4ff"; g.fillText(badge, 42, 147);
-  g.font = "500 22px system-ui, 'Segoe UI', sans-serif"; g.textAlign = "right"; g.fillStyle = "#9ef";
-  g.fillText(`인용 ${p.cited ?? 0}`, CARD_PX_W - 30, 147);
-  if (p.is_oa) { g.fillStyle = "#8fe3a8"; g.font = "500 18px system-ui, sans-serif"; g.fillText("OA", CARD_PX_W - 30, 178); }
+  g.fillText(title, 0, 0);
+  g.restore();
+  // 연도 (아래, 가로)
+  g.fillStyle = pal.fg; g.globalAlpha = 0.85; g.font = `500 26px ${FONT_META}`; g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText(String(p.year ?? ""), SPINE_W / 2, SPINE_H - 30);
+  g.globalAlpha = 1;
+  grain(g, SPINE_W, SPINE_H, 0.06);
   return c;
 }
 
-// 발광 테두리 텍스처: 카드와 같은 둥근 사각형, 바깥은 투명
+// ---------- 표지 텍스처 (320 x 440) ----------
+const COVER_W = 320, COVER_H = 440;
+function drawCover(p) {
+  const pal = paletteFor(p);
+  const c = document.createElement("canvas"); c.width = COVER_W; c.height = COVER_H;
+  const g = c.getContext("2d");
+  g.fillStyle = pal.bg; g.fillRect(0, 0, COVER_W, COVER_H);
+  g.strokeStyle = pal.fg; g.globalAlpha = 0.55; g.lineWidth = 2; g.strokeRect(18, 18, COVER_W - 36, COVER_H - 36); g.globalAlpha = 1;
+  g.fillStyle = pal.fg; g.textBaseline = "top"; g.textAlign = "left";
+  g.font = `600 30px ${FONT_DISPLAY}`;
+  const words = (p.title || "").split(" "); const lines = []; let cur = "";
+  for (const w of words) {
+    const t = cur ? cur + " " + w : w;
+    if (g.measureText(t).width > COVER_W - 72) { lines.push(cur); cur = w; if (lines.length === 5) break; } else cur = t;
+  }
+  if (lines.length < 6 && cur) lines.push(cur);
+  lines.slice(0, 6).forEach((l, i) => g.fillText(l, 36, 48 + i * 38));
+  g.font = `400 18px ${FONT_META}`; g.globalAlpha = 0.85;
+  const venue = (p.venue || "").replace(/^(Proceedings of the|Proceedings of|The)\s+/i, "");
+  g.fillText(`${p.year ?? ""}`, 36, COVER_H - 96);
+  g.fillText(venue.length > 30 ? venue.slice(0, 30) + "…" : venue, 36, COVER_H - 72);
+  g.fillText(`인용 ${p.cited ?? 0}${p.is_oa ? " · OA" : ""}`, 36, COVER_H - 48);
+  g.globalAlpha = 1;
+  grain(g, COVER_W, COVER_H, 0.06);
+  return c;
+}
+
+// ---------- 선반 목재 텍스처 (1024 x 128) ----------
+let _woodTex = null;
+function woodTexture() {
+  if (_woodTex) return _woodTex;
+  const w = 1024, h = 128;
+  const c = document.createElement("canvas"); c.width = w; c.height = h;
+  const g = c.getContext("2d");
+  const grad = g.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, "#4a3524"); grad.addColorStop(0.08, "#3b2a1d"); grad.addColorStop(1, "#26190f");
+  g.fillStyle = grad; g.fillRect(0, 0, w, h);
+  // 결
+  for (let i = 0; i < 90; i++) {
+    g.strokeStyle = `rgba(0,0,0,${0.05 + Math.random() * 0.12})`; g.lineWidth = 1 + Math.random() * 1.5;
+    const y = Math.random() * h; g.beginPath(); g.moveTo(0, y);
+    for (let x = 0; x <= w; x += 64) g.lineTo(x, y + Math.sin(x / 90 + i) * 3 + (Math.random() - 0.5) * 2);
+    g.stroke();
+  }
+  grain(g, w, h, 0.05);
+  _woodTex = new THREE.CanvasTexture(c); _woodTex.colorSpace = THREE.SRGBColorSpace;
+  _woodTex.wrapS = THREE.RepeatWrapping; _woodTex.repeat.set(3, 1);
+  return _woodTex;
+}
+
+// ---------- 발광 테두리 (책등 형태) ----------
 let _glowTex = null;
 function glowTexture() {
   if (_glowTex) return _glowTex;
-  const c = document.createElement("canvas"); c.width = CARD_PX_W + 40; c.height = CARD_PX_H + 40;
+  const c = document.createElement("canvas"); c.width = SPINE_W + 48; c.height = SPINE_H + 48;
   const g = c.getContext("2d");
-  g.shadowColor = "rgba(255,209,102,0.95)"; g.shadowBlur = 26;
-  g.fillStyle = "rgba(255,209,102,0.9)";
-  g.beginPath(); g.roundRect(20, 20, CARD_PX_W, CARD_PX_H, 26); g.fill();
+  g.shadowColor = "rgba(212,162,76,0.95)"; g.shadowBlur = 28;
+  g.fillStyle = "rgba(212,162,76,0.85)";
+  g.fillRect(24, 24, SPINE_W, SPINE_H);
   _glowTex = new THREE.CanvasTexture(c);
   return _glowTex;
 }
 
-// 근접광 텍스처 (방사형)
-let _lightTex = null;
-function lightTexture() {
-  if (_lightTex) return _lightTex;
-  const c = document.createElement("canvas"); c.width = c.height = 128;
+// 연도 라벨 (황동 판)
+function drawYearPlate(year) {
+  const c = document.createElement("canvas"); c.width = 160; c.height = 56;
   const g = c.getContext("2d");
-  const rg = g.createRadialGradient(64, 64, 0, 64, 64, 64);
-  rg.addColorStop(0, "rgba(153,238,255,0.9)"); rg.addColorStop(0.4, "rgba(153,238,255,0.35)"); rg.addColorStop(1, "rgba(153,238,255,0)");
-  g.fillStyle = rg; g.fillRect(0, 0, 128, 128);
-  _lightTex = new THREE.CanvasTexture(c);
-  return _lightTex;
+  g.fillStyle = "#6f5630"; g.fillRect(0, 0, 160, 56);
+  g.strokeStyle = "#c9a45c"; g.lineWidth = 2; g.strokeRect(4, 4, 152, 48);
+  g.fillStyle = "#f0e2bf"; g.font = `600 30px ${FONT_DISPLAY}`; g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText(String(year), 80, 30);
+  return c;
 }
 
-function setMap(planeEl, texOrCanvas) {
-  const apply = () => {
-    const mesh = planeEl.getObject3D("mesh");
-    if (!mesh) return;
-    let tex = texOrCanvas;
-    if (texOrCanvas instanceof HTMLCanvasElement) { tex = new THREE.CanvasTexture(texOrCanvas); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4; }
-    mesh.material.map = tex; mesh.material.needsUpdate = true;
-  };
-  if (planeEl.getObject3D("mesh")) apply(); else planeEl.addEventListener("loaded", apply, { once: true });
+function canvasTex(canvas) { const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; }
+
+async function ensureFonts() {
+  try {
+    await Promise.all([
+      document.fonts.load(`600 40px 'EB Garamond'`),
+      document.fonts.load(`600 40px 'Noto Serif KR'`),
+    ]);
+  } catch {}
 }
 
-// 카드 시각 요소 한 벌 만들기 (원본과 복제가 같이 씀)
-function buildCardVisual(parent, canvas, width, height, withLight) {
-  const gs = (CARD_PX_W + 40) / CARD_PX_W;
+// 책 한 권의 메시 만들기 (원본·복제 공용). 반환: {book, glow, hit}
+function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth) {
+  const book = document.createElement("a-entity");
+  book.classList.add("book");
+  const geo = new THREE.BoxGeometry(thick, height, depth);
+  const side = new THREE.MeshLambertMaterial({ color: new THREE.Color("#2a2119") });
+  const pages = new THREE.MeshLambertMaterial({ color: new THREE.Color("#e6dcc4") });
+  const spine = new THREE.MeshBasicMaterial({ map: canvasTex(spineCanvas) });
+  const cover = new THREE.MeshBasicMaterial({ map: canvasTex(coverCanvas) });
+  // BoxGeometry 면 순서: +x, -x, +y, -y, +z, -z. 책등은 +z(앞), 표지는 +x(오른쪽), 뒷표지 -x
+  const mesh = new THREE.Mesh(geo, [cover, side, pages, side, spine, pages]);
+  book.setObject3D("mesh", mesh);
+  parent.appendChild(book);
+
   const glow = document.createElement("a-plane");
   glow.classList.add("glow");
-  glow.setAttribute("width", (width * gs).toFixed(3)); glow.setAttribute("height", (height * ((CARD_PX_H + 40) / CARD_PX_H)).toFixed(3));
+  glow.setAttribute("width", (thick * (SPINE_W + 48) / SPINE_W).toFixed(3));
+  glow.setAttribute("height", (height * (SPINE_H + 48) / SPINE_H).toFixed(3));
   glow.setAttribute("material", "shader: flat; opacity: 0; transparent: true; depthWrite: false");
-  glow.setAttribute("position", "0 0 -0.004");
-  setMap(glow, glowTexture());
+  glow.setAttribute("position", `0 0 ${(depth / 2 + 0.002).toFixed(3)}`);
+  glow.addEventListener("loaded", () => { const m = glow.getObject3D("mesh"); m.material.map = glowTexture(); m.material.needsUpdate = true; }, { once: true });
   parent.appendChild(glow);
 
-  const card = document.createElement("a-plane");
-  card.classList.add("card");
-  card.setAttribute("width", width.toFixed(3)); card.setAttribute("height", height.toFixed(3));
-  card.setAttribute("material", "shader: flat; transparent: true; alphaTest: 0.05; side: double");
-  setMap(card, canvas);
-  parent.appendChild(card);
-
-  let light = null;
-  if (withLight) {
-    light = document.createElement("a-circle");
-    light.classList.add("light");
-    light.setAttribute("radius", (height * 0.42).toFixed(3));
-    light.setAttribute("material", "shader: flat; transparent: true; opacity: 0; depthWrite: false; blending: additive");
-    light.setAttribute("position", "0 0 0.003");
-    setMap(light, lightTexture());
-    parent.appendChild(light);
-  }
-
-  const hit = document.createElement("a-plane");
+  const hit = document.createElement("a-box");
   hit.classList.add("target");
-  hit.setAttribute("width", (width * 1.08).toFixed(3)); hit.setAttribute("height", (height * 1.08).toFixed(3));
+  hit.setAttribute("width", Math.max(thick * 1.3, 0.09).toFixed(3)); hit.setAttribute("height", (height * 1.05).toFixed(3)); hit.setAttribute("depth", (depth + 0.02).toFixed(3));
   hit.setAttribute("material", "opacity: 0; transparent: true; depthWrite: false");
-  hit.setAttribute("position", "0 0 0.006");
   parent.appendChild(hit);
-  return { glow, card, light, hit };
+  return { book, glow, hit };
 }
 
 AFRAME.registerComponent("paper-field", {
   schema: {
     src: { default: "data/papers.json" },
-    depth: { default: -3.5 },
-    centerY: { default: 1.6 },
-    cascade: { default: 0.55 },
+    depth: { default: -3.2 },
+    centerY: { default: 1.5 },
+    bookH: { default: 0.40 },
+    bookD: { default: 0.28 },
+    shelfGap: { default: 0.62 },
     max: { default: 60 },
   },
 
@@ -142,59 +203,88 @@ AFRAME.registerComponent("paper-field", {
     const json = await res.json();
     const papers = json.papers.slice(0, this.data.max);
     this.el.emit("papers-loaded", { author: json.author, count: papers.length, source: json.source });
-
-    const byYear = {};
-    for (const p of papers) (byYear[p.year ?? 0] ??= []).push(p);
-    const years = Object.keys(byYear).map(Number).sort((a, b) => a - b);
-    const ncol = years.length;
-
+    await ensureFonts();
     if (!this.el.sceneEl.hasLoaded) await new Promise((r) => this.el.sceneEl.addEventListener("loaded", r, { once: true }));
+
+    // 연도 오름차순, 같은 해는 최신이 오른쪽(가장 나중에 꽂힌 책)
+    const sorted = [...papers].sort((a, b) => (a.year ?? 0) - (b.year ?? 0) || (a.date ?? "").localeCompare(b.date ?? ""));
     const cam = document.getElementById("camera").getObject3D("camera");
     const hh = Math.abs(this.data.depth) * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
-    const visW = 2 * hh * cam.aspect, visH = 2 * hh;
-    const ratio = CARD_PX_H / CARD_PX_W;
-    const maxStack = Math.max(...years.map((y) => byYear[y].length));
-    const stackFactor = 1 + this.data.cascade * (maxStack - 1);
+    const visW = 2 * hh * cam.aspect;
+    const shelfW = visW * 0.9;
 
-    const rows = ncol > 7 ? 2 : 1;
-    const perRow = Math.ceil(ncol / rows);
-    const spacing = (visW * 0.92) / perRow;
-    const rowGap = 0.35;
-    const hFromHeight = (visH * 0.80 - rowGap * (rows - 1)) / (rows * stackFactor);
-    const H = Math.min(spacing * 0.93 * ratio, 1.15 * ratio, hFromHeight);
-    const W = H / ratio;
-    const step = H * this.data.cascade;
-    const rowH = H * stackFactor;
-    const totalH = rows * rowH + rowGap * (rows - 1);
-    this.card = { W, H, rows };
+    // 책 두께: 피인용 로그
+    const thickOf = (p) => 0.045 + 0.022 * Math.log10((p.cited ?? 0) + 1);
+    const GAP = 0.012, DIVIDER = 0.05, LABEL_PAD = 0.10;
 
-    years.forEach((year, idx) => {
-      const r = Math.floor(idx / perRow), ci = idx % perRow;
-      const colsInRow = r === rows - 1 ? ncol - perRow * (rows - 1) : perRow;
-      // 앞(맨 아래, 온전히 보이는 카드) = 가장 최신. 발행일이 같으면 피인용순
-      const list = byYear[year].sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "") || b.cited - a.cited);
-      const x = (ci - (colsInRow - 1) / 2) * spacing;
-      const rowTop = this.data.centerY + totalH / 2 - r * (rowH + rowGap);
-      const rowBottom = rowTop - rowH;
-      const baseY = rowBottom + H / 2;
-      list.forEach((p, i) => {
-        const node = document.createElement("a-entity");
-        node.setAttribute("position", `${x.toFixed(3)} ${(baseY + step * i).toFixed(3)} ${(this.data.depth - 0.03 * i).toFixed(3)}`);
-        node.paper = p;
-        node.setAttribute("paper-node", `width: ${W.toFixed(3)}; height: ${H.toFixed(3)}; stackIndex: ${i}`);
-        this.el.appendChild(node);
-      });
-      const label = document.createElement("a-text");
-      label.setAttribute("value", String(year));
-      label.setAttribute("align", "center"); label.setAttribute("width", "1.6"); label.setAttribute("color", "#8892b0");
-      label.setAttribute("position", `${x.toFixed(3)} ${(rowBottom - 0.12).toFixed(3)} ${this.data.depth}`);
-      this.el.appendChild(label);
-      if (ci === 0) {
-        const axis = document.createElement("a-box");
-        axis.setAttribute("position", `0 ${(rowBottom - 0.04).toFixed(3)} ${this.data.depth}`);
-        axis.setAttribute("width", (spacing * colsInRow).toFixed(2)); axis.setAttribute("height", "0.006"); axis.setAttribute("depth", "0.006");
-        axis.setAttribute("color", "#2f3b5c");
-        this.el.appendChild(axis);
+    // 줄 나누기 (연도 단위로 묶어서 한 선반이 넘치면 다음 선반)
+    const groups = [];
+    for (const p of sorted) { const g = groups[groups.length - 1]; if (g && g.year === p.year) g.items.push(p); else groups.push({ year: p.year, items: [p] }); }
+    const groupW = (g) => LABEL_PAD + DIVIDER + g.items.reduce((s, p) => s + thickOf(p) + GAP, 0) + 0.04;
+    const shelves = [[]]; let wAcc = 0;
+    for (const g of groups) {
+      const w = groupW(g);
+      if (wAcc + w > shelfW && shelves[shelves.length - 1].length) { shelves.push([]); wAcc = 0; }
+      shelves[shelves.length - 1].push(g); wAcc += w;
+    }
+    const totalH = shelves.length * this.data.shelfGap;
+    const H = this.data.bookH, D = this.data.bookD;
+
+    // 화면을 채우도록 서가 전체를 확대: 가장 긴 선반이 보이는 폭의 90%, 전체 높이가 보이는 높이의 70%를 넘지 않는 최대 배율
+    const widest = Math.max(...shelves.map((row) => row.reduce((s, g) => s + groupW(g), 0))) + 0.3;
+    const scale = Math.max(1, Math.min(shelfW / widest, (2 * hh * 0.70) / totalH, 2.6));
+    // (0, centerY, depth) 점을 고정한 채 확대
+    this.el.object3D.scale.setScalar(scale);
+    this.el.object3D.position.set(0, this.data.centerY * (1 - scale), this.data.depth * (1 - scale));
+    this.scale = scale;
+
+    shelves.forEach((row, si) => {
+      const rowW = row.reduce((s, g) => s + groupW(g), 0);
+      const shelfY = this.data.centerY + totalH / 2 - this.data.shelfGap * (si + 1) + 0.08; // 선반 윗면 높이
+      // 선반 판
+      const board = document.createElement("a-box");
+      board.setAttribute("width", (rowW + 0.3).toFixed(2)); board.setAttribute("height", "0.035"); board.setAttribute("depth", (D + 0.12).toFixed(2));
+      board.setAttribute("position", `0 ${(shelfY - 0.0175).toFixed(3)} ${(this.data.depth + 0.02).toFixed(3)}`);
+      board.addEventListener("loaded", () => {
+        const m = board.getObject3D("mesh"); m.material = new THREE.MeshLambertMaterial({ map: woodTexture() }); m.material.needsUpdate = true;
+      }, { once: true });
+      this.el.appendChild(board);
+      // 선반 뒤판 (어두운)
+      const back = document.createElement("a-plane");
+      back.setAttribute("width", (rowW + 0.3).toFixed(2)); back.setAttribute("height", (this.data.shelfGap - 0.02).toFixed(2));
+      back.setAttribute("position", `0 ${(shelfY + (this.data.shelfGap - 0.02) / 2 - 0.02).toFixed(3)} ${(this.data.depth - D / 2 - 0.05).toFixed(3)}`);
+      back.setAttribute("material", "shader: flat; color: #1c1510");
+      this.el.appendChild(back);
+
+      let x = -rowW / 2;
+      for (const g of row) {
+        // 연도 구분판 + 라벨
+        x += LABEL_PAD / 2;
+        const div = document.createElement("a-box");
+        div.setAttribute("width", "0.012"); div.setAttribute("height", (H * 0.8).toFixed(2)); div.setAttribute("depth", (D * 0.9).toFixed(2));
+        div.setAttribute("position", `${x.toFixed(3)} ${(shelfY + H * 0.4).toFixed(3)} ${this.data.depth}`);
+        div.setAttribute("material", "color: #8c6d3c; metalness: 0.4; roughness: 0.5");
+        this.el.appendChild(div);
+        const plate = document.createElement("a-plane");
+        plate.setAttribute("width", "0.16"); plate.setAttribute("height", "0.056");
+        plate.setAttribute("position", `${(x + 0.10).toFixed(3)} ${(shelfY - 0.06).toFixed(3)} ${(this.data.depth + D / 2 + 0.07).toFixed(3)}`);
+        plate.setAttribute("material", "shader: flat");
+        const plateCanvas = drawYearPlate(g.year);
+        plate.addEventListener("loaded", () => { const m = plate.getObject3D("mesh"); m.material.map = canvasTex(plateCanvas); m.material.needsUpdate = true; }, { once: true });
+        this.el.appendChild(plate);
+        x += LABEL_PAD / 2 + DIVIDER;
+        for (const p of g.items) {
+          const t = thickOf(p);
+          const h = H + ((hashOf(p.title) % 9) - 4) * 0.01; // 살짝 다른 높이
+          x += t / 2;
+          const node = document.createElement("a-entity");
+          node.setAttribute("position", `${x.toFixed(3)} ${(shelfY + h / 2).toFixed(3)} ${this.data.depth}`);
+          node.paper = p;
+          node.setAttribute("paper-node", `thick: ${t.toFixed(3)}; height: ${h.toFixed(3)}; depth: ${D}`);
+          this.el.appendChild(node);
+          x += t / 2 + GAP;
+        }
+        x += 0.04;
       }
     });
   },
@@ -202,44 +292,42 @@ AFRAME.registerComponent("paper-field", {
 
 AFRAME.registerComponent("paper-node", {
   schema: {
-    width: { default: 1 },
-    height: { default: 0.42 },
-    stackIndex: { default: 0 },
-    pullDist: { default: 1.4 },     // 집는 동안 손 앞 거리
-    openDist: { default: 2.0 },     // 열렸을 때 거리
+    thick: { default: 0.06 },
+    height: { default: 0.4 },
+    depth: { default: 0.28 },
+    pullDist: { default: 1.4 },
+    openDist: { default: 2.0 },
     openThreshold: { default: 0.8 },
     lerp: { default: 0.18 },
-    hoverLift: { default: 0.035 },  // 원본 카드 호버 시 앞으로 떠오르는 거리
-    dimOpacity: { default: 0.3 },   // 복제가 나가 있을 때 원본 밝기
+    hoverPull: { default: 0.06 },  // 호버 시 책이 앞으로 나오는 거리
+    dimOpacity: { default: 0.35 },
   },
 
   init() {
     const el = this.el, d = this.data, p = el.paper;
-    this.state = "idle"; // idle | grabbed | open | returning
+    this.state = "idle";
     this.home = el.object3D.position.clone();
     this.goal = new THREE.Vector3();
     this.camEl = document.getElementById("camera");
     this.cursorEl = document.getElementById("cursor");
     this.rayEl = document.getElementById("ray");
-    this.camPos = new THREE.Vector3(); this.camDir = new THREE.Vector3(); this.cur = new THREE.Vector3(); this.tmp = new THREE.Vector3();
+    this.camPos = new THREE.Vector3(); this.camDir = new THREE.Vector3(); this.cur = new THREE.Vector3();
     this.glowT = 0; this.pulse = 0; this.ghost = null;
-    this.canvas = drawCard(p);
+    this.spineCanvas = drawSpine(p); this.coverCanvas = drawCover(p);
 
-    const v = buildCardVisual(el, this.canvas, d.width, d.height, true);
-    this.glow = v.glow; this.card = v.card; this.light = v.light; this.hit = v.hit;
+    const v = buildBook(el, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth);
+    this.book = v.book; this.glow = v.glow; this.hit = v.hit;
     this.hit.paperEl = el;
 
     const isNearest = () => this.rayEl.components.raycaster?.intersectedEls[0] === this.hit;
     this.isNearest = isNearest;
-    this.hit.addEventListener("raycaster-intersected", () => { if (isNearest()) this.setHover(true); });
-    this.hit.addEventListener("raycaster-intersected-cleared", () => { if (this.hovered) this.setHover(false); });
-
-    // 원본을 핀치: idle이면 복제를 만들어 집기 시작. 열린 상태에서 원본을 다시 핀치해도 닫힘
     this.hit.addEventListener("pinchstart", () => this.onPinch());
+    this.w1 = new THREE.Vector3(); this.w2 = new THREE.Vector3();
     el.sceneEl.addEventListener("pinchend-any", () => {
       if (this.state !== "grabbed" || !this.ghost) return;
-      const pulled = this.ghost.object3D.position.distanceTo(this.home);
-      if (pulled > d.openThreshold) { this.state = "open"; el.emit("paper-open", { paper: p }, true); }
+      // 월드 거리로 판단 (부모 서가가 확대되어 있을 수 있음)
+      this.ghost.object3D.getWorldPosition(this.w1); el.object3D.getWorldPosition(this.w2);
+      if (this.w1.distanceTo(this.w2) > d.openThreshold) { this.state = "open"; el.emit("paper-open", { paper: p }, true); }
       else this.close();
     });
   },
@@ -250,12 +338,9 @@ AFRAME.registerComponent("paper-node", {
       this.spawnGhost();
       this.state = "grabbed";
       this.el.emit("paper-grab", { paper: this.el.paper }, true);
-    } else if (this.state === "open") {
-      this.close();
-    }
+    } else if (this.state === "open") this.close();
   },
 
-  // 복제 카드: 원본과 같은 그림, 같은 자리에서 시작. 원본은 흐려짐
   spawnGhost() {
     if (this.ghost) return;
     const d = this.data;
@@ -263,23 +348,24 @@ AFRAME.registerComponent("paper-node", {
     ghost.object3D.position.copy(this.el.object3D.position);
     ghost.object3D.position.z += 0.02;
     this.el.parentNode.appendChild(ghost);
-    const v = buildCardVisual(ghost, this.canvas, d.width, d.height, false);
+    const v = buildBook(ghost, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth);
     v.hit.paperEl = this.el;
     v.hit.addEventListener("pinchstart", () => this.onPinch());
-    this.ghost = ghost; this.ghostGlow = v.glow;
-    this.setCardOpacity(d.dimOpacity);
+    this.ghost = ghost; this.ghostGlow = v.glow; this.ghostBook = v.book;
+    this.setBookOpacity(d.dimOpacity);
   },
 
   removeGhost() {
     if (!this.ghost) return;
     this.ghost.parentNode.removeChild(this.ghost);
-    this.ghost = null; this.ghostGlow = null;
-    this.setCardOpacity(1);
+    this.ghost = null; this.ghostGlow = null; this.ghostBook = null;
+    this.setBookOpacity(1);
   },
 
-  setCardOpacity(o) {
-    const m = this.card.getObject3D("mesh")?.material;
-    if (m) { m.opacity = o; m.needsUpdate = true; }
+  setBookOpacity(o) {
+    const mesh = this.book.getObject3D("mesh");
+    if (!mesh) return;
+    for (const m of mesh.material) { m.transparent = o < 1; m.opacity = o; m.needsUpdate = true; }
   },
 
   setHover(on) {
@@ -299,19 +385,22 @@ AFRAME.registerComponent("paper-node", {
     if (this.hovered && !nearest) this.setHover(false);
     else if (!this.hovered && nearest) this.setHover(true);
 
-    // 원본: 제자리. 호버 시 살짝 앞으로
-    this.goal.copy(this.home); if (this.hovered && this.state === "idle") this.goal.z += d.hoverLift;
+    // 원본: 제자리, 호버 시 앞으로 살짝 뽑힘
+    this.goal.copy(this.home); if (this.hovered && this.state === "idle") this.goal.z += d.hoverPull;
     el.object3D.position.lerp(this.goal, 0.25);
 
-    // 복제: 상태별 목표
+    // 복제: 손으로 오면서 표지가 보이게 회전 (y축 -90°: +x 면이 카메라를 향함)
     if (this.ghost) {
-      const gpos = this.ghost.object3D.position;
-      let targetScale = 1;
+      const gpos = this.ghost.object3D.position, grot = this.ghost.object3D.rotation;
+      let targetRotY = 0, targetScale = 1;
+      const parent = this.ghost.parentNode.object3D; // 서가(확대됨). 목표는 월드로 계산해 부모 로컬로 변환
+      const ps = parent.scale.x || 1;
       if (this.state === "grabbed") {
         this.camEl.object3D.getWorldPosition(this.camPos);
         this.cursorEl.object3D.getWorldPosition(this.cur);
         this.goal.copy(this.cur).sub(this.camPos).normalize().multiplyScalar(d.pullDist).add(this.camPos);
-        gpos.lerp(this.goal, d.lerp); targetScale = 1.15;
+        parent.worldToLocal(this.goal);
+        gpos.lerp(this.goal, d.lerp); targetRotY = -Math.PI / 2; targetScale = 1.1 / ps;
       } else if (this.state === "open") {
         this.camEl.object3D.getWorldPosition(this.camPos);
         this.camEl.object3D.getWorldDirection(this.camDir);
@@ -319,40 +408,27 @@ AFRAME.registerComponent("paper-node", {
         const hw = d.openDist * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2) * cam.aspect;
         this.goal.copy(this.camPos).addScaledVector(this.camDir, -d.openDist);
         this.goal.x -= hw * 0.42; this.goal.y += 0.05;
-        gpos.lerp(this.goal, d.lerp); targetScale = 1;
+        parent.worldToLocal(this.goal);
+        gpos.lerp(this.goal, d.lerp); targetRotY = -Math.PI / 2; targetScale = 1.6 / ps;
       } else if (this.state === "returning") {
-        gpos.lerp(this.home, d.lerp); targetScale = 1;
+        gpos.lerp(this.home, d.lerp); targetRotY = 0;
         if (gpos.distanceTo(this.home) < 0.015) { this.removeGhost(); this.state = "idle"; }
       }
       if (this.ghost) {
+        grot.y += (targetRotY - grot.y) * 0.15;
         const s = this.ghost.object3D.scale.x + (targetScale - this.ghost.object3D.scale.x) * 0.2;
         this.ghost.object3D.scale.setScalar(s);
         const gm = this.ghostGlow.getObject3D("mesh")?.material;
-        if (gm) gm.opacity = this.state === "returning" ? 0.2 : 0.55 + 0.45 * this.pulse;
-        this.ghostGlow.object3D.scale.setScalar(1 + 0.06 * this.pulse);
+        if (gm) gm.opacity = this.state === "returning" ? 0.15 : 0.35 + 0.5 * this.pulse;
       }
     }
 
-    // 원본의 발광·근접광 (idle 호버에서만)
+    // 원본 발광 (idle 호버) + 펄스
     const wantGlow = this.hovered && this.state === "idle" ? 1 : 0;
     this.glowT += (wantGlow - this.glowT) * Math.min(1, dt / 90);
     this.pulse = Math.max(0, this.pulse - dt / 260);
     const glowMat = this.glow.getObject3D("mesh")?.material;
-    if (glowMat) glowMat.opacity = 0.55 * this.glowT + (this.state === "idle" ? 0.45 * this.pulse : 0);
-    this.glow.object3D.scale.setScalar(1 + 0.06 * this.pulse);
-
-    const lightMat = this.light.getObject3D("mesh")?.material;
-    if (lightMat) {
-      const lightOn = this.hovered && this.state === "idle";
-      lightMat.opacity = lightOn ? 0.45 * this.glowT : 0;
-      if (lightOn) {
-        const inter = this.rayEl.components.raycaster?.getIntersection(this.hit);
-        if (inter) {
-          this.tmp.copy(inter.point); el.object3D.worldToLocal(this.tmp);
-          this.light.object3D.position.x += (this.tmp.x - this.light.object3D.position.x) * 0.35;
-          this.light.object3D.position.y += (this.tmp.y - this.light.object3D.position.y) * 0.35;
-        }
-      }
-    }
+    if (glowMat) glowMat.opacity = 0.6 * this.glowT + (this.state === "idle" ? 0.5 * this.pulse : 0);
+    this.glow.object3D.scale.setScalar(1 + 0.08 * this.pulse);
   },
 });

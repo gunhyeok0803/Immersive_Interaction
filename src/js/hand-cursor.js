@@ -162,7 +162,8 @@ AFRAME.registerComponent("hand-cursor", {
         : (this.pinching ? 1 : 0);
       const s = 1 - 0.45 * strength;
       this.ringEl.object3D.scale.set(s, s, s);
-      const color = this.pinching ? "#ffd166" : this.target ? "#ffe9a8" : "#9ef";
+      // 크림(대기) → 금색(대상 위) → 밝은 금색(핀치). 청록 없음 (디자인 C 토큰)
+      const color = this.pinching ? "#f0c060" : this.target ? "#d4a24c" : "#e9dcc2";
       if (this._ringColor !== color) { this._ringColor = color; this.ringEl.setAttribute("color", color); }
     }
     if ((t | 0) % 6 === 0) this.el.emit("hand-cursor-debug", this.debugState());
