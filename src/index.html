@@ -23,12 +23,13 @@
     #btn:hover { background: rgba(212,162,76,.12); }
     #cam { right: 14px; bottom: 14px; width: 150px; height: 112px; transform: scaleX(-1); background: #000; object-fit: cover; opacity: .75; border: 1px solid var(--line); }
     /* 진단 HUD: 접힘 기본 */
-    #dbg { left: 14px; bottom: 64px; width: 320px; font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
-    #dbg summary { cursor: pointer; color: var(--muted); font-family: system-ui, sans-serif; }
-    #dbg .bar { height: 5px; background: #3a2e22; margin: 6px 0; position: relative; }
-    #dbg .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gold); }
-    #dbg .bar s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--cream); }
-    #dbg .log { margin-top: 6px; max-height: 110px; overflow: auto; opacity: .9; }
+    /* 주의: id를 'dbg'로 쓰면 window.dbg 전역이 되어 MediaPipe 글루의 dbg() 호출과 충돌 → 'diag' 사용 */
+    #diag { left: 14px; bottom: 64px; width: 320px; font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+    #diag summary { cursor: pointer; color: var(--muted); font-family: system-ui, sans-serif; }
+    #diag .bar { height: 5px; background: #3a2e22; margin: 6px 0; position: relative; }
+    #diag .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gold); }
+    #diag .bar s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--cream); }
+    #diag .log { margin-top: 6px; max-height: 110px; overflow: auto; opacity: .9; }
     /* 양피지 페이지 패널 */
     #preview { right: 14px; top: 14px; width: 400px; max-height: 78vh; overflow: auto; display: none; background: var(--paper); color: var(--ink); border: 1px solid #b9a888; box-shadow: 0 12px 30px rgba(0,0,0,.45); padding: 22px 24px 18px; }
     #preview h2 { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-weight: 600; font-size: 20px; line-height: 1.3; margin: 0 0 8px; }
@@ -53,7 +54,7 @@
   <button id="btn" class="ui">카메라 시작</button>
   <video id="cam" class="ui" autoplay playsinline muted></video>
 
-  <details id="dbg" class="ui box">
+  <details id="diag" class="ui box">
     <summary>진단</summary>
     <div>핀치 비율 <b id="dRatio">-</b> · 상태 <b id="dPinch">-</b> · 레이 <b id="dRay">-</b></div>
     <div class="bar"><i id="dBar" style="width:0"></i><s id="dS1"></s><s id="dS2"></s></div>
@@ -161,7 +162,7 @@
         starting = false;
         $("status").textContent = `실패(${err.name}) → 마우스로 계속`;
         // 원인 파악용: 메시지와 스택 첫 줄을 진단 로그에 그대로 남김
-        $("dbg").open = true;
+        $("diag").open = true;
         dlog(`카메라 실패: ${err.name}: ${err.message}`);
         if (err.stack) dlog(err.stack.split("\n").slice(0, 3).join(" ⏎ "));
         console.error(err);

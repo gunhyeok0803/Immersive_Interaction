@@ -180,6 +180,7 @@
       starting = true;
       $("st").textContent = "모델 로딩";
       try {
+        if (typeof globalThis.dbg !== "function") globalThis.dbg = (...a) => console.debug("[mediapipe]", ...a);
         const { HandLandmarker, FilesetResolver } = await import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${MP_VER}/vision_bundle.mjs`);
         const vision = await FilesetResolver.forVisionTasks(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${MP_VER}/wasm`);
         const landmarker = await HandLandmarker.createFromOptions(vision, {

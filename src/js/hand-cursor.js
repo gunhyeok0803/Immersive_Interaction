@@ -179,18 +179,26 @@ AFRAME.registerComponent("hand-cursor", {
 
 /* MediaPipe 시작 도우미. 성공 시 매 프레임 hand-cursor.feedHand 호출. 실패 시 예외 */
 async function startHandTracking({ videoEl, sceneEl, version = "1.0.1", onFps, onError } = {}) {
+  // MediaPipe wasm 글루 코드가 경고를 찍을 때 릴리스 빌드에 없는 전역 `dbg`를 호출해 "TypeError: dbg is not a function"이 남
+  // (사용자 PC, Intel Arc에서 재현). 전역에 정의해 두면 경고만 찍고 진행함.
+  if (typeof globalThis.dbg !== "function") globalThis.dbg = (...a) => console.debug("[mediapipe]", ...a);
   const { HandLandmarker, FilesetResolver } = await import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${version}/vision_bundle.mjs`);
   const vision = await FilesetResolver.forVisionTasks(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${version}/wasm`);
-  const landmarker = await HandLandmarker.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
-      delegate: "GPU",
-    },
+  const MODEL = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
+  const makeLandmarker = (delegate) => HandLandmarker.createFromOptions(vision, {
+    baseOptions: { modelAssetPath: MODEL, delegate },
     runningMode: "VIDEO",
     numHands: 1,
-    minHandDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.6,
   });
+  let landmarker;
+  try {
+    landmarker = await makeLandmarker("GPU");
+  } catch (e) {
+    // 일부 GPU/드라이버에서 GPU 델리게이트 초기화가 실패함 → CPU로 재시도
+    console.warn("GPU delegate failed, retrying with CPU", e);
+    onError?.(new Error(`GPU 델리게이트 실패 → CPU 재시도 (${e.name}: ${e.message})`));
+    landmarker = await makeLandmarker("CPU");
+  }
   videoEl.srcObject = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: "user" } });
   await new Promise((r) => (videoEl.onloadeddata = r));
   try { await videoEl.play(); } catch {}

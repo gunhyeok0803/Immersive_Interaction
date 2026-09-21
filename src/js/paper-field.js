@@ -196,6 +196,7 @@ AFRAME.registerComponent("paper-field", {
     bookH: { default: 0.40 },
     bookD: { default: 0.28 },
     shelfGap: { default: 0.62 },
+    rows: { default: 2 },        // 선반 수. 0이면 화면 폭에 맞춰 자동
     max: { default: 60 },
   },
 
@@ -218,14 +219,17 @@ AFRAME.registerComponent("paper-field", {
     const thickOf = (p) => 0.045 + 0.022 * Math.log10((p.cited ?? 0) + 1);
     const GAP = 0.012, DIVIDER = 0.05, LABEL_PAD = 0.10;
 
-    // 줄 나누기 (연도 단위로 묶어서 한 선반이 넘치면 다음 선반)
+    // 줄 나누기: 연도 묶음을 rows개 선반에 폭이 비슷하게 배분 (rows=0이면 화면 폭 기준 자동)
     const groups = [];
     for (const p of sorted) { const g = groups[groups.length - 1]; if (g && g.year === p.year) g.items.push(p); else groups.push({ year: p.year, items: [p] }); }
     const groupW = (g) => LABEL_PAD + DIVIDER + g.items.reduce((s, p) => s + thickOf(p) + GAP, 0) + 0.04;
+    const totalW = groups.reduce((s, g) => s + groupW(g), 0);
+    const rowsWanted = this.data.rows > 0 ? this.data.rows : Math.max(1, Math.ceil(totalW / shelfW));
+    const targetW = totalW / rowsWanted;
     const shelves = [[]]; let wAcc = 0;
     for (const g of groups) {
       const w = groupW(g);
-      if (wAcc + w > shelfW && shelves[shelves.length - 1].length) { shelves.push([]); wAcc = 0; }
+      if (shelves.length < rowsWanted && shelves[shelves.length - 1].length && wAcc + w / 2 > targetW) { shelves.push([]); wAcc = 0; }
       shelves[shelves.length - 1].push(g); wAcc += w;
     }
     const totalH = shelves.length * this.data.shelfGap;
@@ -300,6 +304,7 @@ AFRAME.registerComponent("paper-node", {
     pullDist: { default: 1.4 },
     openDist: { default: 2.0 },
     openThreshold: { default: 0.8 },
+    tapMs: { default: 400 },       // 이보다 짧은 핀치(탭)는 당기지 않아도 펼침
     lerp: { default: 0.18 },
     hoverPull: { default: 0.06 },  // 호버 시 책이 앞으로 나오는 거리
     dimOpacity: { default: 0.35 },
@@ -330,9 +335,11 @@ AFRAME.registerComponent("paper-node", {
     this.w1 = new THREE.Vector3(); this.w2 = new THREE.Vector3();
     el.sceneEl.addEventListener("pinchend-any", () => {
       if (this.state !== "grabbed" || !this.ghost) return;
-      // 월드 거리로 판단 (부모 서가가 확대되어 있을 수 있음)
+      // 월드 거리로 판단 (부모 서가가 확대되어 있을 수 있음). 짧게 톡 집은 것(탭)도 "펼치기" 의도로 인정
       this.ghost.object3D.getWorldPosition(this.w1); el.object3D.getWorldPosition(this.w2);
-      if (this.w1.distanceTo(this.w2) > d.openThreshold) { this.state = "open"; el.emit("paper-open", { paper: p }, true); }
+      const pulled = this.w1.distanceTo(this.w2) > d.openThreshold;
+      const tapped = performance.now() - (this.grabAt || 0) < d.tapMs;
+      if (pulled || tapped) { this.state = "open"; el.emit("paper-open", { paper: p }, true); }
       else this.close();
     });
   },
@@ -344,6 +351,7 @@ AFRAME.registerComponent("paper-node", {
       this.el.sceneEl.emit("paper-close-others", { except: this.el });
       this.spawnGhost();
       this.state = "grabbed";
+      this.grabAt = performance.now();
       this.el.emit("paper-grab", { paper: this.el.paper }, true);
     } else if (this.state === "open") this.close();
   },
