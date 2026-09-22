@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["--yes", "serve", "-l", "5173", "src"],
       "port": 5173
+    },
+    {
+      "name": "study",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["tools/study-server.mjs"],
+      "port": 8787
     }
   ]
 }

@@ -9,8 +9,9 @@
   <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
   <script src="js/hand-cursor.js"></script>
   <script src="js/paper-field.js"></script>
+  <script src="js/study-ui.js"></script>
   <style>
-    :root { --bg:#17130f; --wood:#2b2016; --line:#4a3a2a; --cream:#efe6d3; --muted:#b9a98c; --gold:#d4a24c; --paper:#f1e8d6; --ink:#241d17; --rule:#cdbfa4; }
+    :root { --bg:#17130f; --wood:#2b2016; --line:#4a3a2a; --cream:#efe6d3; --muted:#b9a98c; --gold:#d4a24c; --paper:#f1e8d6; --ink:#241d17; --rule:#cdbfa4; --oxblood:#7a3b2e; }
     body { margin: 0; font-family: 'Noto Serif KR', 'EB Garamond', Georgia, serif; color: var(--cream); background: var(--bg); }
     .ui { position: fixed; z-index: 10; }
     .box { background: rgba(28,22,17,.88); border: 1px solid var(--line); padding: 10px 14px; font-size: 13.5px; line-height: 1.55; }
@@ -22,7 +23,6 @@
     #btn { left: 14px; bottom: 14px; padding: 8px 14px; font-size: 13px; font-family: inherit; border: 1px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; }
     #btn:hover { background: rgba(212,162,76,.12); }
     #cam { right: 14px; bottom: 14px; width: 150px; height: 112px; transform: scaleX(-1); background: #000; object-fit: cover; opacity: .75; border: 1px solid var(--line); }
-    /* 진단 HUD: 접힘 기본 */
     /* 주의: id를 'dbg'로 쓰면 window.dbg 전역이 되어 MediaPipe 글루의 dbg() 호출과 충돌 → 'diag' 사용 */
     #diag { left: 14px; bottom: 64px; width: 320px; font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
     #diag summary { cursor: pointer; color: var(--muted); font-family: system-ui, sans-serif; }
@@ -30,27 +30,62 @@
     #diag .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gold); }
     #diag .bar s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--cream); }
     #diag .log { margin-top: 6px; max-height: 110px; overflow: auto; opacity: .9; }
-    /* 양피지 페이지 패널 */
-    #preview { right: 14px; top: 14px; width: 400px; max-height: 78vh; overflow: auto; display: none; background: var(--paper); color: var(--ink); border: 1px solid #b9a888; box-shadow: 0 12px 30px rgba(0,0,0,.45); padding: 22px 24px 18px; }
-    #preview h2 { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-weight: 600; font-size: 20px; line-height: 1.3; margin: 0 0 8px; }
-    #preview .meta { font-family: system-ui, sans-serif; font-size: 12px; color: #6b5d4b; border-bottom: 1px solid var(--rule); padding-bottom: 10px; margin-bottom: 12px; }
-    #preview .lead { font-size: 14.5px; line-height: 1.7; }
-    #preview .note { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin: 6px 0 12px; }
-    #preview details { border-top: 1px solid var(--rule); padding-top: 10px; margin-top: 6px; }
-    #preview summary { cursor: pointer; color: #6b5d4b; font-size: 13px; }
+
+    /* 양피지 페이지 패널: 원문 → 요약 → 학습 */
+    #preview { right: 14px; top: 14px; width: 440px; max-height: calc(100vh - 28px); overflow: auto; display: none; background: var(--paper); color: var(--ink); border: 1px solid #b9a888; box-shadow: 0 12px 30px rgba(0,0,0,.45); padding: 20px 22px 18px; }
+    #preview h2 { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-weight: 600; font-size: 19px; line-height: 1.3; margin: 0 0 6px; }
+    #preview .meta { font-family: system-ui, sans-serif; font-size: 12px; color: #6b5d4b; border-bottom: 1px solid var(--rule); padding-bottom: 8px; margin-bottom: 10px; }
+    #preview .lead { font-size: 14px; line-height: 1.7; }
+    #preview .note { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin: 6px 0 10px; }
+    #preview details { border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 6px; }
+    #preview summary { cursor: pointer; color: #6b5d4b; font-size: 13px; padding: 6px 0; }
     #preview .abs { font-size: 13px; line-height: 1.6; margin-top: 8px; color: #3a3028; }
-    #preview a { color: #7a3b2e; }
+    #preview a { color: var(--oxblood); }
     #preview .close { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin-top: 12px; }
+    .srcrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 4px; }
+    .btn { font-family: inherit; font-size: 13.5px; padding: 10px 16px; min-height: 44px; border: 1px solid var(--oxblood); background: transparent; color: var(--oxblood); cursor: pointer; }
+    .btn.primary { background: var(--oxblood); color: var(--paper); }
+    .btn:disabled { opacity: .35; cursor: default; }
+    .btn.hand-hover, .dot.hand-hover, summary.hand-hover, a.hand-hover { outline: 3px solid var(--gold); outline-offset: 2px; }
+    #studyStatus { font-family: system-ui, sans-serif; font-size: 12px; color: #6b5d4b; margin: 6px 0; }
+    /* 학습 팩 */
+    #study { margin-top: 10px; border-top: 1px solid var(--rule); padding-top: 10px; }
+    .snav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .sdots { display: flex; gap: 4px; flex-wrap: wrap; }
+    .dot { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--rule); background: transparent; color: #6b5d4b; font-family: system-ui, sans-serif; font-size: 12px; cursor: pointer; }
+    .dot.on { background: var(--oxblood); color: var(--paper); border-color: var(--oxblood); }
+    .stitle { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-size: 16px; font-weight: 600; margin: 10px 0 6px; }
+    .sbody { font-size: 13.5px; line-height: 1.65; }
+    .sbody h4 { font-size: 13.5px; margin: 12px 0 4px; color: var(--oxblood); }
+    .sbody ol, .sbody ul { padding-left: 18px; margin: 4px 0; }
+    .goal { background: #e7dbc2; border-left: 3px solid var(--gold); padding: 8px 10px; margin: 8px 0; }
+    .fivec { display: grid; grid-template-columns: 60px 1fr; gap: 4px 10px; margin: 8px 0; }
+    .fivec dt { color: #6b5d4b; font-family: system-ui, sans-serif; font-size: 12px; padding-top: 2px; }
+    .fivec dd { margin: 0; }
+    .kwlist { list-style: none; padding: 0; } .kwlist li { border-bottom: 1px dashed var(--rule); padding: 6px 0; }
+    .where { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; }
+    .ev { margin: 6px 0; } .caveat { color: #8a5a3c; }
+    .scard { border: 1px solid var(--rule); background: #f6efdf; padding: 10px 12px; margin: 10px 0; }
+    .scard-head { display: flex; align-items: baseline; gap: 8px; } .scard h4 { margin: 0; font-size: 14.5px; }
+    .disc { font-family: system-ui, sans-serif; font-size: 10.5px; color: var(--paper); background: #6b5d4b; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+    .scard p { margin: 6px 0; }
+    .scard .link, .scard .next { font-family: system-ui, sans-serif; font-size: 11.5px; color: #6b5d4b; margin: 4px 0; }
+    .kw span { display: inline-block; font-family: system-ui, sans-serif; font-size: 11px; border: 1px solid var(--rule); padding: 1px 6px; margin: 2px 4px 2px 0; }
+    .check { margin-top: 8px; border-top: 1px dashed var(--rule); padding-top: 8px; }
+    .check .q { margin-bottom: 6px; }
+    .check .a { background: #e7dbc2; padding: 8px 10px; margin-top: 6px; }
+    .check .back { font-family: system-ui, sans-serif; font-size: 11.5px; color: #6b5d4b; margin-top: 4px; }
+    .smeta { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin-top: 10px; }
   </style>
 </head>
 <body>
   <div id="top" class="ui box">
     <h1 id="projectTitle">손으로 펼치는 연구실 서가</h1>
     <div class="meta"><span id="author">불러오는 중…</span> · <span id="count"></span></div>
-    <div class="meta">입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span></div>
+    <div class="meta">입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span> · 학습 서버 <span id="studySrv">확인 중</span></div>
     <div id="hoverTitle"></div>
   </div>
-  <div id="hint" class="ui box">손을 들어 책등을 가리키고, 엄지와 검지를 붙여 책을 뽑은 뒤 당겨서 놓으세요 · 다시 집으면 꽂힙니다</div>
+  <div id="hint" class="ui box">손을 들어 책등을 가리키고 엄지·검지를 붙이면 책이 펼쳐집니다 · 패널의 버튼도 같은 핀치로 누릅니다 · 책을 다시 집으면 꽂힙니다</div>
   <button id="btn" class="ui">카메라 시작</button>
   <video id="cam" class="ui" autoplay playsinline muted></video>
 
@@ -65,10 +100,16 @@
   <div id="preview" class="ui">
     <h2 id="pTitle"></h2>
     <div class="meta" id="pMeta"></div>
+    <div class="srcrow">
+      <a id="pDoi" class="btn" target="_blank" rel="noopener">원문 (DOI)</a>
+      <a id="pOa" class="btn" target="_blank" rel="noopener" hidden>PDF (오픈액세스)</a>
+    </div>
     <div class="lead" id="pSummary"></div>
     <div class="note" id="pSummaryNote"></div>
     <details><summary>원문 초록 (영문)</summary><div class="abs" id="pAbstract"></div></details>
-    <div style="margin-top:10px"><a id="pLink" target="_blank" rel="noopener">원문 보기 (DOI)</a></div>
+    <div class="srcrow"><button id="studyBtn" class="btn primary">이 논문 공부하기 (학습 팩)</button></div>
+    <div id="studyStatus"></div>
+    <div id="study"></div>
     <div class="close">책을 다시 집으면 서가로 돌아갑니다</div>
   </div>
 
@@ -83,15 +124,18 @@
     </a-entity>
     <a-entity id="ray" raycaster="objects: .target; useWorldCoordinates: true; far: 20; interval: 0"></a-entity>
 
-    <a-entity id="field" paper-field="src: data/papers.json; depth: -2.5"></a-entity>
+    <a-entity id="field" paper-field="src: data/papers.json; depth: -2.5; rows: 2"></a-entity>
 
-    <!-- 바닥과 독서등: 따뜻한 지향광 하나, 은은한 주변광 -->
     <a-plane position="0 -0.2 -3" rotation="-90 0 0" width="20" height="14" color="#14100c"></a-plane>
     <a-entity light="type: ambient; color: #6b5a48; intensity: 0.9"></a-entity>
     <a-entity light="type: point; color: #ffd9a0; intensity: 1.3; distance: 9; decay: 1.6" position="0.6 3.0 -0.8"></a-entity>
   </a-scene>
 
   <script>
+    // 학습 팩 서버. 로컬: node tools/study-server.mjs → http://localhost:8787/study
+    // 배포 후: Cloudflare Worker 주소로 교체. ?study=<url> 로도 지정 가능
+    const STUDY_ENDPOINT = new URLSearchParams(location.search).get("study") || "http://localhost:8787/study";
+
     const $ = (id) => document.getElementById(id);
     const scene = document.querySelector("a-scene");
     const dlog = (msg) => {
@@ -99,6 +143,10 @@
       $("dLog").insertAdjacentHTML("afterbegin", `<div>${t} ${msg}</div>`);
       while ($("dLog").children.length > 30) $("dLog").lastChild.remove();
     };
+
+    fetch(STUDY_ENDPOINT.replace(/\/study$/, "/health")).then((r) => r.json())
+      .then((j) => { $("studySrv").textContent = j.hasKey ? "연결됨" : "연결됨(키 없음)"; })
+      .catch(() => { $("studySrv").textContent = "없음(사전 생성본만)"; });
 
     scene.addEventListener("papers-loaded", (e) => {
       $("author").textContent = e.detail.author?.name || "저자 미상";
@@ -115,22 +163,63 @@
     let summaries = {};
     fetch("data/summaries.json").then((r) => r.json()).then((j) => (summaries = j)).catch(() => {});
 
+    let currentPaper = null;
     scene.addEventListener("paper-open", (e) => {
-      const p = e.detail.paper;
+      const p = e.detail.paper; currentPaper = p;
       dlog(`펼침: ${p.title.slice(0, 40)}`);
       $("pTitle").textContent = p.title;
       $("pMeta").textContent = `${p.year ?? "-"} · ${p.venue || "-"} · 인용 ${p.cited}` + (p.is_oa ? " · 오픈액세스" : "");
+      $("pDoi").href = p.url || "#";
+      const oa = p.oa_url && p.oa_url !== p.url ? p.oa_url : "";
+      $("pOa").hidden = !oa; if (oa) $("pOa").href = oa;
       const s = summaries[p.id];
       $("pSummary").textContent = s ? s.summary_ko : "(요약 없음)";
-      $("pSummaryNote").textContent = s ? (s.basis === "abstract" ? "초록 기반 사전 요약 · D6에서 AI 학습 카드로 확장" : "초록이 없어 제목 기반으로 정리한 요약") : "";
+      $("pSummaryNote").textContent = s ? (s.basis === "abstract" ? "초록 기반 사전 요약" : "초록이 없어 제목 기반으로 정리한 요약") : "";
       $("pAbstract").textContent = p.abstract || "(OpenAlex에 초록 없음)";
-      $("pLink").href = p.url || "#";
+      $("study").innerHTML = ""; $("studyStatus").textContent = ""; $("studyBtn").disabled = false; $("studyBtn").hidden = false;
       $("preview").style.display = "block";
+      $("preview").scrollTop = 0;
     });
-    scene.addEventListener("paper-close", (e) => { dlog(`꽂음: ${e.detail.paper.title.slice(0, 40)}`); $("preview").style.display = "none"; });
-    scene.addEventListener("pinch-empty", (e) => dlog(`핀치했지만 대상 없음 (비율 ${e.detail.ratio.toFixed(2)})`));
+    scene.addEventListener("paper-close", (e) => { dlog(`꽂음: ${e.detail.paper.title.slice(0, 40)}`); $("preview").style.display = "none"; currentPaper = null; });
 
+    // 학습 팩
+    $("studyBtn").addEventListener("click", async () => {
+      if (!currentPaper) return;
+      const p = currentPaper;
+      $("studyBtn").disabled = true;
+      $("studyStatus").textContent = "학습 팩 찾는 중…";
+      try {
+        const { pack, source } = await StudyUI.fetchStudyPack(p, { endpoint: STUDY_ENDPOINT, onStatus: (m) => ($("studyStatus").textContent = m) });
+        if (currentPaper !== p) return;
+        $("studyStatus").textContent = "";
+        $("studyBtn").hidden = true;
+        StudyUI.renderStudy($("study"), pack, { source });
+        dlog(`학습 팩 ${source}: ${p.title.slice(0, 30)}`);
+      } catch (err) {
+        $("studyStatus").textContent = `학습 팩을 만들 수 없음: ${err.message}`;
+        $("studyBtn").disabled = false;
+        dlog(`학습 팩 실패: ${err.message}`);
+      }
+    });
+
+    // 손으로 HTML 버튼 누르기: 핀치했는데 3D 대상이 없으면 커서 위치의 버튼/링크를 클릭
     const hc = () => scene.components["hand-cursor"];
+    const cursorClient = () => { const c = hc(); if (!c?.lastRaw) return null; return [c.lastRaw[0] * innerWidth, c.lastRaw[1] * innerHeight]; };
+    const clickable = (el) => el?.closest?.("button, a, summary, [data-go], [data-reveal]");
+    scene.addEventListener("pinch-empty", () => {
+      if (hc()?.mode !== "hand") return;
+      const pt = cursorClient(); if (!pt) return;
+      const el = clickable(document.elementFromPoint(pt[0], pt[1]));
+      if (el && !el.disabled) { el.click(); dlog(`버튼: ${el.textContent.trim().slice(0, 20)}`); }
+    });
+    // 손 커서가 버튼 위에 있으면 금색 테두리
+    let lastHover = null;
+    setInterval(() => {
+      if (hc()?.mode !== "hand") { if (lastHover) { lastHover.classList.remove("hand-hover"); lastHover = null; } return; }
+      const pt = cursorClient(); const el = pt ? clickable(document.elementFromPoint(pt[0], pt[1])) : null;
+      if (el !== lastHover) { lastHover?.classList.remove("hand-hover"); el?.classList.add("hand-hover"); lastHover = el; }
+    }, 80);
+
     scene.addEventListener("hand-cursor-debug", (e) => {
       const d = e.detail, c = hc();
       $("dRatio").textContent = d.mode === "hand" ? d.ratio.toFixed(2) : "(마우스)";
@@ -161,7 +250,6 @@
       } catch (err) {
         starting = false;
         $("status").textContent = `실패(${err.name}) → 마우스로 계속`;
-        // 원인 파악용: 메시지와 스택 첫 줄을 진단 로그에 그대로 남김
         $("diag").open = true;
         dlog(`카메라 실패: ${err.name}: ${err.message}`);
         if (err.stack) dlog(err.stack.split("\n").slice(0, 3).join(" ⏎ "));
