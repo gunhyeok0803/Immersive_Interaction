@@ -6,6 +6,8 @@
  *   .target 투명 히트 박스 (얇은 책도 잡히게 최소 폭)
  * 선반: 연도 순으로 왼쪽→오른쪽. 연도 바뀌면 황동 구분판 + 라벨. 한 줄에 안 들어가면 아래 선반 추가.
  * 열기: 원본은 제자리에 흐리게, 복제가 손을 따라 나오며 표지가 보이게 돌아간다. 닫으면 복제가 돌아가 사라진다.
+ * 2026-09-24 연속 당기기: 집은 뒤 커서가 움직인 거리(pullSpan 기준 0~1)만큼 책이 빠져나오고, 100%에서 놓으면 펼침,
+ *   덜 당기고 놓으면 서가로 되돌아감. 당긴 정도는 hand-cursor.pullProgress로 넘겨 커서 원호에 표시.
  */
 
 const SPINE_PALETTE = [
@@ -157,7 +159,8 @@ async function ensureFonts() {
 }
 
 // 책 한 권의 메시 만들기 (원본·복제 공용). 반환: {book, glow, hit}
-function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth, hitW) {
+// flatHit: 서가의 원본은 히트 영역을 책등 앞면의 얇은 판으로 (아래 설명). 복제는 돌아가서 표지를 보이므로 상자 유지
+function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth, hitW, flatHit = false) {
   const book = document.createElement("a-entity");
   book.classList.add("book");
   const geo = new THREE.BoxGeometry(thick, height, depth);
@@ -176,13 +179,18 @@ function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth, hitW)
   glow.setAttribute("height", (height * (SPINE_H + 48) / SPINE_H).toFixed(3));
   glow.setAttribute("material", "shader: flat; opacity: 0; transparent: true; depthWrite: false");
   glow.setAttribute("position", `0 0 ${(depth / 2 + 0.002).toFixed(3)}`);
-  glow.addEventListener("loaded", () => { const m = glow.getObject3D("mesh"); m.material.map = glowTexture(); m.material.needsUpdate = true; }, { once: true });
+  // 복제가 로드 전에 지워지면(짧게 당겼다 놓음) 메시가 없으므로 건너뜀
+  glow.addEventListener("loaded", () => { const m = glow.getObject3D("mesh"); if (!m) return; m.material.map = glowTexture(); m.material.needsUpdate = true; }, { once: true });
   parent.appendChild(glow);
 
-  // 히트 박스는 이웃과 겹치지 않고 빈틈도 없게 (두께 + 간격). 겹치면 비스듬한 레이가 옆 책에 먼저 맞음
+  // 히트 영역은 이웃과 겹치지 않고 빈틈도 없게 (두께 + 간격).
+  // 서가 원본은 책등 앞면에 붙은 얇은 판: 3D 상자면 화면 가장자리에서 비스듬한 레이가 옆 책 상자의 옆면에 먼저 맞아
+  // "가리킨 책 옆의 책"이 선택됐다(사용자 보고). 같은 평면 위의 판들은 화면에서도 겹치지 않는다.
   const hit = document.createElement("a-box");
   hit.classList.add("target");
-  hit.setAttribute("width", (hitW || thick).toFixed(3)); hit.setAttribute("height", (height * 1.05).toFixed(3)); hit.setAttribute("depth", (depth + 0.02).toFixed(3));
+  hit.setAttribute("width", (hitW || thick).toFixed(3)); hit.setAttribute("height", (height * 1.05).toFixed(3));
+  if (flatHit) { hit.setAttribute("depth", "0.004"); hit.setAttribute("position", `0 0 ${(depth / 2 + 0.004).toFixed(3)}`); }
+  else hit.setAttribute("depth", (depth + 0.02).toFixed(3));
   hit.setAttribute("material", "opacity: 0; transparent: true; depthWrite: false");
   parent.appendChild(hit);
   return { book, glow, hit };
@@ -303,8 +311,8 @@ AFRAME.registerComponent("paper-node", {
     hitW: { default: 0 },
     pullDist: { default: 1.4 },
     openDist: { default: 2.0 },
-    openThreshold: { default: 0.8 },
-    tapMs: { default: 400 },       // 이보다 짧은 핀치(탭)는 당기지 않아도 펼침
+    pullSpan: { default: 0.22 },   // 집은 지점에서 커서가 이만큼(화면 높이 비율) 멀어지면 당김 100% → 놓으면 펼침
+    tapMs: { default: 400 },       // 이보다 짧고 거의 안 움직인 핀치(탭)는 당기지 않아도 펼침
     lerp: { default: 0.18 },
     hoverPull: { default: 0.06 },  // 호버 시 책이 앞으로 나오는 거리
     dimOpacity: { default: 0.35 },
@@ -322,7 +330,8 @@ AFRAME.registerComponent("paper-node", {
     this.glowT = 0; this.pulse = 0; this.ghost = null;
     this.spineCanvas = drawSpine(p); this.coverCanvas = drawCover(p);
 
-    const v = buildBook(el, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth, d.hitW);
+    const v = buildBook(el, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth, d.hitW, true);
+    this.hoverZ = 0; this.glowZ0 = d.depth / 2 + 0.002;
     this.book = v.book; this.glow = v.glow; this.hit = v.hit;
     this.hit.paperEl = el;
 
@@ -332,16 +341,45 @@ AFRAME.registerComponent("paper-node", {
     el.sceneEl.addEventListener("paper-close-others", (e) => {
       if (e.detail.except !== el && (this.state === "open" || this.state === "grabbed")) this.close();
     });
-    this.w1 = new THREE.Vector3(); this.w2 = new THREE.Vector3();
-    el.sceneEl.addEventListener("pinchend-any", () => {
+    // 주먹 3초 / Esc: 열려 있거나 집고 있는 책을 모두 꽂는다
+    el.sceneEl.addEventListener("close-all", () => {
+      if (this.state === "open" || this.state === "grabbed") this.close();
+    });
+    this.slide = new THREE.Vector3(); this.hand = new THREE.Vector3();
+    el.sceneEl.addEventListener("pinchend-any", (e) => {
       if (this.state !== "grabbed" || !this.ghost) return;
-      // 월드 거리로 판단 (부모 서가가 확대되어 있을 수 있음). 짧게 톡 집은 것(탭)도 "펼치기" 의도로 인정
-      this.ghost.object3D.getWorldPosition(this.w1); el.object3D.getWorldPosition(this.w2);
-      const pulled = this.w1.distanceTo(this.w2) > d.openThreshold;
-      const tapped = performance.now() - (this.grabAt || 0) < d.tapMs;
-      if (pulled || tapped) { this.state = "open"; el.emit("paper-open", { paper: p }, true); }
+      this.hc().pullProgress = null;
+      if (e.detail?.cancel) { this.close(); return; } // 주먹으로 바뀌며 끊긴 핀치는 펼치지 않음
+      // 끝까지 당겼으면 펼침. 짧게 톡 집은 것(탭)도 "펼치기" 의도로 인정. 그 외에는 서가로 되돌아감
+      const pulled = this.pullRaw >= 1;
+      const tapped = performance.now() - (this.grabAt || 0) < d.tapMs && this.pullRaw < 0.3;
+      if (pulled || tapped) { this.state = "open"; this.setLock(true); el.emit("paper-open", { paper: p, via: pulled ? "pull" : "tap" }, true); }
       else this.close();
     });
+  },
+
+  // 앞 레이어 잠금: 책이 펼쳐져 있는 동안 레이는 펼친 책(맨 앞)에만 맞는다.
+  // 뒤 서가의 책은 호버·집기 대상에서 빠지므로, 패널을 조작하거나 손을 움직여도 뒤 책이 반응하지 않는다.
+  // 다른 책을 보려면 펼친 책을 다시 집어 꽂거나, 주먹 3초 / Esc로 모두 닫는다.
+  setLock(on) {
+    if (this.ghostHit) this.ghostHit.classList.toggle("front", on);
+    this.rayEl.setAttribute("raycaster", "objects", on ? ".target.front" : ".target");
+    // 목록을 바로 다시 읽음. 탭으로 곧장 펼치면 복제의 히트 박스가 아직 로드 전(메시 없음)이라 비어 버리므로, 메시가 생기면 한 번 더
+    const refresh = () => this.rayEl.components.raycaster?.refreshObjects();
+    refresh();
+    if (on && this.ghostHit && !this.ghostHit.getObject3D("mesh")) this.ghostHit.addEventListener("object3dset", refresh, { once: true });
+    // 대상 유지(sticky) 때문에 방금 집었던 서가의 원본이 잠시 대상으로 남아 있으므로 비운다
+    const hc = this.hc(); if (hc) { hc.target = null; hc.rayHit = null; }
+  },
+
+  hc() { return this.el.sceneEl.components["hand-cursor"]; },
+
+  // 집은 지점부터 커서가 움직인 거리 / pullSpan. 방향은 상관없음 (아래로 당기든 옆으로 빼든)
+  measurePull() {
+    const hc = this.hc(), n = hc?.norm, g = this.grabNorm;
+    if (!n || !g) return 0;
+    const aspect = this.camEl.getObject3D("camera").aspect;
+    return Math.hypot((n[0] - g[0]) * aspect, n[1] - g[1]) / this.data.pullSpan;
   },
 
   onPinch() {
@@ -352,6 +390,8 @@ AFRAME.registerComponent("paper-node", {
       this.spawnGhost();
       this.state = "grabbed";
       this.grabAt = performance.now();
+      this.grabNorm = this.hc()?.norm ? [...this.hc().norm] : null;
+      this.pull = 0; this.pullRaw = 0; this.ready = false;
       this.el.emit("paper-grab", { paper: this.el.paper }, true);
     } else if (this.state === "open") this.close();
   },
@@ -361,20 +401,22 @@ AFRAME.registerComponent("paper-node", {
     const d = this.data;
     const ghost = document.createElement("a-entity");
     ghost.object3D.position.copy(this.el.object3D.position);
-    ghost.object3D.position.z += 0.02;
+    ghost.object3D.position.z += 0.02 + this.hoverZ; // 호버로 나와 있던 자리에서 시작
     this.el.parentNode.appendChild(ghost);
     const v = buildBook(ghost, this.spineCanvas, this.coverCanvas, d.thick, d.height, d.depth, Math.max(d.hitW, d.thick * 1.5));
     v.hit.paperEl = this.el;
     v.hit.addEventListener("pinchstart", () => this.onPinch());
-    this.ghost = ghost; this.ghostGlow = v.glow; this.ghostBook = v.book;
+    this.ghost = ghost; this.ghostGlow = v.glow; this.ghostBook = v.book; this.ghostHit = v.hit;
     this.setBookOpacity(d.dimOpacity);
   },
 
   removeGhost() {
     if (!this.ghost) return;
     this.ghost.parentNode.removeChild(this.ghost);
-    this.ghost = null; this.ghostGlow = null; this.ghostBook = null;
+    this.ghost = null; this.ghostGlow = null; this.ghostBook = null; this.ghostHit = null;
     this.setBookOpacity(1);
+    // 지운 복제의 히트 박스가 레이 목록에 남으면 보이지 않는 책이 집힘 → 목록을 다시 읽음
+    this.rayEl.components.raycaster?.refreshObjects();
   },
 
   setBookOpacity(o) {
@@ -390,6 +432,8 @@ AFRAME.registerComponent("paper-node", {
 
   close() {
     if (this.state === "idle") return;
+    if (this.state === "grabbed") { const hc = this.hc(); if (hc) hc.pullProgress = null; }
+    if (this.state === "open") this.setLock(false);
     this.state = "returning";
     this.el.emit("paper-close", { paper: this.el.paper }, true);
   },
@@ -400,9 +444,12 @@ AFRAME.registerComponent("paper-node", {
     if (this.hovered && !nearest) this.setHover(false);
     else if (!this.hovered && nearest) this.setHover(true);
 
-    // 원본: 제자리, 호버 시 앞으로 살짝 뽑힘
-    this.goal.copy(this.home); if (this.hovered && this.state === "idle") this.goal.z += d.hoverPull;
-    el.object3D.position.lerp(this.goal, 0.25);
+    // 원본: 제자리, 호버 시 앞으로 살짝 뽑힘. 책 메시와 발광만 움직이고 히트 판은 제자리에 둔다
+    // (히트 판까지 나오면 가까워진 만큼 화면에서 커져 옆 책의 영역을 덮는다)
+    const wantZ = this.hovered && this.state === "idle" ? d.hoverPull : 0;
+    this.hoverZ += (wantZ - this.hoverZ) * 0.25;
+    this.book.object3D.position.z = this.hoverZ;
+    this.glow.object3D.position.z = this.glowZ0 + this.hoverZ;
 
     // 복제: 손으로 오면서 표지가 보이게 회전 (y축 -90°: +x 면이 카메라를 향함)
     if (this.ghost) {
@@ -411,11 +458,26 @@ AFRAME.registerComponent("paper-node", {
       const parent = this.ghost.parentNode.object3D; // 서가(확대됨). 목표는 월드로 계산해 부모 로컬로 변환
       const ps = parent.scale.x || 1;
       if (this.state === "grabbed") {
+        // 연속 당기기: 당긴 정도(pull 0→1)에 따라 두 단계로 움직임
+        //  0 ~ 0.4 : 책이 선반에서 앞으로 미끄러져 나옴 (책등이 보이는 채로)
+        //  0.3 ~ 1 : 손 쪽으로 딸려 오며 90° 돌아 표지가 보임
+        this.pullRaw = this.measurePull();
+        this.pull += (Math.min(this.pullRaw, 1.15) - this.pull) * 0.35;
+        const hc = this.hc(); if (hc) hc.pullProgress = this.pullRaw;
+        if (!this.ready && this.pullRaw >= 1) { this.ready = true; this.pulse = 1; el.emit("paper-pull-ready", { paper: el.paper }, true); }
+        else if (this.ready && this.pullRaw < 0.9) this.ready = false;
+
+        const k = Math.min(this.pull, 1);
+        const out = THREE.MathUtils.smoothstep(k, 0, 0.4), toHand = THREE.MathUtils.smoothstep(k, 0.3, 1);
+        this.slide.copy(this.home); this.slide.z += 0.02 + d.hoverPull + d.depth * 1.1 * out;
         this.camEl.object3D.getWorldPosition(this.camPos);
         this.cursorEl.object3D.getWorldPosition(this.cur);
-        this.goal.copy(this.cur).sub(this.camPos).normalize().multiplyScalar(d.pullDist).add(this.camPos);
-        parent.worldToLocal(this.goal);
-        gpos.lerp(this.goal, d.lerp); targetRotY = -Math.PI / 2; targetScale = 1.1 / ps;
+        this.hand.copy(this.cur).sub(this.camPos).normalize().multiplyScalar(d.pullDist).add(this.camPos);
+        parent.worldToLocal(this.hand);
+        this.goal.copy(this.slide).lerp(this.hand, toHand);
+        gpos.lerp(this.goal, 0.3);
+        targetRotY = -Math.PI / 2 * THREE.MathUtils.smoothstep(k, 0.45, 1);
+        targetScale = 1 + (1.1 / ps - 1) * toHand;
       } else if (this.state === "open") {
         this.camEl.object3D.getWorldPosition(this.camPos);
         this.camEl.object3D.getWorldDirection(this.camDir);
@@ -434,7 +496,9 @@ AFRAME.registerComponent("paper-node", {
         const s = this.ghost.object3D.scale.x + (targetScale - this.ghost.object3D.scale.x) * 0.2;
         this.ghost.object3D.scale.setScalar(s);
         const gm = this.ghostGlow.getObject3D("mesh")?.material;
-        if (gm) gm.opacity = this.state === "returning" ? 0.15 : 0.35 + 0.5 * this.pulse;
+        // 당길수록 테두리가 밝아지고, 100%를 넘는 순간 펄스
+        const base = this.state === "grabbed" ? 0.15 + 0.45 * Math.min(this.pull, 1) : 0.35;
+        if (gm) gm.opacity = this.state === "returning" ? 0.15 : base + 0.5 * this.pulse;
       }
     }
 

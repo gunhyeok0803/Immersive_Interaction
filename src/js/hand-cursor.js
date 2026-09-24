@@ -6,9 +6,11 @@
  *  - One Euro 필터 (가만히 있으면 떨림 제거, 빨리 움직이면 지연 없음)
  *  - 대상 유지(sticky): 레이가 대상을 벗어나도 graceMs 동안은 같은 대상으로 핀치 인정
  *  - 커서 링이 핀치 강도에 따라 줄어들고, 호버·핀치 시 색이 바뀜 (Meta: 커서+호버 상태 항상 표시)
+ * 2026-09-24 v3: 커서 바깥 원호(#cursor-arc)가 핀치 강도 → (책을 집으면) 당긴 정도를 연속으로 보여 줌
+ *   주먹을 fistMs 동안 쥐면 scene에 close-all (원호가 붉게 차오름). 키보드 Esc도 같은 이벤트
  *
  * 필요한 엔티티: #camera(커서 #cursor는 자식), #cursor 안에 #cursor-ring, #ray(raycaster useWorldCoordinates)
- * 이벤트: 대상에 pinchstart/pinchend, scene에 pinch-empty / pinchend-any / hand-cursor-mode / hand-cursor-debug
+ * 이벤트: 대상에 pinchstart/pinchend, scene에 pinch-empty / pinchend-any({cancel}) / close-all / hand-cursor-mode / hand-cursor-debug
  */
 
 // One Euro 필터 (Casiez et al. 2012). 값 하나용.
@@ -33,6 +35,9 @@ class OneEuro {
   reset() { this.x = null; this.dx = 0; this.t = null; }
 }
 
+const GOLD_ARC = "#d4a24c"; // 촛불 금 (디자인 C 토큰)
+const FIST_ARC = "#c46a52"; // 옥스블러드를 밝힌 색: "닫기"는 금색과 구분
+
 AFRAME.registerComponent("hand-cursor", {
   schema: {
     pointer: { default: "pinch" },  // 'pinch' = 엄지·검지 중간점 | 'tip' = 검지 끝
@@ -40,6 +45,9 @@ AFRAME.registerComponent("hand-cursor", {
     beta: { default: 0.6 },         // One Euro: 클수록 빠른 움직임에서 지연이 줄어듦
     pinchStart: { default: 0.28 },  // 핀치 시작 비율 (엄지-검지 거리 / 손 폭)
     pinchEnd: { default: 0.45 },    // 핀치 종료 비율. 시작보다 크게 (히스테리시스)
+    arcFrom: { default: 0.7 },      // 핀치 원호가 차오르기 시작하는 비율. 이 값에서 0%, pinchStart에서 100%(= 집힘)
+    fistMs: { default: 3000 },      // 주먹을 이 시간 동안 유지하면 열린 책을 모두 닫음
+    fistGraceMs: { default: 200 },  // 주먹 인식이 한두 프레임 끊겨도 타이머를 유지하는 시간
     ratioSmooth: { default: 0.5 },  // 핀치 비율 EMA 계수 (1 = 필터 없음)
     graceMs: { default: 300 },      // 대상 유지 시간
     dist: { default: 1.5 },         // 커서를 놓을 카메라 앞 거리
@@ -59,6 +67,16 @@ AFRAME.registerComponent("hand-cursor", {
     this.camEl = document.getElementById("camera");
     this.cursorEl = document.getElementById("cursor");
     this.ringEl = document.getElementById("cursor-ring");
+    this.arcEl = document.getElementById("cursor-arc");
+    this.domEl = document.getElementById("cursor-dom"); // 패널 위에서 대신 보이는 HTML 커서
+    this.overUi = false;
+    this.pullProgress = null; // 책을 집고 있는 동안 paper-node가 0~1(이상)로 채움. null이면 핀치 강도 표시
+    this.fistSince = null; this.fistSeenAt = 0; this.fistFired = false;
+    this.fistProgress = null; // 주먹 유지 중 0~1
+    this.needOpen = false;    // 주먹 뒤에는 손을 한 번 펴야 다시 핀치 가능 (주먹을 풀며 엄지·검지가 스치는 오작동 방지)
+
+    // 키보드 폴백: Esc = 모두 닫기 (주먹과 같은 이벤트)
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") this.el.emit("close-all", { via: "key" }); });
     this.rayEl = document.getElementById("ray");
     this.origin = new THREE.Vector3();
     this.dir = new THREE.Vector3();
@@ -67,8 +85,10 @@ AFRAME.registerComponent("hand-cursor", {
     // 주의: raycaster 이벤트는 "새로 들어온" 대상이 있을 때만 발생한다. 겹친 카드에서 앞 카드가 빠지고
     // 이미 맞고 있던 뒤 카드가 첫 번째가 되는 경우엔 이벤트가 없다. 그래서 매 프레임 intersectedEls[0]을 직접 읽는다.
     this.readRay = () => {
-      const els = this.rayEl.components.raycaster?.intersectedEls ?? [];
-      const first = els[0] ?? null;
+      const rc = this.rayEl.components.raycaster;
+      const els = rc?.intersectedEls ?? [];
+      // 대상 목록(objects)이 바뀐 직후 한 프레임은 이전 교차 결과가 남아 있으므로 현재 선택자에 맞는 것만 받는다
+      const first = els.find((e) => e.matches(rc.data.objects)) ?? null;
       if (first) { this.rayHit = first; this.target = first; this.targetLostAt = 0; }
       else if (this.rayHit) { this.rayHit = null; this.targetLostAt = performance.now(); }
     };
@@ -91,6 +111,7 @@ AFRAME.registerComponent("hand-cursor", {
     // 마우스는 이미 정확하므로 필터를 거치지 않음 (필터는 손 떨림용)
     const ax = this.mode === "mouse" ? x : this.fx.filter(x, t);
     const ay = this.mode === "mouse" ? y : this.fy.filter(y, t);
+    this.norm = [ax, ay]; // 필터 후 화면 좌표. paper-node가 당긴 거리를 잴 때 씀
     const cam = this.camEl.getObject3D("camera");
     const d = this.data.dist;
     const hh = d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);
@@ -98,14 +119,16 @@ AFRAME.registerComponent("hand-cursor", {
     this.cursorEl.object3D.position.set((ax * 2 - 1) * hw, (1 - ay * 2) * hh, -d);
   },
 
-  setPinch(on) {
+  // cancel = 주먹 등으로 핀치가 끊긴 경우. 집고 있던 책은 펼치지 않고 되돌린다
+  setPinch(on, cancel = false) {
     if (on === this.pinching) return;
     this.pinching = on;
     if (on) {
-      if (this.target) { this.grabbed = this.target; this.target.emit("pinchstart", { ratio: this.ratio }); }
+      // 커서가 패널 등 HTML 위에 있으면 뒤에 가려진 3D 책이 아니라 HTML을 누른 것으로 본다
+      if (this.target && !this.overUi) { this.grabbed = this.target; this.target.emit("pinchstart", { ratio: this.ratio }); }
       else { this.grabbed = null; this.el.emit("pinch-empty", { ratio: this.ratio }); }
     } else {
-      this.el.emit("pinchend-any");
+      this.el.emit("pinchend-any", { cancel });
       if (this.grabbed) this.grabbed.emit("pinchend");
       this.grabbed = null;
     }
@@ -130,8 +153,60 @@ AFRAME.registerComponent("hand-cursor", {
     const handSize = Math.hypot(wrist.x - midMcp.x, wrist.y - midMcp.y) || 1e-6;
     const raw = Math.hypot(tip.x - thumb.x, tip.y - thumb.y) / handSize;
     this.ratio = this.data.ratioSmooth * raw + (1 - this.data.ratioSmooth) * this.ratio;
-    if (!this.pinching && this.ratio < this.data.pinchStart) this.setPinch(true);
+
+    // 주먹 = 네 손가락 끝이 모두 PIP 관절보다 손목에 가까움 (말려 있음)
+    // 핀치와 구분하는 핵심은 검지: 핀치에서는 검지가 펴져 있고, 주먹에서는 말려 있다
+    const d2 = (a) => Math.hypot(a.x - wrist.x, a.y - wrist.y);
+    const curled = (tip, pip) => d2(lm[tip]) < d2(lm[pip]);
+    const indexCurled = curled(8, 6);
+    const fist = indexCurled && curled(12, 10) && curled(16, 14) && curled(20, 18);
+    this.updateFist(fist, ts);
+
+    if (this.needOpen && this.ratio > this.data.pinchEnd) this.needOpen = false;
+    const canPinch = !indexCurled && !this.needOpen && this.fistSince === null;
+    if (!this.pinching && canPinch && this.ratio < this.data.pinchStart) this.setPinch(true);
     else if (this.pinching && this.ratio > this.data.pinchEnd) this.setPinch(false);
+  },
+
+  updateFist(fist, ts) {
+    const { fistMs, fistGraceMs } = this.data;
+    if (fist) {
+      this.fistSeenAt = ts;
+      this.needOpen = true;
+      if (this.pinching) this.setPinch(false, true); // 핀치 중 주먹으로 바뀌면 집기 취소
+      if (this.fistSince === null) this.fistSince = ts;
+    } else if (this.fistSince !== null && ts - this.fistSeenAt > fistGraceMs) {
+      this.fistSince = null; this.fistFired = false;
+    }
+    this.fistProgress = this.fistSince === null ? null : (ts - this.fistSince) / fistMs;
+    if (this.fistProgress !== null && this.fistProgress >= 1 && !this.fistFired) {
+      this.fistFired = true; // 주먹을 풀 때까지 한 번만
+      this.el.emit("close-all", { via: "fist" });
+    }
+  },
+
+  // 3D 커서는 캔버스에 그려지므로 HTML 패널(.ui) 아래로 가려진다. 손 모드에서 커서가 .ui 위에 있으면
+  // 같은 모양의 HTML 커서를 맨 위에 그리고 3D 커서는 숨긴다. (마우스 모드는 OS 포인터가 보이므로 불필요)
+  updateDomCursor() {
+    if (!this.domEl) return;
+    let over = false;
+    if (this.mode === "hand" && this.norm) {
+      const cx = this.norm[0] * innerWidth, cy = this.norm[1] * innerHeight;
+      over = !!document.elementFromPoint(cx, cy)?.closest(".ui"); // #cursor-dom은 pointer-events: none이라 걸리지 않음
+      if (over) {
+        const st = this.domEl.style;
+        st.transform = `translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px)`;
+        st.setProperty("--p", this._arcQ ?? 0);
+        st.setProperty("--arc", this._arcColor ?? GOLD_ARC);
+        st.setProperty("--rc", this._ringColor ?? "#e9dcc2");
+        st.setProperty("--s", this.ringEl?.object3D.scale.x ?? 1);
+      }
+    }
+    if (over !== this.overUi) {
+      this.overUi = over;
+      this.domEl.style.display = over ? "block" : "none";
+      this.cursorEl.object3D.visible = !over;
+    }
   },
 
   debugState() {
@@ -173,6 +248,30 @@ AFRAME.registerComponent("hand-cursor", {
       const color = this.pinching ? "#f0c060" : this.target ? "#d4a24c" : "#e9dcc2";
       if (this._ringColor !== color) { this._ringColor = color; this.ringEl.setAttribute("color", color); }
     }
+    // 원호 하나로 "다음 단계까지 얼마나 남았나"를 보여 줌
+    //  - 핀치 전: 엄지·검지가 가까워질수록 차오름. 가득 차면 집힘
+    //  - 책을 집은 뒤: 당긴 거리만큼 차오름. 가득 차면 놓았을 때 펼쳐짐
+    if (this.arcEl) {
+      let v = 0, color = GOLD_ARC;
+      if (this.fistProgress != null && this.mode === "hand") {
+        v = this.fistProgress;
+        color = this.fistFired ? "#f0d8cf" : FIST_ARC;
+      } else if (this.pullProgress != null) {
+        v = this.pullProgress;
+        color = v >= 1 ? "#fff0c8" : "#f0c060";
+      } else if (this.mode === "hand" && !this.pinching) {
+        const { arcFrom, pinchStart } = this.data;
+        v = (arcFrom - this.ratio) / (arcFrom - pinchStart);
+      }
+      const q = Math.round(THREE.MathUtils.clamp(v, 0, 1) * 60) / 60; // 60단계로 끊어 지오메트리 재생성을 줄임
+      if (q !== this._arcQ) {
+        this._arcQ = q;
+        this.arcEl.object3D.visible = q > 0;
+        if (q > 0) this.arcEl.setAttribute("theta-length", q * 360);
+      }
+      if (this._arcColor !== color) { this._arcColor = color; this.arcEl.setAttribute("color", color); }
+    }
+    this.updateDomCursor();
     if ((t | 0) % 6 === 0) this.el.emit("hand-cursor-debug", this.debugState());
   },
 });

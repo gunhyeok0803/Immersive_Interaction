@@ -76,6 +76,16 @@
     .check .a { background: #e7dbc2; padding: 8px 10px; margin-top: 6px; }
     .check .back { font-family: system-ui, sans-serif; font-size: 11.5px; color: #6b5d4b; margin-top: 4px; }
     .smeta { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin-top: 10px; }
+
+    /* 손 커서의 HTML 복제: 3D 커서는 캔버스에 그려져 패널(HTML) 아래로 가려지므로, 패널 위에서는 이것을 그린다.
+       밝은 양피지와 어두운 배경 모두에서 보이도록 링에 어두운 외곽선을 둔다. 원호는 3D 원호와 같은 값(--p, --arc) */
+    #cursor-dom { position: fixed; left: 0; top: 0; width: 40px; height: 40px; margin: -20px 0 0 -20px; z-index: 50; pointer-events: none; display: none; }
+    #cursor-dom .arc { position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(var(--arc, #d4a24c) calc(var(--p, 0) * 1turn), transparent 0);
+      -webkit-mask: radial-gradient(circle, transparent 15px, #000 16px); mask: radial-gradient(circle, transparent 15px, #000 16px); }
+    #cursor-dom .ring { position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%;
+      border: 2px solid var(--rc, #e9dcc2); box-shadow: 0 0 0 1.5px rgba(36,29,23,.85), inset 0 0 0 1px rgba(36,29,23,.6); transform: scale(var(--s, 1)); box-sizing: border-box; }
+    #cursor-dom .dot { position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 1.5px var(--paper); }
   </style>
 </head>
 <body>
@@ -85,7 +95,7 @@
     <div class="meta">입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span> · 학습 서버 <span id="studySrv">확인 중</span></div>
     <div id="hoverTitle"></div>
   </div>
-  <div id="hint" class="ui box">손을 들어 책등을 가리키고 엄지·검지를 붙이면 책이 펼쳐집니다 · 패널의 버튼도 같은 핀치로 누릅니다 · 책을 다시 집으면 꽂힙니다</div>
+  <div id="hint" class="ui box">손을 들어 책등을 가리키고 엄지·검지를 붙이면 책이 펼쳐집니다 · 패널의 버튼도 같은 핀치로 누릅니다 · 책을 다시 집거나 주먹을 3초 쥐면(Esc) 꽂힙니다</div>
   <button id="btn" class="ui">카메라 시작</button>
   <video id="cam" class="ui" autoplay playsinline muted></video>
 
@@ -96,6 +106,8 @@
     <div>대상: <span id="dTarget" style="color:var(--gold)">-</span></div>
     <div class="log" id="dLog"></div>
   </details>
+
+  <div id="cursor-dom" aria-hidden="true"><div class="arc"></div><div class="ring"></div><div class="dot"></div></div>
 
   <div id="preview" class="ui">
     <h2 id="pTitle"></h2>
@@ -110,7 +122,7 @@
     <div class="srcrow"><button id="studyBtn" class="btn primary">이 논문 공부하기 (학습 팩)</button></div>
     <div id="studyStatus"></div>
     <div id="study"></div>
-    <div class="close">책을 다시 집으면 서가로 돌아갑니다</div>
+    <div class="close">책을 다시 집거나 주먹을 3초 쥐면(Esc) 서가로 돌아갑니다</div>
   </div>
 
   <a-scene background="color: #17130f" renderer="antialias: true; colorManagement: true" vr-mode-ui="enabled: false"
@@ -119,6 +131,9 @@
     <a-entity id="camera" camera="fov: 70" position="0 1.5 0" look-controls="enabled: false" wasd-controls="enabled: false">
       <a-entity id="cursor" position="0 0 -1.5">
         <a-ring id="cursor-ring" radius-inner="0.024" radius-outer="0.034" color="#e9dcc2" material="shader: flat; opacity: 0.9; transparent: true"></a-ring>
+        <!-- 핀치 강도 / 당긴 정도 원호. 12시에서 시계 방향으로 차오름 (x 반전 = 시계 방향) -->
+        <a-ring id="cursor-arc" radius-inner="0.040" radius-outer="0.047" theta-start="90" theta-length="0" segments-theta="64" scale="-1 1 1"
+                visible="false" color="#d4a24c" material="shader: flat; opacity: 0.95; transparent: true"></a-ring>
         <a-sphere radius="0.005" color="#fff5dc" material="shader: flat"></a-sphere>
       </a-entity>
     </a-entity>
@@ -159,6 +174,8 @@
       dlog(`입력 → ${e.detail.mode}`);
     });
     scene.addEventListener("paper-grab", (e) => dlog(`뽑음: ${e.detail.paper.title.slice(0, 40)}`));
+    scene.addEventListener("paper-pull-ready", () => dlog("끝까지 당김 → 놓으면 펼침"));
+    scene.addEventListener("close-all", (e) => dlog(`모두 닫기 (${e.detail.via === "fist" ? "주먹" : "Esc"})`));
 
     let summaries = {};
     fetch("data/summaries.json").then((r) => r.json()).then((j) => (summaries = j)).catch(() => {});
@@ -166,7 +183,7 @@
     let currentPaper = null;
     scene.addEventListener("paper-open", (e) => {
       const p = e.detail.paper; currentPaper = p;
-      dlog(`펼침: ${p.title.slice(0, 40)}`);
+      dlog(`펼침(${e.detail.via === "pull" ? "당김" : "탭"}): ${p.title.slice(0, 40)}`);
       $("pTitle").textContent = p.title;
       $("pMeta").textContent = `${p.year ?? "-"} · ${p.venue || "-"} · 인용 ${p.cited}` + (p.is_oa ? " · 오픈액세스" : "");
       $("pDoi").href = p.url || "#";
@@ -204,7 +221,8 @@
 
     // 손으로 HTML 버튼 누르기: 핀치했는데 3D 대상이 없으면 커서 위치의 버튼/링크를 클릭
     const hc = () => scene.components["hand-cursor"];
-    const cursorClient = () => { const c = hc(); if (!c?.lastRaw) return null; return [c.lastRaw[0] * innerWidth, c.lastRaw[1] * innerHeight]; };
+    // 화면에 보이는 커서와 같은 좌표(필터 후)로 버튼을 찾는다. 필터 전 좌표를 쓰면 보이는 위치와 눌리는 위치가 어긋남
+    const cursorClient = () => { const c = hc(); if (!c?.norm) return null; return [c.norm[0] * innerWidth, c.norm[1] * innerHeight]; };
     const clickable = (el) => el?.closest?.("button, a, summary, [data-go], [data-reveal]");
     scene.addEventListener("pinch-empty", () => {
       if (hc()?.mode !== "hand") return;
