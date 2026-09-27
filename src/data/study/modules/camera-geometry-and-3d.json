@@ -1,0 +1,304 @@
+{
+  "model": "gpt-6-astra",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T10:31:06.550Z",
+  "id": "camera-geometry-and-3d",
+  "title": "카메라 좌표계부터 3D 공간 복원·렌더링까지",
+  "summary": "좌표 변환, 카메라 투영, 깊이 정보, 다중 시점 정합과 가시성을 공통 기초로 공부합니다. 이를 바탕으로 3D reconstruction, 스캔 시점 계획, Gaussian splatting과 시점 간 일관성으로 확장합니다. 초록이 없는 inpainting과 StreamSplat 논문은 제목에 나타난 기법을 기준으로 잠정 배치했습니다.",
+  "paper_ids": [
+    "W7207805119",
+    "W4413820694",
+    "W4391461004",
+    "W4385982751",
+    "W4367662842"
+  ],
+  "pack": {
+    "intro": "이 모듈은 여러 시점에서 얻은 정보를 3D 공간 표현으로 연결하고, 부족한 정보를 채우거나 협업 화면으로 전달하는 흐름을 공부합니다. 공통 기초를 익히면 3D 스캔의 관측 계획과 XR의 공간 정보 공유를 같은 관점에서 읽을 수 있습니다. Gaussian splatting 기반 inpainting과 StreamSplat은 초록이 없어 제목으로 드러난 주제만 연결하며, 구체적인 구현이나 성능은 판단하지 않습니다. 아래는 키워드와 도구에서 출발해 CS, 공학수학, 역학, 물리로 내려가는 공부 세트입니다.",
+    "roadmap": [
+      "키워드로 관측 획득 → 공간 표현 → 결손 보완 → 화면 제공의 흐름을 잡는다.",
+      "초록에 등장하는 기술·플랫폼과 보충 실습 도구를 구분한다.",
+      "CS에서 공간 정보 처리 과정과 관측·표시의 평가 기준을 배운다.",
+      "공학수학에서 좌표 변환, 투영, 다중 관측의 불확실성을 배운다.",
+      "역학에서 카메라 자세와 실행 가능한 관측 경로를 이해한다.",
+      "물리에서 영상 형성, 가림, 관측 조건이 만드는 정보 한계를 확인한다."
+    ],
+    "keywords": [
+      {
+        "term": "3D representation / reconstruction",
+        "definition_one_line": "관측한 실제 환경을 공간 구조로 나타내는 표현과 복원 과정이다.",
+        "appears_in": [
+          "W4391461004",
+          "W4385982751",
+          "W4367662842"
+        ]
+      },
+      {
+        "term": "Autonomous view planning",
+        "definition_one_line": "불완전한 3D 모델을 보완할 다음 관측 위치·방향이나 경로를 계획하는 문제다.",
+        "appears_in": [
+          "W4391461004"
+        ]
+      },
+      {
+        "term": "Missing data / scene inpainting",
+        "definition_one_line": "누락된 공간 정보를 추가 관측하거나 보완하는 문제이며, inpainting 논문의 세부 방식은 초록에는 없음.",
+        "appears_in": [
+          "W4391461004",
+          "W7207805119"
+        ]
+      },
+      {
+        "term": "Gaussian splatting / view consistency",
+        "definition_one_line": "공간 표현과 여러 시점에서의 일관성에 관한 제목상 주제이며, 사용한 표현·일관성 조건은 초록에는 없음.",
+        "appears_in": [
+          "W7207805119"
+        ]
+      },
+      {
+        "term": "Depth-based fusion",
+        "definition_one_line": "깊이 정보를 이용한 결합을 뜻하는 제목상 용어이며, 결합 대상·알고리즘은 초록에는 없음.",
+        "appears_in": [
+          "W4413820694"
+        ]
+      },
+      {
+        "term": "Hybrid client-server architecture",
+        "definition_one_line": "클라이언트와 서버를 함께 사용하는 제목상 구조이며, 역할 분담과 전송 방식은 초록에는 없음.",
+        "appears_in": [
+          "W4413820694"
+        ]
+      },
+      {
+        "term": "Context-sharing interface",
+        "definition_one_line": "2D video, 360° video, 3D reconstruction으로 작업 공간의 맥락을 원격 사용자에게 제공하는 인터페이스다.",
+        "appears_in": [
+          "W4385982751",
+          "W4367662842"
+        ]
+      },
+      {
+        "term": "Live environmental updates",
+        "definition_one_line": "환경의 변화를 공유 화면이나 작업 공간에 지속적으로 반영하는 기능이다.",
+        "appears_in": [
+          "W4385982751",
+          "W4367662842"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "name": "3D scanning",
+        "category": "method",
+        "what_for": "실제 대상의 공간 정보를 획득하는 기술 범주이며, 특정 스캐너 제품은 초록에는 없음.",
+        "used_in": [
+          "W4391461004"
+        ],
+        "evidence": "abstract",
+        "first_step": "상자 하나를 여러 방향에서 관측한다고 가정하고 각 시점에서 보이지 않는 면을 표시한다."
+      },
+      {
+        "name": "3D reconstruction",
+        "category": "method",
+        "what_for": "작업 공간의 공간 정보를 복원해 공유하는 기술 범주이며, 복원 라이브러리와 알고리즘은 초록에는 없음.",
+        "used_in": [
+          "W4385982751",
+          "W4367662842"
+        ],
+        "evidence": "abstract",
+        "first_step": "같은 작업 공간을 2D 영상과 3D 표현으로 제시할 때 전달 가능한 위치 관계를 비교한다."
+      },
+      {
+        "name": "Webized XR system",
+        "category": "platform",
+        "what_for": "서로 다른 현실 환경 사이에서 작업 공간의 맥락을 공유하는 연구 플랫폼이다.",
+        "used_in": [
+          "W4367662842"
+        ],
+        "evidence": "abstract",
+        "first_step": "초록의 세 인터페이스를 표로 정리하고 각각 전달하는 공간 정보를 적는다."
+      },
+      {
+        "name": "Camera calibration",
+        "category": "method",
+        "what_for": "영상 좌표와 공간 좌표의 관계를 이해하기 위한 보충 학습 방법이며, 해당 논문들의 실제 사용 여부는 초록에는 없음.",
+        "used_in": [
+          "W4391461004",
+          "W4385982751",
+          "W4367662842"
+        ],
+        "evidence": "inferred",
+        "first_step": "가상의 초점거리와 카메라 자세를 정하고 3D 점 하나가 영상의 어디에 투영되는지 계산한다."
+      }
+    ],
+    "layers": [
+      {
+        "level": "cs",
+        "title": "CS: 공간 정보를 획득하고 사용자에게 전달하기",
+        "cards": [
+          {
+            "title": "관측·공간 표현·표시의 역할 구분",
+            "body": "공간 정보 시스템은 관측을 받고, 공간 표현을 만들고, 사용자에게 결과를 보여준다. 관측은 특정 위치와 방향에서 얻은 입력이다. 공간 표현은 관측한 위치 관계를 저장하는 중간 결과다. 표시는 그 정보를 사용자가 이해할 화면으로 바꾸는 과정이다. 관측에서 빠진 부분은 공간 표현에도 결손으로 남을 수 있다. 이 흐름을 읽으려면 서로 다른 관측을 같은 좌표계로 연결하는 수학이 필요하다.",
+            "discipline": "cs",
+            "links_to_paper": "‘Autonomous view planning’ 초록의 부족한 데이터를 보완하는 관측 계획과 두 XR 논문 초록의 3D reconstruction 화면 제공을 연결한다. ‘StreamSplat’의 처리 구조와 ‘Reference-guided Gaussian splatting’의 보완 절차는 초록에는 없음.",
+            "linked_keywords": [
+              "3D representation / reconstruction",
+              "Missing data / scene inpainting",
+              "Context-sharing interface"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "관측, 공간 표현, 표시는 각각 어떤 역할을 하는가?",
+              "answer": "관측은 입력을 얻고, 공간 표현은 위치 관계를 저장하며, 표시는 그 정보를 사용자 화면으로 바꾼다.",
+              "if_wrong_go_to": "관측·공간 표현·표시의 역할 구분"
+            },
+            "next_resource": "다음 카드 ‘획득 품질과 사용 품질의 평가’로 이동한다."
+          },
+          {
+            "title": "획득 품질과 사용 품질의 평가",
+            "body": "공간 정보의 품질은 데이터를 얼마나 잘 얻었는지와 사용자가 얼마나 잘 활용하는지로 나누어 볼 수 있다. 획득 단계에서는 관측하지 못한 영역이 얼마나 줄었는지를 살펴볼 수 있다. 활용 단계에서는 과업 완료 시간과 사용자의 평가를 살펴볼 수 있다. 관측량이 늘어도 사용자가 필요한 위치 관계를 이해하기 어렵다면 협업은 개선되지 않을 수 있다. 반대로 보기 좋은 화면도 관측하지 않은 영역의 정확성을 보장하지 않는다. 따라서 비교할 때는 입력 조건과 과업 조건을 함께 확인해야 한다.",
+            "discipline": "cs",
+            "links_to_paper": "‘Autonomous view planning’ 초록의 불충분한 데이터 보완 목표와 ‘A User Study’ 초록의 과업 시간·주관적 평가를 연결한다. 후자는 30명이 참여한 비교에서 3D 조건의 빠른 수행과 좋은 협업 경험을 보고하지만, 이것이 모든 환경의 우위를 뜻하지는 않는다.",
+            "linked_keywords": [
+              "Autonomous view planning",
+              "Context-sharing interface",
+              "3D representation / reconstruction"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "새 관측을 추가해 누락 영역이 줄었다면 협업 과업 시간도 반드시 줄었다고 볼 수 있는가?",
+              "answer": "그럴 수 없다. 획득 품질과 사용 품질은 다른 평가 대상이므로 과업 시간과 사용자 평가를 별도로 확인해야 한다.",
+              "if_wrong_go_to": "획득 품질과 사용 품질의 평가"
+            },
+            "next_resource": "공학수학의 ‘좌표 변환과 카메라 투영’에서 관측들을 연결하는 방법을 공부한다."
+          }
+        ]
+      },
+      {
+        "level": "engineering_math",
+        "title": "공학수학: 시점과 공간 위치를 수식으로 연결하기",
+        "cards": [
+          {
+            "title": "좌표 변환과 카메라 투영",
+            "body": "같은 공간 점도 기준 좌표계에 따라 좌표값이 달라진다. 세계 좌표의 점 p_w를 카메라 좌표로 옮기는 식을 p_c = R p_w + t로 정하자. 여기서 R은 회전 행렬이고 t는 이 변환에 포함되는 이동 벡터다. 이 정의에서 t를 곧바로 카메라의 세계 좌표 위치로 해석하면 안 된다. 이상적인 pinhole 모델에서는 깊이 Z가 양수일 때 u = f_x X/Z + c_x로 가로 영상 좌표를 구한다. 따라서 같은 X라도 Z가 커지면 영상 좌표는 중심 c_x에 가까워진다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "‘Autonomous view planning’의 여러 관측 위치와 두 XR 논문의 3D 공간 정보 제공을 이해하는 공통 수학이다. 이 좌표 변환식과 pinhole 모델을 논문들이 실제 사용했는지는 초록에는 없음.",
+            "linked_keywords": [
+              "Autonomous view planning",
+              "3D representation / reconstruction",
+              "Context-sharing interface"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "X, f_x, c_x가 일정할 때 양의 깊이 Z가 커지면 u는 어떻게 변하는가?",
+              "answer": "X/Z의 크기가 줄어 u는 영상 중심 c_x에 가까워진다.",
+              "if_wrong_go_to": "좌표 변환과 카메라 투영"
+            },
+            "next_resource": "직접 연습: f_x=100, c_x=0, X=1에서 Z=2와 Z=4의 u를 계산한다."
+          },
+          {
+            "title": "관측 결합과 불확실성",
+            "body": "여러 관측을 결합하려면 먼저 같은 좌표계로 맞춰야 한다. 좌표를 맞춰도 측정 오차 때문에 같은 점의 추정 위치가 다를 수 있다. 가중 최소제곱은 관측과 예측의 차이를 제곱하고 가중해 합한 값을 줄인다. 독립적인 영평균 오차를 가정하면 분산이 작은 관측에 더 큰 가중치를 줄 수 있다. 하지만 잘못된 대응이나 공통된 편향은 관측 수만 늘려도 해결되지 않는다. 새 시점의 가치는 기존 정보의 반복보다 불확실한 영역을 얼마나 보완하는지로 생각할 수 있다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "‘Autonomous view planning’ 초록의 부족한 영역을 보완하는 최적 관측 목표에 연결한다. ‘StreamSplat’ 제목의 Depth-based Fusion에도 관련된 기초이지만, 가중 최소제곱이나 특정 오차 모델의 사용은 두 논문 모두 초록에는 없음.",
+            "linked_keywords": [
+              "Autonomous view planning",
+              "Depth-based fusion",
+              "Missing data / scene inpainting"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "모든 관측에 같은 방향의 편향이 있다면 관측 수를 늘리는 것만으로 정확한 위치를 얻을 수 있는가?",
+              "answer": "보장할 수 없다. 공통된 편향은 반복 관측만으로 제거되지 않기 때문이다.",
+              "if_wrong_go_to": "관측 결합과 불확실성"
+            },
+            "next_resource": "역학의 ‘강체 자세와 상대 위치’에서 좌표 변환이 나타내는 실제 움직임을 확인한다."
+          }
+        ]
+      },
+      {
+        "level": "mechanics",
+        "title": "역학: 카메라와 관측 장치의 움직임 이해하기",
+        "cards": [
+          {
+            "title": "강체 자세와 상대 위치",
+            "body": "카메라를 강체로 보면 위치와 방향을 구분해 표현할 수 있다. 3차원 강체의 자세는 위치의 세 자유도와 회전의 세 자유도를 가진다. 카메라가 제자리에서 회전하면 바라보는 방향은 바뀌지만 중심 위치는 유지된다. 카메라가 이동하면 대상까지의 상대 위치도 달라진다. 따라서 관측 시점은 위치만으로 정할 수 없고 방향도 필요하다. 공간 정보를 공유할 때도 어느 위치에서 어느 방향을 보는지 구분해야 한다.",
+            "discipline": "mechanics",
+            "links_to_paper": "‘Autonomous view planning’ 초록의 views와 paths를 강체 운동학으로 해석하는 기초다. 두 XR 논문의 공간 정보 공유에는 관찰자와 작업 공간의 상대 자세라는 간접 연결이 있으며, 구체적인 자세 추적 장치는 초록에는 없음.",
+            "linked_keywords": [
+              "Autonomous view planning",
+              "3D representation / reconstruction",
+              "Context-sharing interface"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "3차원 강체 자세의 여섯 자유도는 무엇으로 구성되는가?",
+              "answer": "위치의 세 자유도와 회전의 세 자유도로 구성된다.",
+              "if_wrong_go_to": "강체 자세와 상대 위치"
+            },
+            "next_resource": "직접 연습: 카메라를 제자리에서 돌리는 경우와 옆으로 옮기는 경우의 위치·방향 변화를 그린다."
+          },
+          {
+            "title": "정보를 얻는 시점과 실행 가능한 경로",
+            "body": "정보를 잘 얻는 관측 위치라도 장치가 도달할 수 있어야 한다. 경로는 시작 자세에서 목표 자세까지 이어지는 움직임이다. 실제 장치는 장애물과 충돌하지 않아야 하며 이동 범위에도 제한이 있다. 이동 시간과 가속도 제한도 관측 계획의 비용이 될 수 있다. 그래서 목표 시점의 정보 가치와 이동의 실행 가능성을 함께 살펴야 한다. 화면에서 가상 시점을 바꾸는 일과 실제 센서를 옮기는 일은 서로 다른 제약을 가진다.",
+            "discipline": "mechanics",
+            "links_to_paper": "‘Autonomous view planning’ 초록의 최적 scanning paths 또는 views와 실용화 과제에 연결한다. 충돌·가속도 제약의 구체적인 취급은 초록에는 없음. XR 논문의 화면 제공과 실제 정보 획득을 구분하는 데에는 간접 연결이다.",
+            "linked_keywords": [
+              "Autonomous view planning",
+              "Context-sharing interface",
+              "Missing data / scene inpainting"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "누락된 면을 잘 볼 수 있는 위치가 장애물 안에 있다면 그 위치를 실제 관측 목표로 바로 사용할 수 있는가?",
+              "answer": "사용할 수 없다. 장치가 충돌 없이 도달할 수 있는 대체 위치나 경로를 찾아야 한다.",
+              "if_wrong_go_to": "정보를 얻는 시점과 실행 가능한 경로"
+            },
+            "next_resource": "물리의 ‘빛의 경로와 가림’에서 위치를 바꾸면 새 정보가 생기는 이유를 공부한다."
+          }
+        ]
+      },
+      {
+        "level": "physics",
+        "title": "물리: 관측 가능한 정보의 한계 이해하기",
+        "cards": [
+          {
+            "title": "빛의 경로와 가림",
+            "body": "보통의 카메라는 장면에서 들어오는 빛을 기록한다. 균일한 매질에서 빛의 경로를 직선으로 근사하면 어떤 표면이 보이는지 판단할 수 있다. 불투명한 물체가 경로를 막으면 뒤쪽 표면은 그 시점에서 직접 보이지 않는다. 카메라의 위치를 바꾸면 가려졌던 표면으로 향하는 경로가 열릴 수 있다. 같은 위치에서 시야각만 넓혀도 가림이 모두 사라지는 것은 아니다. 따라서 넓은 영상과 완전한 공간 관측은 구분해야 한다.",
+            "discipline": "physics",
+            "links_to_paper": "‘Autonomous view planning’의 missing data를 이해하는 가능한 물리적 원리이며, 초록이 결손 원인을 가림으로 한정하지는 않는다. 두 XR 논문의 360° video와 3D reconstruction 비교에는 간접 연결되며, 각 인터페이스의 가림 처리 방식은 초록에는 없음.",
+            "linked_keywords": [
+              "Autonomous view planning",
+              "Missing data / scene inpainting",
+              "Context-sharing interface"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "같은 위치에서 360°로 주변을 본다고 불투명한 물체 뒤쪽까지 직접 관측할 수 있는가?",
+              "answer": "그럴 수 없다. 시야각을 넓혀도 물체가 막고 있는 빛의 경로는 열리지 않기 때문이다.",
+              "if_wrong_go_to": "빛의 경로와 가림"
+            },
+            "next_resource": "직접 연습: 상자 뒤에 작은 물체를 두었다고 가정하고, 물체가 보이기 시작할 관측 위치를 평면도로 그린다."
+          },
+          {
+            "title": "조명·반사와 관측 시간",
+            "body": "영상의 밝기는 물체의 모양뿐 아니라 조명과 표면 반사에도 영향을 받는다. 반짝이는 표면은 관측 방향에 따라 밝은 부분의 위치가 달라질 수 있다. 따라서 두 영상의 밝기 차이를 모두 기하 변화로 해석하면 안 된다. 영상 센서는 유한한 노출 시간 동안 빛을 모은다. 그동안 카메라나 대상이 움직이면 경계가 흐려질 수 있다. 여러 시점의 관측을 결합하거나 환경 변화를 공유할 때는 관측 방향과 촬영 시간도 함께 생각해야 한다.",
+            "discipline": "physics",
+            "links_to_paper": "‘Autonomous view planning’의 관측 획득과 두 XR 논문 초록의 실시간 환경 변화 반영을 이해하는 센서 물리의 간접 연결이다. ‘Reference-guided Gaussian splatting’ 제목의 realistic와 view-consistent에도 관련되지만, 반사·노출·시간 동기화 모델은 초록에는 없음.",
+            "linked_keywords": [
+              "Gaussian splatting / view consistency",
+              "Live environmental updates",
+              "3D representation / reconstruction"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "두 시점에서 표면의 밝은 부분 위치가 달라졌다면 물체가 움직였다고 단정할 수 있는가?",
+              "answer": "단정할 수 없다. 표면 반사로 인해 관측 방향에 따라 밝은 부분이 달라질 수 있기 때문이다.",
+              "if_wrong_go_to": "조명·반사와 관측 시간"
+            },
+            "next_resource": "논문 초록으로 돌아가 정보 획득, 공간 표현, 화면 제공에 해당하는 문장을 표시하고, 확인되지 않은 구현은 ‘초록에는 없음’으로 남긴다."
+          }
+        ]
+      }
+    ]
+  }
+}

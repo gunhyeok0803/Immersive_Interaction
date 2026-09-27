@@ -1,5 +1,5 @@
-// URL → 논문 목록 JSON 변환기 (D2 로컬 버전)
-// 사용: node tools/resolve.mjs <URL> [out.json]
+// [1단계] 연구실 페이지 URL → 논문 목록 JSON (src/data/papers.json)
+// 사용: node tools/fetch-papers.mjs <URL> [out.json]
 // 1) URL을 받아 같은 호스트의 publication/paper/research 링크를 1단계 따라감
 // 2) 모든 페이지에서 DOI를 정규식으로 추출
 // 3) OpenAlex works?filter=doi:… 로 메타데이터(연도·피인용·초록·OA) 일괄 조회
@@ -121,7 +121,7 @@ async function main() {
   const src = process.argv[2];
   const outPath = process.argv[3] ?? "src/data/papers.json";
   if (!src) {
-    console.error("usage: node tools/resolve.mjs <URL> [out.json]");
+    console.error("usage: node tools/fetch-papers.mjs <URL> [out.json]");
     process.exit(1);
   }
 

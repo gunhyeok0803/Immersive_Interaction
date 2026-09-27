@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
   <script src="js/hand-cursor.js"></script>
-  <script src="js/paper-field.js"></script>
-  <script src="js/study-ui.js"></script>
+  <script src="js/bookshelf.js"></script>
+  <script src="js/study-panel.js"></script>
   <style>
     :root { --bg:#17130f; --wood:#2b2016; --line:#4a3a2a; --cream:#efe6d3; --muted:#b9a98c; --gold:#d4a24c; --paper:#f1e8d6; --ink:#241d17; --rule:#cdbfa4; --oxblood:#7a3b2e; }
     body { margin: 0; font-family: 'Noto Serif KR', 'EB Garamond', Georgia, serif; color: var(--cream); background: var(--bg); }
@@ -76,6 +76,16 @@
     .check .a { background: #e7dbc2; padding: 8px 10px; margin-top: 6px; }
     .check .back { font-family: system-ui, sans-serif; font-size: 11.5px; color: #6b5d4b; margin-top: 4px; }
     .smeta { font-family: system-ui, sans-serif; font-size: 11px; color: #8a7a62; margin-top: 10px; }
+    .hintline { font-family: system-ui, sans-serif; font-size: 12px; color: #6b5d4b; margin: 4px 0 8px; }
+    .scard.focus { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+    /* 공통 모듈 연결 · 유사 논문 */
+    .mref { border: 1px solid var(--rule); background: #f6efdf; padding: 10px 12px; margin: 10px 0; }
+    .mref-title { font-family: 'EB Garamond', 'Noto Serif KR', serif; font-weight: 600; font-size: 14.5px; color: var(--oxblood); }
+    .mref p { margin: 6px 0; }
+    .mbar { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--rule); }
+    .mname { font-family: system-ui, sans-serif; font-size: 12px; color: #6b5d4b; }
+    .rel { border-bottom: 1px dashed var(--rule); padding: 8px 0; }
+    .rel details { border-top: 0; padding-top: 0; margin-top: 2px; }
 
     /* 손 커서의 HTML 복제: 3D 커서는 캔버스에 그려져 패널(HTML) 아래로 가려지므로, 패널 위에서는 이것을 그린다.
        밝은 양피지와 어두운 배경 모두에서 보이도록 링에 어두운 외곽선을 둔다. 원호는 3D 원호와 같은 값(--p, --arc) */
@@ -92,7 +102,7 @@
   <div id="top" class="ui box">
     <h1 id="projectTitle">손으로 펼치는 연구실 서가</h1>
     <div class="meta"><span id="author">불러오는 중…</span> · <span id="count"></span></div>
-    <div class="meta">입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span> · 학습 서버 <span id="studySrv">확인 중</span></div>
+    <div class="meta">입력: <span id="mode">마우스(폴백)</span> · FPS <span id="fps">-</span> · <span id="status">카메라 대기</span></div>
     <div id="hoverTitle"></div>
   </div>
   <div id="hint" class="ui box">손을 들어 책등을 가리키고 엄지·검지를 붙이면 책이 펼쳐집니다 · 패널의 버튼도 같은 핀치로 누릅니다 · 책을 다시 집거나 주먹을 3초 쥐면(Esc) 꽂힙니다</div>
@@ -139,7 +149,7 @@
     </a-entity>
     <a-entity id="ray" raycaster="objects: .target; useWorldCoordinates: true; far: 20; interval: 0"></a-entity>
 
-    <a-entity id="field" paper-field="src: data/papers.json; depth: -2.5; rows: 2"></a-entity>
+    <a-entity id="field" bookshelf="src: data/papers.json; depth: -2.5; rows: 2"></a-entity>
 
     <a-plane position="0 -0.2 -3" rotation="-90 0 0" width="20" height="14" color="#14100c"></a-plane>
     <a-entity light="type: ambient; color: #6b5a48; intensity: 0.9"></a-entity>
@@ -147,10 +157,6 @@
   </a-scene>
 
   <script>
-    // 학습 팩 서버. 로컬: node tools/study-server.mjs → http://localhost:8787/study
-    // 배포 후: Cloudflare Worker 주소로 교체. ?study=<url> 로도 지정 가능
-    const STUDY_ENDPOINT = new URLSearchParams(location.search).get("study") || "http://localhost:8787/study";
-
     const $ = (id) => document.getElementById(id);
     const scene = document.querySelector("a-scene");
     const dlog = (msg) => {
@@ -159,11 +165,9 @@
       while ($("dLog").children.length > 30) $("dLog").lastChild.remove();
     };
 
-    fetch(STUDY_ENDPOINT.replace(/\/study$/, "/health")).then((r) => r.json())
-      .then((j) => { $("studySrv").textContent = j.hasKey ? "연결됨" : "연결됨(키 없음)"; })
-      .catch(() => { $("studySrv").textContent = "없음(사전 생성본만)"; });
-
+    let paperById = {};
     scene.addEventListener("papers-loaded", (e) => {
+      paperById = Object.fromEntries((e.detail.papers || []).map((p) => [p.id, p]));
       $("author").textContent = e.detail.author?.name || "저자 미상";
       $("count").textContent = `논문 ${e.detail.count}편 · ${new URL(e.detail.source).host}`;
     });
@@ -177,9 +181,6 @@
     scene.addEventListener("paper-pull-ready", () => dlog("끝까지 당김 → 놓으면 펼침"));
     scene.addEventListener("close-all", (e) => dlog(`모두 닫기 (${e.detail.via === "fist" ? "주먹" : "Esc"})`));
 
-    let summaries = {};
-    fetch("data/summaries.json").then((r) => r.json()).then((j) => (summaries = j)).catch(() => {});
-
     let currentPaper = null;
     scene.addEventListener("paper-open", (e) => {
       const p = e.detail.paper; currentPaper = p;
@@ -189,9 +190,14 @@
       $("pDoi").href = p.url || "#";
       const oa = p.oa_url && p.oa_url !== p.url ? p.oa_url : "";
       $("pOa").hidden = !oa; if (oa) $("pOa").href = oa;
-      const s = summaries[p.id];
-      $("pSummary").textContent = s ? s.summary_ko : "(요약 없음)";
-      $("pSummaryNote").textContent = s ? (s.basis === "abstract" ? "초록 기반 사전 요약" : "초록이 없어 제목 기반으로 정리한 요약") : "";
+      // 요약 = 논문 학습 팩의 1차 개요 문단 (사전 생성본)
+      $("pSummary").textContent = "요약 불러오는 중…"; $("pSummaryNote").textContent = "";
+      StudyPanel.fetchPaperPack(p.id).then((rec) => {
+        if (currentPaper !== p) return;
+        $("pSummary").textContent = rec?.pack?.pass1_overview?.one_paragraph || "(학습 팩이 아직 없어 요약이 없습니다)";
+        $("pSummaryNote").textContent = rec ? `초록 기반 AI 요약 · ${rec.model}` : "";
+        $("studyBtn").disabled = !rec;
+      });
       $("pAbstract").textContent = p.abstract || "(OpenAlex에 초록 없음)";
       $("study").innerHTML = ""; $("studyStatus").textContent = ""; $("studyBtn").disabled = false; $("studyBtn").hidden = false;
       $("preview").style.display = "block";
@@ -206,14 +212,15 @@
       $("studyBtn").disabled = true;
       $("studyStatus").textContent = "학습 팩 찾는 중…";
       try {
-        const { pack, source } = await StudyUI.fetchStudyPack(p, { endpoint: STUDY_ENDPOINT, onStatus: (m) => ($("studyStatus").textContent = m) });
+        const rec = await StudyPanel.fetchPaperPack(p.id);
+        if (!rec) throw new Error("이 논문의 학습 팩이 아직 생성되지 않음");
         if (currentPaper !== p) return;
         $("studyStatus").textContent = "";
         $("studyBtn").hidden = true;
-        StudyUI.renderStudy($("study"), pack, { source });
-        dlog(`학습 팩 ${source}: ${p.title.slice(0, 30)}`);
+        await StudyPanel.renderStudy($("study"), rec, { paperTitle: (id) => paperById[id] ? `${paperById[id].title} (${paperById[id].year})` : id });
+        dlog(`학습 팩: ${p.title.slice(0, 30)}`);
       } catch (err) {
-        $("studyStatus").textContent = `학습 팩을 만들 수 없음: ${err.message}`;
+        $("studyStatus").textContent = `학습 팩을 열 수 없음: ${err.message}`;
         $("studyBtn").disabled = false;
         dlog(`학습 팩 실패: ${err.message}`);
       }

@@ -70,7 +70,7 @@ AFRAME.registerComponent("hand-cursor", {
     this.arcEl = document.getElementById("cursor-arc");
     this.domEl = document.getElementById("cursor-dom"); // 패널 위에서 대신 보이는 HTML 커서
     this.overUi = false;
-    this.pullProgress = null; // 책을 집고 있는 동안 paper-node가 0~1(이상)로 채움. null이면 핀치 강도 표시
+    this.pullProgress = null; // 책을 집고 있는 동안 shelf-book가 0~1(이상)로 채움. null이면 핀치 강도 표시
     this.fistSince = null; this.fistSeenAt = 0; this.fistFired = false;
     this.fistProgress = null; // 주먹 유지 중 0~1
     this.needOpen = false;    // 주먹 뒤에는 손을 한 번 펴야 다시 핀치 가능 (주먹을 풀며 엄지·검지가 스치는 오작동 방지)
@@ -111,7 +111,7 @@ AFRAME.registerComponent("hand-cursor", {
     // 마우스는 이미 정확하므로 필터를 거치지 않음 (필터는 손 떨림용)
     const ax = this.mode === "mouse" ? x : this.fx.filter(x, t);
     const ay = this.mode === "mouse" ? y : this.fy.filter(y, t);
-    this.norm = [ax, ay]; // 필터 후 화면 좌표. paper-node가 당긴 거리를 잴 때 씀
+    this.norm = [ax, ay]; // 필터 후 화면 좌표. shelf-book가 당긴 거리를 잴 때 씀
     const cam = this.camEl.getObject3D("camera");
     const d = this.data.dist;
     const hh = d * Math.tan(THREE.MathUtils.degToRad(cam.fov) / 2);

@@ -1,6 +1,6 @@
-/* paper-field v4: 연구실 서가 (디자인 C). 사양: docs/11-design-c-spec.md
+/* bookshelf v4: 연구실 서가 (디자인 C). 사양: docs/11-design-c-spec.md
  *
- * 책(paper-node) 구조
+ * 책(shelf-book) 구조
  *   .book   a-box. 앞면(+z) = 책등 캔버스(제목 세로·연도), 나머지 면 단색
  *   .glow   책등 뒤 촛불 금 테두리 평면 (호버 시 밝아짐, 핀치 시 펄스)
  *   .target 투명 히트 박스 (얇은 책도 잡히게 최소 폭)
@@ -196,7 +196,7 @@ function buildBook(parent, spineCanvas, coverCanvas, thick, height, depth, hitW,
   return { book, glow, hit };
 }
 
-AFRAME.registerComponent("paper-field", {
+AFRAME.registerComponent("bookshelf", {
   schema: {
     src: { default: "data/papers.json" },
     depth: { default: -2.5 },
@@ -212,7 +212,7 @@ AFRAME.registerComponent("paper-field", {
     const res = await fetch(this.data.src);
     const json = await res.json();
     const papers = json.papers.slice(0, this.data.max);
-    this.el.emit("papers-loaded", { author: json.author, count: papers.length, source: json.source });
+    this.el.emit("papers-loaded", { author: json.author, count: papers.length, source: json.source, papers });
     await ensureFonts();
     if (!this.el.sceneEl.hasLoaded) await new Promise((r) => this.el.sceneEl.addEventListener("loaded", r, { once: true }));
 
@@ -293,7 +293,7 @@ AFRAME.registerComponent("paper-field", {
           const node = document.createElement("a-entity");
           node.setAttribute("position", `${x.toFixed(3)} ${(shelfY + h / 2).toFixed(3)} ${this.data.depth}`);
           node.paper = p;
-          node.setAttribute("paper-node", `thick: ${t.toFixed(3)}; height: ${h.toFixed(3)}; depth: ${D}; hitW: ${(t + GAP).toFixed(3)}`);
+          node.setAttribute("shelf-book", `thick: ${t.toFixed(3)}; height: ${h.toFixed(3)}; depth: ${D}; hitW: ${(t + GAP).toFixed(3)}`);
           this.el.appendChild(node);
           x += t / 2 + GAP;
         }
@@ -303,7 +303,7 @@ AFRAME.registerComponent("paper-field", {
   },
 });
 
-AFRAME.registerComponent("paper-node", {
+AFRAME.registerComponent("shelf-book", {
   schema: {
     thick: { default: 0.06 },
     height: { default: 0.4 },
