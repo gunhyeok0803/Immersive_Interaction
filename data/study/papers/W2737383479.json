@@ -1,0 +1,254 @@
+{
+  "paperId": "W2737383479",
+  "title": "Webized Tangible Space",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:23:29.419Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "제목은 tangible space를 웹과 연결하는 연구를 가리키는 것으로 보인다. 다만 ‘Webized Tangible Space’가 무엇을 뜻하는지, 연구가 어떤 문제를 다뤘는지는 제목만으로 확인할 수 없다. 초록이 없어 구현 방법과 평가 결과도 알 수 없다. 논문 본문에서 용어의 정의와 실제 기여를 확인해야 한다.",
+      "five_c": {
+        "category": "컴퓨터 그래픽스 분야의 연구로 보이나, 구체적인 연구 유형은 확인할 수 없다.",
+        "context": "제공된 정보는 제목, 학회명, 2017년이라는 점뿐이다. 연구 배경과 문제 설정은 알 수 없다.",
+        "correctness": "초록이 없어 주장과 결과를 검증할 근거가 없다.",
+        "contributions": [
+          "논문의 기여는 제공된 정보만으로 확인할 수 없다."
+        ],
+        "clarity": "제목의 ‘Webized’와 ‘Tangible Space’가 가리키는 개념과 범위가 불분명하다."
+      },
+      "reading_goal": "본문에서 ‘Webized Tangible Space’의 정의, 웹과 공간의 연결 방식, 저자가 제시하는 기여와 평가 근거를 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "Webized",
+        "definition_one_line": "제목상 웹과 연결된 형태를 뜻하는 듯하나, 무엇을 웹화했는지는 확인할 수 없다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "Tangible Space",
+        "definition_one_line": "제목에 쓰인 핵심 표현이며, 구체적인 대상이나 정의는 본문에서 확인해야 한다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "웹 기반 접근",
+        "definition_one_line": "‘Webized’에서 추정되는 접근이며, 브라우저나 플랫폼 사용 여부는 알 수 없다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "공간 상호작용",
+        "definition_one_line": "tangible space와 관련될 가능성이 있는 주제이나, 실제 상호작용 방식은 확인되지 않았다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "컴퓨터 그래픽스",
+        "definition_one_line": "논문이 게재된 학회 분야이며, 논문에서 다룬 그래픽스 기법은 알 수 없다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "초록이 없어 논문의 실제 방법 흐름은 제시된 정보에서 복원할 수 없다.",
+        "본문에서 연구 대상과 ‘Tangible Space’의 정의를 확인한다.",
+        "방법에서 웹과 공간을 연결한 방식 및 시스템 구성을 확인한다.",
+        "결과에서 평가 방법과 근거를 확인한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "웹과 tangible space의 관계가 논문의 중심 주제일 가능성이 있다.",
+          "evidence": "제목에 ‘Webized Tangible Space’가 포함되어 있다.",
+          "caveat": "제목만으로 연구의 구체적 목표, 구현, 기여를 확정할 수 없다."
+        },
+        {
+          "claim": "논문의 성능이나 사용자 효과는 확인할 수 없다.",
+          "evidence": "초록과 결과 정보가 제공되지 않았다.",
+          "caveat": "본문의 실험·평가 절을 읽어야 판단할 수 있다."
+        }
+      ],
+      "critical_questions": [
+        "논문에서 ‘Webized’와 ‘Tangible Space’를 어떻게 정의하는가?",
+        "웹은 공간의 어떤 요소나 기능과 연결되며, 사용자는 무엇을 할 수 있는가?",
+        "저자가 제시하는 기여는 무엇이며, 어떤 평가 결과가 이를 뒷받침하는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "networked-data-systems",
+        "why": "‘Webized’라는 제목 표현을 따라 웹 기반 구성과 데이터 흐름을 읽을 때 참고할 수 있다. 다만 이 논문이 네트워크나 데이터 시스템을 연구한다는 점은 제목만으로 확인되지 않는다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "‘Tangible Space’가 이 논문에서 가리키는 대상을 설명하고, 웹이 그 대상과 어떻게 연결되는지, 논문의 기여와 이를 뒷받침하는 근거를 본문에 나온 내용만으로 다시 서술해 보세요.",
+      "assumptions_to_challenge": [
+        "‘Webized’가 브라우저 기반 구현을 뜻한다고 미리 가정하지 않는다.",
+        "‘Tangible Space’가 물리 공간과 디지털 공간의 결합을 뜻한다고 단정하지 않는다.",
+        "컴퓨터 그래픽스 학회에 게재되었다는 이유만으로 특정 3D 기법이나 사용자 평가가 있다고 가정하지 않는다."
+      ],
+      "to_reproduce_you_need": [
+        "연구 대상과 핵심 용어의 본문상 정의",
+        "웹과 공간을 연결하는 시스템 구성 및 구현 설명",
+        "사용자 과업이나 입력·출력 등 실제 상호작용 방식",
+        "평가 절차, 측정 항목, 결과를 확인할 수 있는 정보",
+        "초록에는 없음: 구현 자료, 코드, 장치·소프트웨어 버전의 제공 여부"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "좌표계 변환과 동차좌표",
+        "explain": "공간의 한 점은 기준 좌표계에 따라 서로 다른 성분으로 표현됩니다. 회전 행렬과 이동 벡터를 쓰면 월드 좌표의 점을 카메라 좌표로 바꿀 수 있습니다. 웹에서 물리 공간과 가상 공간을 연결할 때 좌표계의 기준과 방향을 맞추는 기초입니다.",
+        "equation": {
+          "latex": "\\mathbf{x}_c = \\mathbf{R}\\mathbf{x}_w + \\mathbf{t}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{x}_c",
+              "meaning": "카메라 좌표계에서 점의 위치 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{x}_w",
+              "meaning": "월드 좌표계에서 점의 위치 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{R}",
+              "meaning": "월드 좌표를 카메라 좌표로 회전하는 행렬, 무차원"
+            },
+            {
+              "symbol": "\\mathbf{t}",
+              "meaning": "월드 원점을 카메라 좌표계에서 나타낸 이동 벡터, m"
+            }
+          ]
+        },
+        "link_to_paper": "초록이 없어 카메라 좌표 변환을 논문이 사용한다고 단정할 수는 없습니다. 물리 공간을 웹에서 표현하거나 추적한다면 좌표계 연결이 필요할 수 있어 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "논문 측정값이 아닌 예시입니다. \\(\\mathbf{x}_w=(1,0,0)\\,\\mathrm{m}\\), \\(\\mathbf{R}=\\mathbf{I}\\), \\(\\mathbf{t}=(0.2,0,0)\\,\\mathrm{m}\\)일 때 \\(\\mathbf{x}_c\\)를 구하세요.",
+          "answer": "식에 대입하면 \\(\\mathbf{x}_c=\\mathbf{I}(1,0,0)+(0.2,0,0)=(1.2,0,0)\\,\\mathrm{m}\\)입니다. 회전이 없고 x 방향으로 0.2 m 이동한 결과입니다."
+        },
+        "module_card": "카메라 좌표계와 월드 좌표계"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체의 회전 운동",
+        "explain": "강체는 물체 안의 점들 사이 거리가 변하지 않는 물체로 모델링합니다. 물체가 회전하면 회전축에서 떨어진 점은 축에 수직인 방향으로 움직입니다. 이 관계를 알면 물체의 회전을 화면 속 자세 변화와 연결할 수 있습니다.",
+        "equation": {
+          "latex": "\\mathbf{v} = \\boldsymbol{\\omega} \\times \\mathbf{r}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{v}",
+              "meaning": "회전하는 강체 위 한 점의 선속도, m/s"
+            },
+            {
+              "symbol": "\\boldsymbol{\\omega}",
+              "meaning": "강체의 각속도 벡터, rad/s"
+            },
+            {
+              "symbol": "\\mathbf{r}",
+              "meaning": "회전축 기준 점의 위치 벡터, m"
+            }
+          ]
+        },
+        "link_to_paper": "제목의 tangible space가 물리 물체와 공간 표현을 연결한다는 뜻이라면 물체의 자세 변화가 관련될 수 있습니다. 초록만으로 실제 물체 추적 여부는 알 수 없어 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "논문 측정값이 아닌 예시입니다. \\(\\boldsymbol{\\omega}=(0,0,2)\\,\\mathrm{rad/s}\\), \\(\\mathbf{r}=(0.1,0,0)\\,\\mathrm{m}\\)일 때 점의 속도를 구하세요.",
+          "answer": "외적을 계산하면 \\((0,0,2)\\times(0.1,0,0)=(0,0.2,0)\\)입니다. 따라서 점은 y 방향으로 \\(0.2\\,\\mathrm{m/s}\\)의 속도로 움직입니다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "pinhole 카메라의 투영",
+        "explain": "pinhole 근사는 빛이 작은 구멍을 지나 영상면에 맺히는 과정을 단순화합니다. 물체가 카메라에서 멀어질수록 영상의 크기는 작아집니다. 이 모델은 실제 공간의 점과 2D 화면 좌표가 어떻게 연결되는지 설명합니다.",
+        "equation": {
+          "latex": "u = f\\frac{X}{Z},\\quad v = f\\frac{Y}{Z}",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "영상면에서 점의 가로 좌표, px"
+            },
+            {
+              "symbol": "v",
+              "meaning": "영상면에서 점의 세로 좌표, px"
+            },
+            {
+              "symbol": "f",
+              "meaning": "초점 거리(픽셀 단위로 표현), px"
+            },
+            {
+              "symbol": "X",
+              "meaning": "카메라 좌표계에서 점의 가로 위치, m"
+            },
+            {
+              "symbol": "Y",
+              "meaning": "카메라 좌표계에서 점의 세로 위치, m"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라 좌표계에서 점의 깊이, m"
+            }
+          ]
+        },
+        "link_to_paper": "웹에서 tangible space를 카메라로 읽는다면 3D 위치가 화면에 투영되는 원리를 이해해야 합니다. 제목과 학회명만으로 카메라 사용을 확인할 수 없으므로 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "논문 측정값이 아닌 예시입니다. 초점 거리 \\(f=800\\,\\mathrm{px}\\), 점의 위치 \\((X,Y,Z)=(0.5,0,2)\\,\\mathrm{m}\\)일 때 \\((u,v)\\)를 구하세요.",
+          "answer": "\\(u=800\\times0.5/2=200\\,\\mathrm{px}\\), \\(v=800\\times0/2=0\\,\\mathrm{px}\\)입니다. 따라서 원점을 주점으로 둔 영상 좌표는 \\((200,0)\\,\\mathrm{px}\\)입니다."
+        },
+        "module_card": "빛의 영상 형성과 pinhole 근사"
+      },
+      {
+        "discipline": "cs",
+        "concept": "웹 기반 상호작용과 그래픽스 파이프라인",
+        "explain": "웹 기반 그래픽스는 입력을 받아 화면에 표현하고, 사용자의 동작에 따라 장면을 갱신합니다. tangible interface가 있다면 물리적 입력과 웹 화면의 출력을 연결하는 구조를 살펴볼 수 있습니다. 어떤 부분이 입력 획득이고 어떤 부분이 공간 정보 제시인지 구분하면 시스템을 이해하기 쉽습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "제목의 ‘Webized’는 웹 기술과 tangible space의 연결을 시사하지만, 초록이 없어 구체적인 구현 구조는 알 수 없습니다. 브라우저 기반 입력·표현 파이프라인을 살펴보는 관점에서 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "논문 상황에 적용해 보세요. 웹 화면에서 가상 물체를 표시하고, 사용자가 물리 물체를 움직였을 때 그 표시가 갱신됩니다. 이 흐름에서 입력 획득과 공간 정보 제시를 각각 찾아보세요.",
+          "answer": "물리 물체의 움직임을 읽는 단계가 입력 획득입니다. 갱신된 가상 물체를 웹 화면에 그리는 단계가 공간 정보 제시입니다. 이 예시는 제목을 바탕으로 구성한 설명이며 논문의 실제 구현을 뜻하지 않습니다."
+        },
+        "module_card": "정보 획득·결손 보완·공간 정보 제시 구분하기"
+      }
+    ],
+    "tools": [
+      {
+        "name": "HTML5",
+        "category": "platform",
+        "what_for": "브라우저에서 그래픽 화면과 사용자 입력 요소를 구성합니다.",
+        "link_to_paper": "웹 기반 tangible space를 구현한다면 브라우저 화면의 기본 구조에 사용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "canvas 요소 하나를 둔 HTML 페이지를 만들고 브라우저에서 열어 보세요."
+      },
+      {
+        "name": "JavaScript",
+        "category": "method",
+        "what_for": "웹 화면의 동작과 사용자 입력 처리를 작성합니다.",
+        "link_to_paper": "물리 입력이나 사용자 동작에 따라 웹 공간 표현을 갱신하는 데 사용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "버튼 클릭으로 canvas의 색을 바꾸는 짧은 스크립트를 작성해 보세요."
+      },
+      {
+        "name": "WebGL",
+        "category": "platform",
+        "what_for": "브라우저에서 GPU를 이용한 2D·3D 그래픽 렌더링을 지원합니다.",
+        "link_to_paper": "웹에서 공간이나 3D 장면을 표현하는 경우 활용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "WebGL 공식 튜토리얼의 삼각형 예제를 실행해 화면에 도형을 그려 보세요."
+      },
+      {
+        "name": "Three.js",
+        "category": "library",
+        "what_for": "WebGL 위에서 3D 장면, 카메라, 조명, 물체를 구성하는 JavaScript 라이브러리입니다.",
+        "link_to_paper": "웹 기반 공간 시각화가 주제에 포함된다면 3D 장면을 빠르게 실험할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "공식 기본 예제를 실행해 장면에 상자 하나를 추가하고 회전시켜 보세요."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

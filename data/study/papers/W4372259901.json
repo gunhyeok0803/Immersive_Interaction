@@ -1,0 +1,288 @@
+{
+  "paperId": "W4372259901",
+  "title": "Abusive Activity Detection with Multi-Modality Based on Convolutional Neural Network",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:13:31.938Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 연구는 요양원 등에서 발생할 수 있는 학대 행동을 자동으로 감지하는 문제를 다룬다. 이미지와 소리를 함께 사용하는 멀티모달 CNN 시스템을 만들었고, 이미지에는 움직임 정보를 담기 위해 Motion History Image(MHI)를 사용했다. 시스템은 Accuracy 0.807, F1 score 0.858을 보였다. 이미지 또는 소리만 사용한 시스템과 비교해 Accuracy는 0.132~0.17, F1 score는 0.094~0.138 향상되었다.",
+      "five_c": {
+        "category": "이미지와 소리를 이용한 멀티모달 행동 감지 연구",
+        "context": "학대 행동은 형태가 다양하고 정의하기 어려워 감지가 쉽지 않다. 초록은 노인 요양원을 사례로 든다.",
+        "correctness": "초록에는 데이터 규모, 실험 설정, 학대 행동의 정의와 라벨링 방식이 없다. 보고된 성능과 비교 결과만으로 다른 환경에서의 신뢰도까지 판단하기는 어렵다.",
+        "contributions": [
+          "이미지와 소리를 결합한 CNN 기반 감지 시스템을 제시했다.",
+          "이미지 입력에 움직임 정보를 반영하기 위해 MHI를 사용했다.",
+          "단일 모달리티 시스템보다 높은 성능을 보고했다."
+        ],
+        "clarity": "사용한 모달리티와 주요 성능 수치는 제시되어 있다. 모달리티 결합 방식, 데이터 구성, 비교 실험 조건은 초록만으로 알 수 없다."
+      },
+      "reading_goal": "이미지와 소리를 어떤 방식으로 결합했는지, MHI가 입력에 어떻게 사용됐는지, 단일 모달리티 비교가 공정하게 이루어졌는지 본문에서 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "학대 행동 감지",
+        "definition_one_line": "이미지와 소리로 학대 행동을 판별하려는 연구 과제다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "멀티모달리티",
+        "definition_one_line": "이 연구에서는 이미지와 소리 정보를 함께 활용하는 것을 뜻한다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Convolutional Neural Network (CNN)",
+        "definition_one_line": "연구에서 행동 감지에 사용한 신경망 계열이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Motion History Image (MHI)",
+        "definition_one_line": "이미지에 움직임 정보를 반영하기 위해 사용한 표현이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Accuracy",
+        "definition_one_line": "시스템이 보고한 분류 성능 지표 중 하나다.",
+        "where_in_paper": "결과"
+      },
+      {
+        "term": "F1 score",
+        "definition_one_line": "시스템이 보고한 분류 성능 지표 중 하나다.",
+        "where_in_paper": "결과"
+      },
+      {
+        "term": "단일 모달리티 비교",
+        "definition_one_line": "이미지만 또는 소리만 사용한 시스템과 멀티모달 시스템의 성능 비교다.",
+        "where_in_paper": "결과"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "다양한 형태를 가지며 정의하기 어려운 학대 행동 감지를 과제로 설정한다.",
+        "이미지와 소리를 입력으로 사용하는 멀티모달 기반 시스템을 구성한다.",
+        "이미지에는 움직임 정보를 반영하기 위해 MHI를 사용한다.",
+        "CNN으로 감지를 수행하고, Accuracy와 F1 score를 보고한다.",
+        "이미지만 또는 소리만 사용하는 시스템과 성능을 비교한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "멀티모달 기반 감지 시스템의 보고 성능은 Accuracy 0.807, F1 score 0.858이다.",
+          "evidence": "초록에 두 지표의 수치가 명시되어 있다.",
+          "caveat": "데이터 규모, 평가 분할, 반복 실험 여부는 초록에는 없음."
+        },
+        {
+          "claim": "이미지와 소리를 함께 사용한 시스템은 단일 모달리티 시스템보다 높은 성능을 보였다.",
+          "evidence": "초록은 Accuracy 0.132~0.17, F1 score 0.094~0.138의 향상을 보고한다.",
+          "caveat": "개선 폭이 이미지 기준인지 소리 기준인지, 비교 시스템의 조건이 같았는지는 초록에는 없음."
+        },
+        {
+          "claim": "이미지에 움직임 정보를 반영하기 위해 MHI를 사용했다.",
+          "evidence": "초록에서 이미지 입력에 MHI를 사용했다고 설명한다.",
+          "caveat": "MHI 생성 과정과 CNN 입력 형태는 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "연구에서 학대 행동을 어떻게 정의하고 라벨링했는가?",
+        "데이터의 출처와 규모는 무엇이며, 학습·검증·평가 자료를 어떻게 나누었는가?",
+        "이미지와 소리 정보를 모델에 결합한 구체적인 방식은 무엇인가?",
+        "단일 모달리티 비교에서 데이터와 학습 조건을 동일하게 맞추었는가?",
+        "Accuracy와 F1 score는 어떤 평가 단위와 클래스 구성으로 계산했는가?",
+        "요양원 밖의 환경이나 다른 종류의 학대 행동에서도 성능이 유지되는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "이 논문은 영상과 소리 신호를 행동 감지 과제의 입력으로 사용한다. 신호에서 모델 입력과 분류 성능으로 이어지는 흐름을 따라가면 초록에 제시되지 않은 방법과 평가 세부 사항을 본문에서 확인하기 쉽다.",
+        "focus_cards": []
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "이 연구가 학대 행동 감지를 위해 이미지와 소리를 어떻게 사용했는지, MHI와 CNN의 역할이 무엇인지, 단일 모달리티 시스템보다 성능이 높았다는 근거와 그 해석의 한계를 자기 말로 설명해 보라.",
+      "assumptions_to_challenge": [
+        "Accuracy와 F1 score가 높으면 실제 요양원에서도 감지가 잘된다고 볼 수 있는가?",
+        "이미지와 소리를 함께 사용한 효과가 모달리티 자체의 기여인지, 데이터나 학습 조건 차이 때문인지는 확인되었는가?",
+        "MHI가 행동 감지에 도움이 되었다면, MHI를 사용하지 않은 이미지 시스템과 직접 비교했는가?",
+        "논문에서 사용한 학대 행동의 정의가 실제 현장에서 중요한 사례를 충분히 포함하는가?"
+      ],
+      "to_reproduce_you_need": [
+        "이미지·소리 데이터의 출처, 규모, 수집 환경과 학대 행동 라벨 기준",
+        "학습·검증·평가 분할 방식과 클래스별 데이터 수",
+        "MHI 생성 절차와 CNN의 입력 형식 및 모델 설정",
+        "이미지와 소리의 결합 방식 및 학습 절차",
+        "이미지만·소리만 사용하는 비교 시스템의 설정",
+        "Accuracy와 F1 score 계산 방식, 평가 단위와 반복 실험 정보"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "분류 지표와 F1 점수",
+        "explain": "정밀도는 양성으로 예측한 사례 중 실제 양성의 비율이다. 재현율은 실제 양성 중 모델이 찾아낸 비율이다. F1은 두 값의 조화평균으로, 불균형 자료에서 탐지와 누락의 균형을 살펴보는 데 도움이 된다.",
+        "equation": {
+          "latex": "F_1=2\\frac{PR}{P+R}",
+          "variables": [
+            {
+              "symbol": "F_1",
+              "meaning": "F1 점수, 무차원"
+            },
+            {
+              "symbol": "P",
+              "meaning": "정밀도, 무차원"
+            },
+            {
+              "symbol": "R",
+              "meaning": "재현율, 무차원"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 Accuracy와 F1 score를 이용해 abusive activity 감지 성능을 보고한다. 두 지표의 의미를 알면 결과를 숫자 하나로만 받아들이지 않고 해석할 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "예시값 P=0.80, R=0.50일 때 F1을 계산하라. 값은 논문 측정값이 아니다.",
+          "answer": "F_1=2(0.80×0.50)/(0.80+0.50)=0.80/1.30≈0.615이다. 이는 예시 계산이며 논문의 측정값이 아니다."
+        },
+        "module_card": "분류 지표와 평가 단위"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "영상 평면에서의 평균 속도",
+        "explain": "위치 변화량을 시간 간격으로 나누면 평균 속도 벡터를 얻는다. MHI는 영상에서 시간에 따른 움직임 정보를 표현하므로, 움직임의 방향과 크기를 생각하는 데 이 개념이 쓰인다. 픽셀의 이동은 실제 신체의 3D 변위와 같지 않다.",
+        "equation": {
+          "latex": "\\mathbf{v}_{\\mathrm{avg}}=\\frac{\\Delta\\mathbf{r}}{\\Delta t}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{v}_{\\mathrm{avg}}",
+              "meaning": "영상 평면에서의 평균 속도 벡터, px/s"
+            },
+            {
+              "symbol": "\\Delta\\mathbf{r}",
+              "meaning": "영상 평면에서의 위치 변화 벡터, px"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "시간 간격, s"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 움직임 정보를 반영하기 위해 영상에 MHI를 사용한다고 설명한다. 평균 속도 개념은 MHI가 표현하는 화면 속 움직임의 방향과 크기를 생각하는 기초가 된다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "영상 속 점이 (10, 20) px에서 (40, 60) px로 2 s 동안 이동했다. 평균 속도의 크기를 구하라. 좌표와 시간은 예시값이며 논문 측정값이 아니다.",
+          "answer": "위치 변화는 (30, 40) px이다. 이동 거리 크기는 √(30²+40²)=50 px이므로, 평균 속도의 크기는 50 px/2 s=25 px/s이다. 이 좌표는 예시값이며 논문 측정값이 아니다."
+        },
+        "module_card": "방향별 움직임 비교"
+      },
+      {
+        "discipline": "physics",
+        "concept": "소리의 주파수와 파장",
+        "explain": "소리는 매질의 압력 변화로 전파되는 파동이다. 주파수와 파장은 파동의 전파 속력으로 연결된다. 이 관계는 sound 입력의 물리적 성질을 설명하며, 활동 판단은 학습 모델의 역할이다.",
+        "equation": {
+          "latex": "c=f\\lambda",
+          "variables": [
+            {
+              "symbol": "c",
+              "meaning": "소리의 전파 속력, m/s"
+            },
+            {
+              "symbol": "f",
+              "meaning": "주파수, Hz"
+            },
+            {
+              "symbol": "\\lambda",
+              "meaning": "파장, m"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 sound를 image와 함께 입력으로 사용한다고 말한다. 주파수와 파장의 관계를 알면 소리 신호의 물리적 특성과 모델의 활동 추론을 구분해 읽을 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "예시값으로 공기 중 소리 속력을 343 m/s, 주파수를 1000 Hz로 두면 파장은 얼마인가? 이 값은 논문 측정값이 아니다.",
+          "answer": "λ=c/f=343 m/s ÷ 1000 Hz=0.343 m이다. 속력과 주파수는 예시값이며 논문 측정값이 아니다."
+        },
+        "module_card": "센서 신호와 추론 대상"
+      },
+      {
+        "discipline": "cs",
+        "concept": "다중 모달 분류 파이프라인과 교차 엔트로피",
+        "explain": "다중 모달 감지에서는 image와 sound를 입력으로 받아 CNN이 패턴을 학습하고 활동 label을 출력한다. 교차 엔트로피는 정답 label과 예측 확률의 차이를 줄이는 분류 학습의 표준 손실 함수다. 초록은 실제 loss나 융합 구조를 밝히지 않으므로, 이 식은 일반적인 학습 개념으로 본다.",
+        "equation": {
+          "latex": "\\mathcal{L}=-\\sum_{k=1}^{K}y_k\\log p_k",
+          "variables": [
+            {
+              "symbol": "\\mathcal{L}",
+              "meaning": "교차 엔트로피 손실, 무차원"
+            },
+            {
+              "symbol": "K",
+              "meaning": "분류 label의 수, 개수"
+            },
+            {
+              "symbol": "k",
+              "meaning": "분류 label의 인덱스, 무차원"
+            },
+            {
+              "symbol": "y_k",
+              "meaning": "정답 label의 원-핫 값, 무차원"
+            },
+            {
+              "symbol": "p_k",
+              "meaning": "모델이 예측한 label k의 확률, 무차원"
+            }
+          ]
+        },
+        "link_to_paper": "초록의 CNN과 image·sound 입력은 입력 신호에서 activity 예측으로 이어지는 파이프라인으로 볼 수 있다. 손실 함수를 알면 모델 학습의 역할을 이해할 수 있지만, 논문에서 사용한 loss는 초록만으로 확인되지 않는다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "두 label의 예시에서 정답 y=(1, 0), 예측 확률 p=(0.8, 0.2)일 때 교차 엔트로피를 계산하라. 예시값은 논문 측정값이 아니다.",
+          "answer": "L=−[1·ln(0.8)+0·ln(0.2)]=−ln(0.8)≈0.223이다. 정답 label에 부여한 확률이 높을수록 손실이 작아진다. 확률은 예시값이며 논문 측정값이 아니다."
+        },
+        "module_card": "모델 입력과 과제 출력"
+      }
+    ],
+    "tools": [
+      {
+        "name": "Convolutional Neural Network (CNN)",
+        "category": "method",
+        "what_for": "CNN은 입력 데이터에서 패턴을 학습해 abusive activity 감지에 사용된다.",
+        "link_to_paper": "초록은 CNN을 이용한 감지 시스템을 설명한다.",
+        "evidence": "abstract",
+        "first_step": "간단한 영상 분류 예제에 입력을 넣고 CNN의 class score 출력을 확인한다."
+      },
+      {
+        "name": "Motion History Image (MHI)",
+        "category": "method",
+        "what_for": "MHI는 영상에 시간에 따른 움직임 정보를 표현한다.",
+        "link_to_paper": "논문은 이미지에 움직임 정보를 반영하기 위해 MHI를 사용한다.",
+        "evidence": "abstract",
+        "first_step": "짧은 동작 영상에서 MHI 결과를 만들어 움직임 흔적을 살펴본다."
+      },
+      {
+        "name": "OpenCV",
+        "category": "library",
+        "what_for": "OpenCV는 영상과 프레임을 읽고 변환해 시각 처리에 활용한다.",
+        "link_to_paper": "영상 입력을 준비하고 움직임 표현을 살펴보는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "짧은 영상을 프레임으로 읽어 grayscale 변환 결과를 표시해 본다."
+      },
+      {
+        "name": "PyTorch",
+        "category": "framework",
+        "what_for": "PyTorch는 CNN을 구성하고 학습하는 딥러닝 프레임워크다.",
+        "link_to_paper": "영상·음향 입력을 이용하는 CNN 기반 감지 시스템을 구현하는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "영상 분류 예제를 실행해 데이터, CNN, 손실, 평가의 흐름을 확인한다."
+      },
+      {
+        "name": "librosa",
+        "category": "library",
+        "what_for": "librosa는 음향 데이터를 불러오고 파형과 시간·주파수 표현을 살펴보는 데 쓴다.",
+        "link_to_paper": "sound 입력을 전처리하고 신호의 특성을 탐색하는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "짧은 WAV 파일을 불러 파형과 spectrogram을 비교해 본다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

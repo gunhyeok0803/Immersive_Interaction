@@ -1,0 +1,369 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T14:53:38.765Z",
+  "id": "sparse-field-reconstruction",
+  "title": "희소 센서 관측으로 공간 전체의 상태 복원하기",
+  "summary": "선형대수, 최소제곱, 역문제, POD와 차원 축소를 익힌 뒤 Autoencoder의 비선형 잠재 표현과 Gappy AE를 공부합니다. 센서 위치 선택, 복원 오차, 계산 시간, 시뮬레이션 데이터와 실제 관측의 차이를 함께 살펴봅니다. 초록이 없는 2025년 열제어 논문은 제목의 reconstructed environmental data를 근거로 잠정 포함했습니다.",
+  "paper_ids": [
+    "W4394676192",
+    "W4405266536",
+    "W4413143040",
+    "W4415751904"
+  ],
+  "pack": {
+    "intro": "모듈의 공통 문제는 일부 위치의 관측으로 공간 전체의 물리량을 복원하는 것입니다. Gappy AE 논문은 Gappy POD와의 차이, 예제 문제, 샘플링 알고리즘에 따른 정확도를 다룹니다. 응용 논문은 복원한 온도·공기속도로 공간 열쾌적성을 평가하고, 희소 지진 관측으로 지반운동을 복원합니다. 마지막 논문은 초록이 제공되지 않아 제목에 드러난 공간 열쾌적성 기반 열제어까지만 연결합니다.",
+    "roadmap": [
+      "키워드에서 공통 과제인 희소 관측 기반 공간장 재구성과 열·지진 응용을 구분합니다.",
+      "툴과 방법을 확인해 복원 알고리즘, 샘플링, 물리 시뮬레이션의 역할을 나눕니다.",
+      "CS 층에서 일부 관측값을 전체 상태로 바꾸는 입력과 출력의 관계를 익힙니다.",
+      "공학수학 층에서 선형 부분공간인 Gappy POD와 비선형 다양체인 Gappy AE, 샘플링의 영향을 비교합니다.",
+      "역학 층에서 확산·이류·파동 예제와 열환경·지반운동 응용을 연결합니다.",
+      "물리 층에서 온도·공기속도와 지진 관측량이 각 응용의 평가 기준으로 이어지는 이유를 확인합니다."
+    ],
+    "keywords": [
+      {
+        "term": "희소 관측과 결측 데이터",
+        "definition_one_line": "일부 위치의 측정값만 주어지거나 공간 데이터 일부가 빠진 상태입니다.",
+        "appears_in": [
+          "W4394676192",
+          "W4405266536",
+          "W4413143040"
+        ]
+      },
+      {
+        "term": "공간장 재구성",
+        "definition_one_line": "제한된 관측으로 측정되지 않은 위치까지 포함하는 공간 전체 상태를 추정합니다.",
+        "appears_in": [
+          "W4394676192",
+          "W4405266536",
+          "W4413143040",
+          "W4415751904"
+        ]
+      },
+      {
+        "term": "Gappy Auto-Encoder (Gappy AE)",
+        "definition_one_line": "희소 측정으로부터 비선형 표현을 이용해 전체 상태를 복원하는 방법입니다.",
+        "appears_in": [
+          "W4394676192",
+          "W4405266536",
+          "W4413143040"
+        ]
+      },
+      {
+        "term": "Gappy Proper Orthogonal Decomposition (Gappy POD)",
+        "definition_one_line": "선형 부분공간을 바탕으로 희소 데이터나 결측 데이터를 복원하는 방법입니다.",
+        "appears_in": [
+          "W4394676192",
+          "W4405266536"
+        ]
+      },
+      {
+        "term": "선형 부분공간과 비선형 다양체",
+        "definition_one_line": "Gappy POD와 Gappy AE가 공간 상태를 표현하는 방식의 핵심 차이입니다.",
+        "appears_in": [
+          "W4394676192"
+        ]
+      },
+      {
+        "term": "센서 샘플링 알고리즘",
+        "definition_one_line": "희소 관측 위치를 정하는 방식이며, 초록은 네 알고리즘에 따른 복원 정확도를 비교합니다.",
+        "appears_in": [
+          "W4394676192"
+        ]
+      },
+      {
+        "term": "온도와 공기속도",
+        "definition_one_line": "공간 열쾌적성 평가를 위해 복원하는 환경 변수입니다.",
+        "appears_in": [
+          "W4405266536"
+        ]
+      },
+      {
+        "term": "공간 열쾌적성",
+        "definition_one_line": "위치에 따라 달라지는 실내 환경과 쾌적성을 평가하는 응용 주제입니다.",
+        "appears_in": [
+          "W4405266536",
+          "W4415751904"
+        ]
+      },
+      {
+        "term": "지진 지반운동",
+        "definition_one_line": "희소 지진 관측을 사용해 복원하는 공간 물리량입니다.",
+        "appears_in": [
+          "W4413143040"
+        ]
+      },
+      {
+        "term": "실시간 복원",
+        "definition_one_line": "희소 관측으로부터 빠르게 상태나 지반운동을 예측하는 목표입니다.",
+        "appears_in": [
+          "W4394676192",
+          "W4413143040"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "name": "Gappy Auto-Encoder (Gappy AE)",
+        "category": "method",
+        "what_for": "희소 측정으로부터 전체 상태를 복원하며, 초록에서는 비선형 다양체 표현을 사용합니다.",
+        "used_in": [
+          "W4394676192",
+          "W4405266536",
+          "W4413143040"
+        ],
+        "evidence": "abstract",
+        "first_step": "세 논문에서 희소 입력과 복원 대상이 무엇인지 한 줄씩 적습니다."
+      },
+      {
+        "name": "Gappy Proper Orthogonal Decomposition (Gappy POD)",
+        "category": "method",
+        "what_for": "선형 부분공간에 기반한 복원 방법이며 Gappy AE와 비교됩니다.",
+        "used_in": [
+          "W4394676192",
+          "W4405266536"
+        ],
+        "evidence": "abstract",
+        "first_step": "Gappy POD가 선형 부분공간을 쓴다는 점을 표시합니다."
+      },
+      {
+        "name": "DEIM, S-OPT, Latin hypercube sampling, uniformly distributed sampling",
+        "category": "method",
+        "what_for": "희소 관측의 샘플링 방식이 복원 정확도에 미치는 영향을 비교합니다.",
+        "used_in": [
+          "W4394676192"
+        ],
+        "evidence": "abstract",
+        "first_step": "네 샘플링 방식을 복원기와 구분해 목록으로 만듭니다."
+      },
+      {
+        "name": "DesignBuilder",
+        "category": "platform",
+        "what_for": "표준 사무실 건물을 사례로 한 열환경 시뮬레이션에 사용됩니다.",
+        "used_in": [
+          "W4405266536"
+        ],
+        "evidence": "abstract",
+        "first_step": "열쾌적성 논문에서 시뮬레이션 사례가 무엇인지 확인합니다."
+      },
+      {
+        "name": "EnergyPlus",
+        "category": "engine",
+        "what_for": "복원 알고리즘의 학습과 평가에 사용할 시뮬레이션 데이터를 만드는 데 사용됩니다.",
+        "used_in": [
+          "W4405266536"
+        ],
+        "evidence": "abstract",
+        "first_step": "논문에서 시뮬레이션 데이터의 용도를 표시합니다."
+      },
+      {
+        "name": "SW4",
+        "category": "engine",
+        "what_for": "지진 지반운동 복원 성능을 평가하는 수치 실험에 사용됩니다.",
+        "used_in": [
+          "W4413143040"
+        ],
+        "evidence": "abstract",
+        "first_step": "SW4 수치 실험 결과와 Berkeley 실자료 검증을 구분합니다."
+      }
+    ],
+    "layers": [
+      {
+        "level": "cs",
+        "title": "희소 입력에서 공간 전체 상태로",
+        "cards": [
+          {
+            "title": "희소 관측과 공간장 재구성",
+            "body": "희소 관측은 공간의 모든 위치가 아니라 일부 위치에서만 얻은 값입니다. 결측 데이터는 값이 있어야 할 위치의 데이터가 빠진 상태입니다. 이 모듈의 공통 과제는 제한된 관측으로 관측되지 않은 공간의 상태를 추정하는 것입니다. 결과는 온도·공기속도장이나 지반운동장처럼 위치별 값 전체입니다. Gappy AE 초록은 희소 측정만으로 실시간 상태를 예측하는 경우를 다룹니다. 세부 격자 표현과 관측 마스크 형식은 초록에는 없습니다.",
+            "discipline": "cs",
+            "links_to_paper": "「Gappy AE」는 희소 측정에서 상태를 복원하고, 「Improving the Accuracy of Spatial Thermal Comfort Assessment」는 온도·공기속도장을, 「Real-time reconstruction of ground motion」은 지반운동장을 대상으로 합니다.",
+            "linked_keywords": [
+              "희소 관측과 결측 데이터",
+              "공간장 재구성",
+              "실시간 복원"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "세 응용에서 공통적으로 복원하려는 대상은 무엇인가요?",
+              "answer": "관측되지 않은 위치까지 포함하는 공간 전체의 상태 또는 물리량입니다.",
+              "if_wrong_go_to": "희소 관측과 공간장 재구성"
+            },
+            "next_resource": "다음 카드에서 Gappy AE의 입력과 비선형 표현을 확인합니다."
+          },
+          {
+            "title": "Auto-Encoder와 비선형 표현",
+            "body": "Auto-Encoder는 입력을 잠재 표현으로 부호화하고, 그 표현에서 데이터를 복원하는 신경망 계열입니다. Gappy AE는 이 틀을 희소 데이터 재구성에 사용한다고 논문은 이름 붙입니다. 초록이 강조하는 차이는 선형 부분공간 대신 비선형 다양체 표현을 사용한다는 점입니다. 이는 입력 관측과 전체 상태의 관계가 선형 조합만으로 충분히 표현되지 않는 경우를 다루려는 접근입니다. 구체적인 층 수, 활성화 함수, 손실 함수와 학습 설정은 초록에는 없습니다. 온도·공기속도 및 지반운동 응용에서도 Gappy AE가 사용됩니다.",
+            "discipline": "cs",
+            "links_to_paper": "「Gappy AE」의 비선형 다양체 표현을 설명하고, 「Improving the Accuracy of Spatial Thermal Comfort Assessment」와 「Real-time reconstruction of ground motion」의 Gappy AE 사용과 연결합니다.",
+            "linked_keywords": [
+              "Gappy Auto-Encoder (Gappy AE)",
+              "선형 부분공간과 비선형 다양체"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "Gappy AE가 겨냥하는 Gappy POD 표현의 한계는 무엇인가요?",
+              "answer": "선형 조합만으로는 충분히 표현하기 어려운 상태 관계를 다루려는 것입니다.",
+              "if_wrong_go_to": "희소 관측과 공간장 재구성"
+            },
+            "next_resource": "다음 층에서 선형 부분공간과 비선형 다양체를 수학적으로 비교합니다."
+          }
+        ]
+      },
+      {
+        "level": "engineering_math",
+        "title": "부분공간, 다양체, 샘플링",
+        "cards": [
+          {
+            "title": "선형 부분공간과 Gappy POD",
+            "body": "부분공간은 몇 개의 기저 벡터 조합으로 가능한 상태를 표현하는 방법입니다. Gappy POD는 이 선형 부분공간을 이용하는 데이터 재구성 방법입니다. 개념적으로 희소 측정값은 전체 상태를 표현할 기저 조합을 정하는 데 쓰입니다. 관측 위치가 적으면 이 정에 쓸 수 있는 정보도 제한됩니다. 첫 논문은 Gappy POD가 선형 부분공간에 의존한다고 설명합니다. 구체적인 계수 추정 절차는 초록에는 없습니다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "「Gappy AE」는 Gappy POD의 선형 부분공간 의존성과 한계를 설명하고, 「Improving the Accuracy of Spatial Thermal Comfort Assessment」는 Gappy POD를 복원 방법으로 사용합니다.",
+            "linked_keywords": [
+              "Gappy Proper Orthogonal Decomposition (Gappy POD)",
+              "희소 관측과 결측 데이터"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "Gappy POD가 상태를 표현할 때 사용하는 가정은 무엇인가요?",
+              "answer": "상태를 선형 부분공간으로 표현한다는 가정입니다.",
+              "if_wrong_go_to": "희소 관측과 공간장 재구성"
+            },
+            "next_resource": "다음 카드에서 선형 표현이 어려워지는 조건을 봅니다."
+          },
+          {
+            "title": "Kolmogorov N-width와 비선형 다양체",
+            "body": "Kolmogorov N-width는 제한된 수의 기저 방향으로 해 집합을 얼마나 잘 근사할 수 있는지를 보는 개념입니다. N이 늘어날 때 근사 오차가 빠르게 줄면 낮은 차원 표현이 효율적입니다. 첫 논문은 N-width가 천천히 감소하는 해에서 Gappy POD가 정확히 표현하기 어렵다고 설명합니다. Gappy AE는 대신 비선형 다양체 표현을 사용합니다. 이는 상태가 하나의 선형 부분공간으로 잘 표현되지 않을 때 다른 형태의 표현을 시도하는 동기입니다. 다양체의 구체적 정의와 수치 결과의 세부 사항은 초록에는 없습니다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "「Gappy AE」의 느리게 감소하는 Kolmogorov N-width 문제 제기와 비선형 다양체 접근에 직접 연결됩니다.",
+            "linked_keywords": [
+              "선형 부분공간과 비선형 다양체",
+              "Gappy Auto-Encoder (Gappy AE)"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "Kolmogorov N-width가 천천히 감소할 때 선형 부분공간 표현은 왜 어려워지나요?",
+              "answer": "근사 오차를 줄이려면 더 많은 기저 방향이 필요해져 선형 표현의 효율과 정확도에 제약이 생깁니다.",
+              "if_wrong_go_to": "선형 부분공간과 Gappy POD"
+            },
+            "next_resource": "다음 카드에서 관측 위치 선정과 복원기 선택을 구분합니다."
+          },
+          {
+            "title": "샘플링 위치와 복원 정확도",
+            "body": "샘플링 알고리즘은 희소 관측에 사용할 위치를 정하는 방식입니다. 첫 논문은 DEIM, S-OPT, Latin hypercube sampling, uniformly distributed sampling을 비교합니다. 각 방식은 알고리즘 이름으로 구분되며, 구체적 수식과 배치 절차는 초록에는 없습니다. 샘플링 방식이 달라지면 입력으로 주어지는 관측 정보가 달라질 수 있습니다. 논문은 네 방식이 데이터 재구성 정확도에 미치는 영향을 평가합니다. 따라서 복원기와 관측 위치 선정은 서로 다른 비교 요소로 읽을 수 있습니다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "「Gappy AE」에서 네 샘플링 알고리즘이 복원 정확도에 미치는 영향을 평가한 부분과 연결됩니다.",
+            "linked_keywords": [
+              "센서 샘플링 알고리즘",
+              "희소 관측과 결측 데이터"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "복원기를 고정하고 샘플링 알고리즘을 바꾸면 무엇이 달라져 복원 결과에 영향을 줄 수 있나요?",
+              "answer": "관측 위치와 그에 따라 입력에 들어오는 정보가 달라질 수 있습니다.",
+              "if_wrong_go_to": "선형 부분공간과 Gappy POD"
+            },
+            "next_resource": "다음 층에서 복원할 공간장이 어떤 역학 문제에서 나오는지 봅니다."
+          }
+        ]
+      },
+      {
+        "level": "mechanics",
+        "title": "공간장을 만드는 변화 과정",
+        "cards": [
+          {
+            "title": "확산·이류·파동 문제",
+            "body": "확산 방정식은 물리량이 주변으로 퍼지는 변화를 모델링하며, 첫 논문은 2D diffusion 예제를 사용합니다. 이류는 흐름에 따라 물리량이 이동하는 과정이며, 논문에는 2D radial advection 예제가 있습니다. 파동 방정식은 교란의 전파를 기술하며, 논문에는 2D wave equation 예제가 있습니다. 이 예제들은 Gappy AE의 복원 성능을 보여주는 수치 문제입니다. 모든 응용이 동일한 방정식이나 동역학을 사용한다는 뜻은 아닙니다. 초기·경계 조건은 초록에는 없습니다.",
+            "discipline": "mechanics",
+            "links_to_paper": "「Gappy AE」의 2D diffusion, 2D radial advection, 2D wave equation 수치 예제와 연결됩니다.",
+            "linked_keywords": [
+              "공간장 재구성",
+              "실시간 복원"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "흐름에 따라 물리량이 이동하는 예제는 무엇인가요?",
+              "answer": "2D radial advection입니다.",
+              "if_wrong_go_to": "희소 관측과 공간장 재구성"
+            },
+            "next_resource": "다음 카드에서 건물 안의 온도와 공기속도장을 봅니다."
+          },
+          {
+            "title": "실내 열환경과 위치별 쾌적성",
+            "body": "열쾌적성 연구는 제한된 센서 데이터로 공간의 온도와 공기속도를 복원합니다. 초록은 건물 종류, 시스템 특성, 공기 흐름에 따라 같은 공간에서도 열감이 달라질 수 있다고 설명합니다. 따라서 위치별 환경 데이터가 공간 열쾌적성 평가에 필요합니다. 이 연구는 표준 사무실 건물을 사례로 DesignBuilder와 EnergyPlus 시뮬레이션을 사용합니다. 복원한 데이터로 위치에 따른 쾌적성을 평가하면 측정값만 쓸 때보다 정밀한 평가가 가능했다고 보고합니다. 유동 방정식과 경계 조건은 초록에는 없습니다.",
+            "discipline": "mechanics",
+            "links_to_paper": "「Improving the Accuracy of Spatial Thermal Comfort Assessment」의 온도·공기속도 복원과 위치별 평가에 직접 연결되고, 「Evaluation of thermal control based on spatial thermal comfort」는 제목 수준에서만 연결됩니다.",
+            "linked_keywords": [
+              "온도와 공기속도",
+              "공간 열쾌적성"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "위치별 환경장을 복원하는 것이 공간 열쾌적성 평가에 필요한 이유는 무엇인가요?",
+              "answer": "같은 공간에서도 위치와 공기 흐름 등에 따라 열감이 달라질 수 있기 때문입니다.",
+              "if_wrong_go_to": "확산·이류·파동 문제"
+            },
+            "next_resource": "다음 카드에서 지진 때 복원하는 지반운동장을 확인합니다."
+          },
+          {
+            "title": "작은 지진의 지반운동장",
+            "body": "지진 복원 연구는 규모 M < 4.5의 작은 지진에서 지반운동을 실시간으로 복원하는 방법을 조사합니다. 초록은 작은 지진이 자주 발생하며 점원으로 모델링할 수 있어 방법 평가에 적합하다고 설명합니다. 방법은 희소 관측 데이터로부터 지반운동장을 복원합니다. SW4 수치 실험과 캘리포니아 Berkeley 지역의 실제 지진 데이터로 성능을 평가합니다. 이 접근은 빠른 지진동 평가를 위해 계산량이 큰 진원 특성화와 시뮬레이션 과정의 필요성을 없애는 것을 목표로 합니다. 토양 구성식과 파동 속도는 초록에는 없습니다.",
+            "discipline": "mechanics",
+            "links_to_paper": "「Real-time reconstruction of ground motion during small magnitude earthquakes」의 희소 관측, SW4 수치 실험, 실제 지진 데이터 검증에 연결됩니다.",
+            "linked_keywords": [
+              "지진 지반운동",
+              "실시간 복원"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "이 논문이 희소 지진 관측으로 복원하려는 공간 물리량은 무엇인가요?",
+              "answer": "지진 지반운동입니다.",
+              "if_wrong_go_to": "실내 열환경과 위치별 쾌적성"
+            },
+            "next_resource": "다음 층에서 열환경과 지진 관측값의 물리적 의미 및 평가량을 확인합니다."
+          }
+        ]
+      },
+      {
+        "level": "physics",
+        "title": "관측 환경과 물리적 평가량",
+        "cards": [
+          {
+            "title": "온도·공기 흐름과 열쾌적성",
+            "body": "열쾌적성 논문은 온도와 공기속도를 복원할 환경 변수로 다룹니다. 초록은 공기 흐름이 같은 공간 안의 열감 차이를 만들 수 있다고 설명합니다. 일반 물리에서 움직이는 공기는 대류 열전달과 연결되므로, 공기속도는 온도와 함께 살펴볼 수 있습니다. 대류를 통한 열교환은 초록의 명시적 모델 설명이 아니라 간접 연결입니다. 쾌적성 계산에 사용된 구체적 지표와 개인 변수는 초록에는 없습니다. 위치별 쾌적성 차이가 보고되지만, 특정 표준이나 임계값은 확인할 수 없습니다.",
+            "discipline": "physics",
+            "links_to_paper": "「Improving the Accuracy of Spatial Thermal Comfort Assessment」의 온도·공기속도 복원과 위치별 쾌적성에 직접 연결되며, 대류 열전달은 간접 연결입니다.",
+            "linked_keywords": [
+              "온도와 공기속도",
+              "공간 열쾌적성"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "열환경 복원에서 공기속도를 온도와 함께 고려하는 이유는 무엇인가요?",
+              "answer": "공기 흐름은 공간 안의 열감 차이와 연결되며, 일반 물리에서는 대류 열전달과도 관련되기 때문입니다.",
+              "if_wrong_go_to": "실내 열환경과 위치별 쾌적성"
+            },
+            "next_resource": "다음 카드에서 지진 복원 결과의 평가량을 확인합니다."
+          },
+          {
+            "title": "지진 관측과 Modified Mercalli Intensity",
+            "body": "지진 논문은 희소 지진 관측으로부터 지반운동을 복원합니다. 관측에 사용된 센서 종류와 측정 성분은 초록에는 없습니다. 복원 성능은 SW4 수치 실험과 Berkeley의 실제 M4.4 지진 데이터로 검증됩니다. 시뮬레이션 데이터 평가에서는 Modified Mercalli Intensity의 상대 오차가 2% 미만이라고 보고합니다. 이 오차는 초록에 명시된 강도 지표의 결과입니다. 실제 데이터 검증에서 같은 오차 수치가 나왔는지는 초록에 없습니다.",
+            "discipline": "physics",
+            "links_to_paper": "「Real-time reconstruction of ground motion during small magnitude earthquakes」의 SW4 시뮬레이션, Berkeley M4.4 실자료 검증, Modified Mercalli Intensity 오차 결과에 연결됩니다.",
+            "linked_keywords": [
+              "지진 지반운동",
+              "공간장 재구성"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "2% 미만 상대 오차는 어떤 데이터와 평가량에 대해 초록에 보고되었나요?",
+              "answer": "시뮬레이션 데이터에서 Modified Mercalli Intensity의 상대 오차로 보고되었습니다.",
+              "if_wrong_go_to": "온도·공기 흐름과 열쾌적성"
+            },
+            "next_resource": "논문을 읽을 때 시뮬레이션 지표와 실제 데이터 검증 결과를 따로 기록합니다."
+          }
+        ]
+      }
+    ]
+  }
+}

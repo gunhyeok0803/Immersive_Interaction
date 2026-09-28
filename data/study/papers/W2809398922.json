@@ -1,0 +1,257 @@
+{
+  "paperId": "W2809398922",
+  "title": "Webizing collaborative interaction space for cross reality with various human interface devices",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:22:18.202Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 웹 기반 XR에서 여러 사용자가 다양한 입력 장치로 협업할 수 있도록 상호작용 공간을 웹 환경에 맞게 구성하는 방법을 제안한다. 사용자 인증과 세션 관리를 지원하고, interaction adaptor가 사용자 세션에 따라 장치 이벤트를 전달한다. adaptor는 XR 콘텐츠 유형에 맞춰 이벤트 메시지를 VRPN 메시지, X3D sensor data, HTML DOM events 형식으로 변환한다. 구현 성능이나 실험 결과는 초록에는 없음.",
+      "five_c": {
+        "category": "웹 기반 XR 협업을 위한 상호작용 시스템·미들웨어 제안",
+        "context": "기존 VRPN은 장치 독립성과 네트워크 투명성을 제공하지만, 웹 환경의 VR·AR·MR과 다양한 장치를 아우르는 공통 상호작용 방식이 필요하다는 문제에서 출발한다.",
+        "correctness": "초록은 제안의 주요 기능과 지원 메시지 형식을 설명한다. 구현 결과, 실험 조건, 성능 수치는 초록에는 없음.",
+        "contributions": [
+          "웹 기반 XR 협업 상호작용 공간을 구성하는 webizing 방법을 제안한다.",
+          "사용자 인증과 세션 관리 기능을 포함한다.",
+          "interaction adaptor를 통해 사용자 세션에 따른 이벤트 전달과 XR 콘텐츠 유형별 메시지 변환을 지원한다."
+        ],
+        "clarity": "제안의 구성 요소와 예시 메시지 형식은 명시되어 있다. 인증·세션·변환의 세부 구현과 검증 방법은 초록만으로 알 수 없다."
+      },
+      "reading_goal": "장치 이벤트가 사용자 세션과 XR 콘텐츠에 맞춰 전달·변환되는 구조를 파악하고, 초록에 제시되지 않은 구현 및 검증 근거를 본문에서 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "웹 기반 XR",
+        "definition_one_line": "웹 환경에서 VR·AR·MR을 포괄하는 상호작용 환경을 가리킨다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "협업 상호작용 공간",
+        "definition_one_line": "여러 사용자의 장치 이벤트를 XR 협업에 연결하는 이 논문의 대상 공간이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "VRPN",
+        "definition_one_line": "전통적인 VR 환경에서 장치 독립적이고 네트워크 투명한 인터페이스를 제공하는 방식으로 소개된다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "사용자 세션",
+        "definition_one_line": "이벤트 전달을 사용자별로 관리하는 기준으로 제안에 포함된다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "interaction adaptor",
+        "definition_one_line": "장치 이벤트를 지원하고 세션에 따라 전달하며 콘텐츠 유형에 맞춰 메시지를 변환하는 구성 요소다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "X3D sensor data",
+        "definition_one_line": "adaptor가 변환 대상으로 제시한 XR 콘텐츠 관련 이벤트 형식 중 하나다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "HTML DOM events",
+        "definition_one_line": "adaptor가 지원한다고 밝힌 웹 콘텐츠 이벤트 형식 중 하나다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "웹 기반 XR에서 사용자와 다양한 human interface devices를 지원하는 상호작용 공간을 다룬다.",
+        "제안 방식은 사용자 인증과 세션 관리를 제공한다.",
+        "interaction adaptor가 사용자 세션을 기준으로 장치 이벤트를 전달한다.",
+        "adaptor는 이벤트 메시지를 XR 콘텐츠 유형에 따라 VRPN 메시지, X3D sensor data, HTML DOM events 형식으로 변환한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "제안은 사용자 인증과 세션 관리를 포함한다.",
+          "evidence": "초록은 이 기능들이 webizing method의 일부라고 밝힌다.",
+          "caveat": "인증 방식과 세션 수명주기, 권한 모델은 초록에는 없음."
+        },
+        {
+          "claim": "interaction adaptor는 세션에 따른 이벤트 전달과 콘텐츠 유형별 메시지 변환을 맡는다.",
+          "evidence": "초록이 adaptor의 역할과 VRPN, X3D sensor data, HTML DOM events 예시를 든다.",
+          "caveat": "변환 규칙, 지원 장치 목록, 이벤트 손실 처리 방식은 초록에는 없음."
+        },
+        {
+          "claim": "논문은 웹 기반 XR의 여러 맥락에서 협업 상호작용을 지원하는 공통 방법의 필요성을 제기한다.",
+          "evidence": "초록은 VR·AR·MR과 제한 없는 장치 선택을 지원할 필요를 설명한다.",
+          "caveat": "제안이 실제로 장치나 XR 콘텐츠의 제한을 얼마나 줄였는지 보여 주는 평가 결과는 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "사용자 인증과 세션 관리는 어떤 구성 요소와 절차로 구현되는가?",
+        "서로 다른 장치 이벤트를 VRPN 메시지, X3D sensor data, HTML DOM events로 변환하는 규칙은 무엇인가?",
+        "VR·AR·MR 환경과 다양한 장치에서 제안 방식을 어떤 실험으로 검증했는가?",
+        "이벤트 전달의 지연, 신뢰성, 동시 사용자 수에 관한 측정 결과가 있는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "networked-data-systems",
+        "why": "논문의 핵심은 장치에서 나온 이벤트가 세션과 콘텐츠 형식에 맞춰 전달되는 흐름을 이해하는 것이다. 이 모듈로 장치와 웹 시스템 사이의 역할 분담과 데이터 흐름을 따라가면 된다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "문제 배경, 사용자 인증·세션 관리, interaction adaptor의 이벤트 전달과 메시지 변환을 연결해 논문의 제안을 3~5문장으로 설명해 보라. 초록이 제시한 사실과 본문에서 추가로 확인해야 할 내용을 구분하라.",
+      "assumptions_to_challenge": [
+        "세션에 따른 이벤트 전달만으로 여러 사용자의 협업 상호작용이 충분히 지원된다고 볼 수 있는가?",
+        "제시된 메시지 형식 변환이 다양한 장치와 XR 콘텐츠의 동작 차이를 모두 포괄하는가?",
+        "VRPN, X3D sensor data, HTML DOM events 사이에 대응 가능한 정보가 충분하다고 가정하고 있는가?",
+        "초록에는 인증 보안, 이벤트 지연, 동시 사용자 규모에 대한 검증이 제시되어 있지 않다."
+      ],
+      "to_reproduce_you_need": [
+        "본문에 기술된 전체 시스템 구조와 구성 요소 간 연결 정보",
+        "사용자 인증 및 세션 관리의 구현 세부사항",
+        "지원 human interface devices와 각 장치 이벤트의 형식",
+        "VRPN, X3D sensor data, HTML DOM events 간 메시지 변환 규칙",
+        "실험 환경, XR 콘텐츠, 사용자·장치 구성, 평가 지표와 결과"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "이벤트 처리율",
+        "explain": "처리율은 일정 시간 동안 처리한 이벤트 수다. 여러 장치에서 입력이 몰릴 때 전송·처리량을 따지는 데 쓴다. 평균 처리율만으로 순간 지연이나 이벤트 순서를 알 수는 없다.",
+        "equation": {
+          "latex": "R=\\frac{N}{\\Delta t}",
+          "variables": [
+            {
+              "symbol": "R",
+              "meaning": "이벤트 처리율 (개/s)"
+            },
+            {
+              "symbol": "N",
+              "meaning": "처리한 이벤트 수 (개)"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "측정 시간 (s)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 사용자 세션에 따라 장치 이벤트를 전달하고 메시지를 변환한다고 설명한다. 처리율을 알면 여러 사용자의 입력이 몰리는 상황을 생각할 수 있다. 구체적인 처리 성능이 초록에 제시된 것은 아니므로 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값이며 논문 측정값이 아니다. 3초 동안 이벤트 150개를 처리했다면 평균 처리율은 얼마인가?",
+          "answer": "식에 대입하면 R=150개/3초=50개/s다. 평균적으로 초당 이벤트 50개를 처리한 셈이다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 위 점의 속도",
+        "explain": "강체가 회전하면 중심에서 떨어진 점은 회전 속도에 따라 움직인다. 이 식은 물체의 병진 속도와 회전으로 생기는 점의 속도를 합친다. 추적형 컨트롤러나 헤드셋의 움직임을 이해할 때 기초가 된다.",
+        "equation": {
+          "latex": "\\mathbf{v}_P=\\mathbf{v}_O+\\boldsymbol{\\omega}\\times\\mathbf{r}_{P/O}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{v}_P",
+              "meaning": "점 P의 속도 벡터 (m/s)"
+            },
+            {
+              "symbol": "\\mathbf{v}_O",
+              "meaning": "기준점 O의 속도 벡터 (m/s)"
+            },
+            {
+              "symbol": "\\boldsymbol{\\omega}",
+              "meaning": "강체의 각속도 벡터 (rad/s)"
+            },
+            {
+              "symbol": "\\mathbf{r}_{P/O}",
+              "meaning": "O에서 P까지의 위치 벡터 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 여러 인터페이스 장치를 지원한다고 하지만 추적 위치나 자세를 구체적으로 다루지는 않는다. 장치가 컨트롤러나 헤드셋의 움직임을 보내는 경우, 이 관계를 알면 물리적 움직임과 앱에 전달되는 입력을 연결해 볼 수 있다. 따라서 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값이며 논문 측정값이 아니다. 기준점 속도가 (0,0,0) m/s, 각속도가 (0,0,2) rad/s, 위치 벡터가 (0.5,0,0) m일 때 점의 속도를 구하라.",
+          "answer": "외적은 (0,0,2)×(0.5,0,0)=(0,1,0) m/s다. 기준점 속도는 0이므로 점 P의 속도도 (0,1,0) m/s다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "표본화 정리",
+        "explain": "연속적인 센서 신호를 디지털 값으로 바꾸려면 일정 간격으로 측정한다. 대역 제한된 신호를 이상적으로 복원하려면 표본화 주파수가 가장 높은 신호 주파수의 두 배 이상이어야 한다. 실제 장치에서는 잡음과 필터도 고려해야 한다.",
+        "equation": {
+          "latex": "f_s\\geq 2f_{\\max}",
+          "variables": [
+            {
+              "symbol": "f_s",
+              "meaning": "표본화 주파수 (Hz)"
+            },
+            {
+              "symbol": "f_{\\max}",
+              "meaning": "신호의 최고 주파수 (Hz)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 human interface devices와 X3D sensor data를 언급하지만 센서 신호의 표본화 방식은 설명하지 않는다. 표본화 원리를 알면 물리적 입력이 디지털 이벤트가 되기 전의 측정 과정을 이해하는 데 도움이 된다. 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값이며 논문 측정값이 아니다. 최고 주파수가 10 Hz인 신호를 25 Hz로 표본화하면 이상적 표본화 조건을 만족하는가?",
+          "answer": "조건은 f_s≥2f_max다. 2×10=20 Hz이고 25≥20이므로 조건을 만족한다. 이는 이상적인 신호 복원 조건이며 장치의 지연이나 잡음까지 보장하지는 않는다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "어댑터 패턴과 이벤트 기반 설계",
+        "explain": "어댑터는 한 인터페이스의 메시지를 다른 인터페이스가 이해하는 형식으로 바꾼다. 이벤트 기반 설계에서는 버튼 입력이나 센서 변화 같은 사건을 메시지로 전달한다. 두 개념을 함께 쓰면 장치와 XR 콘텐츠 사이의 의존성을 줄일 수 있다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 interaction adaptor가 사용자 세션과 콘텐츠 유형에 따라 VRPN 메시지, X3D sensor data, HTML DOM events로 이벤트를 변환한다고 직접 설명한다. 어댑터를 이해하면 장치 입력이 여러 XR 콘텐츠 형식으로 연결되는 방식을 읽을 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "사용자가 VRPN 장치의 버튼을 눌렀다. 논문 초록에 설명된 구조에 따라 HTML 콘텐츠에서 이 입력을 받으려면 어떤 흐름이 필요한가?",
+          "answer": "먼저 장치의 버튼 입력을 VRPN 이벤트로 받는다. 어댑터는 해당 이벤트를 사용자 세션에 연결하고, 대상 콘텐츠 형식에 맞는 HTML DOM 이벤트로 변환해 전달한다. 이 흐름에서 장치 입력 형식과 콘텐츠 이벤트 형식이 분리된다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "VRPN",
+        "category": "library",
+        "what_for": "여러 VR 주변기기의 입력을 네트워크를 통해 공통 방식으로 전달한다.",
+        "link_to_paper": "초록에서 장치 독립적 인터페이스와 변환 대상 메시지 형식으로 직접 언급된다.",
+        "evidence": "abstract",
+        "first_step": "VRPN 예제 장치에서 버튼 이벤트 하나를 발생시키고 클라이언트가 받는지 확인해 보세요."
+      },
+      {
+        "name": "X3D",
+        "category": "platform",
+        "what_for": "웹에서 3D 장면과 센서 노드를 표현하는 표준을 제공한다.",
+        "link_to_paper": "초록에서 어댑터가 변환하는 콘텐츠별 이벤트 형식으로 X3D sensor data를 직접 언급한다.",
+        "evidence": "abstract",
+        "first_step": "간단한 X3D 장면에 TouchSensor를 넣고 상호작용 이벤트를 관찰해 보세요."
+      },
+      {
+        "name": "HTML DOM Events",
+        "category": "platform",
+        "what_for": "웹 페이지 요소의 클릭이나 키 입력 같은 이벤트를 처리한다.",
+        "link_to_paper": "초록에서 어댑터가 변환하는 이벤트 형식으로 직접 언급된다.",
+        "evidence": "abstract",
+        "first_step": "페이지의 버튼에 click 이벤트 리스너를 연결하고 발생한 이벤트를 기록해 보세요."
+      },
+      {
+        "name": "WebSocket",
+        "category": "platform",
+        "what_for": "브라우저와 서버 사이에 양방향 실시간 메시지 연결을 제공한다.",
+        "link_to_paper": "협업 세션의 이벤트 전달을 구현할 때 활용할 수 있는 일반적인 웹 네트워크 기술이다.",
+        "evidence": "inferred",
+        "first_step": "WebSocket echo 서버에 JSON 이벤트 하나를 보내고 같은 메시지가 돌아오는지 확인해 보세요."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

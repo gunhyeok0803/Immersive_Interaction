@@ -1,0 +1,276 @@
+{
+  "paperId": "W4226099965",
+  "title": "COVID-Beat: a low-cost breath monitoring approach for people in quarantine during the pandemic",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:15:08.315Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "COVID-Beat은 격리 중인 사람의 호흡수를 접촉 없이 계속 측정하기 위해 제안된 Wi-Fi 기반 시스템이다. 일반적으로 구할 수 있는 ESP32에서 Channel State Information(CSI)을 추출하고, 부반송파 선택과 융합으로 호흡수를 추정한다. 초록은 광범위한 실험에서 정확도가 최소 91%, 최대 99%였다고 보고하며 기존 호흡 모니터링 기술보다 성능이 우수하다고 주장한다. 실험 조건과 정확도 산정 방식은 초록에 제시되지 않았다.",
+      "five_c": {
+        "category": "ESP32와 Wi-Fi CSI를 이용한 비접촉 호흡수 측정 시스템 제안 및 실험 검증 연구.",
+        "context": "접촉식 웨어러블은 환자에게 부담을 주고, 돌봄 제공자에게 감염 위험을 줄 수 있으며 대규모 보급에는 비용 문제가 있다고 설명한다.",
+        "correctness": "초록은 광범위한 실험과 91~99% 정확도를 근거로 든다. 정확도의 정의, 비교 대상, 실험 규모와 조건은 초록에는 없다.",
+        "contributions": [
+          "저비용·무선·비접촉 연속 호흡 모니터링 시스템 COVID-Beat을 제안한다.",
+          "ESP32에서 추출한 부반송파 CSI와 부반송파 선택·융합 방법으로 호흡수를 추정한다.",
+          "실험에서 정확도 91~99%를 보고하고 기존 기술보다 우수하다고 주장한다."
+        ],
+        "clarity": "초록만으로 시스템의 목적과 큰 처리 흐름은 파악할 수 있다. 구현 세부사항과 성능 평가 기준은 본문에서 확인해야 한다."
+      },
+      "reading_goal": "CSI 부반송파에서 호흡수를 추정하는 흐름을 파악하고, 보고된 정확도가 어떤 실험 조건과 평가 기준에서 나온 값인지 본문에서 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "COVID-Beat",
+        "definition_one_line": "격리 중인 사람의 호흡수를 측정하도록 제안된 Wi-Fi 기반 비접촉 시스템.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "비접촉 호흡 모니터링",
+        "definition_one_line": "신체에 센서를 부착하지 않고 호흡수를 연속 측정하는 접근.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "ESP32",
+        "definition_one_line": "COVID-Beat의 센서 장치로 사용된 시판 임베디드 IoT 기기.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Channel State Information (CSI)",
+        "definition_one_line": "시스템이 호흡수 추정을 위해 부반송파에서 추출하는 채널 상태 정보.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "부반송파 선택",
+        "definition_one_line": "호흡수 추정 성능을 높이기 위해 사용하는 처리 방법 중 하나.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "부반송파 융합",
+        "definition_one_line": "선택된 부반송파 정보를 결합해 호흡수를 추정하는 방법.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "정확도 91~99%",
+        "definition_one_line": "초록이 보고한 호흡수 추정 정확도의 최소값과 최대값.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "ESP32를 이용해 Wi-Fi 기반 비접촉 호흡 모니터링 시스템을 구성한다.",
+        "부반송파의 CSI를 추출한다.",
+        "부반송파를 선택하고 융합해 호흡수를 추정한다.",
+        "실험으로 성능을 검증하고, 초록은 정확도 최소 91%, 최대 99%를 보고한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "COVID-Beat은 접촉 없이 호흡수를 연속 모니터링하도록 제안됐다.",
+          "evidence": "초록은 무선·저비용·비접촉 Wi-Fi 기반 연속 호흡 모니터링 시스템이라고 설명한다.",
+          "caveat": "연속 측정의 시간 간격과 장시간 운영 결과는 초록에는 없다."
+        },
+        {
+          "claim": "부반송파 선택과 융합을 사용해 호흡수를 추정한다.",
+          "evidence": "초록은 부반송파 CSI를 추출하며, advanced subcarrier selection and fusion method로 성능을 얻었다고 설명한다.",
+          "caveat": "선택·융합 알고리즘의 구체적인 절차는 초록에는 없다."
+        },
+        {
+          "claim": "시스템은 실험에서 91~99% 정확도를 보였다고 보고됐다.",
+          "evidence": "초록은 최소 정확도 91%, 최대 정확도 99%를 명시한다.",
+          "caveat": "정확도의 정의, 실험 대상과 규모, 측정 조건, 비교 기술은 초록에는 없다."
+        },
+        {
+          "claim": "저자들은 기존 호흡 모니터링 기술보다 성능이 우수하다고 주장한다.",
+          "evidence": "초록은 실험 결과가 기존 기술보다 우수하다고 서술한다.",
+          "caveat": "비교 대상과 수치, 비교 조건은 초록에는 없다."
+        }
+      ],
+      "critical_questions": [
+        "정확도 91~99%는 어떤 기준값과 계산 방식으로 산정했는가?",
+        "실험 대상자 수, 측정 시간, 자세와 환경은 어떠했는가?",
+        "부반송파를 선택하고 융합하는 구체적인 알고리즘은 무엇인가?",
+        "기존 기술과의 비교 대상 및 비교 조건은 무엇인가?",
+        "ESP32 장치의 비용, 전력 사용량과 무선 데이터 수집 조건은 어떻게 평가했는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "이 논문은 Wi-Fi CSI를 입력 신호로 사용해 호흡수를 추정한다. CSI 측정값에서 추정 결과까지 이어지는 처리 흐름과 평가 단위를 살펴보는 데 도움이 된다.",
+        "focus_cards": [
+          "측정 신호에서 과제로 가는 파이프라인",
+          "모델 입력과 과제 출력",
+          "센서 신호와 추론 대상"
+        ]
+      },
+      {
+        "module_id": "networked-data-systems",
+        "why": "ESP32와 Wi-Fi를 이용해 신호를 수집하는 시스템이다. 장치에서 데이터가 어떻게 수집되고 전송되는지 본문에서 확인할 때 참고할 수 있다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기",
+          "채널 상태와 CSI 데이터"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "ESP32가 얻은 Wi-Fi CSI를 어떤 방식으로 부반송파별 처리·융합해 호흡수로 바꾸는지, 그리고 91~99%라는 결과가 어떤 평가에서 나온 것인지 자신의 말로 설명해 보세요.",
+      "assumptions_to_challenge": [
+        "보고된 정확도가 다양한 사람과 환경에서도 유지된다고 볼 수 있는가?",
+        "비접촉·저비용이라는 특성이 연속 운영의 안정성과 돌봄 현장 적용까지 보장하는가?",
+        "기존 기술보다 우수하다는 주장은 비교 대상과 조건을 확인하기 전에도 받아들일 수 있는가?"
+      ],
+      "to_reproduce_you_need": [
+        "ESP32 장치 구성과 Wi-Fi 신호 수집 설정.",
+        "CSI 추출과 부반송파 선택·융합 절차의 상세 설명.",
+        "호흡수 기준값을 얻은 장치와 측정 동기화 방법.",
+        "실험 대상, 환경, 자세, 측정 시간과 데이터 처리 절차.",
+        "정확도 산정식과 기존 기술의 비교 조건."
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "주기와 주파수",
+        "explain": "주기 T는 한 번의 호흡 주기가 걸리는 시간입니다. 주파수 f는 1초 동안 반복되는 횟수입니다. 호흡 신호에서 주기를 구하면 분당 호흡수로 바꿀 수 있습니다.",
+        "equation": {
+          "latex": "f=\\frac{1}{T}",
+          "variables": [
+            {
+              "symbol": "f",
+              "meaning": "주파수, 단위 Hz"
+            },
+            {
+              "symbol": "T",
+              "meaning": "주기, 단위 s"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 CSI에서 호흡수를 추정하므로, 시간에 따른 신호의 반복을 주파수로 해석하는 방법이 필요합니다. 초록에는 주파수 분석이 직접 언급되지 않아 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값(논문 측정값 아님)으로 호흡 주기가 4초라면 주파수와 분당 호흡수는 얼마인가요?",
+          "answer": "f=1/T=1/4=0.25 Hz입니다. 1분은 60초이므로 0.25×60=15회/분입니다."
+        },
+        "module_card": "시간영역·주파수영역·시간-주파수 표현"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "흉곽 움직임의 단순 조화 운동 근사",
+        "explain": "호흡할 때 흉곽은 앞뒤로 반복해서 움직입니다. 움직임을 단순 조화 운동으로 근사하면 위치를 시간의 함수로 나타낼 수 있습니다. 실제 호흡 파형은 완벽한 사인파가 아니므로, 이 모델은 움직임의 주기와 크기를 이해하기 위한 단순화입니다.",
+        "equation": {
+          "latex": "x(t)=A\\cos(\\omega t+\\phi)",
+          "variables": [
+            {
+              "symbol": "x(t)",
+              "meaning": "평형 위치에서의 변위, 단위 m"
+            },
+            {
+              "symbol": "A",
+              "meaning": "진폭, 단위 m"
+            },
+            {
+              "symbol": "\\omega",
+              "meaning": "각주파수, 단위 rad/s"
+            },
+            {
+              "symbol": "t",
+              "meaning": "시간, 단위 s"
+            },
+            {
+              "symbol": "\\phi",
+              "meaning": "위상, 단위 rad"
+            }
+          ]
+        },
+        "link_to_paper": "호흡에 따른 흉곽 움직임은 주변 Wi-Fi 신호의 전파 경로를 바꿀 수 있습니다. 논문은 흉곽 움직임을 직접 측정한다고 밝히지 않으므로, 움직임과 무선 신호 변화의 연결을 이해하기 위한 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값(논문 측정값 아님)으로 A=5 mm, 주파수 0.25 Hz, 위상 0일 때 t=0.5초의 변위는 얼마인가요?",
+          "answer": "각주파수는 ω=2πf=2π×0.25=π/2 rad/s입니다. 따라서 x(0.5)=5 cos((π/2)×0.5) mm=5 cos(π/4) mm≈3.54 mm입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "전파 위상과 경로 길이",
+        "explain": "Wi-Fi 전파는 여러 경로를 지나 수신기에 도달할 수 있습니다. 물체의 위치가 변하면 전파 경로 길이가 달라지고, 이에 따라 수신 신호의 위상도 변합니다. CSI는 무선 채널의 상태를 나타내므로, 이러한 변화가 호흡 움직임 추정에 쓰일 수 있습니다.",
+        "equation": {
+          "latex": "\\Delta\\phi=\\frac{2\\pi\\Delta d}{\\lambda}",
+          "variables": [
+            {
+              "symbol": "\\Delta\\phi",
+              "meaning": "전파 위상 변화, 단위 rad"
+            },
+            {
+              "symbol": "\\Delta d",
+              "meaning": "전파 경로 길이 변화, 단위 m"
+            },
+            {
+              "symbol": "\\lambda",
+              "meaning": "전파 파장, 단위 m"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 Wi-Fi CSI를 추출해 호흡수를 추정한다고 설명합니다. 신체 움직임이 전파 경로와 CSI를 바꾸는 물리적 이유를 알면 비접촉 측정의 원리를 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값(논문 측정값 아님)으로 경로 길이 변화가 1 cm이고 파장이 0.125 m라면 위상 변화의 크기는 얼마인가요?",
+          "answer": "Δφ=2πΔd/λ=2π×0.01/0.125≈0.503 rad입니다. 각도로 바꾸면 약 28.8°입니다."
+        },
+        "module_card": "RF 반사의 물리적 연결"
+      },
+      {
+        "discipline": "cs",
+        "concept": "측정 신호에서 호흡수 추정까지의 파이프라인",
+        "explain": "센서 신호를 과제에 맞는 입력으로 만들고, 처리한 뒤 원하는 값을 추정하는 흐름을 파이프라인이라고 합니다. 이 논문에서는 Wi-Fi CSI의 서브캐리어를 선택하고 결합해 호흡수를 추정합니다. 입력 신호와 최종 출력이 무엇인지 구분하면 각 처리 단계의 역할을 파악하기 쉽습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 CSI 서브캐리어 추출, 선택 및 결합을 거쳐 호흡수를 추정한다고 설명합니다. 각 단계가 입력 신호를 최종 호흡수 추정값으로 바꾸는 흐름을 따라가면 논문의 방법을 읽기 쉽습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "초록에 나온 방법을 입력, 처리, 출력으로 나누면 각각 무엇인가요?",
+          "answer": "입력은 Wi-Fi CSI의 서브캐리어 신호입니다. 처리는 호흡 추정에 쓸 서브캐리어를 선택하고 결합하는 단계입니다. 출력은 추정된 호흡수입니다."
+        },
+        "module_card": "측정 신호에서 과제로 가는 파이프라인"
+      }
+    ],
+    "tools": [
+      {
+        "name": "ESP32",
+        "category": "hardware",
+        "what_for": "저렴하고 구하기 쉬운 임베디드 장치로 Wi-Fi CSI를 수집하는 데 사용합니다.",
+        "link_to_paper": "초록은 COVID-Beat가 상용 ESP32 장치로 개발되었다고 밝힙니다.",
+        "evidence": "abstract",
+        "first_step": "ESP32의 Wi-Fi CSI 수집 예제를 따라 실행하고 기록되는 데이터 항목을 살펴봅니다."
+      },
+      {
+        "name": "Wi-Fi Channel State Information (CSI)",
+        "category": "sensor",
+        "what_for": "무선 채널의 서브캐리어별 상태 변화를 기록해 주변 움직임을 추정할 수 있게 합니다.",
+        "link_to_paper": "논문은 CSI 서브캐리어를 추출해 호흡수를 추정합니다.",
+        "evidence": "abstract",
+        "first_step": "시간에 따라 기록한 CSI 서브캐리어 값 하나를 그래프로 그려 변화를 관찰합니다."
+      },
+      {
+        "name": "서브캐리어 선택 및 결합",
+        "category": "method",
+        "what_for": "호흡 추정에 유용한 서브캐리어를 골라 정보를 결합하는 신호 처리 방법입니다.",
+        "link_to_paper": "초록은 고급 서브캐리어 선택 및 결합 방법을 호흡수 추정에 사용했다고 설명합니다.",
+        "evidence": "abstract",
+        "first_step": "여러 서브캐리어 신호를 같은 시간축에 그려 변동 패턴을 비교합니다."
+      },
+      {
+        "name": "고속 푸리에 변환 (FFT)",
+        "category": "method",
+        "what_for": "시간 신호의 주파수 성분을 분석해 반복 주기를 찾는 방법입니다.",
+        "link_to_paper": "호흡 신호에서 주파수 성분으로 호흡수를 추정하는 데 쓰이는 일반적인 분석 도구이며, 초록은 FFT 사용 여부를 밝히지 않아 간접 연결입니다.",
+        "evidence": "inferred",
+        "first_step": "예시로 만든 0.25 Hz 주기 신호에 FFT를 적용해 가장 큰 주파수 성분을 확인합니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

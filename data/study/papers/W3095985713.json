@@ -1,0 +1,263 @@
+{
+  "paperId": "W3095985713",
+  "title": "Machine Assisted Video Tagging of Elderly Activities in K-Log Centre",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:18:38.817Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 K-Log Centre에서 치매 노인의 일상 활동을 기록하는 돌봄 제공자(CG)의 업무 부담을 다룬다. YOLO-v3 기반 객체 검출을 HAR에 활용해 영상 속 활동을 사람이 태깅하도록 돕는 방법을 제안한다. 초록은 알고리즘의 precision 98.4%와 센터 실시간 영상에서의 accuracy 81.4%를 보고한다. 기록 업무가 줄었다고 서술하지만, 절감량이나 평가 조건은 초록에 제시되지 않는다.",
+      "five_c": {
+        "category": "노인 돌봄 영상의 인간 활동 인식(HAR)과 기계 보조 태깅",
+        "context": "K-Log Centre의 CG는 장기 돌봄과 ADL 기록을 함께 맡는다. 저자들은 기록 업무가 돌봄 부담을 키울 수 있다고 설명한다.",
+        "correctness": "초록에는 precision 98.4%와 실시간 영상 accuracy 81.4%가 보고되어 있다. 표본 수, 지표 산출 방식, 비교 기준은 초록에 없다.",
+        "contributions": [
+          "YOLO-v3 기반 객체 검출을 HAR에 활용해 영상 태깅을 보조하는 방법을 제안한다.",
+          "K-Log Centre의 실시간 영상 피드에서 모델을 시험했다고 보고한다."
+        ],
+        "clarity": "문제와 제안 방법, 두 성능 수치는 제시되지만 멀티모달 구성과 실시간 평가 조건은 초록만으로 알기 어렵다."
+      },
+      "reading_goal": "객체 검출 결과가 어떻게 활동 태깅 보조로 이어지는지 확인하고, precision과 실시간 accuracy의 평가 조건 및 기록 부담 감소의 근거를 구분해 읽는다."
+    },
+    "keywords": [
+      {
+        "term": "ADL",
+        "definition_one_line": "일상생활 활동을 기록하는 범주로, 이 논문에서는 노인 돌봄 기록의 대상이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "CG",
+        "definition_one_line": "돌봄 제공자(caregiver)로, K-Log Centre에서 환자를 돌보고 활동을 기록한다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "HAR",
+        "definition_one_line": "영상에서 사람의 활동을 인식하는 과제로, 태깅 보조 방법의 기반이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "YOLO-v3",
+        "definition_one_line": "이 논문에서 HAR에 활용한 객체 검출 기반 딥러닝 방법이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "객체 검출",
+        "definition_one_line": "영상 속 객체를 찾아내는 단계로, 제안된 HAR 방법에 사용된다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "기계 보조 영상 태깅",
+        "definition_one_line": "모델이 활동 인식을 도와 사람이 영상에 활동 정보를 기록하도록 하는 접근이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "precision",
+        "definition_one_line": "초록에서 제안 알고리즘의 성능으로 보고한 지표이며, 수치는 98.4%다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "실시간 영상 accuracy",
+        "definition_one_line": "K-Log Centre의 실시간 영상 피드 시험에서 보고한 accuracy이며, 수치는 81.4%다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "K-Log Centre의 CG가 ADL 기록도 맡아 업무 부담을 겪는 문제를 설정한다.",
+        "YOLO-v3 기반 객체 검출 방법을 설계하고, 이를 HAR에 활용한다.",
+        "HAR를 이용해 사람이 영상 활동을 태깅하도록 돕는 멀티모달 방법을 제안한다. 구체적인 모달 구성은 초록에 없다.",
+        "제안 알고리즘의 precision 98.4%를 보고한다.",
+        "K-Log Centre의 실시간 영상 피드에서 모델을 시험해 accuracy 81.4%를 보고한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "제안 알고리즘이 활동을 높은 precision으로 검출한다.",
+          "evidence": "초록은 precision 98.4%를 보고한다.",
+          "caveat": "데이터셋, 활동별 결과, 지표의 산출 방식은 초록에 없다."
+        },
+        {
+          "claim": "모델을 센터의 실시간 영상 피드에서 시험했다.",
+          "evidence": "초록은 실시간 영상 시험의 accuracy가 81.4%라고 보고한다.",
+          "caveat": "시험 규모, 조건, accuracy의 평가 단위는 초록에 없다."
+        },
+        {
+          "claim": "제안 방법이 CG의 기록 업무를 줄일 수 있다고 저자들은 서술한다.",
+          "evidence": "초록은 실시간 시험에서 기록 활동이 감소했다고 설명한다.",
+          "caveat": "업무 시간이나 기록량의 감소 수치, 측정 방법은 초록에 없다."
+        }
+      ],
+      "critical_questions": [
+        "어떤 활동 범주를 인식하며, 영상 태깅의 정답 라벨은 어떤 기준으로 정했는가?",
+        "98.4% precision은 어떤 데이터와 산출 단위에서 나온 수치인가?",
+        "실시간 영상 시험의 규모와 조건은 무엇이며, accuracy는 어떻게 계산했는가?",
+        "초록에서 말하는 멀티모달 구성은 무엇인가?",
+        "CG의 기록 부담 감소를 시간이나 기록량으로 측정했는가?",
+        "한 센터에서의 결과가 다른 센터, 환자, 촬영 조건에도 적용되는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "이 논문은 영상에서 활동을 인식하고 태깅을 보조하는 흐름을 다룬다. 입력 신호에서 과제 출력으로 이어지는 과정과 분류 지표의 평가 단위를 살피는 데 이 모듈이 필요하다.",
+        "focus_cards": []
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "문제 상황, YOLO-v3 기반 HAR의 역할, 실시간 영상 시험 결과를 차례로 설명하고, 각 수치가 무엇을 평가하는지 말해 보세요.",
+      "assumptions_to_challenge": [
+        "객체 검출 정보만으로 ADL 활동을 충분히 구분할 수 있는가?",
+        "보고된 성능이 다른 환자와 촬영 조건에서도 유지되는가?",
+        "실시간 accuracy가 실제 CG의 기록 부담 감소를 보여 주는가?",
+        "precision 98.4%와 accuracy 81.4%는 서로 다른 평가 조건과 지표인가?"
+      ],
+      "to_reproduce_you_need": [
+        "인식 대상 활동 목록과 영상 태깅 기준",
+        "학습·평가 영상의 구성, 분할 방식, 데이터 규모",
+        "YOLO-v3 모델 구성, 전처리와 학습 설정",
+        "precision과 accuracy의 계산 방식 및 평가 단위",
+        "실시간 영상 시험의 절차와 조건",
+        "CG 기록 부담을 측정한 방법과 결과"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "분류 지표: precision과 accuracy",
+        "explain": "Precision은 양성으로 예측한 항목 중 실제 양성의 비율입니다. Accuracy는 전체 예측 중 맞힌 비율입니다. 두 값은 서로 다른 질문에 답하므로 함께 읽어야 합니다.",
+        "equation": {
+          "latex": "\\mathrm{Precision}=\\frac{\\mathrm{TP}}{\\mathrm{TP}+\\mathrm{FP}}",
+          "variables": [
+            {
+              "symbol": "\\mathrm{TP}",
+              "meaning": "참 양성 건수(건)"
+            },
+            {
+              "symbol": "\\mathrm{FP}",
+              "meaning": "거짓 양성 건수(건)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 HAR의 precision과 live data의 accuracy를 따로 보고합니다. 각 지표가 무엇을 세는지 알아야 두 결과를 혼동하지 않습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상의 검증에서 TP가 36건, FP가 9건이면 precision은 얼마인가? 이 예시 값은 논문 측정값이 아니다.",
+          "answer": "공식에 대입하면 36 ÷ (36 + 9) = 36 ÷ 45 = 0.8입니다. 따라서 precision은 80%입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "변위와 평균속도",
+        "explain": "변위는 시작 위치와 끝 위치의 차이입니다. 평균속도는 변위를 걸린 시간으로 나눈 값입니다. 영상에서 움직임을 해석할 때는 픽셀상의 이동과 실제 신체의 이동을 구별해야 합니다.",
+        "equation": {
+          "latex": "\\bar{v}=\\frac{\\Delta x}{\\Delta t}",
+          "variables": [
+            {
+              "symbol": "\\bar{v}",
+              "meaning": "평균속도(m/s)"
+            },
+            {
+              "symbol": "\\Delta x",
+              "meaning": "위치 변화, 즉 변위(m)"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "걸린 시간(s)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 노인의 활동을 영상으로 인식한다고 설명하지만, 활동을 물리량으로 측정한다고 하지는 않습니다. 변위와 속도는 걷기처럼 움직임이 포함된 활동을 이해하는 기초이며, 실제 거리로 환산하려면 영상의 공간 보정이 필요합니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 영상에서 사람이 3초 동안 1.2m 이동했다면 평균속도는 얼마인가? 이 예시 값은 논문 측정값이 아니다.",
+          "answer": "평균속도는 변위 ÷ 시간입니다. 1.2m ÷ 3s = 0.4m/s이므로 평균속도는 0.4m/s입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "pinhole camera 투영",
+        "explain": "pinhole camera 모델은 3차원 물체가 영상면에 맺히는 방식을 단순화합니다. 물체가 멀어질수록 영상면에 맺히는 크기는 작아집니다. 이 모델은 영상의 위치와 크기가 실제 거리와 같지 않다는 점을 이해하는 데 도움을 줍니다.",
+        "equation": {
+          "latex": "x=\\frac{fX}{Z}",
+          "variables": [
+            {
+              "symbol": "x",
+              "meaning": "영상면에서의 가로 위치(m)"
+            },
+            {
+              "symbol": "f",
+              "meaning": "초점거리(m)"
+            },
+            {
+              "symbol": "X",
+              "meaning": "물체의 가로 위치(m)"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라에서 물체까지의 깊이(m)"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 K-Log Centre의 live video feed를 사용했다고 밝힙니다. 투영을 알면 영상 속 사람의 크기나 위치가 카메라와의 거리에도 영향을 받는다는 점을 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 pinhole camera에서 f=0.02m, X=0.5m, Z=2m라면 영상면 위치 x는 얼마인가? 이 예시 값은 논문 측정값이 아니다.",
+          "answer": "식에 대입하면 x = (0.02 × 0.5) ÷ 2 = 0.005m입니다. 영상면에서의 가로 위치는 0.005m입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "비디오 기반 활동 인식과 태깅 파이프라인",
+        "explain": "비디오는 여러 프레임으로 이루어집니다. 객체 검출 결과를 활동 인식에 활용하면 영상에 활동 라벨을 붙이는 과정을 보조할 수 있습니다. 이 논문은 기계가 제안한 활동 태그를 돌봄 기록에 활용하는 흐름을 다룹니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 YOLO-v3 기반 객체 검출을 HAR에 활용해 영상 태깅을 돕는다고 설명합니다. 입력 영상에서 활동 라벨이 만들어지는 흐름을 이해하면 돌봄 기록 자동화의 역할과 한계를 살펴볼 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상의 20초 영상에서 사람이 걷는 장면이 5초간 이어진다면, 태깅 파이프라인에서 어떤 결과를 만들 수 있는가? 이 예시 길이는 논문 측정값이 아니다.",
+          "answer": "먼저 영상 프레임에서 사람을 검출하고, 이어지는 프레임의 정보를 활동 인식에 사용합니다. 해당 구간에 ‘걷기’ 라벨을 붙여 기록 후보로 제시할 수 있습니다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "YOLO-v3",
+        "category": "method",
+        "what_for": "영상 프레임에서 객체의 종류와 위치를 검출합니다.",
+        "link_to_paper": "논문은 YOLO-v3 기반 객체 검출을 HAR에 활용합니다.",
+        "evidence": "abstract",
+        "first_step": "공개 예제 영상의 한 프레임에서 사람 검출 상자를 확인한다."
+      },
+      {
+        "name": "Human Activity Recognition (HAR)",
+        "category": "method",
+        "what_for": "영상 정보를 활동 라벨로 분류해 태깅을 돕습니다.",
+        "link_to_paper": "논문은 HAR로 노인의 활동을 영상에서 인식해 ADL 기록을 보조합니다.",
+        "evidence": "abstract",
+        "first_step": "짧은 영상에 ‘걷기’와 ‘앉기’ 구간을 직접 표시해 라벨 기준을 정한다."
+      },
+      {
+        "name": "RGB video camera",
+        "category": "sensor",
+        "what_for": "장면을 연속적인 영상 프레임으로 기록합니다.",
+        "link_to_paper": "논문은 K-Log Centre의 live video feed에서 모델을 평가합니다.",
+        "evidence": "inferred",
+        "first_step": "동의한 성인 자원자의 걷기 동작을 짧게 촬영해 프레임을 확인한다."
+      },
+      {
+        "name": "OpenCV",
+        "category": "library",
+        "what_for": "영상 파일을 읽고 프레임을 다루거나 검출 결과를 화면에 표시합니다.",
+        "link_to_paper": "영상 프레임을 준비하고 객체 검출 결과를 살펴보는 데 사용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "예제 MP4를 열어 프레임 크기와 초당 프레임 수를 확인한다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

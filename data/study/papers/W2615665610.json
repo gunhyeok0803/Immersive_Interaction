@@ -1,0 +1,271 @@
+{
+  "paperId": "W2615665610",
+  "title": "Webized 3D content streaming system for autostereoscopic 3D displays",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:23:32.013Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 안경 없이 보는 autostereoscopic SMV 3D 디스플레이용 스트리밍 콘텐츠를 웹 문서로 제공하는 방법을 제안한다. 이 방법은 실제 사물, 3D 모델, HTML DOM 요소를 포함하고 시간 동기화를 지원한다. 저자들은 전환과 애니메이션 효과를 위한 CSS 확장도 정의한다. 웹 프로토타입으로 콘텐츠 예제를 구현해 접근법의 유용성을 보였지만, 초록에는 정량 평가 결과가 없다.",
+      "five_c": {
+        "category": "웹 기반 SMV 3D 콘텐츠 스트리밍 시스템 제안 및 프로토타입 구현",
+        "context": "360° 파노라마·VR 영상이 널리 쓰이지만, 안경이나 HMD 착용은 불편할 수 있다. 안경 없는 SMV 3D 디스플레이는 편리한 경험을 제공하지만 콘텐츠 종류가 제한되어 있다.",
+        "correctness": "초록은 콘텐츠 유형과 CSS 확장, 프로토타입 예제를 설명한다. 동기화 방식, 성능 수치, 사용자 평가 결과는 초록에는 없음.",
+        "contributions": [
+          "HTML 문서를 통한 SMV 3D 스트리밍 콘텐츠 웹화 방법을 제안한다.",
+          "실제 사물, 3D 모델, HTML DOM 요소를 포함하고 시간 동기화를 지원한다.",
+          "전환과 애니메이션 효과를 위한 사용자 정의 CSS 확장을 정의한다.",
+          "웹 프로토타입으로 콘텐츠 예제를 구현한다."
+        ],
+        "clarity": "문제와 제안한 기능은 초록에서 분명하다. 구현 세부 사항과 유용성을 검증한 근거는 초록만으로 확인하기 어렵다."
+      },
+      "reading_goal": "HTML 기반 콘텐츠 구성과 시간 동기화가 어떤 방식으로 구현되는지 확인하고, 프로토타입이 유용성을 얼마나 뒷받침하는지 평가한다."
+    },
+    "keywords": [
+      {
+        "term": "autostereoscopic 3D display",
+        "definition_one_line": "안경을 쓰지 않고 3D 콘텐츠를 보는 디스플레이이며, 이 논문에서는 콘텐츠를 제공할 대상이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "super multi-view (SMV)",
+        "definition_one_line": "초록에서 안경 없는 3D 경험을 제공하는 디스플레이 유형으로 제시된다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "웹화",
+        "definition_one_line": "SMV 3D 스트리밍 콘텐츠를 HTML 문서를 통해 제공하는 이 논문의 제안 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "시간 동기화",
+        "definition_one_line": "스트리밍 콘텐츠에 포함된 요소들의 시간 관계를 맞추는 기능으로 제시되지만, 구체적 방식은 초록에는 없음.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "HTML DOM 요소",
+        "definition_one_line": "3D 모델 및 실제 사물과 함께 SMV 3D 스트리밍 콘텐츠에 포함되는 웹 문서 요소다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "사용자 정의 CSS 확장",
+        "definition_one_line": "SMV 3D 스트리밍 콘텐츠의 전환 및 애니메이션 효과를 정의하기 위해 제안한 확장이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "웹 프로토타입",
+        "definition_one_line": "제안 방식의 유용성을 보이기 위해 SMV 3D 콘텐츠 예제를 구현한 시제품이다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "안경이나 HMD의 착용 부담과 SMV 콘텐츠 종류의 제한을 문제로 제시한다.",
+        "시간 동기화를 포함한 SMV 3D 스트리밍 콘텐츠 웹화 방법을 제안한다.",
+        "HTML 문서를 통해 실제 사물, 3D 모델, HTML DOM 요소를 포함하는 콘텐츠를 제공하고, 전환·애니메이션용 CSS 확장을 정의한다.",
+        "웹 프로토타입에서 콘텐츠 예제를 구현해 접근법의 유용성을 보인다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "제안 방식은 여러 유형의 요소를 포함하는 SMV 3D 콘텐츠를 제공한다.",
+          "evidence": "초록은 실제 사물, 3D 모델, HTML DOM 요소가 HTML 문서를 통해 제공된다고 설명한다.",
+          "caveat": "요소들의 구체적인 형식, 표현 방식, 호환성은 초록에는 없음."
+        },
+        {
+          "claim": "제안 방식은 시간 동기화와 전환·애니메이션 효과를 지원한다.",
+          "evidence": "초록은 시간 동기화를 언급하고, 효과를 위한 사용자 정의 CSS 확장을 정의한다고 설명한다.",
+          "caveat": "동기화 알고리즘, CSS 문법, 지연 허용치와 성능 결과는 초록에는 없음."
+        },
+        {
+          "claim": "웹 프로토타입으로 제안 방식의 유용성을 보였다.",
+          "evidence": "초록은 웹 프로토타입 구현을 통해 SMV 3D 콘텐츠 예제를 제시했다고 설명한다.",
+          "caveat": "평가 대상, 비교 조건, 측정 지표와 수치는 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "시간 동기화는 어떤 기준 시계와 재생 제어 방식으로 구현되는가?",
+        "사용자 정의 CSS 확장은 기존 브라우저와 어떻게 호환되며, SMV 디스플레이에는 어떻게 연결되는가?",
+        "실제 사물과 3D 모델은 어떤 데이터 형식으로 웹 문서에 포함되는가?",
+        "프로토타입의 유용성은 어떤 사용자나 측정 지표로 검증되었는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "networked-data-systems",
+        "why": "이 논문은 웹 기반 3D 콘텐츠 스트리밍과 시간 동기화를 다룬다. 모듈의 데이터 흐름과 처리 지연 카드를 바탕으로 콘텐츠가 전달되고 재생되는 경로를 살펴볼 수 있다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기",
+          "저장량과 처리율, 기록 지연 구분"
+        ]
+      },
+      {
+        "module_id": "camera-geometry-and-3d",
+        "why": "SMV 3D 디스플레이가 콘텐츠를 제시하는 방식과 웹에서 제공되는 콘텐츠 표현을 구분해 읽는 데 도움이 된다. 초록에는 시점 구성이나 3D 표현 방식의 세부 사항이 없다.",
+        "focus_cards": [
+          "다중 시점 정보를 3D 표현으로 묶기",
+          "정보 획득·결손 보완·공간 정보 제시 구분하기"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "이 논문이 해결하려는 불편과 콘텐츠 제한을 설명하고, HTML 문서·시간 동기화·CSS 확장이 제안 방식에서 각각 어떤 역할을 하는지 자신의 말로 재구성해 보라. 마지막으로 프로토타입 예제가 유용성을 뒷받침하는 범위를 말해 보라.",
+      "assumptions_to_challenge": [
+        "HTML 문서가 실제 사물, 3D 모델, DOM 요소를 함께 다루기에 충분한 표현 수단이라는 전제",
+        "시간 동기화가 서로 다른 콘텐츠 요소와 네트워크 상태에서도 안정적으로 작동한다는 전제",
+        "사용자 정의 CSS 확장이 필요한 브라우저와 SMV 디스플레이에서 호환된다는 전제",
+        "프로토타입 콘텐츠 예제가 실제 사용 환경에서의 유용성을 충분히 보여준다는 전제"
+      ],
+      "to_reproduce_you_need": [
+        "프로토타입의 소스 코드, 브라우저, 서버, SMV 디스플레이 정보(초록에는 없음)",
+        "HTML 문서 구조와 실제 사물·3D 모델의 콘텐츠 형식(초록에는 없음)",
+        "사용자 정의 CSS 확장의 문법과 렌더링 규칙(초록에는 없음)",
+        "시간 동기화 및 스트리밍 구현 세부 사항(초록에는 없음)",
+        "평가 절차와 유용성 측정 지표(초록에는 없음)"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "스트리밍의 데이터량·처리율·시간",
+        "explain": "스트리밍은 콘텐츠 데이터를 시간에 따라 전달한다. 데이터량, 처리율, 전달 시간은 서로 다른 양이다. 이 관계로 버퍼 대기와 실시간 재생 조건을 가늠할 수 있다.",
+        "equation": {
+          "latex": "V = R\\Delta t",
+          "variables": [
+            {
+              "symbol": "V",
+              "meaning": "전달된 데이터량 (MB)"
+            },
+            {
+              "symbol": "R",
+              "meaning": "데이터 처리율 (MB/s)"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "전달 시간 (s)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 SMV 3D 콘텐츠 스트리밍과 시간 동기화를 다룬다. 처리율과 전달 시간을 구분하면 재생 지연이 콘텐츠 동기화에 미치는 영향을 이해할 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "연습용 예시로 데이터량이 12 MB이고 처리율이 6 MB/s라면 전달 시간은 얼마인가? 이 값은 논문 측정값이 아니다.",
+          "answer": "식에 대입하면 \\(\\Delta t=V/R=12/6=2\\) s이다. 따라서 전달 시간은 2초다. 예시값은 계산 연습용이며 논문 측정값이 아니다."
+        },
+        "module_card": "저장량과 처리율, 기록 지연 구분"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 좌표 변환",
+        "explain": "3D 모델은 로컬 좌표로 정의할 수 있다. 강체 변환은 모델을 회전하고 옮겨 장면 안에 배치한다. 좌표계를 구분하면 모델의 위치와 방향을 올바르게 해석할 수 있다.",
+        "equation": {
+          "latex": "\\mathbf{x}_{w}=\\mathbf{R}\\mathbf{x}_{\\ell}+\\mathbf{t}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{x}_{w}",
+              "meaning": "월드 좌표에서의 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\mathbf{R}",
+              "meaning": "회전 행렬 (무차원)"
+            },
+            {
+              "symbol": "\\mathbf{x}_{\\ell}",
+              "meaning": "모델 로컬 좌표에서의 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\mathbf{t}",
+              "meaning": "월드 좌표에서의 평행이동 벡터 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 3D 모델을 콘텐츠로 제시한다고 하지만 배치와 회전 방식은 설명하지 않는다. 좌표 변환은 웹 장면에서 3D 모델을 다룰 때 필요한 기초다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "연습용 예시에서 로컬 위치가 \\(\\mathbf{x}_{\\ell}=(1,0,0)\\) m이고, z축으로 90° 회전한 뒤 \\(\\mathbf{t}=(2,0,0)\\) m만큼 옮긴다. 월드 좌표는 얼마인가? 예시값은 논문 측정값이 아니다.",
+          "answer": "z축 90° 회전은 \\((1,0,0)\\)을 \\((0,1,0)\\)으로 바꾼다. 여기에 평행이동 \\((2,0,0)\\)을 더하면 \\(\\mathbf{x}_{w}=(2,1,0)\\) m이다. 예시값은 계산 연습용이며 논문 측정값이 아니다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "양안 시선의 수렴각과 깊이 지각",
+        "explain": "두 눈은 서로 다른 위치에서 같은 물체를 본다. 물체가 가까울수록 두 시선 사이의 수렴각이 커진다. 여러 시점의 영상과 눈 위치가 연결되는 무안경식 3D 표현을 이해하는 데 도움이 된다.",
+        "equation": {
+          "latex": "\\alpha = 2\\arctan\\left(\\frac{b}{2z}\\right)",
+          "variables": [
+            {
+              "symbol": "\\alpha",
+              "meaning": "두 눈의 시선 사이 수렴각 (rad)"
+            },
+            {
+              "symbol": "b",
+              "meaning": "양쪽 눈 사이 거리 (m)"
+            },
+            {
+              "symbol": "z",
+              "meaning": "눈에서 물체까지의 거리 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 안경 없이 여러 시점을 제공하는 autostereoscopic SMV 3D display를 다룬다. 수렴각의 기초를 알면 눈의 위치와 시점 영상이 깊이감을 만드는 관계를 이해하기 쉽다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "계산 연습용으로 눈 사이 거리를 0.064 m, 물체까지 거리를 2 m라 하자. 수렴각은 얼마인가? 이 값들은 논문 측정값이 아니다.",
+          "answer": "식에 대입하면 \\(\\alpha=2\\arctan(0.064/(2\\times2))=2\\arctan(0.016)\\approx0.032\\) rad이다. 도 단위로는 약 \\(0.032\\times180/\\pi\\approx1.83^\\circ\\)다. 예시값은 계산 연습용이며 논문 측정값이 아니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "웹 문서 기반 3D 콘텐츠 파이프라인",
+        "explain": "웹 기반 3D 콘텐츠는 문서 구조, DOM 요소, 스타일과 애니메이션, 3D 표현이 함께 작동하는 흐름으로 볼 수 있다. DOM은 문서 요소의 관계를 표현한다. CSS는 전환과 애니메이션 효과를 지정한다. 역할을 나누면 웹화 방식을 따라가기 쉽다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 실세계 객체, 3D 모델, HTML DOM 요소를 HTML 문서로 제공하고 CSS 확장으로 전환·애니메이션을 정의한다고 설명한다. 웹 문서에서 구조와 표현 효과가 맡는 역할을 알면 제안 방식의 구성을 이해할 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "HTML 문서에 DOM 버튼, 3D 모델, 전환 효과가 들어간다고 하자. 각 요소가 웹 콘텐츠 파이프라인에서 맡는 역할을 설명해 보라.",
+          "answer": "DOM 버튼은 HTML 문서 안의 구조화된 요소다. 3D 모델은 공간 장면을 구성하는 콘텐츠다. 전환 효과는 CSS가 지정하는 시간에 따른 표현 변화다. 이를 구분하면 문서 구조, 3D 콘텐츠, 효과 정의의 흐름을 정리할 수 있다."
+        },
+        "module_card": "정보 획득·결손 보완·공간 정보 제시 구분하기"
+      }
+    ],
+    "tools": [
+      {
+        "name": "HTML DOM",
+        "category": "platform",
+        "what_for": "HTML 문서 안의 요소와 그 관계를 구조화한다.",
+        "link_to_paper": "초록은 HTML 문서에 HTML DOM 요소를 포함해 SMV 콘텐츠를 제공한다고 설명한다.",
+        "evidence": "abstract",
+        "first_step": "HTML 페이지에 제목과 버튼을 추가하고 브라우저에서 DOM 구조를 확인한다."
+      },
+      {
+        "name": "CSS transitions and animations",
+        "category": "method",
+        "what_for": "웹 요소의 스타일 변화와 시간에 따른 애니메이션 효과를 정의한다.",
+        "link_to_paper": "초록은 SMV 스트리밍 콘텐츠의 전환·애니메이션 효과를 위한 CSS 확장을 제안한다.",
+        "evidence": "abstract",
+        "first_step": "버튼에 transition을 적용해 마우스를 올릴 때 색이 부드럽게 바뀌게 한다."
+      },
+      {
+        "name": "WebGL",
+        "category": "platform",
+        "what_for": "브라우저에서 GPU를 이용해 3D 그래픽을 렌더링한다.",
+        "link_to_paper": "초록에는 구현 기술명이 나오지 않지만, 브라우저에서 3D 모델 콘텐츠를 표시하는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "WebGL 기초 예제로 브라우저 canvas에 삼각형 하나를 렌더링한다."
+      },
+      {
+        "name": "JavaScript",
+        "category": "platform",
+        "what_for": "웹 페이지의 동작과 시간 기반 이벤트를 제어한다.",
+        "link_to_paper": "시간 동기화된 스트리밍 콘텐츠의 동작을 웹 페이지에서 조정하는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "두 애니메이션의 시작 시각을 performance.now() 기준으로 기록해 같은 기준 시각을 공유한다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

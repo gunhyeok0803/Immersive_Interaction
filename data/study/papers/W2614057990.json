@@ -1,0 +1,261 @@
+{
+  "paperId": "W2614057990",
+  "title": "Webizing Interactive CAD Review System Using Super Multiview Autostereoscopic Displays",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:26:29.997Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "초록과 본문은 제공되지 않았다. 제목만 보면, 이 연구는 Super multiview autostereoscopic displays를 사용해 interactive CAD review system을 웹 환경으로 옮기는 작업으로 추정된다. 제목은 사용 장치를 밝히지만, 시스템 구성과 구현 방법은 알 수 없다. 사용자 평가와 성능 결과는 초록에는 없음.",
+      "five_c": {
+        "category": "시스템 구현·적용 연구로 추정한다. 제목만으로 연구 유형을 확정할 수 없다.",
+        "context": "CAD 검토 시스템과 다중 시점 자동입체 디스플레이의 결합이 제목에 제시된다. 기존 문제나 연구 배경은 초록에는 없음.",
+        "correctness": "방법, 실험, 결과를 확인할 수 없어 주장의 타당성은 판단할 수 없다.",
+        "contributions": [
+          "제목은 웹 기반 interactive CAD review system을 다룬다고 밝힌다.",
+          "제목은 Super multiview autostereoscopic displays를 사용한다고 밝힌다. 실제 기여와 구현 범위는 확인할 수 없다."
+        ],
+        "clarity": "제목에서 연구 대상과 사용 장치는 파악된다. 구체적인 기능과 평가 방법은 알 수 없다."
+      },
+      "reading_goal": "본문에서 웹화의 범위, CAD 검토 기능, 디스플레이 연동 방식, 평가 근거를 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "Webizing",
+        "definition_one_line": "시스템을 웹 환경에서 사용하도록 옮기는 것을 가리키는 제목의 표현이며, 구체적인 범위는 확인되지 않았다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Interactive CAD review system",
+        "definition_one_line": "사용자와 상호작용하는 CAD 검토 시스템을 뜻하는 제목의 연구 대상이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Super multiview autostereoscopic displays",
+        "definition_one_line": "제목에서 시스템에 사용한다고 밝힌 다중 시점 자동입체 디스플레이이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "CAD review",
+        "definition_one_line": "CAD 모델이나 설계를 검토하는 작업을 가리키며, 논문에서의 구체적인 작업은 확인되지 않았다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "웹 기반 시스템",
+        "definition_one_line": "제목의 Webizing이 가리키는 시스템 형태로 추정되며, 접속 구조는 알 수 없다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "다중 시점 표시",
+        "definition_one_line": "제목에 나온 display의 특성과 관련된 표현이며, 시점 생성·표시 방식은 확인되지 않았다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "제목에서 확인되는 대상은 interactive CAD review system이다.",
+        "제목은 Super multiview autostereoscopic displays를 사용한다고 밝힌다.",
+        "웹화와 디스플레이 연동의 구현 단계, 평가 절차는 초록에는 없음."
+      ],
+      "key_evidence": [
+        {
+          "claim": "연구 대상은 interactive CAD review system이다.",
+          "evidence": "제목에 해당 표현이 포함되어 있다.",
+          "caveat": "시스템 기능과 구현 내용은 초록과 본문이 없어 확인할 수 없다."
+        },
+        {
+          "claim": "제목은 Super multiview autostereoscopic displays의 사용을 제시한다.",
+          "evidence": "제목에 해당 디스플레이가 명시되어 있다.",
+          "caveat": "디스플레이 사양과 실제 연동 방식은 초록에는 없음."
+        },
+        {
+          "claim": "웹화가 연구의 주제다.",
+          "evidence": "제목에 Webizing이라는 표현이 있다.",
+          "caveat": "웹화의 범위와 효과는 초록과 본문이 없어 확인할 수 없다."
+        }
+      ],
+      "critical_questions": [
+        "Webizing은 CAD 데이터 전달, 사용자 인터페이스, 협업 기능 중 무엇을 포함하는가?",
+        "시스템은 다중 시점 화면을 어떻게 생성하고 디스플레이와 연동하는가?",
+        "어떤 CAD 검토 기능과 사용자 작업을 지원하는가?",
+        "시스템의 효과를 평가했는가? 평가했다면 조건, 지표, 결과는 무엇인가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "camera-geometry-and-3d",
+        "why": "제목의 디스플레이가 다중 시점 자동입체 표시를 가리키므로, 다중 시점과 3D 표현의 관계를 이해하는 데 이 모듈의 기초가 도움이 된다. 논문이 시점 정보를 실제로 어떻게 처리하는지는 제목만으로 확인되지 않는다.",
+        "focus_cards": [
+          "다중 시점 정보를 3D 표현으로 묶기"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "제목에서 확인되는 연구 대상과 사용 장치를 설명하고, 초록과 본문이 없어 알 수 없는 구현·평가 내용은 따로 표시해 보세요.",
+      "assumptions_to_challenge": [
+        "Webizing이 어떤 기능과 시스템 구성까지 포함한다고 볼 수 있는가?",
+        "다중 시점 디스플레이를 썼다는 사실만으로 사용자 경험이나 검토 효율이 좋아졌다고 결론 내릴 수 있는가?",
+        "제목에 제시된 디스플레이가 논문의 핵심 기여인지, 구현 환경의 일부인지는 무엇으로 판별할 수 있는가?"
+      ],
+      "to_reproduce_you_need": [
+        "웹화의 범위와 시스템 아키텍처",
+        "지원하는 CAD 형식과 검토 기능",
+        "디스플레이 모델·사양과 시스템 연동 방식",
+        "구현 세부 사항과 실행 환경",
+        "논문에 사용자 평가가 있다면 실험 조건, 과제, 측정 지표와 결과"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "원근 투영",
+        "explain": "원근 투영은 3D 점을 2D 화면 좌표로 바꿉니다. 깊이 Z가 커지면 같은 X도 화면에서 작게 보입니다. 카메라와 CAD 형상의 위치가 화면에 어떻게 나타나는지 이해하는 기초입니다.",
+        "equation": {
+          "latex": "x=\\frac{fX}{Z}",
+          "variables": [
+            {
+              "symbol": "x",
+              "meaning": "영상의 가로 좌표 (px)"
+            },
+            {
+              "symbol": "f",
+              "meaning": "초점 거리 (px)"
+            },
+            {
+              "symbol": "X",
+              "meaning": "카메라 좌표계에서 점의 가로 위치 (m)"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라 좌표계에서 점의 깊이 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "초록이 없어 제목에서 추정한 연결입니다. 원근 투영은 CAD 형상을 각 시점의 화면 영상으로 표현하는 기초라서, 시점이 달라질 때 화면이 어떻게 달라지는지 이해하는 데 필요합니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값이며 논문 측정값이 아닙니다. f=800 px, X=0.20 m, Z=2.0 m일 때 x는 얼마인가요?",
+          "answer": "x=fX/Z=800×0.20/2.0=80 px입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 자세와 좌표 변환",
+        "explain": "강체의 자세는 회전과 이동으로 나타낼 수 있습니다. 로컬 좌표의 CAD 점을 월드 좌표로 바꾸면 모델의 위치와 방향을 계산할 수 있습니다. 이 변환은 카메라 시점을 바꾸거나 모델을 돌려 살펴볼 때 쓰입니다.",
+        "equation": {
+          "latex": "\\mathbf{p}_W=\\mathbf{R}\\mathbf{p}_B+\\mathbf{t}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{p}_W",
+              "meaning": "월드 좌표계에서 점의 위치 (m 또는 CAD 길이 단위)"
+            },
+            {
+              "symbol": "\\mathbf{R}",
+              "meaning": "회전 행렬 (무차원)"
+            },
+            {
+              "symbol": "\\mathbf{p}_B",
+              "meaning": "물체 로컬 좌표계에서 점의 위치 (m 또는 CAD 길이 단위)"
+            },
+            {
+              "symbol": "\\mathbf{t}",
+              "meaning": "이동 벡터 (m 또는 CAD 길이 단위)"
+            }
+          ]
+        },
+        "link_to_paper": "제목의 interactive CAD review에서 모델을 여러 방향으로 살펴보는 상황과 연결됩니다. 좌표 변환을 알면 물체의 회전·이동과 카메라 시점 변화를 구분해 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값이며 논문 측정값이 아닙니다. 점 (1,0,0) m를 z축 주위로 90° 회전한 뒤 (2,3,0) m만큼 이동하면 월드 좌표는 무엇인가요?",
+          "answer": "z축 90° 회전은 (1,0,0) m를 (0,1,0) m로 바꿉니다. 여기에 이동 벡터를 더하면 (0,1,0)+(2,3,0)=(2,4,0) m입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "양안 시차와 깊이 지각",
+        "explain": "양안 시차는 왼쪽 눈과 오른쪽 눈에 들어오는 영상 위치의 차이입니다. 다중 시점 디스플레이는 보는 위치에 따라 서로 다른 영상을 제공해 입체 단서를 만듭니다. 평행 정렬된 pinhole stereo의 표준 근사식은 물체가 멀수록 시차가 작아짐을 나타냅니다.",
+        "equation": {
+          "latex": "d=\\frac{fB}{Z}",
+          "variables": [
+            {
+              "symbol": "d",
+              "meaning": "두 영상 사이의 시차 (px)"
+            },
+            {
+              "symbol": "f",
+              "meaning": "초점 거리 (px)"
+            },
+            {
+              "symbol": "B",
+              "meaning": "두 시점 사이의 거리 (m)"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "물체까지의 깊이 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "초록이 없어 제목의 autostereoscopic display에서 추정한 연결입니다. 여러 시점 영상이 눈에 만드는 시차를 알면 다중 시점 표시가 입체감을 주는 원리를 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값이며 논문 측정값이 아닙니다. f=800 px, B=0.064 m, Z=2.0 m일 때 시차 d는 얼마인가요?",
+          "answer": "d=fB/Z=800×0.064/2.0=25.6 px입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "웹 클라이언트-서버 구조",
+        "explain": "웹 시스템은 브라우저와 서버가 요청과 응답을 주고받는 구조로 만들 수 있습니다. 인터랙션 처리, CAD 데이터 전달, 3D 렌더링을 어느 쪽에서 할지 설계해야 합니다. 역할을 나누면 응답 속도와 데이터 전송량에 어떤 영향을 주는지 살펴볼 수 있습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "제목의 Webizing Interactive CAD Review System에서 웹 기반 인터랙션을 추정할 수 있습니다. 클라이언트와 서버의 역할을 구분하면 CAD 데이터가 화면에 표시되기까지의 흐름을 이해하는 데 도움이 됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "CAD 모델을 브라우저에서 회전해 보는 웹 리뷰 시스템을 설계한다고 가정합니다. 클라이언트와 서버에 맡길 작업을 각각 하나씩 들어 보세요.",
+          "answer": "예를 들어, 서버가 CAD 파일을 제공하고 브라우저 클라이언트가 사용자의 마우스 입력을 받아 화면의 모델 시점을 바꿀 수 있습니다. 실제 논문의 구현 방식은 초록이 없어 확인할 수 없습니다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "WebGL",
+        "category": "platform",
+        "what_for": "브라우저에서 GPU를 이용해 3D 그래픽을 렌더링합니다.",
+        "link_to_paper": "웹 기반 CAD 화면에 3D 형상을 표시하는 데 쓸 수 있는 기술입니다.",
+        "evidence": "inferred",
+        "first_step": "WebGL 입문 예제를 실행해 삼각형 하나를 브라우저에 렌더링해 봅니다."
+      },
+      {
+        "name": "Three.js",
+        "category": "library",
+        "what_for": "브라우저에서 3D 장면, 카메라, 조명과 사용자 입력을 다루게 해 줍니다.",
+        "link_to_paper": "interactive CAD review 화면의 3D 표시와 시점 조작을 구현할 때 활용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "기본 장면 예제를 열고 마우스 입력으로 카메라를 회전해 봅니다."
+      },
+      {
+        "name": "Open CASCADE",
+        "category": "library",
+        "what_for": "CAD 형상을 처리하고 STEP 같은 CAD 교환 파일을 읽고 쓸 수 있습니다.",
+        "link_to_paper": "CAD review용 모델 데이터를 불러오거나 형상 정보를 다루는 데 활용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "샘플 STEP 모델을 불러와 형상의 기본 정보를 출력하는 예제를 따라 합니다."
+      },
+      {
+        "name": "Super multiview autostereoscopic display",
+        "category": "hardware",
+        "what_for": "특수 안경 없이 여러 시점의 입체 영상을 보여주는 디스플레이입니다.",
+        "link_to_paper": "논문 제목에 표시된 시스템의 입체 화면 장치입니다.",
+        "evidence": "inferred",
+        "first_step": "다중 시점 테스트 패턴을 띄우고 관찰 위치를 옮길 때 보이는 영상이 달라지는지 확인합니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

@@ -1,0 +1,268 @@
+{
+  "paperId": "W3038372909",
+  "title": "Virtual Reality Sickness: A Review of Causes and Measurements",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:19:44.710Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 VR 사용 중 나타나는 VR sickness 또는 cybersickness의 원인과 증상 측정을 다룬 리뷰다. 저자들은 원인을 하드웨어·콘텐츠·인간 요인의 세 범주로 재구성하고 각 범주의 하위 요소를 살폈다. 또한 주관적·객관적 측정법과 증상 완화를 위한 새로운 접근을 조사했다. 시각적으로 개선된 VR이 반드시 증상 감소로 이어지지는 않는다는 문제를 다루고, 미래 연구를 위한 multimodal fidelity hypothesis를 제안했다.",
+      "five_c": {
+        "category": "VR에서 발생하는 cybersickness의 원인과 측정법을 정리한 리뷰 논문이다.",
+        "context": "VR sickness는 눈의 피로, 방향 감각 혼란, 메스꺼움 등을 일으킬 수 있다. 기존 연구에서 증상 완화 결과가 서로 달랐고, 시각적 개선만으로 증상이 줄어들지는 않았다.",
+        "correctness": "초록은 문헌 조사와 요인 분류, 측정법 검토, 가설 제안을 설명한다. 초록에는 수치나 구체적인 실험 결과가 없다.",
+        "contributions": [
+          "원인을 하드웨어·콘텐츠·인간 요인의 세 범주로 정리했다.",
+          "주관적·객관적 증상 측정법을 조사했다.",
+          "증상 완화를 위한 새로운 접근을 검토하고 multimodal fidelity hypothesis를 제안했다."
+        ],
+        "clarity": "초록만으로는 하위 요인, 측정 도구, 연구 선정 기준, 제안한 가설의 세부 내용을 확인할 수 없다."
+      },
+      "reading_goal": "세 원인 범주가 어떻게 정의되는지, 주관적·객관적 측정법이 무엇을 포착하는지, multimodal fidelity hypothesis가 기존 결과의 차이를 어떻게 설명하려는지 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "VR sickness / cybersickness",
+        "definition_one_line": "VR 사용 중 경험할 수 있는 불편 증상을 가리키는 용어다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "증상",
+        "definition_one_line": "초록은 눈의 피로, 방향 감각 혼란, 메스꺼움 등을 예로 든다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "하드웨어 요인",
+        "definition_one_line": "저자들이 VR sickness의 원인을 분류한 세 가지 주요 범주 중 하나다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "콘텐츠 요인",
+        "definition_one_line": "저자들이 VR sickness의 원인을 분류한 세 가지 주요 범주 중 하나다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "인간 요인",
+        "definition_one_line": "저자들이 VR sickness의 원인을 분류한 세 가지 주요 범주 중 하나다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "주관적·객관적 측정",
+        "definition_one_line": "논문이 조사한 VR sickness 증상 측정 접근의 두 유형이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "시각적 개선과 증상 변화",
+        "definition_one_line": "시각적으로 개선된 VR이 항상 VR sickness를 줄이지는 않는다는 문제다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "multimodal fidelity hypothesis",
+        "definition_one_line": "저자들이 미래 연구에 통찰을 주기 위해 제안한 가설이다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "VR sickness의 원인과 증상 측정에 관한 연구를 조사해 결과가 엇갈리는 문제를 살핀다.",
+        "원인을 하드웨어·콘텐츠·인간 요인과 각 하위 요소로 정리한다.",
+        "자주 쓰이는 주관적·객관적 측정법을 조사한다.",
+        "증상 완화를 위한 새로운 접근을 검토하고 multimodal fidelity hypothesis를 제안한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "저자들은 원인을 세 가지 주요 요인으로 재분류했다.",
+          "evidence": "초록은 하드웨어, 콘텐츠, 인간 요인을 주요 범주로 제시한다.",
+          "caveat": "각 범주의 하위 요소와 분류 기준은 초록에는 없음."
+        },
+        {
+          "claim": "증상 측정의 주관적 접근과 객관적 접근을 모두 조사했다.",
+          "evidence": "초록은 두 접근을 모두 검토했다고 밝힌다.",
+          "caveat": "구체적인 측정 도구와 도구 간 비교 결과는 초록에는 없음."
+        },
+        {
+          "claim": "시각적 개선이 항상 증상 감소로 이어지는 것은 아니다.",
+          "evidence": "초록은 VR sickness 연구 결과가 서로 달랐으며, 시각적 개선이 반드시 증상 감소를 낳지는 않는다고 설명한다.",
+          "caveat": "연구 수, 표본, 효과 크기, 차이가 발생한 조건은 초록에는 없음."
+        },
+        {
+          "claim": "저자들은 미래 연구를 위한 multimodal fidelity hypothesis를 제안했다.",
+          "evidence": "초록은 이 가설이 미래 연구에 통찰을 주기 위한 것이라고 설명한다.",
+          "caveat": "가설의 정의, 검증 근거, 적용 방식은 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "문헌을 찾고 포함한 기준과 절차는 무엇이며, 이를 재현할 만큼 자세히 보고했는가?",
+        "하드웨어·콘텐츠·인간 요인의 하위 요소는 어떤 기준으로 각 범주에 배정했는가?",
+        "주관적·객관적 측정은 각각 어떤 증상을 측정하며, 측정 결과를 서로 비교할 수 있는가?",
+        "multimodal fidelity hypothesis는 어떤 관찰에서 도출되었으며, 검증 가능한 예측을 제시하는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "human-centered-evaluation",
+        "why": "이 논문은 cybersickness를 주관적·객관적으로 측정하는 접근을 다룬다. 측정값이 증상이라는 구성개념의 어떤 부분을 나타내는지 살펴보는 데 이 모듈이 필요하다.",
+        "focus_cards": [
+          "측정값은 구성개념의 일부를 대표한다",
+          "EEG 신호와 cybersickness 측정"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "원인을 세 범주로 나눈 이유와 각 측정 접근의 역할을 설명하고, 시각적 개선만으로 증상 감소를 예측하기 어려운 이유를 논문 근거에 맞춰 다시 서술해 보라. 마지막으로 multimodal fidelity hypothesis가 제안하는 바를 초록에서 확인할 수 있는 범위와 확인할 수 없는 범위로 나눠 설명하라.",
+      "assumptions_to_challenge": [
+        "시각적 품질이 좋아지면 cybersickness도 항상 줄어든다고 가정하고 있지 않은가?",
+        "주관적 보고와 객관적 측정이 같은 증상이나 경험을 포착한다고 가정하고 있지 않은가?",
+        "하드웨어·콘텐츠·인간 요인을 서로 독립된 원인으로 가정하고 있지 않은가?",
+        "제안된 가설을 이미 검증된 결과처럼 받아들이고 있지 않은가?"
+      ],
+      "to_reproduce_you_need": [
+        "전체 논문에서 보고한 문헌 검색 출처, 검색어, 조사 범위",
+        "연구 포함·제외 기준과 문헌 선정 절차",
+        "세 요인 범주의 정의, 하위 요소 목록, 분류 규칙",
+        "검토한 주관적·객관적 측정법과 각 측정법을 비교한 기준",
+        "증상 완화 접근을 선정하고 multimodal fidelity hypothesis를 도출한 근거와 절차"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "설문 척도의 내적 일관성",
+        "explain": "Cronbach's alpha는 여러 설문 문항이 일관되게 반응하는 정도를 요약합니다. 문항 수와 문항별 분산, 총점 분산으로 계산합니다. 이 값만으로 설문이 cybersickness를 잘 측정하는지 모두 판단할 수는 없습니다.",
+        "equation": {
+          "latex": "\\alpha = \\frac{k}{k-1}\\left(1-\\frac{\\sum_{i=1}^{k}s_i^2}{s_T^2}\\right)",
+          "variables": [
+            {
+              "symbol": "\\alpha",
+              "meaning": "Cronbach's alpha, 무차원"
+            },
+            {
+              "symbol": "k",
+              "meaning": "설문 문항 수, 개"
+            },
+            {
+              "symbol": "s_i^2",
+              "meaning": "i번째 문항 점수의 분산, 점수²"
+            },
+            {
+              "symbol": "s_T^2",
+              "meaning": "문항 총점의 분산, 점수²"
+            }
+          ]
+        },
+        "link_to_paper": "간접 연결: 논문은 주관적·객관적 증상 측정법을 검토합니다. 설문 문항의 일관성을 이해하면 측정법의 장단점을 살펴볼 때 도움이 됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시 값이며 논문 측정값이 아닙니다. 문항 3개(k=3), 문항별 분산의 합이 3점², 총점 분산이 4점²라면 α는 얼마인가요?",
+          "answer": "공식에 대입하면 α = 3/2 × (1 − 3/4) = 1.5 × 0.25 = 0.375입니다. 이 값은 문항 간 일관성의 요약이며, 측정의 타당성 전체를 뜻하지는 않습니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "화면 속 운동과 신체 운동",
+        "explain": "속도는 시간에 따른 위치 변화입니다. VR 화면이 사용자의 이동을 보여줘도 실제 몸은 움직이지 않을 수 있습니다. 화면의 운동과 신체의 운동을 구분하면 cybersickness의 가능한 원인을 이해하는 데 도움이 됩니다.",
+        "equation": {
+          "latex": "v = \\frac{\\Delta x}{\\Delta t}",
+          "variables": [
+            {
+              "symbol": "v",
+              "meaning": "속도, m/s"
+            },
+            {
+              "symbol": "\\Delta x",
+              "meaning": "위치 변화, m"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "시간 변화, s"
+            }
+          ]
+        },
+        "link_to_paper": "간접 연결: 논문은 하드웨어와 콘텐츠를 cybersickness의 주요 요인으로 정리합니다. 화면의 이동과 사용자의 실제 동작이 어떻게 대응하는지 살펴보면 가능한 원인을 생각해 볼 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시 값이며 논문 측정값이 아닙니다. 화면 속 위치가 2초 동안 1.2m 변하고 사용자의 몸은 정지해 있다면 화면 속 속도와 신체 속도는 각각 얼마인가요?",
+          "answer": "화면 속 속도는 v = 1.2m ÷ 2s = 0.6m/s입니다. 정지한 신체의 속도는 0m/s이므로 두 운동이 일치하지 않습니다."
+        },
+        "module_card": "화면의 공간 정보와 현장 동작"
+      },
+      {
+        "discipline": "physics",
+        "concept": "가상 깊이와 초점 거리",
+        "explain": "물체 거리에 대응하는 광학적 요구량은 거리의 역수로 나타낼 수 있습니다. VR 화면은 한 초점면에 빛을 내면서 깊이가 달라 보이는 장면을 표현할 수 있습니다. 이때 눈의 초점과 가상 깊이 단서가 달라질 수 있어 눈의 피로와 간접적으로 연결됩니다. 논문 초록은 이 원인을 구체적으로 명시하지 않습니다.",
+        "equation": {
+          "latex": "D = \\frac{1}{z}",
+          "variables": [
+            {
+              "symbol": "D",
+              "meaning": "거리 z에 대응하는 광학적 요구량, 디옵터(m⁻¹)"
+            },
+            {
+              "symbol": "z",
+              "meaning": "물체까지의 거리, m"
+            }
+          ]
+        },
+        "link_to_paper": "간접 연결: 논문은 눈의 피로를 증상으로 들고 하드웨어·콘텐츠 요인을 검토합니다. 가상 깊이와 초점 요구의 관계를 알면 시각적 표현이 증상에 영향을 줄 수 있는 경로를 이해하는 데 도움이 됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시 값이며 논문 측정값이 아닙니다. 가상 물체가 2m 거리에 보이고 화면 초점면이 1.5m라면 두 광학적 요구량의 차이는 얼마인가요?",
+          "answer": "가상 거리의 요구량은 1/2 = 0.5D이고, 화면 초점면의 요구량은 1/1.5 ≈ 0.667D입니다. 차이는 약 0.667 − 0.5 = 0.167D입니다."
+        },
+        "module_card": "XR 화면 표현의 시각적 배경"
+      },
+      {
+        "discipline": "cs",
+        "concept": "주관적 보고와 객관적 관찰을 구분하는 측정 파이프라인",
+        "explain": "증상 설문은 사용자가 느낀 불편을 직접 보고합니다. 생리·행동 센서는 신체나 움직임에서 관찰값을 얻습니다. 측정값과 cybersickness에 대한 해석을 구분해야 결과를 과장하지 않습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 cybersickness 증상 측정의 주관적 접근과 객관적 접근을 모두 검토한다고 밝힙니다. 각 측정이 어떤 관찰값을 제공하는지 구분하면 논문의 측정법 비교를 따라가기 쉽습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상의 VR 실험에서 참가자는 메스꺼움이 늘었다고 보고했지만 EEG 요약값은 거의 변하지 않았습니다. 이 결과에서 무엇을 구분해 해석해야 하나요?",
+          "answer": "메스꺼움 보고와 EEG 요약값을 각각 주관적 보고와 객관적 관찰값으로 기록합니다. 두 결과가 일치하지 않는다고 해서 참가자의 증상이 없었다고 결론내릴 수는 없습니다. 이 예시는 논문 측정값이 아니며, 측정 결과와 그에 대한 주장을 분리해 해석해야 합니다."
+        },
+        "module_card": "조건·관찰값·주장의 구분"
+      }
+    ],
+    "tools": [
+      {
+        "name": "VR head-mounted display (HMD)",
+        "category": "hardware",
+        "what_for": "가상 장면을 시각적으로 제시하고 VR 체험 조건을 구성합니다.",
+        "link_to_paper": "논문은 하드웨어를 cybersickness의 주요 요인 중 하나로 다룹니다.",
+        "evidence": "inferred",
+        "first_step": "짧은 VR 장면에서 머리를 돌릴 때 화면이 어떻게 반응하는지 살펴봅니다."
+      },
+      {
+        "name": "Simulator Sickness Questionnaire (SSQ)",
+        "category": "method",
+        "what_for": "사용자가 보고한 멀미 증상을 설문으로 측정합니다.",
+        "link_to_paper": "논문이 검토하는 주관적 증상 측정법의 한 예입니다.",
+        "evidence": "inferred",
+        "first_step": "설문 문항을 읽고 각 문항이 어떤 증상을 묻는지 정리합니다."
+      },
+      {
+        "name": "Electroencephalography (EEG)",
+        "category": "sensor",
+        "what_for": "두피의 전기 신호를 기록해 생리적 관찰값을 얻습니다.",
+        "link_to_paper": "논문이 다루는 객관적 측정 접근을 이해할 때 참고할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "예시 EEG 파형을 살펴보고 신호의 시간 변화를 확인합니다."
+      },
+      {
+        "name": "Eye tracker",
+        "category": "sensor",
+        "what_for": "시선 위치와 눈 움직임을 기록합니다.",
+        "link_to_paper": "눈의 피로 등 증상과 시각적 행동을 함께 살펴보는 객관적 측정의 한 예입니다.",
+        "evidence": "inferred",
+        "first_step": "간단한 시선 기록 예시에서 고정 시선과 눈 움직임을 구분해 봅니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

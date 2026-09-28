@@ -1,0 +1,277 @@
+{
+  "paperId": "W4413820694",
+  "title": "StreamSplat: A Hybrid Client-Server Architecture for Neural Graphics using Depth-based Fusion on the Web",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:09:00.006Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "제목에 따르면 StreamSplat은 웹에서 neural graphics를 제공하기 위한 hybrid client-server architecture를 다루는 연구로 보인다. 제목은 depth-based fusion을 핵심 기법으로 제시한다. 초록과 본문이 없어 구체적인 구현과 평가 결과는 확인할 수 없다.",
+      "five_c": {
+        "category": "웹 기반 neural graphics 시스템·아키텍처 연구로 추정된다.",
+        "context": "제목은 hybrid client-server 구조와 depth-based fusion을 언급한다. 연구 배경이나 해결하려는 문제는 초록에 없음.",
+        "correctness": "초록·본문이 없어 주장의 타당성과 성능을 검증할 수 없다. 수치와 결과는 초록에는 없음.",
+        "contributions": [
+          "제목은 웹용 hybrid client-server architecture를 제시한다.",
+          "제목은 depth-based fusion을 사용한다고 밝힌다. 구체적인 기여 방식은 확인할 수 없다."
+        ],
+        "clarity": "제목만으로는 시스템 구성, 각 구성 요소의 역할, 실험 방법을 알 수 없다."
+      },
+      "reading_goal": "client-server 간 역할 분담과 depth-based fusion의 입력·처리·출력을 본문에서 확인하고, 주장과 실험 근거를 구분한다."
+    },
+    "keywords": [
+      {
+        "term": "StreamSplat",
+        "definition_one_line": "논문 제목에 나온 시스템 또는 연구의 이름이다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "Hybrid client-server architecture",
+        "definition_one_line": "클라이언트와 서버를 함께 쓰는 구조를 가리키는 제목상의 단서이며, 역할 분담은 알 수 없다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "Neural graphics",
+        "definition_one_line": "논문이 웹에서 다루려는 기술 분야로 제목에 명시되어 있다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "Depth-based fusion",
+        "definition_one_line": "깊이 정보를 이용한 융합 기법을 뜻하는 제목상의 표현이며, 융합 대상과 알고리즘은 확인할 수 없다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "Web",
+        "definition_one_line": "제목이 시스템의 사용 환경으로 제시하는 플랫폼이다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "Client-server 분담",
+        "definition_one_line": "처리와 데이터가 클라이언트·서버 사이에서 어떻게 나뉘는지는 제목만으로 알 수 없다.",
+        "where_in_paper": "방법"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "제목은 연구 대상을 웹 기반 neural graphics 시스템으로 제시한다.",
+        "제목은 시스템 구조를 hybrid client-server 방식으로 표현한다.",
+        "제목은 depth-based fusion을 언급하지만, 적용 단계와 입력·출력은 알 수 없다.",
+        "구현 세부 사항과 평가 절차·결과는 초록과 본문이 없어 확인할 수 없다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "논문은 웹에서 neural graphics를 위한 구조를 다루는 것으로 보인다.",
+          "evidence": "제목에 “A Hybrid Client-Server Architecture for Neural Graphics ... on the Web”이 포함되어 있다.",
+          "caveat": "제목만으로 연구 목표, 시스템 동작, 실제 웹 환경의 범위를 확인할 수 없다."
+        },
+        {
+          "claim": "depth-based fusion이 제목에 제시된 핵심 기법이다.",
+          "evidence": "제목에 “using Depth-based Fusion”이라고 명시되어 있다.",
+          "caveat": "융합 대상·알고리즘·비교 실험과 그 결과는 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "클라이언트와 서버는 각각 어떤 작업을 담당하는가?",
+        "depth 정보는 어디서 얻으며, 무엇을 어떤 단계에서 융합하는가?",
+        "시스템은 어떤 neural graphics 표현과 웹 기술을 사용하는가?",
+        "성능은 어떤 조건·지표·기준 시스템으로 평가했는가?",
+        "지연 시간, 네트워크 조건, 장치 사양과 수치 결과는 무엇인가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "camera-geometry-and-3d",
+        "why": "제목에 depth-based fusion과 neural graphics가 있어 깊이 정보가 공간 표현과 어떻게 연결되는지 살펴볼 필요가 있다. 논문의 실제 카메라·3D 처리 방식은 본문에서 확인해야 한다.",
+        "focus_cards": [
+          "다중 시점 정보를 3D 표현으로 묶기",
+          "투영·깊이·재투영"
+        ]
+      },
+      {
+        "module_id": "networked-data-systems",
+        "why": "제목이 웹과 hybrid client-server 구조를 명시한다. 처리 분담과 데이터 흐름, 지연·처리율을 읽을 때 도움이 된다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기",
+          "저장량과 처리율, 기록 지연 구분"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "제목에서 확인되는 내용과 본문에서 새로 확인한 근거를 나누어, 시스템의 목표·client-server 역할·depth-based fusion 흐름·평가 결과를 짧게 설명해 보라.",
+      "assumptions_to_challenge": [
+        "depth-based fusion이 특정 단계나 특정 데이터 표현에서 수행된다고 미리 가정하지 않는다.",
+        "hybrid client-server가 실시간 처리나 특정 네트워크 프로토콜을 뜻한다고 단정하지 않는다.",
+        "StreamSplat이라는 이름만으로 구체적인 neural graphics 표현을 추정하지 않는다.",
+        "웹에서 작동한다는 제목만으로 여러 브라우저·장치에서 검증됐다고 가정하지 않는다."
+      ],
+      "to_reproduce_you_need": [
+        "클라이언트와 서버의 역할 및 데이터 흐름",
+        "사용한 neural graphics 표현과 depth 정보의 출처·형식",
+        "depth-based fusion의 알고리즘과 구현 설정",
+        "소프트웨어·하드웨어 구성과 네트워크 조건",
+        "평가 과제, 기준 시스템, 지표, 반복 횟수와 결과 수치",
+        "코드·데이터·실행 및 측정 절차의 공개 여부"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "Pinhole 카메라 투영과 깊이",
+        "explain": "카메라 좌표의 3D 점을 이미지의 2D 좌표로 투영합니다. 점의 깊이가 달라지면 이미지에서 보이는 위치와 크기도 달라집니다. 이 관계를 알면 서로 다른 시점의 깊이 정보를 같은 공간에 맞춰 볼 수 있습니다.",
+        "equation": {
+          "latex": "u=f\\frac{X}{Z},\\quad v=f\\frac{Y}{Z}",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "주점 기준 가로 이미지 좌표 (px)"
+            },
+            {
+              "symbol": "v",
+              "meaning": "주점 기준 세로 이미지 좌표 (px)"
+            },
+            {
+              "symbol": "f",
+              "meaning": "초점 거리; 픽셀 단위로 표현한 값 (px)"
+            },
+            {
+              "symbol": "X",
+              "meaning": "카메라 좌표계에서 점의 가로 위치 (m)"
+            },
+            {
+              "symbol": "Y",
+              "meaning": "카메라 좌표계에서 점의 세로 위치 (m)"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라 좌표계에서 점의 깊이 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "제목의 depth-based fusion은 여러 깊이 정보를 공간에서 결합하는 과정일 수 있습니다. 투영을 알면 각 시점에서 측정된 점이 어디에 대응하는지 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값(논문 측정값 아님): f=800 px, X=0.5 m, Z=2 m일 때 주점 기준 가로 위치 u는 얼마인가요?",
+          "answer": "u=fX/Z=800×0.5/2=200 px입니다. 점은 주점에서 가로로 200 px 떨어져 투영됩니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 자세 변환과 시점 변화",
+        "explain": "강체의 자세 변화는 회전과 평행이동으로 나타낼 수 있습니다. 회전은 점들 사이의 거리와 물체의 모양을 보존합니다. 카메라나 장면이 움직이는 상황에서 좌표계 사이의 변환을 이해하는 기초입니다.",
+        "equation": {
+          "latex": "\\mathbf{x}_B=\\mathbf{R}_{BA}\\mathbf{x}_A+\\mathbf{t}_{BA}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{x}_A",
+              "meaning": "좌표계 A에서 표현한 점의 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\mathbf{x}_B",
+              "meaning": "좌표계 B에서 표현한 같은 점의 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\mathbf{R}_{BA}",
+              "meaning": "A에서 B로 바꾸는 회전 행렬 (무차원)"
+            },
+            {
+              "symbol": "\\mathbf{t}_{BA}",
+              "meaning": "A에서 B로의 평행이동 벡터 (m)"
+            }
+          ]
+        },
+        "link_to_paper": "깊이 기반 융합은 시점이 다를 때 같은 장면의 정보를 정렬해야 할 수 있습니다. 강체 변환을 알면 카메라 시점 변화와 장면 좌표의 관계를 읽기 쉽습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값(논문 측정값 아님): 좌표를 z축 주위로 90° 회전한 뒤 (2,0,0) m만큼 옮깁니다. 점 (1,0,0) m는 어디로 변환되나요?",
+          "answer": "90° 회전하면 (1,0,0) m는 (0,1,0) m가 됩니다. 여기에 평행이동 (2,0,0) m를 더하면 (2,1,0) m입니다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "빛의 직선 전파와 가시성",
+        "explain": "균일한 매질에서 빛은 기하광학적으로 직선 광선으로 근사할 수 있습니다. 광선이 표면에 닿는지, 다른 표면에 가려지는지를 따져 물체의 가시성을 판단합니다. 여러 시점의 장면 정보를 결합할 때 어떤 표면이 관측됐는지 이해하는 데 도움이 됩니다.",
+        "equation": {
+          "latex": "\\mathbf{r}(s)=\\mathbf{o}+s\\mathbf{d}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{r}(s)",
+              "meaning": "광선을 따라 거리 s만큼 이동한 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\mathbf{o}",
+              "meaning": "광선의 시작점, 예를 들어 카메라 중심 (m)"
+            },
+            {
+              "symbol": "s",
+              "meaning": "광선을 따라 이동한 거리 (m)"
+            },
+            {
+              "symbol": "\\mathbf{d}",
+              "meaning": "광선의 단위 방향 벡터 (무차원)"
+            }
+          ]
+        },
+        "link_to_paper": "제목은 depth-based fusion을 명시하지만 가림 처리 방식은 알려주지 않습니다. 광선과 가시성은 깊이 정보를 해석할 때 도움이 되는 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값(논문 측정값 아님): 카메라 중심이 (0,0,0) m이고 광선 방향이 (0,0,1)일 때 s=3 m인 점은 어디인가요?",
+          "answer": "식에 대입하면 r(3)=(0,0,0)+3(0,0,1)=(0,0,3) m입니다. 이 위치가 해당 광선 위 3 m 지점입니다."
+        },
+        "module_card": "빛의 가림과 관측되지 않는 표면"
+      },
+      {
+        "discipline": "cs",
+        "concept": "Client-server 역할 분리와 데이터 흐름",
+        "explain": "Client-server 구조에서는 서버와 브라우저가 데이터를 주고받으며 역할을 나눕니다. 브라우저는 사용자 입력을 받고 장면을 표시할 수 있고, 서버는 장면 데이터 처리나 제공을 맡을 수 있습니다. 실제 역할 분담과 전송 방식은 시스템 설계에 따라 달라집니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "제목은 hybrid client-server architecture와 Web을 직접 가리킵니다. 각 쪽이 장면 처리와 렌더링을 어떻게 나누는지 이해하면 지연과 데이터 전송 부담을 생각할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시 상황(논문 측정값 아님): 서버가 장면 데이터를 가지고 있고 브라우저에서 사용자가 시점을 바꿉니다. Client와 server가 맡을 일을 하나씩 정해 보세요.",
+          "answer": "브라우저는 시점 입력을 받아 화면을 갱신하고, 필요한 장면 데이터를 서버에 요청할 수 있습니다. 서버는 요청에 맞는 데이터를 보내는 역할을 맡길 수 있습니다. 실제 논문의 분담 방식은 제목만으로는 확인할 수 없습니다."
+        },
+        "module_card": "수집부터 저장까지 흐름 나누기"
+      }
+    ],
+    "tools": [
+      {
+        "name": "3D Gaussian Splatting",
+        "category": "method",
+        "what_for": "여러 시점의 이미지로부터 장면을 표현하고 새 시점의 영상을 렌더링하는 방법입니다.",
+        "link_to_paper": "‘Splat’이라는 제목과 neural graphics라는 주제에 연관된 방법일 수 있으나, 논문이 이 방법을 쓴다고 확인된 것은 아닙니다.",
+        "evidence": "inferred",
+        "first_step": "작은 다중 시점 이미지 묶음으로 장면을 만들고 입력에 없던 시점에서 렌더링해 보세요."
+      },
+      {
+        "name": "Three.js",
+        "category": "framework",
+        "what_for": "브라우저에서 3D 장면, 카메라, 재질을 구성하고 표시하는 JavaScript 프레임워크입니다.",
+        "link_to_paper": "Web 기반 neural graphics의 브라우저 쪽 장면 표시와 상호작용을 실습하는 데 쓸 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "간단한 Three.js 장면에 카메라와 도형 하나를 추가해 브라우저에 표시해 보세요."
+      },
+      {
+        "name": "WebGL",
+        "category": "platform",
+        "what_for": "브라우저에서 GPU를 사용해 2D·3D 그래픽을 그리는 웹 그래픽 인터페이스입니다.",
+        "link_to_paper": "Web에서 neural graphics를 렌더링하는 기본 실행 환경으로 연결됩니다.",
+        "evidence": "inferred",
+        "first_step": "브라우저의 WebGL 예제를 실행해 화면에 삼각형 하나를 그려 보세요."
+      },
+      {
+        "name": "WebSocket",
+        "category": "platform",
+        "what_for": "브라우저와 서버 사이에 양방향 메시지 연결을 제공하는 웹 통신 기술입니다.",
+        "link_to_paper": "Client-server 구조에서 장면 업데이트나 사용자 입력을 주고받는 선택지로 볼 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "브라우저와 서버 사이에 짧은 텍스트 메시지 하나를 보내고 응답을 받아 보세요."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

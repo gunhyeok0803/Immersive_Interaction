@@ -1,0 +1,298 @@
+{
+  "paperId": "W4365150374",
+  "title": "Brain activity during cybersickness: a scoping review",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:13:52.370Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 VR에서 발생하는 cybersickness를 EEG로 측정한 연구들을 살펴본 문헌고찰이다. 저자들은 검색과 선별을 거쳐 실험 연구 33편을 모으고, EEG 분석을 전처리·특징 추출·특징 선택·분류의 네 단계로 정리했다. 대부분의 연구는 주파수 또는 시간-주파수 분석으로 특징을 추출했으며, 일부 분류 연구는 79~100%의 정확도를 보고했다. 논문은 연구 동향을 정리하고 후속 연구 방향을 제시하지만, 일관되게 관련되는 뇌 활동과 적절한 측정 방법은 아직 분명하지 않다고 설명한다.",
+      "five_c": {
+        "category": "cybersickness 측정을 위한 EEG 연구의 scoping review",
+        "context": "VR 경험은 메스꺼움, 방향 감각 상실, 안구 운동 불편감 등을 일으킬 수 있다. 설문 대신 뇌 활동으로 불편감을 측정하려는 관심이 있지만, 어떤 뇌 활동이 일관되게 관련되는지는 알려진 바가 적다.",
+        "correctness": "초록은 33편을 검토했고, 대부분 주파수 또는 시간-주파수 특징 추출을 사용했다고 보고한다. 일부 분류 연구의 정확도는 79~100%였지만, 정확도의 연구 간 비교 가능성이나 검증 설정은 초록에 없음.",
+        "contributions": [
+          "EEG 분석 과정을 전처리, 특징 추출, 특징 선택, 분류의 네 단계로 정리한다.",
+          "연구에 사용된 VR 콘텐츠, EEG 장비, 참여자 연령대의 특성을 요약한다.",
+          "cybersickness 관련 EEG 연구의 현황을 제시하고 후속 연구 방향을 정리한다."
+        ],
+        "clarity": "초록은 검토 범위와 네 단계의 분석 틀, 주요 결과를 제시한다. 다만 개별 연구의 EEG 특징, cybersickness 라벨, 분류 검증 방법은 초록만으로 알 수 없다."
+      },
+      "reading_goal": "33편의 연구를 네 단계의 EEG 분석 파이프라인으로 나누어 읽고, 보고된 분류 정확도가 어떤 조건과 평가 방식에 근거하는지 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "cybersickness",
+        "definition_one_line": "VR 경험 중 나타나는 메스꺼움, 방향 감각 상실, 안구 운동 불편감 등을 아우르는 증상이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "EEG",
+        "definition_one_line": "이 문헌고찰에서 cybersickness 측정을 위한 뇌 활동 측정 수단으로 검토한 방법이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "scoping review",
+        "definition_one_line": "cybersickness와 EEG를 다룬 실험 연구 33편의 연구 특성과 분석 방법을 정리한 검토 방식이다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "EEG 분석 파이프라인",
+        "definition_one_line": "논문이 분석 방법을 전처리, 특징 추출, 특징 선택, 분류의 네 단계로 정리한 틀이다.",
+        "where_in_paper": "방법"
+      },
+      {
+        "term": "주파수·시간-주파수 분석",
+        "definition_one_line": "검토된 연구 대부분이 EEG 특징 추출에 사용한 분석 접근이다.",
+        "where_in_paper": "결과"
+      },
+      {
+        "term": "분류 정확도",
+        "definition_one_line": "일부 연구가 cybersickness 예측에서 보고한 정확도 범위는 79~100%이다.",
+        "where_in_paper": "결과"
+      },
+      {
+        "term": "HMD 기반 VR",
+        "definition_one_line": "cybersickness 측정에 휴대형 EEG 헤드셋과 함께 자주 사용된 VR 환경이다.",
+        "where_in_paper": "결과"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "데이터베이스 검색과 선별을 통해 cybersickness 및 EEG 실험 연구 33편을 모은다.",
+        "각 연구의 EEG 분석을 전처리, 특징 추출, 특징 선택, 분류의 네 단계로 나누어 살펴본다.",
+        "단계별 방법 특성과 함께 VR 장비, 콘텐츠, 참여자 연령대 및 분류 결과를 요약한다.",
+        "연구 전반의 현황을 정리하고 후속 연구 방향을 제시한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "대부분의 연구는 EEG 특징 추출에 주파수 또는 시간-주파수 분석을 사용했다.",
+          "evidence": "초록이 33편의 연구를 검토한 결과로 보고한다.",
+          "caveat": "각 분석 기법의 세부 설정이나 연구별 사용 빈도는 초록에 없음."
+        },
+        {
+          "claim": "일부 연구는 분류 모델로 cybersickness를 예측했다.",
+          "evidence": "해당 연구들이 79~100%의 정확도를 보고했다고 초록에 적혀 있다.",
+          "caveat": "정확도가 어떤 데이터 분할, 검증 절차, 평가 단위에서 나온 값인지는 초록에 없음."
+        },
+        {
+          "claim": "연구에서 사용한 VR 환경과 콘텐츠, 참여자의 범위가 제한적이었다.",
+          "evidence": "연구들은 HMD 기반 VR과 휴대형 EEG 헤드셋을 사용하는 경향이 있었고, 콘텐츠는 주로 운전이나 도로 탐색 같은 경관 장면이었다. 참여자는 20대에 한정되었다.",
+          "caveat": "각 조건에 해당하는 연구 수와 다른 연령대 또는 콘텐츠의 포함 여부는 초록에 없음."
+        }
+      ],
+      "critical_questions": [
+        "각 연구는 cybersickness를 어떤 관찰값과 라벨로 정의했으며, 설문 결과와 EEG를 어떻게 연결했는가?",
+        "79~100%의 정확도는 서로 다른 연구의 조건과 평가 방식을 고려할 때 비교 가능한가?",
+        "보고된 EEG 특징은 새로운 참여자, 다른 VR 콘텐츠, 다른 장비에서도 cybersickness와 일관되게 관련되는가?",
+        "참여자가 20대이고 장면이 주로 도로 주행·탐색에 집중된 점은 연구 결과의 적용 범위를 어떻게 제한하는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "논문은 EEG 측정을 전처리부터 분류까지의 파이프라인으로 정리한다. 신호 특징을 예측 과제로 연결하는 흐름과 분류 정확도의 평가 단위를 함께 살펴보면 방법을 따라가기 쉽다.",
+        "focus_cards": [
+          "측정 신호에서 과제로 가는 파이프라인",
+          "모델 입력과 과제 출력",
+          "분류 지표와 평가 단위"
+        ]
+      },
+      {
+        "module_id": "human-centered-evaluation",
+        "why": "이 논문은 EEG를 cybersickness 측정의 대안으로 다룬다. EEG 신호가 불편감이라는 측정 대상의 어떤 부분을 나타내는지, 조건·관찰값·주장이 어떻게 연결되는지 확인하는 데 도움이 된다.",
+        "focus_cards": [
+          "EEG 신호와 cybersickness 측정",
+          "측정값은 구성개념의 일부를 대표한다",
+          "조건·관찰값·주장의 구분"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "EEG를 사용한 cybersickness 연구 33편을 어떤 분석 단계로 분류했는가? 주파수 분석과 분류 정확도에 관한 결과는 무엇이며, 연구 대상과 VR 콘텐츠의 범위가 결론에 어떤 한계를 주는가?",
+      "assumptions_to_challenge": [
+        "분류 정확도가 높으면 EEG가 설문을 대체할 만큼 신뢰할 수 있다고 볼 수 있는가?",
+        "서로 다른 연구에서 보고한 정확도를 같은 기준의 성능으로 비교할 수 있는가?",
+        "관찰된 EEG 특징이 cybersickness에 일관되게 관련된다고 결론 내릴 수 있는가?",
+        "20대 참여자와 도로 장면 중심의 연구 결과를 다른 연령대와 VR 콘텐츠에도 적용할 수 있는가?"
+      ],
+      "to_reproduce_you_need": [
+        "검색에 사용한 데이터베이스, 검색어, 검색 기간, 포함·제외 기준",
+        "검토 대상 33편의 논문 목록과 각 연구의 실험 조건",
+        "각 연구의 전처리, 특징 추출, 특징 선택, 분류 방법에 대한 세부 기록",
+        "cybersickness 라벨의 정의와 EEG 측정 시점 및 설문과의 대응 방식",
+        "분류 모델, 데이터 분할, 검증 방법, 정확도 계산 기준",
+        "HMD, EEG 장비, VR 콘텐츠, 참여자 연령에 관한 연구별 정보"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "시간영역·주파수영역·시간-주파수 표현",
+        "explain": "EEG를 시간에 따라 기록하면 전압 파형이 된다. 주파수 분석은 파형에 어떤 반복 성분이 있는지 살핀다. 시간-주파수 분석은 그 성분이 시간에 따라 어떻게 변하는지 보여준다. 기록 길이에 따른 주파수 간격을 알면 분석의 세밀도 한계를 이해할 수 있다.",
+        "equation": {
+          "latex": "\\Delta f = \\frac{f_s}{N}",
+          "variables": [
+            {
+              "symbol": "\\Delta f",
+              "meaning": "주파수 구간 간격, Hz"
+            },
+            {
+              "symbol": "f_s",
+              "meaning": "표본화 주파수, samples/s 또는 Hz"
+            },
+            {
+              "symbol": "N",
+              "meaning": "기록한 표본 수, samples"
+            }
+          ]
+        },
+        "link_to_paper": "초록에 따르면 검토한 연구 대부분이 EEG 특징 추출에 주파수 또는 시간-주파수 분석을 사용했다. 주파수 간격을 알면 분석 결과가 어느 정도로 세밀하게 나뉘는지 이해할 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "논문 측정값이 아닌 예시로, 256 Hz로 표본화한 EEG 512개 표본의 주파수 구간 간격은 얼마인가?",
+          "answer": "식에 대입하면 \\(\\Delta f=256/512=0.5\\) Hz다. 따라서 인접한 주파수 구간은 0.5 Hz 간격이다."
+        },
+        "module_card": "시간영역·주파수영역·시간-주파수 표현"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "각속도와 회전 운동",
+        "explain": "평균 각속도는 회전 각도 변화량을 시간 변화량으로 나눈 값이다. HMD에 표시되는 장면의 회전 속도를 이 양으로 기술할 수 있다. 이는 참가자의 실제 머리나 몸의 회전과 구별해야 한다. 시각적 회전 자극을 수치화하면 실험 조건을 비교하는 데 도움이 된다.",
+        "equation": {
+          "latex": "\\omega = \\frac{\\Delta \\theta}{\\Delta t}",
+          "variables": [
+            {
+              "symbol": "\\omega",
+              "meaning": "평균 각속도, rad/s"
+            },
+            {
+              "symbol": "\\Delta \\theta",
+              "meaning": "회전 각도 변화량, rad"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "시간 변화량, s"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 driving이나 도로 탐색 같은 VR 장면을 언급하지만, 장면의 회전 속도는 설명하지 않는다. 각속도는 시각적 움직임을 정량화하는 기초가 되며, 논문 주제와는 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "논문 측정값이 아닌 예시로, HMD 장면이 3초 동안 90° 회전했다면 평균 각속도는 얼마인가?",
+          "answer": "90°를 라디안으로 바꾸면 \\(\\Delta\\theta=\\pi/2\\) rad다. 식에 대입하면 \\(\\omega=(\\pi/2)/3=\\pi/6\\approx0.524\\) rad/s다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "EEG 전위차와 측정 대상의 구분",
+        "explain": "EEG는 두피 전극 사이의 작은 전압 변화를 기록한다. 전압은 전하당 전기적 위치에너지 변화로 정의된다. EEG 파형은 센서가 측정한 전기 신호이며, 불편감 자체와 같은 값은 아니다.",
+        "equation": {
+          "latex": "\\Delta V = \\frac{\\Delta U}{q}",
+          "variables": [
+            {
+              "symbol": "\\Delta V",
+              "meaning": "전위차, V"
+            },
+            {
+              "symbol": "\\Delta U",
+              "meaning": "전기적 위치에너지 변화량, J"
+            },
+            {
+              "symbol": "q",
+              "meaning": "전하량, C"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 EEG를 cybersickness를 측정할 대안 후보로 다룬다. 전위차의 의미를 알면 뇌신호를 기록하는 과정과 그 신호로 불편감을 추론하는 과정이 다름을 이해할 수 있다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "논문 측정값이 아닌 설명용 예시로, 전하량이 1 nC이고 위치에너지 변화량이 5 fJ라면 전위차는 얼마인가?",
+          "answer": "단위를 바꾸면 \\(q=1\\times10^{-9}\\) C, \\(\\Delta U=5\\times10^{-15}\\) J다. 따라서 \\(\\Delta V=(5\\times10^{-15})/(1\\times10^{-9})=5\\times10^{-6}\\) V, 즉 5 μV다."
+        },
+        "module_card": "EEG 신호와 cybersickness 측정"
+      },
+      {
+        "discipline": "cs",
+        "concept": "EEG 분석 파이프라인과 분류 정확도",
+        "explain": "EEG 분석 파이프라인은 전처리, 특징 추출, 특징 선택, 분류 단계로 이어질 수 있다. 분류기는 추출한 특징을 바탕으로 cybersickness 여부 같은 범주를 예측한다. 정확도는 전체 사례 가운데 정답을 맞힌 비율이다. 정확도만으로는 클래스 비율이나 오분류 유형을 알기 어려우므로 함께 살펴야 한다.",
+        "equation": {
+          "latex": "A = \\frac{TP + TN}{TP + TN + FP + FN}",
+          "variables": [
+            {
+              "symbol": "A",
+              "meaning": "분류 정확도, 무차원 비율 또는 %"
+            },
+            {
+              "symbol": "TP",
+              "meaning": "양성 사례를 양성으로 맞힌 수, 건"
+            },
+            {
+              "symbol": "TN",
+              "meaning": "음성 사례를 음성으로 맞힌 수, 건"
+            },
+            {
+              "symbol": "FP",
+              "meaning": "음성 사례를 양성으로 잘못 예측한 수, 건"
+            },
+            {
+              "symbol": "FN",
+              "meaning": "양성 사례를 음성으로 잘못 예측한 수, 건"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 일부 연구가 분류 모델로 cybersickness를 예측했으며 정확도가 79~100%였다고 보고한다. 파이프라인과 정확도를 이해하면 이 결과가 어떤 분석 단계와 평가 기준에 해당하는지 읽을 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "논문 결과가 아닌 예시로, TP=36, TN=44, FP=10, FN=10이라면 정확도는 얼마인가?",
+          "answer": "정답 수는 \\(TP+TN=36+44=80\\)건이고 전체는 \\(36+44+10+10=100\\)건이다. 따라서 \\(A=80/100=0.8\\), 즉 80%다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "Portable EEG headset",
+        "category": "sensor",
+        "what_for": "두피 전극을 통해 EEG 전위 변화를 기록한다.",
+        "link_to_paper": "초록에 포함된 cybersickness 실험 연구에서 뇌 활동을 측정하는 데 사용됐다.",
+        "evidence": "abstract",
+        "first_step": "짧은 EEG 예제에서 채널 수와 표본화 주파수를 확인한다."
+      },
+      {
+        "name": "HMD-based VR",
+        "category": "platform",
+        "what_for": "참가자에게 몰입형 가상 장면을 제시한다.",
+        "link_to_paper": "초록에 따르면 검토한 연구는 주로 HMD 기반 VR을 사용했다.",
+        "evidence": "abstract",
+        "first_step": "짧은 VR 장면을 체험하고 화면의 회전이나 이동 조건을 기록한다."
+      },
+      {
+        "name": "EEG preprocessing",
+        "category": "method",
+        "what_for": "눈 깜박임 같은 잡음 영향을 줄이고 분석 가능한 신호 구간을 준비한다.",
+        "link_to_paper": "초록이 EEG 분석 파이프라인의 첫 단계로 전처리를 다룬다.",
+        "evidence": "abstract",
+        "first_step": "한 EEG 구간의 원신호와 잡음 제거 후 파형을 나란히 비교한다."
+      },
+      {
+        "name": "Frequency and time-frequency analysis",
+        "category": "method",
+        "what_for": "EEG 신호의 주파수 성분이나 그 시간에 따른 변화를 분석한다.",
+        "link_to_paper": "초록은 검토한 연구 대부분이 이 방법으로 EEG 특징을 추출했다고 설명한다.",
+        "evidence": "abstract",
+        "first_step": "짧은 EEG 신호의 주파수 스펙트럼을 그려 주된 성분을 살펴본다."
+      },
+      {
+        "name": "Classification model",
+        "category": "method",
+        "what_for": "EEG 특징을 입력으로 받아 cybersickness 범주를 예측한다.",
+        "link_to_paper": "초록은 일부 연구에서 분류 모델로 cybersickness를 예측했다고 설명한다.",
+        "evidence": "abstract",
+        "first_step": "작은 예제 데이터에서 EEG 특징과 증상 라벨을 연결해 간단한 분류기를 학습한다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

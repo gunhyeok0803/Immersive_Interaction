@@ -1,0 +1,279 @@
+{
+  "paperId": "W4392248749",
+  "title": "Device Free Wireless Sensing based Human Activity Recognition Using Commercial Off-the-Shelf IoT Single-Board Computers",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:12:39.630Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 ESP32와 주변 WiFi 신호를 이용해 센서를 착용하지 않은 사람의 활동을 인식하는 방법을 제안한다. RF 반사로 얻은 CSI 데이터를 활동 라벨과 함께 사용해 딥러닝 모델을 학습한다. 초록은 저비용·소형 장치로 활동을 인식하고 돌봄 효율과 프라이버시를 지원할 수 있다고 주장한다. 다만 정확도 수치와 실험 조건은 초록에 없어 성능과 현장 적용성을 판단하기 어렵다.",
+      "five_c": {
+        "category": "ESP32 기반 device-free 무선 인간 활동 인식(HAR)",
+        "context": "고령 인구 증가에 대응해 일상 활동 기록과 돌봄을 돕는 센서 없는 인식 방식이 필요하다는 문제를 다룬다.",
+        "correctness": "초록은 robust recognition을 주장하지만 정확도, 비교 기준, 실험 규모가 없어 주장을 검증할 근거는 확인할 수 없다.",
+        "contributions": [
+          "ESP32를 이용해 WiFi 신호의 RF 반사를 CSI 데이터로 활용하는 저비용 활동 인식 방식을 제안한다.",
+          "추가 센서 없이 활동을 인식해 돌봄과 일상 기록에 활용할 가능성을 제시한다."
+        ],
+        "clarity": "목표와 활용 의도는 명확하다. CSI 수집 방법, 모델 구성, 평가 결과는 초록에 제시되지 않는다."
+      },
+      "reading_goal": "CSI 신호에서 활동 분류까지의 흐름을 파악하고, 초록의 성능·돌봄·프라이버시 주장을 검증하려면 어떤 실험 근거가 필요한지 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "device-free sensing",
+        "definition_one_line": "사람이 센서를 착용하거나 소지하지 않은 상태에서 주변 무선 신호로 활동을 감지하는 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "ESP32",
+        "definition_one_line": "이 논문에서 WiFi 기반 활동 인식에 사용하는 소형 IoT 마이크로컨트롤러다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "CSI",
+        "definition_one_line": "활동 인식 모델의 입력으로 사용되는 WiFi 채널 상태 정보다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "RF reflections",
+        "definition_one_line": "사람의 움직임에 따라 달라지는 무선 신호 반사로, 활동 감지의 근거가 된다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "인간 활동 인식(HAR)",
+        "definition_one_line": "CSI 데이터를 바탕으로 사람의 활동을 분류하는 과제다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "딥러닝",
+        "definition_one_line": "라벨이 붙은 다양한 활동의 CSI 데이터로 학습하는 모델 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "프라이버시",
+        "definition_one_line": "추가 센서 없이 활동을 인식하는 접근이 지원한다고 초록에서 주장하는 가치다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "ESP32와 주변 WiFi 신호를 이용해 사람의 움직임에 따른 RF 반사를 감지한다.",
+        "활동별 라벨이 붙은 CSI 데이터를 준비한다. 구체적인 수집 절차는 초록에 없음.",
+        "다양한 활동의 CSI 데이터로 딥러닝 모델을 학습한다.",
+        "학습한 모델로 사람의 활동을 인식해 돌봄 및 일상 기록에 활용하려 한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "소형·저비용 IoT 장치로 활동 인식이 가능하다.",
+          "evidence": "초록은 ESP32를 사용하고, CSI 데이터를 이용해 딥러닝 모델을 학습한다고 설명한다.",
+          "caveat": "정확도, 장치 배치, 데이터 규모와 비교 결과는 초록에 없음."
+        },
+        {
+          "claim": "시스템이 돌봄 효율과 프라이버시를 지원할 수 있다.",
+          "evidence": "초록은 추가 센서가 필요 없는 활동 인식으로 일상 기록을 간소화하고 프라이버시를 존중한다고 주장한다.",
+          "caveat": "돌봄 효율을 측정한 실험이나 프라이버시 보호 방식은 초록에 없음."
+        },
+        {
+          "claim": "활동 인식이 우울·불안 등 고령자의 문제에 대응할 잠재력이 있다.",
+          "evidence": "초록은 이 시스템이 우울과 불안 같은 문제를 선제적으로 다룰 가능성을 언급한다.",
+          "caveat": "활동 인식과 우울·불안의 관계를 직접 측정하거나 검증했는지는 초록에 없음."
+        }
+      ],
+      "critical_questions": [
+        "활동 라벨과 CSI는 어떤 절차로 수집했으며, 참여자와 활동의 범위는 충분한가?",
+        "인식 정확도는 어떤 데이터 분할과 지표로 평가했으며, 새로운 사람이나 공간에서도 유지되는가?",
+        "프라이버시를 존중한다는 주장은 어떤 데이터 처리와 사용자 평가로 뒷받침되는가?",
+        "활동 인식이 우울·불안 같은 문제를 파악하는 데 도움이 된다는 근거가 있는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "CSI 신호를 활동 라벨과 모델 출력에 연결하는 흐름을 이해하는 데 필요하다. 분류 성능을 판단하려면 평가 지표와 평가 단위도 확인해야 한다.",
+        "focus_cards": []
+      },
+      {
+        "module_id": "networked-data-systems",
+        "why": "ESP32를 이용한 CSI 수집이 논문의 출발점이므로, 장치에서 데이터가 수집·처리되는 흐름을 살펴보는 데 도움이 된다. 초록에는 전송·저장 구조가 구체적으로 나오지 않는다.",
+        "focus_cards": []
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "주변 WiFi 신호가 사람의 움직임을 어떻게 CSI 데이터에 반영하는지, ESP32가 그 데이터를 활동 인식으로 연결하는 과정을 설명하라. 이어서 초록의 주장을 확인하려면 어떤 평가 결과와 현장 근거가 필요한지 말하라.",
+      "assumptions_to_challenge": [
+        "다양한 라벨 활동 데이터가 실제 고령자의 일상 활동을 대표한다고 볼 수 있는가?",
+        "한 사람이나 한 공간에서 얻은 성능이 다른 사람과 공간에서도 유지되는가?",
+        "추가 센서가 없다는 사실만으로 프라이버시가 충분히 보호된다고 볼 수 있는가?",
+        "활동 인식 결과만으로 우울·불안 같은 상태에 대응할 수 있다는 근거가 있는가?"
+      ],
+      "to_reproduce_you_need": [
+        "ESP32 모델·설정, WiFi 환경, 장치 배치와 CSI 수집 절차",
+        "참여자 수, 활동 목록, 라벨링 방법, 수집 데이터의 규모",
+        "딥러닝 모델 구조, 학습 설정, 데이터 분할과 성능 지표",
+        "비교 기준, 사람·공간 변화에 대한 평가, 돌봄·프라이버시 관련 검증"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "Nyquist 표본화 정리",
+        "explain": "연속 신호를 일정한 간격으로 측정하면 이산 시계열을 얻습니다. 최고 주파수의 두 배 이상으로 표본화해야 이상적인 조건에서 신호의 변화를 복원할 수 있습니다. CSI 시계열을 다룰 때 표본화 속도가 너무 낮으면 움직임 정보가 왜곡될 수 있습니다.",
+        "equation": {
+          "latex": "f_s \\ge 2f_{\\max}",
+          "variables": [
+            {
+              "symbol": "f_s",
+              "meaning": "표본화 주파수, 초당 표본 수 (Hz)"
+            },
+            {
+              "symbol": "f_{\\max}",
+              "meaning": "측정하려는 신호의 최고 주파수 (Hz)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 CSI 데이터를 이용해 여러 활동을 인식한다고 설명합니다. 표본화 원리를 알면 움직임에 따른 CSI 변화를 얼마나 자주 기록해야 할지 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "신호의 최고 주파수를 4 Hz라고 가정할 때, 이론상 필요한 최소 표본화 주파수는 얼마인가? 예시값이며 논문 측정값이 아니다.",
+          "answer": "Nyquist 조건에 넣으면 f_s ≥ 2 × 4 Hz = 8 Hz입니다. 따라서 이론상 최소 표본화 주파수는 8 Hz입니다."
+        },
+        "module_card": "시간영역·주파수영역·시간-주파수 표현"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "위치·속도 벡터와 방향",
+        "explain": "위치 벡터는 공간에서 물체가 있는 곳을 나타냅니다. 일정 시간 동안의 변위를 시간으로 나누면 평균 속도 벡터를 구할 수 있습니다. 방향과 크기를 함께 보면 움직임의 차이를 설명하기 쉽습니다.",
+        "equation": {
+          "latex": "\\mathbf{v}_{\\mathrm{avg}}=\\frac{\\mathbf{x}_2-\\mathbf{x}_1}{\\Delta t}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{v}_{\\mathrm{avg}}",
+              "meaning": "평균 속도 벡터 (m/s)"
+            },
+            {
+              "symbol": "\\mathbf{x}_1",
+              "meaning": "처음 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\mathbf{x}_2",
+              "meaning": "나중 위치 벡터 (m)"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "경과 시간 (s)"
+            }
+          ]
+        },
+        "link_to_paper": "사람의 위치와 움직임이 달라지면 Wi-Fi 반사 경로도 달라질 수 있습니다. CSI가 위치나 속도를 직접 측정하는 것은 아니지만, 이 기구학적 관점은 활동별 신호 차이를 이해하는 데 도움이 됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "사람이 1초 동안 (0, 0) m에서 (0.6, 0.8) m로 이동했다. 평균 속도 벡터와 속력은 얼마인가? 예시값이며 논문 측정값이 아니다.",
+          "answer": "평균 속도 벡터는 ((0.6, 0.8) − (0, 0)) m / 1 s = (0.6, 0.8) m/s입니다. 크기는 √(0.6² + 0.8²) = 1 m/s입니다."
+        },
+        "module_card": "방향별 움직임 비교"
+      },
+      {
+        "discipline": "physics",
+        "concept": "전파 경로 변화와 위상 변화",
+        "explain": "전파는 공간을 지나며 위상을 가집니다. 전파 경로 길이가 달라지면 도착한 신호의 위상도 달라집니다. 사람의 움직임으로 Wi-Fi 반사 경로가 바뀌면 채널 정보에 변화가 생기는 물리적 이유를 설명합니다.",
+        "equation": {
+          "latex": "\\Delta\\phi=\\frac{2\\pi f\\Delta L}{c}",
+          "variables": [
+            {
+              "symbol": "\\Delta\\phi",
+              "meaning": "전파 경로 변화에 따른 위상 변화 (rad)"
+            },
+            {
+              "symbol": "f",
+              "meaning": "전파의 주파수 (Hz)"
+            },
+            {
+              "symbol": "\\Delta L",
+              "meaning": "전파 경로 길이의 변화 (m)"
+            },
+            {
+              "symbol": "c",
+              "meaning": "빛의 속도, 약 3.0×10⁸ m/s (m/s)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 RF 반사를 이용한 Wi-Fi 감지를 설명합니다. 경로 길이 변화가 위상과 CSI에 영향을 주는 원리를 알면, 추가 센서 없이 움직임을 감지하는 방법을 이해할 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "전파 주파수가 2.4 GHz이고 경로 길이 변화가 0.0625 m라고 하자. c=3.0×10⁸ m/s일 때 위상 변화는 얼마인가? 예시값이며 논문 측정값이 아니다.",
+          "answer": "Δφ = 2π × (2.4×10⁹ Hz) × 0.0625 m / (3.0×10⁸ m/s) = π rad입니다. 이 값은 반올림하면 약 3.14 rad입니다."
+        },
+        "module_card": "RF 반사의 물리적 연결"
+      },
+      {
+        "discipline": "cs",
+        "concept": "지도 분류와 교차 엔트로피",
+        "explain": "CSI의 시간 구간을 입력으로, 활동 종류를 정답 라벨로 두는 것이 지도 분류입니다. 교차 엔트로피는 정답 클래스에 낮은 확률을 줄수록 손실이 커지는 표준 분류 손실입니다. 초록은 특정 손실 함수까지 밝히지 않으므로 아래 식은 학습 원리를 익히기 위한 예시입니다.",
+        "equation": {
+          "latex": "\\mathcal{L}=-\\sum_{k=1}^{K} y_k\\log(p_k)",
+          "variables": [
+            {
+              "symbol": "\\mathcal{L}",
+              "meaning": "교차 엔트로피 손실, 무차원"
+            },
+            {
+              "symbol": "K",
+              "meaning": "활동 클래스 수, 무차원"
+            },
+            {
+              "symbol": "y_k",
+              "meaning": "클래스 k의 정답값, 보통 0 또는 1 (무차원)"
+            },
+            {
+              "symbol": "p_k",
+              "meaning": "모델이 클래스 k에 부여한 확률 (무차원)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 라벨된 활동 데이터로 deep learning 모델을 학습한다고 설명합니다. CSI 입력, 활동 라벨, 모델 예측의 관계를 알면 활동 인식 과제의 학습 흐름을 읽을 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "세 클래스 중 정답 클래스에 모델이 0.8의 확률을 주었다고 하자. 교차 엔트로피는 얼마인가? 예시 확률이며 논문 결과가 아니다.",
+          "answer": "정답 라벨은 (1, 0, 0)이고 예측 확률의 첫 항이 0.8이라고 둡니다. 따라서 손실은 −(1·log(0.8)) = −log(0.8) ≈ 0.223입니다. 이 손실은 무차원입니다."
+        },
+        "module_card": "모델 입력과 과제 출력"
+      }
+    ],
+    "tools": [
+      {
+        "name": "ESP32",
+        "category": "hardware",
+        "what_for": "ESP32는 Wi-Fi 신호를 수집하는 저비용 IoT 보드 역할을 합니다.",
+        "link_to_paper": "초록에서 Wi-Fi 기반 device-free sensing의 수집 장치로 소개됩니다.",
+        "evidence": "abstract",
+        "first_step": "ESP32 보드에서 Wi-Fi CSI 수집 예제를 실행해 CSI 기록이 나오는지 확인합니다."
+      },
+      {
+        "name": "Wi-Fi CSI (Channel State Information)",
+        "category": "method",
+        "what_for": "CSI는 Wi-Fi 채널 응답의 변화를 기록해 반사와 다중 경로의 영향을 살펴보는 데 쓰입니다.",
+        "link_to_paper": "초록에서 활동 인식 모델의 입력 데이터로 사용됩니다.",
+        "evidence": "abstract",
+        "first_step": "ESP32로 정지와 걷기 구간의 CSI를 기록해 진폭 시계열을 비교합니다."
+      },
+      {
+        "name": "ESP-IDF",
+        "category": "framework",
+        "what_for": "ESP-IDF는 ESP32 펌웨어를 만들고 Wi-Fi 설정과 CSI 수집을 다루는 개발 프레임워크입니다.",
+        "link_to_paper": "초록의 ESP32 장치에서 CSI 수집 펌웨어를 구성할 때 활용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "CSI 수집 예제 펌웨어를 ESP32에 올려 수신 이벤트 기록을 확인합니다."
+      },
+      {
+        "name": "PyTorch",
+        "category": "framework",
+        "what_for": "PyTorch는 라벨된 CSI 구간을 입력으로 하는 deep learning 분류 모델을 학습하는 데 쓸 수 있습니다.",
+        "link_to_paper": "초록의 CSI 기반 deep learning 활동 인식 주제에 적용할 수 있는 프레임워크입니다.",
+        "evidence": "inferred",
+        "first_step": "걷기와 정지 CSI 구간에 라벨을 붙여 작은 분류 모델을 학습해 봅니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

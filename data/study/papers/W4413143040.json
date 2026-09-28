@@ -1,0 +1,296 @@
+{
+  "paperId": "W4413143040",
+  "title": "Real-time reconstruction of ground motion during small magnitude earthquakes: A pilot study",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:09:21.043Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 파일럿 연구는 소규모 지진의 지반 흔들림을 빠르게 평가하기 위해 계산 비용이 큰 진원 특성화와 시뮬레이션 과정을 줄이는 방법을 다룬다. 희소한 지진 관측 자료에 Gappy Auto-Encoder(Gappy AE)를 적용해 지반운동장을 실시간으로 재구성한다. SW4 시뮬레이션과 미국 캘리포니아주 Berkeley 지역의 실제 M4.4 지진 자료로 방법을 검증했다. 시뮬레이션에서는 Modified Mercalli Intensity(MMI)의 상대 오차가 2% 미만이었고, 더 크고 복잡한 지진에 적용하기 위한 기초를 제시한다.",
+      "five_c": {
+        "category": "희소 지진 관측으로 소규모 지진의 지반운동장을 재구성하는 방법론 연구다.",
+        "context": "소규모 지진(M < 4.5)은 점원으로 모델링할 수 있어 실시간 재구성 방법을 평가하기에 적합하다고 설명한다.",
+        "correctness": "초록은 시뮬레이션과 실제 지진 자료로 검증했다고 보고한다. 2% 미만의 상대 오차는 시뮬레이션 자료에서의 MMI 결과다.",
+        "contributions": [
+          "지진 지반운동 재구성에 Gappy AE를 처음 적용했다고 보고한다.",
+          "SW4 시뮬레이션의 여러 지진 시나리오에서 정확도와 속도를 평가한다.",
+          "Berkeley 지역의 실제 M4.4 지진 자료로 재구성 가능성을 확인한다."
+        ],
+        "clarity": "핵심 흐름은 희소 관측에서 Gappy AE로 지반운동장을 복원하는 것이다. 센서 구성, 알고리즘 세부사항, 실제 자료의 정량적 성능은 초록에는 없음."
+      },
+      "reading_goal": "희소 관측을 Gappy AE가 어떻게 지반운동장으로 바꾸는지 따라가고, 시뮬레이션과 실제 지진 자료의 검증 방법 및 속도·오차 지표를 구분해 읽는다."
+    },
+    "keywords": [
+      {
+        "term": "Gappy Auto-Encoder (Gappy AE)",
+        "definition_one_line": "희소하게 관측된 자료를 이용해 관측되지 않은 공간장의 상태를 복원하는 데 적용한 알고리즘이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "희소 관측 자료",
+        "definition_one_line": "지진 지반운동 전체가 아니라 제한된 관측 지점에서 얻은 입력 자료다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "지반운동장 재구성",
+        "definition_one_line": "일부 지진 관측으로부터 공간적으로 분포한 지반운동을 복원하는 과제다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "소규모 지진",
+        "definition_one_line": "이 연구가 대상으로 제시한 규모 M < 4.5의 지진이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "SW4",
+        "definition_one_line": "수치 실험에서 지진 시나리오의 시뮬레이션 자료를 만드는 데 사용한 도구다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Modified Mercalli Intensity (MMI)",
+        "definition_one_line": "시뮬레이션 자료에서 재구성 성능의 상대 오차를 보고할 때 사용한 지진동 강도 지표다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Berkeley M4.4 지진",
+        "definition_one_line": "실제 지진 자료를 이용한 재구성 검증 사례다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "대상은 점원으로 모델링할 수 있다고 설명된 소규모 지진(M < 4.5)이다.",
+        "희소한 지진 관측 자료를 입력으로 사용한다.",
+        "Gappy AE로 지반운동장을 재구성해 진원 특성화와 계산 비용이 큰 시뮬레이션 과정의 필요성을 줄이고자 한다.",
+        "SW4 시뮬레이션의 여러 지진 시나리오에서 정확도와 속도를 평가한다.",
+        "Berkeley 지역의 실제 M4.4 지진 자료로 재구성 가능성을 검증한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "Gappy AE를 지진 지반운동 재구성에 처음 적용한 연구라고 제시한다.",
+          "evidence": "초록에서 이 알고리즘의 지진 지반운동 재구성 적용을 처음이라고 밝힌다.",
+          "caveat": "초록에는 선행 연구와 비교한 근거가 없어 본문에서 확인해야 한다."
+        },
+        {
+          "claim": "시뮬레이션 자료에서 MMI 상대 오차가 2% 미만이다.",
+          "evidence": "초록의 요약 항목이 시뮬레이션 데이터 평가 결과로 2% 미만을 보고한다.",
+          "caveat": "실제 Berkeley 지진 자료에서의 오차 수치와 MMI 외 지표는 초록에는 없음."
+        },
+        {
+          "claim": "방법은 정확도와 속도 측면에서 가능성을 보인다.",
+          "evidence": "초록은 여러 SW4 지진 시나리오에서 정확도와 속도를 실험했다고 설명한다.",
+          "caveat": "실행 시간, 비교 기준, 시나리오 수와 정확도별 수치는 초록에는 없음."
+        },
+        {
+          "claim": "실제 지진 자료에서도 적용 가능성을 확인했다.",
+          "evidence": "Berkeley 지역의 실제 M4.4 지진 자료로 검증했다고 보고한다.",
+          "caveat": "실제 자료의 관측 구성, 기준 정답, 정량적 성능은 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "관측 지점의 수와 위치를 어떻게 정하며, 그 배치가 재구성 정확도에 어떤 영향을 주는가?",
+        "재구성 대상은 파형, MMI 공간 분포, 또는 다른 지반운동량인가?",
+        "시뮬레이션의 정확도와 속도는 어떤 기준 방법 및 지표와 비교했는가?",
+        "Berkeley 실제 자료에서 무엇을 기준 정답으로 삼았으며, 정량적 오차는 얼마인가?",
+        "점원 가정과 작은 규모 지진에서 얻은 성능이 더 크고 복잡한 지진에도 유지되는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "sparse-field-reconstruction",
+        "why": "이 논문의 핵심은 제한된 지진 관측으로 공간 전체의 지반운동장을 복원하는 것이다. 희소 관측, 비선형 Auto-Encoder 표현, 센서 위치와 복원 정확도의 관계를 먼저 익히면 방법과 평가를 따라가기 쉽다.",
+        "focus_cards": [
+          "희소 관측과 공간장 재구성",
+          "Auto-Encoder와 비선형 표현",
+          "샘플링 위치와 복원 정확도"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "소규모 지진에서 희소 관측 자료가 Gappy AE를 거쳐 어떻게 지반운동장으로 재구성되는지, SW4 시뮬레이션과 Berkeley 실제 자료가 각각 어떤 주장을 뒷받침하는지 자신의 말로 설명해 보라.",
+      "assumptions_to_challenge": [
+        "소규모 지진을 점원으로 모델링하는 가정이 대상 지진에서 충분히 성립하는가?",
+        "희소 관측만으로 지반운동장의 중요한 공간 변화를 복원할 만큼 관측이 충분한가?",
+        "시뮬레이션에서 얻은 낮은 MMI 오차가 실제 현장의 재구성 정확도를 잘 나타내는가?",
+        "MMI 오차가 작다는 결과만으로 다른 지반운동 특성도 정확히 복원했다고 볼 수 있는가?",
+        "진원 특성화와 시뮬레이션 과정 없이 평가할 수 있다는 주장이 적용되는 조건은 무엇인가?"
+      ],
+      "to_reproduce_you_need": [
+        "Gappy AE의 구조, 학습 절차, 설정값과 구현 정보. 초록에는 없음.",
+        "관측 지점의 수와 위치, 입력 자료 형식 및 전처리 절차. 초록에는 없음.",
+        "SW4 시나리오 구성, 학습·평가 자료 분할과 비교 기준. 초록에는 없음.",
+        "Berkeley M4.4 자료의 관측 정보, 기준 정답과 평가 절차. 초록에는 없음.",
+        "MMI 상대 오차 계산 방법, 실행 시간 측정 조건과 하드웨어 정보. 초록에는 없음."
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "희소 관측의 선형 측정 모델",
+        "explain": "전체 공간 상태를 x, 센서가 관측한 값을 y로 나타냅니다. H는 어떤 위치를 측정하는지 나타내는 관측 연산자입니다. ε는 측정 오차입니다.",
+        "equation": {
+          "latex": "\\mathbf{y}=\\mathbf{H}\\mathbf{x}+\\boldsymbol{\\varepsilon}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{y}",
+              "meaning": "센서 관측 벡터, x와 같은 단위"
+            },
+            {
+              "symbol": "\\mathbf{H}",
+              "meaning": "측정 위치를 선택하는 관측 행렬, 무차원"
+            },
+            {
+              "symbol": "\\mathbf{x}",
+              "meaning": "전체 공간의 지반운동 상태 벡터, 물리량에 따라 m 또는 m/s 등"
+            },
+            {
+              "symbol": "\\boldsymbol{\\varepsilon}",
+              "meaning": "관측 오차 벡터, y와 같은 단위"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 희소 관측 자료로 지반운동장을 복원한다고 설명합니다. 이 모델을 알면 적은 센서 관측과 복원해야 할 전체 공간 상태의 차이를 이해할 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "전체 상태가 x=[1,3,2,5] cm/s이고 H가 1번째와 4번째 값을 선택하며 오차가 0이라면 y는 얼마인가요?",
+          "answer": "H가 1번째와 4번째 성분을 선택하므로 y=[1,5] cm/s입니다. 예시 값이며 논문 측정값이 아닙니다."
+        },
+        "module_card": "샘플링 위치와 복원 정확도"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "1차원 파동방정식과 지반 변위",
+        "explain": "파동방정식은 변위가 시간과 공간에 따라 어떻게 변하는지 기술합니다. 한 위치에서의 가속도는 공간상 변위 곡률과 연결됩니다. 이 1차원 식은 실제 지반의 복잡한 3차원 탄성파 모델을 이해하기 위한 출발점입니다.",
+        "equation": {
+          "latex": "\\frac{\\partial^2 u}{\\partial t^2}=c^2\\frac{\\partial^2 u}{\\partial x^2}",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "지반 변위, m"
+            },
+            {
+              "symbol": "t",
+              "meaning": "시간, s"
+            },
+            {
+              "symbol": "x",
+              "meaning": "공간 위치, m"
+            },
+            {
+              "symbol": "c",
+              "meaning": "파동 전파 속도, m/s"
+            },
+            {
+              "symbol": "\\frac{\\partial^2 u}{\\partial t^2}",
+              "meaning": "시간에 대한 변위의 2차 미분, 가속도 m/s²"
+            },
+            {
+              "symbol": "\\frac{\\partial^2 u}{\\partial x^2}",
+              "meaning": "공간에 대한 변위의 2차 미분, m⁻¹"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 작은 지진의 지반운동장을 복원합니다. 파동방정식은 지진파가 공간을 통해 퍼지는 물리적 배경을 설명하므로, 센서 사이의 움직임을 추정하는 이유를 이해하는 데 도움이 됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "파동 속도 c=1000 m/s이고 한 지점의 공간 곡률이 ∂²u/∂x²=−1×10⁻⁶ m⁻¹라면 그 지점의 가속도는 얼마인가요?",
+          "answer": "파동방정식에 대입하면 ∂²u/∂t²=c²∂²u/∂x²=(1000 m/s)²(−1×10⁻⁶ m⁻¹)=−1 m/s²입니다. 예시 값이며 논문 측정값이 아닙니다."
+        },
+        "module_card": "작은 지진의 지반운동장"
+      },
+      {
+        "discipline": "physics",
+        "concept": "조화진동에서 변위와 가속도",
+        "explain": "단순 조화진동에서는 가속도가 변위에 비례하고 방향은 반대입니다. 진동수가 높을수록 같은 변위에서 가속도 크기가 커집니다. 이 관계는 지반 변위와 가속도 신호를 읽는 기초입니다.",
+        "equation": {
+          "latex": "a=-\\omega^2 x",
+          "variables": [
+            {
+              "symbol": "a",
+              "meaning": "진동 가속도, m/s²"
+            },
+            {
+              "symbol": "\\omega",
+              "meaning": "각진동수, rad/s"
+            },
+            {
+              "symbol": "x",
+              "meaning": "평형 위치에서의 변위, m"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 복원 성능을 Modified Mercalli Intensity의 상대 오차로도 평가합니다. 조화진동식은 변위와 가속도의 관계를 설명하지만 MMI로 직접 변환하지는 않으므로 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "지반 운동을 진동수 2 Hz의 조화진동으로 근사하고, 최대 변위가 5 mm라면 최대 가속도의 크기는 얼마인가요?",
+          "answer": "각진동수는 ω=2πf=4π rad/s이고, 최대 가속도 크기는 ω²|x|=(4π)²×0.005 m≈0.79 m/s²입니다. 예시 값이며 논문 측정값이 아닙니다."
+        },
+        "module_card": "지진 관측과 Modified Mercalli Intensity"
+      },
+      {
+        "discipline": "cs",
+        "concept": "Autoencoder의 재구성 손실",
+        "explain": "Autoencoder는 입력장을 잠재 표현으로 압축한 뒤 다시 복원합니다. 평균제곱 재구성 손실은 원본과 복원값의 차이를 평균 제곱으로 잽니다. 아래 식은 일반적인 Autoencoder의 표준 손실이며, 논문이 같은 손실식을 사용했다고 뜻하지 않습니다.",
+        "equation": {
+          "latex": "\\mathcal{L}_{\\mathrm{rec}}=\\frac{1}{N}\\sum_{i=1}^{N}(x_i-\\hat{x}_i)^2",
+          "variables": [
+            {
+              "symbol": "\\mathcal{L}_{\\mathrm{rec}}",
+              "meaning": "평균제곱 재구성 손실, 정규화 값이면 무차원"
+            },
+            {
+              "symbol": "N",
+              "meaning": "비교하는 공간 지점 또는 입력 항목의 개수, 개"
+            },
+            {
+              "symbol": "x_i",
+              "meaning": "i번째 입력값, 정규화 값이면 무차원"
+            },
+            {
+              "symbol": "\\hat{x}_i",
+              "meaning": "i번째 복원값, 정규화 값이면 무차원"
+            },
+            {
+              "symbol": "i",
+              "meaning": "입력 항목의 인덱스, 무차원"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 희소 관측으로 지반운동을 복원하기 위해 Gappy Auto-Encoder를 적용했다고 설명합니다. Autoencoder의 재구성 원리를 알면 관측되지 않은 공간 값을 추정한다는 방법의 핵심을 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "정규화된 입력이 [1,0,1]이고 복원값이 [0.8,0.2,1]이라면 평균제곱 재구성 손실은 얼마인가요?",
+          "answer": "세 제곱 오차는 각각 0.04, 0.04, 0입니다. 따라서 손실은 (0.04+0.04+0)/3≈0.0267입니다. 예시 값이며 논문 측정값이 아닙니다."
+        },
+        "module_card": "Auto-Encoder와 비선형 표현"
+      }
+    ],
+    "tools": [
+      {
+        "name": "Gappy Auto-Encoder (Gappy AE)",
+        "category": "method",
+        "what_for": "희소한 센서 관측을 바탕으로 관측되지 않은 공간장을 복원하는 방법입니다.",
+        "link_to_paper": "초록에서 작은 지진의 실시간 지반운동 복원 방법으로 사용합니다.",
+        "evidence": "abstract",
+        "first_step": "작은 합성 격자장을 만들고 일부 칸만 관측되는 입력에서 결측 칸을 복원하는 예제를 구현합니다."
+      },
+      {
+        "name": "SW4",
+        "category": "engine",
+        "what_for": "지진파 전파를 수치적으로 시뮬레이션해 지반운동 데이터를 생성합니다.",
+        "link_to_paper": "초록은 SW4 시뮬레이션으로 다양한 지진 시나리오에서 복원 성능을 평가했다고 설명합니다.",
+        "evidence": "abstract",
+        "first_step": "SW4 예제의 point source 설정과 생성된 파형 출력 형식을 따라가 봅니다."
+      },
+      {
+        "name": "ObsPy",
+        "category": "library",
+        "what_for": "지진계 파형 파일과 시간·채널 정보를 읽고 처리합니다.",
+        "link_to_paper": "실제 지진 자료를 복원 입력으로 다룰 때 파형을 불러오고 시간축을 확인하는 데 쓸 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "작은 MiniSEED 예제를 불러와 sampling rate와 파형의 시간축을 확인합니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}
