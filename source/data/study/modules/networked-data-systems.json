@@ -1,0 +1,325 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T14:58:12.124Z",
+  "id": "networked-data-systems",
+  "title": "제약이 있는 장치에서 데이터 수집·전송·저장 설계하기",
+  "summary": "네트워크 기초, 장치와 서버의 역할 분담, 대역폭·지연·저장 용량의 관계를 공부합니다. ESP32의 CSI 수집, IPFS·MQTT·메타데이터 관리, 웹 기반 neural graphics의 client-server 구성을 사례로 데이터 흐름을 그려봅니다. StreamSplat의 세부 전송 방식과 성능은 초록이 없어 확인할 수 없으므로 제목에 명시된 구조까지만 연결합니다.",
+  "paper_ids": [
+    "W4392248749",
+    "W4389000805",
+    "W4413820694"
+  ],
+  "pack": {
+    "intro": "이 세트는 W4392248749와 W4389000805의 초록에서 확인되는 IoT 장치, 데이터 흐름, 저장 문제를 중심으로 구성했습니다. W4413820694는 초록이 없어 제목에 나온 hybrid client-server architecture만 표시하고 세부 동작은 추정하지 않습니다. 논문을 읽을 때 키워드와 도구에서 출발해 시스템 구조, 자원 계산, 반사 경로와 전파 원리로 내려가면 됩니다.",
+    "roadmap": [
+      "키워드에서 장치, 데이터, 네트워크, 저장 문제를 확인합니다.",
+      "ESP32, CSI, IPFS, MQTT, database가 각 논문에서 맡는 일을 확인합니다.",
+      "CS 관점에서 데이터의 생성·처리·식별·전달·저장 흐름을 그립니다.",
+      "공학수학 관점에서 수집량, 처리율, 기록 지연과 저장 여유를 구분합니다.",
+      "역학 관점에서 사람의 움직임이 반사 경로를 바꿀 수 있는 이유를 봅니다.",
+      "물리 관점에서 WiFi RF 반사와 CSI의 연결을 확인합니다."
+    ],
+    "keywords": [
+      {
+        "term": "IoT devices",
+        "definition_one_line": "데이터를 수집하거나 저장·전송하는 장치로 두 초록에 등장합니다.",
+        "appears_in": [
+          "W4392248749",
+          "W4389000805"
+        ]
+      },
+      {
+        "term": "device-free wireless sensing",
+        "definition_one_line": "추가 센서 없이 WiFi 신호의 반사를 이용해 활동을 인식하는 방식입니다.",
+        "appears_in": [
+          "W4392248749"
+        ]
+      },
+      {
+        "term": "WiFi signals",
+        "definition_one_line": "RF 반사를 이용한 활동 인식의 신호원으로 쓰입니다.",
+        "appears_in": [
+          "W4392248749"
+        ]
+      },
+      {
+        "term": "RF reflections",
+        "definition_one_line": "사람의 활동을 감지하는 데 활용되는 무선 신호 반사입니다.",
+        "appears_in": [
+          "W4392248749"
+        ]
+      },
+      {
+        "term": "CSI data",
+        "definition_one_line": "활동 인식 모델 학습에 사용되는 Channel State Information 데이터입니다.",
+        "appears_in": [
+          "W4392248749"
+        ]
+      },
+      {
+        "term": "storage constraints",
+        "definition_one_line": "대량 데이터 스트림을 다룰 때 IoT 장치의 저장 용량이 제한되는 문제입니다.",
+        "appears_in": [
+          "W4389000805"
+        ]
+      },
+      {
+        "term": "decentralized storage",
+        "definition_one_line": "IPFS가 제공하는 분산 저장 방식입니다.",
+        "appears_in": [
+          "W4389000805"
+        ]
+      },
+      {
+        "term": "CIDs and metadata",
+        "definition_one_line": "CID와 관련 메타데이터를 관리해 조건에 맞는 데이터를 찾는 문제입니다.",
+        "appears_in": [
+          "W4389000805"
+        ]
+      },
+      {
+        "term": "MQTT CID transfer",
+        "definition_one_line": "MQTT를 이용해 CID를 전송하는 구성입니다.",
+        "appears_in": [
+          "W4389000805"
+        ]
+      },
+      {
+        "term": "Hybrid client-server architecture (제목에만 있음)",
+        "definition_one_line": "W4413820694의 제목에 나온 구조이며, 초록이 없어 역할 분담은 확인할 수 없습니다.",
+        "appears_in": [
+          "W4413820694"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "name": "ESP32",
+        "category": "hardware",
+        "what_for": "W4392248749에서 WiFi 신호 기반 device-free sensing에 사용하는 소형 IoT microcontroller입니다.",
+        "used_in": [
+          "W4392248749"
+        ],
+        "evidence": "abstract",
+        "first_step": "초록에서 ESP32가 어떤 센서 추가 없이 어떤 신호를 이용하는지 표시합니다."
+      },
+      {
+        "name": "CSI",
+        "category": "method",
+        "what_for": "활동 인식 모델 학습에 쓰이는 Channel State Information 데이터입니다.",
+        "used_in": [
+          "W4392248749"
+        ],
+        "evidence": "abstract",
+        "first_step": "본문에서 CSI 데이터의 구체적인 표현과 전처리 방법이 설명되는지 확인합니다."
+      },
+      {
+        "name": "WiFi",
+        "category": "method",
+        "what_for": "사람의 RF 반사를 감지하는 데 쓰이는 무선 신호입니다.",
+        "used_in": [
+          "W4392248749"
+        ],
+        "evidence": "abstract",
+        "first_step": "초록의 RF reflections 설명과 WiFi 신호 사용 문장을 연결해 읽습니다."
+      },
+      {
+        "name": "IPFS",
+        "category": "platform",
+        "what_for": "W4389000805에서 IoT 데이터의 분산 저장에 사용되며, 기록 시간이 문제로 제시됩니다.",
+        "used_in": [
+          "W4389000805"
+        ],
+        "evidence": "abstract",
+        "first_step": "IPFS에 저장되는 데이터와 기록 시간 문제가 어떻게 서술됐는지 찾습니다."
+      },
+      {
+        "name": "MQTT",
+        "category": "method",
+        "what_for": "IPFS 데이터의 CID를 전송하는 데 사용되는 프로토콜입니다.",
+        "used_in": [
+          "W4389000805"
+        ],
+        "evidence": "abstract",
+        "first_step": "초록에서 MQTT로 전달되는 대상이 데이터 본체인지 CID인지 확인합니다."
+      },
+      {
+        "name": "database",
+        "category": "platform",
+        "what_for": "CID 값과 관련 메타데이터를 보관해 조건 기반 검색과 데이터 상태 확인을 돕습니다.",
+        "used_in": [
+          "W4389000805"
+        ],
+        "evidence": "abstract",
+        "first_step": "논문에서 CID와 메타데이터가 어떤 관계로 보관되는지 확인합니다."
+      }
+    ],
+    "layers": [
+      {
+        "level": "cs",
+        "title": "데이터 흐름과 시스템 경계",
+        "cards": [
+          {
+            "title": "수집부터 저장까지 흐름 나누기",
+            "body": "데이터 시스템은 생성, 처리, 저장, 식별, 전달 단계로 나누어 읽을 수 있습니다. W4392248749에서는 ESP32로 WiFi 신호를 감지하고 CSI 데이터를 얻어 활동 인식 모델을 학습합니다. 초록은 학습이나 추론이 ESP32에서 실행되는지는 밝히지 않습니다. W4389000805에서는 IPFS, MQTT, CID 관리용 database가 함께 등장합니다. W4413820694의 제목에는 hybrid client-server architecture가 있지만 초록이 없어 각 부분의 역할은 확인할 수 없습니다.",
+            "discipline": "cs",
+            "links_to_paper": "W4392248749의 Device Free Wireless Sensing에서 CSI 수집과 모델 학습을, W4389000805의 hybrid architecture 초록에서 IPFS·MQTT·database 구성을 연결합니다. W4413820694는 제목의 client-server architecture만 확인됩니다.",
+            "linked_keywords": [
+              "IoT devices",
+              "CSI data",
+              "Hybrid client-server architecture (제목에만 있음)"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "초록만으로 W4392248749의 모델 학습이나 추론이 ESP32에서 실행된다고 확정할 수 있나요?",
+              "answer": "아니요. 초록은 CSI 데이터로 모델을 학습한다고 하지만 실행 위치는 밝히지 않습니다.",
+              "if_wrong_go_to": "수집부터 저장까지 흐름 나누기"
+            },
+            "next_resource": "W4392248749와 W4389000805의 시스템 그림에서 데이터가 이동하는 경계를 찾아 표시합니다."
+          },
+          {
+            "title": "CID와 메타데이터의 역할 구분",
+            "body": "저장 식별자와 데이터 설명용 메타데이터는 서로 다른 역할을 합니다. W4389000805의 초록에 따르면 CID만으로는 원본 장치나 관련 메타데이터를 알 수 없습니다. 제안 구조는 CID와 관련 메타데이터를 database에 보관하고 MQTT로 CID를 전송합니다. 메타데이터를 이용해 조건에 맞는 데이터를 찾고 장치가 데이터 상태를 판단합니다. 이미 업로드되어 안전하게 삭제할 수 있는 데이터인지 확인하는 데 이 정보가 쓰입니다.",
+            "discipline": "cs",
+            "links_to_paper": "W4389000805의 Addressing IoT storage constraints에서 CID의 한계, 메타데이터 보관, MQTT 전송, 업로드 후 삭제 판단을 연결합니다.",
+            "linked_keywords": [
+              "CIDs and metadata",
+              "MQTT CID transfer",
+              "storage constraints"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "초록에서 CID와 메타데이터를 database에 함께 보관하는 이유는 무엇인가요?",
+              "answer": "CID 자체가 장치 출처나 메타데이터를 담지 않으므로, 조건 검색과 데이터 상태 확인을 지원하기 위해서입니다.",
+              "if_wrong_go_to": "수집부터 저장까지 흐름 나누기"
+            },
+            "next_resource": "W4389000805의 조건 기반 검색 설명을 읽고 CID와 메타데이터의 연결을 추적합니다."
+          }
+        ]
+      },
+      {
+        "level": "engineering_math",
+        "title": "유입량, 기록 지연, 저장 여유",
+        "cards": [
+          {
+            "title": "저장량과 처리율, 기록 지연 구분",
+            "body": "저장량은 저장된 데이터의 크기이고 처리율은 단위 시간당 처리하는 데이터 크기입니다. 기록 지연은 저장 작업에 걸리는 시간입니다. 이 값들은 관련이 있지만 서로 같은 값은 아닙니다. W4389000805는 대량 데이터와 IoT 장치의 저장 한계, IPFS의 기록 시간 문제를 함께 다룹니다. 초록은 개별 쓰기 지연이나 데이터 유입률을 제공하지 않습니다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "W4389000805의 Addressing IoT storage constraints에서 장치 저장 한계와 IPFS 기록 시간 문제를 연결합니다.",
+            "linked_keywords": [
+              "storage constraints",
+              "decentralized storage"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "저장 용량 외에 연속 데이터 수집을 검토할 때 구분해야 하는 양은 무엇인가요?",
+              "answer": "단위 시간당 데이터 유입·처리율과 기록 지연입니다.",
+              "if_wrong_go_to": "저장량과 처리율, 기록 지연 구분"
+            },
+            "next_resource": "다음 카드에서 초록에 보고된 총 수집량과 실험 시간을 나누어 봅니다."
+          },
+          {
+            "title": "실험량으로 평균 수집량 계산",
+            "body": "전체 수집량을 실험 시간으로 나누면 기간 평균 수집량을 계산할 수 있습니다. W4389000805는 100시간 실험에서 356 GB를 수집했다고 보고합니다. 따라서 단순 평균은 356 GB ÷ 100 h = 3.56 GB/h입니다. 이 값은 보고된 전체량의 평균이며 순간 최고 유입률이나 IPFS 업로드 속도는 아닙니다. 초록은 시간 구간별 유입률을 제공하지 않으므로 실제 저장 여유 판단에는 추가 측정값이 필요합니다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "W4389000805의 100-hour experiment와 356 GB 수집 결과를 이용해 평균량을 계산합니다.",
+            "linked_keywords": [
+              "storage constraints",
+              "IoT devices"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "100시간 동안 356 GB를 수집했다면 단순 평균 수집량은 얼마인가요?",
+              "answer": "3.56 GB/h입니다.",
+              "if_wrong_go_to": "저장량과 처리율, 기록 지연 구분"
+            },
+            "next_resource": "본문의 실험 결과에서 시간 구간별 수집량이나 업로드 완료율이 보고됐는지 확인합니다."
+          }
+        ]
+      },
+      {
+        "level": "mechanics",
+        "title": "움직임과 반사 경로",
+        "cards": [
+          {
+            "title": "활동을 위치 변화로 읽기",
+            "body": "운동학은 물체의 위치 변화와 시간을 연결해 움직임을 기술합니다. W4392248749는 RF 반사를 이용해 사람의 활동을 인식한다고 설명합니다. 초록은 구체적인 활동 라벨, 신체 위치, 속도를 열거하지 않습니다. 따라서 사람의 움직임을 시간에 따른 위치 변화로 보는 것은 감지 원리를 이해하기 위한 기초 해석입니다. 논문이 운동학 변수를 직접 측정했다고 볼 근거는 초록에 없습니다.",
+            "discipline": "mechanics",
+            "links_to_paper": "W4392248749의 Device Free Wireless Sensing에서 사람의 활동과 RF reflections의 연결을 봅니다. 위치·속도 기반 설명은 초록에 없어 간접 연결입니다.",
+            "linked_keywords": [
+              "device-free wireless sensing",
+              "RF reflections"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "초록이 구체적으로 제시하지 않는 운동학 정보의 예는 무엇인가요?",
+              "answer": "신체 위치와 속도, 구체적인 활동 라벨입니다.",
+              "if_wrong_go_to": "활동을 위치 변화로 읽기"
+            },
+            "next_resource": "다음 카드에서 위치 변화가 반사 경로에 미칠 수 있는 영향을 확인합니다."
+          },
+          {
+            "title": "상대 위치와 반사 경로",
+            "body": "송신기, 사람, 수신기의 상대 위치가 바뀌면 RF 반사 경로의 기하도 달라질 수 있습니다. 경로가 달라지면 ESP32에 도달하는 신호도 달라질 수 있습니다. W4392248749는 WiFi RF 반사와 CSI 데이터를 활동 인식에 사용한다고 설명합니다. 초록에는 거리, 방 배치, 사람의 궤적이 나와 있지 않습니다. 그러므로 경로 기하는 가능한 물리적 설명이며, 초록만으로 실제 측정 변수였다고 단정할 수 없습니다.",
+            "discipline": "mechanics",
+            "links_to_paper": "W4392248749의 WiFi RF reflections와 CSI 기반 활동 인식에 연결합니다. 구체적인 경로 기하는 초록에 없어 간접 연결입니다.",
+            "linked_keywords": [
+              "WiFi signals",
+              "RF reflections",
+              "CSI data"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "초록만으로 논문이 사람의 궤적이나 방 안의 거리 변화를 측정했다고 할 수 없는 이유는 무엇인가요?",
+              "answer": "초록에 궤적, 거리, 방 배치 정보가 제시되지 않았기 때문입니다.",
+              "if_wrong_go_to": "활동을 위치 변화로 읽기"
+            },
+            "next_resource": "본문의 실험 배치 설명에서 장치 위치와 활동 공간이 실제로 보고되는지 확인합니다."
+          }
+        ]
+      },
+      {
+        "level": "physics",
+        "title": "WiFi 전파와 CSI",
+        "cards": [
+          {
+            "title": "RF 반사의 물리적 연결",
+            "body": "WiFi 신호는 RF 대역의 전자기파입니다. 전자기파는 물체 표면에서 반사되어 수신기에 도달할 수 있습니다. W4392248749는 ubiquitous WiFi 신호의 RF 반사를 이용한 device-free sensing을 설명합니다. 이것이 사람 활동과 무선 감지를 연결하는 가장 가까운 물리 원리입니다. 초록에는 주파수 대역, 안테나 수, 방 안의 반사체가 제시되지 않습니다.",
+            "discipline": "physics",
+            "links_to_paper": "W4392248749의 abstract에서 ubiquitous WiFi signals와 RF reflections로 활동을 인식한다고 설명한 부분에 직접 연결됩니다.",
+            "linked_keywords": [
+              "WiFi signals",
+              "RF reflections",
+              "device-free wireless sensing"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "W4392248749가 활동 감지에 활용한다고 초록에서 직접 말하는 현상은 무엇인가요?",
+              "answer": "WiFi 신호의 RF 반사입니다.",
+              "if_wrong_go_to": "RF 반사의 물리적 연결"
+            },
+            "next_resource": "다음 카드에서 CSI가 채널 상태를 나타내는 데이터라는 연결을 확인합니다."
+          },
+          {
+            "title": "채널 상태와 CSI 데이터",
+            "body": "무선 채널은 송신기에서 수신기까지 신호가 전파되는 상태를 가리킵니다. CSI는 Channel State Information이며 W4392248749는 CSI 데이터를 모델 학습에 사용합니다. 반사 경로의 변화는 채널 상태를 바꿀 수 있어 CSI가 반사 감지에 쓰이는 물리적 이유가 됩니다. 다만 초록은 CSI의 구체적인 성분이나 전처리, 모델 입력 형식을 설명하지 않습니다. 따라서 확인 가능한 입력은 CSI 데이터라는 점까지이며 세부 특징은 본문에서 확인해야 합니다.",
+            "discipline": "physics",
+            "links_to_paper": "W4392248749의 CSI data를 이용한 activity recognition 문장에 연결합니다. CSI의 구체적인 성분과 전처리는 초록에는 없습니다.",
+            "linked_keywords": [
+              "CSI data",
+              "RF reflections"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "초록으로 확정할 수 있는 모델 학습 데이터와 아직 알 수 없는 세부 정보는 무엇인가요?",
+              "answer": "CSI 데이터 사용은 확인되지만, 그 성분·전처리·모델 입력 형식은 알 수 없습니다.",
+              "if_wrong_go_to": "RF 반사의 물리적 연결"
+            },
+            "next_resource": "W4392248749 본문에서 CSI 특징 추출과 모델 입력 설명을 찾아 초록의 정보와 구분합니다."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "paperId": "W2599954028",
+  "title": "Webized augmented reality mashup for legacy things",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:24:50.513Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 기존 설비를 IoT 장치로 교체해야 연결할 수 있는 비용 문제를 다룬다. 저자들은 기존 웹 서비스와 기존 사물(things)을 연결하는 webized augmented reality mashup을 제안한다. 목표는 기존 설비를 새 장비로 교체하는 추가 비용 없이 연결하는 것이다. 초록에는 구현 방법과 평가 결과가 없어 실제 효과는 판단하기 어렵다.",
+      "five_c": {
+        "category": "IoT와 웹 서비스, 증강현실을 결합한 시스템 제안 연구.",
+        "context": "기존 설비를 IoT 장치로 바꾸어야 연결할 수 있다는 비용 문제에서 출발한다.",
+        "correctness": "초록은 해결안의 목표를 설명하지만 구현 세부사항과 검증 결과를 제시하지 않는다. 타당성과 효과를 판단하기에는 정보가 부족하다.",
+        "contributions": [
+          "기존 설비를 교체하지 않고 웹 서비스와 연결하려는 webized augmented reality mashup을 제안한다."
+        ],
+        "clarity": "문제와 제안 목표는 간결하다. 다만 webized의 의미와 mashup의 구성, AR의 역할은 초록에서 불명확하다."
+      },
+      "reading_goal": "본문에서 시스템이 기존 설비와 웹 서비스를 실제로 어떻게 연결하는지, AR이 어떤 역할을 하는지, 교체 비용 절감 주장을 어떻게 검증했는지 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "legacy things",
+        "definition_one_line": "IoT 장치로 교체하지 않고 웹 서비스와 연결하려는 기존 설비나 사물.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "IoT",
+        "definition_one_line": "논문이 기존 설비의 연결 문제를 설명하는 배경 기술.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "webized augmented reality mashup",
+        "definition_one_line": "기존 웹 서비스와 기존 사물을 연결하기 위해 제안된 시스템.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "기존 웹 서비스",
+        "definition_one_line": "제안 시스템이 기존 사물과 연결하려는 웹 기반 서비스.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "장비 교체 비용",
+        "definition_one_line": "기존 설비를 IoT 장치로 바꿔 연결할 때 발생한다고 제시된 비용 문제.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "증강현실",
+        "definition_one_line": "제안된 mashup의 이름에 포함되지만 구체적인 사용 방식은 초록에 설명되지 않은 요소.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "문제 설정: 기존 설비를 IoT 장치로 교체해야 연결할 수 있어 비용이 든다고 설명한다.",
+        "해결안 제안: webized augmented reality mashup을 제안한다.",
+        "연결 목표: 기존 웹 서비스와 기존 사물을 추가적인 설비 교체 비용 없이 연결하려 한다. 구체적인 구현 절차는 초록에 없다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "제안의 목표는 기존 설비를 새 IoT 장치로 바꾸지 않고 연결하는 것이다.",
+          "evidence": "초록은 기존 장비를 IoT 장치로 교체하는 데 비용 문제가 있으며, 제안 시스템은 설비 교체의 추가 비용 없이 연결한다고 설명한다.",
+          "caveat": "초록의 목표 설명이다. 실제 비용 절감 규모와 검증 결과는 초록에는 없음."
+        },
+        {
+          "claim": "제안 시스템은 기존 웹 서비스와 사물을 연결한다.",
+          "evidence": "초록은 webized augmented reality mashup이 기존 웹 서비스와 things를 연결한다고 밝힌다.",
+          "caveat": "연결 구조, 통신 방식, 웹 서비스 및 사물의 구체적인 사례는 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "webized는 웹 기반 인터페이스, 데이터 형식, 배포 방식 중 무엇을 뜻하는가?",
+        "기존 설비와 웹 서비스는 어떤 연결 장치와 통신 방식으로 이어지는가?",
+        "AR은 설비 제어, 상태 시각화, 설정 중 어떤 역할을 하는가?",
+        "비용 절감은 어떤 기준과 비교 대상을 사용해 평가했는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "networked-data-systems",
+        "why": "핵심 주장이 기존 설비와 웹 서비스를 연결하는 데 있으므로, 장치와 서비스 사이의 데이터 흐름 및 역할 분담을 따라가는 데 이 모듈이 필요하다. 초록에는 구체적인 연결 구조가 없어 본문에서 확인해야 한다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기"
+        ]
+      },
+      {
+        "module_id": "camera-geometry-and-3d",
+        "why": "논문 제목에 증강현실이 포함되어 있어, AR이 정보를 취득하는지 공간 정보를 보여주는지 구분하며 읽는 데 도움이 된다. 카메라나 3D 처리 방식은 초록에는 나오지 않는다.",
+        "focus_cards": [
+          "정보 획득·결손 보완·공간 정보 제시 구분하기"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "문제, 제안한 시스템, 연결하려는 대상, 비용 절감 목표를 자신의 말로 설명해 보라. 초록에 없는 구현 방식이나 성능 결과는 덧붙이지 않는다.",
+      "assumptions_to_challenge": [
+        "‘설비 교체 비용 없음’에 별도 어댑터, 설치, 설정 비용도 포함되는지 본문에서 확인하라.",
+        "모든 기존 설비와 웹 서비스가 연결 가능하다고 가정하는지, 호환성이나 인증 조건을 다루는지 확인하라.",
+        "AR이 연결 기능 자체를 제공하는지, 연결된 정보를 보여주는 역할인지 구분하라.",
+        "비용 절감 주장을 비교 실험이나 구체적인 비용 기준으로 뒷받침하는지 확인하라."
+      ],
+      "to_reproduce_you_need": [
+        "webized mashup의 시스템 구성과 각 구성 요소의 역할을 설명한 본문 정보.",
+        "연결한 기존 설비와 웹 서비스의 사례, API 및 통신 방식.",
+        "AR 인터페이스의 동작 환경과 사용자 작업 흐름.",
+        "구현 및 배포에 필요한 설정과 실행 절차.",
+        "비용 절감이나 기능을 평가한 방법과 비교 기준. 구체 정보는 초록에는 없음."
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "데이터 전송 시간과 처리율",
+        "explain": "처리율은 일정 시간에 전달되는 데이터 양이다. 전송 시간은 데이터 양을 처리율로 나눠 구한다. 이 관계는 네트워크 전송만 고려하며 요청 처리나 지연 시간은 포함하지 않는다.",
+        "equation": {
+          "latex": "t = \\frac{D}{R}",
+          "variables": [
+            {
+              "symbol": "t",
+              "meaning": "전송 시간, 초(s)"
+            },
+            {
+              "symbol": "D",
+              "meaning": "전송할 데이터 양, 비트(bit)"
+            },
+            {
+              "symbol": "R",
+              "meaning": "전송 처리율, 비트/초(bit/s)"
+            }
+          ]
+        },
+        "link_to_paper": "기존 web service의 데이터를 AR 화면까지 전달할 때 전송 시간이 응답성에 영향을 줄 수 있다. 초록에 전송량이나 처리율은 없으므로 이 연결은 간접 추정이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 데이터 12 Mbit를 처리율 4 Mbit/s로 전송하면 몇 초가 걸리는가? 예시 값은 논문 측정값이 아니다.",
+          "answer": "t = D/R = 12 Mbit ÷ 4 Mbit/s = 3초다. 실제 네트워크에서는 요청 처리 시간과 전송 지연이 추가될 수 있다."
+        },
+        "module_card": "저장량과 처리율, 기록 지연 구분"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체의 회전과 점의 속도",
+        "explain": "강체가 회전하면 기준점에서 떨어진 점도 움직인다. 점의 속도는 기준점의 이동 속도와 회전에 따른 속도의 합이다. 이 관계는 물체나 카메라의 시점이 바뀔 때 움직이는 점을 다룬다.",
+        "equation": {
+          "latex": "\\mathbf{v}_P = \\mathbf{v}_O + \\boldsymbol{\\omega} \\times \\mathbf{r}_{P/O}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{v}_P",
+              "meaning": "점 P의 선속도 벡터, m/s"
+            },
+            {
+              "symbol": "\\mathbf{v}_O",
+              "meaning": "기준점 O의 선속도 벡터, m/s"
+            },
+            {
+              "symbol": "\\boldsymbol{\\omega}",
+              "meaning": "강체의 각속도 벡터, rad/s"
+            },
+            {
+              "symbol": "\\mathbf{r}_{P/O}",
+              "meaning": "O에서 P까지의 위치 벡터, m"
+            }
+          ]
+        },
+        "link_to_paper": "AR 표시를 실제 기기에 맞춰 보일 때 기기나 카메라의 자세 변화가 화면의 정렬에 영향을 줄 수 있다. 초록은 움직임 추적을 구체적으로 설명하지 않으므로 이 개념은 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 강체가 정지한 기준점 O를 중심으로 z축 방향으로 2 rad/s 회전한다. 점 P가 O에서 x축 방향으로 0.1 m 떨어져 있다면 P의 속도는 얼마인가? 예시 값은 논문 측정값이 아니다.",
+          "answer": "\\(\\mathbf{v}_O=0\\), \\(\\boldsymbol{\\omega}=(0,0,2)\\) rad/s, \\(\\mathbf{r}_{P/O}=(0.1,0,0)\\) m를 대입한다. 외적은 \\((0,0,2)\\times(0.1,0,0)=(0,0.2,0)\\)이므로 \\(\\mathbf{v}_P=(0,0.2,0)\\) m/s다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "Pinhole 카메라의 투영",
+        "explain": "Pinhole 모델은 3D 점이 카메라 영상면에 맺히는 위치를 근사한다. 카메라에서 멀어질수록 같은 가로·세로 위치 차이가 영상에서 작게 보인다. 이 식은 렌즈 왜곡을 무시한다.",
+        "equation": {
+          "latex": "u = f_x \\frac{X}{Z} + c_x, \\qquad v = f_y \\frac{Y}{Z} + c_y",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "영상에서의 가로 좌표, 픽셀(px)"
+            },
+            {
+              "symbol": "v",
+              "meaning": "영상에서의 세로 좌표, 픽셀(px)"
+            },
+            {
+              "symbol": "f_x",
+              "meaning": "가로 방향 초점거리, 픽셀(px)"
+            },
+            {
+              "symbol": "f_y",
+              "meaning": "세로 방향 초점거리, 픽셀(px)"
+            },
+            {
+              "symbol": "X",
+              "meaning": "카메라 좌표계에서 점의 가로 위치, m"
+            },
+            {
+              "symbol": "Y",
+              "meaning": "카메라 좌표계에서 점의 세로 위치, m"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라 좌표계에서 점의 깊이, m"
+            },
+            {
+              "symbol": "c_x",
+              "meaning": "영상 중심의 가로 좌표, 픽셀(px)"
+            },
+            {
+              "symbol": "c_y",
+              "meaning": "영상 중심의 세로 좌표, 픽셀(px)"
+            }
+          ]
+        },
+        "link_to_paper": "AR 정보는 실제 장면의 영상 위에 놓이므로 3D 위치가 영상 좌표로 어떻게 투영되는지 알아야 한다. 초록에는 카메라 모델이나 보정 방법이 나오지 않아 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 점이 X=0.1 m, Y=0.05 m, Z=1 m에 있고 f_x=f_y=800 px, c_x=320 px, c_y=240 px라면 영상 좌표는 얼마인가? 예시 값은 논문 측정값이 아니다.",
+          "answer": "u = 800×(0.1/1)+320 = 400 px다. v = 800×(0.05/1)+240 = 280 px다."
+        },
+        "module_card": "빛의 영상 형성과 pinhole 근사"
+      },
+      {
+        "discipline": "cs",
+        "concept": "기기와 웹 서비스에서 AR 화면까지의 데이터 흐름",
+        "explain": "데이터 흐름을 데이터 출처, 웹 서비스, 브라우저 화면으로 나눠 그린다. 각 단계에서 데이터를 만들고 전달하고 사용하는 주체를 구분한다. mashup은 기존 서비스와 사물을 연결해 새로운 화면을 구성한다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 기존 web service를 things와 연결하는 webized AR mashup을 제안한다. 데이터가 어디서 오고 AR 화면에 어떻게 쓰이는지 나눠 보면 시스템 구조를 이해하기 쉽다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상의 기존 기기 상태를 AR 화면에 표시한다면 데이터 흐름을 어떻게 나눌 수 있는가? 예시는 논문의 측정 결과가 아니다.",
+          "answer": "기기에서 상태 데이터를 만든다. 기존 web service가 데이터를 제공하고, 브라우저가 이를 받아 AR 장면에 표시한다. 각 경계에서 데이터 형식과 전달 방식을 확인하면 연동 지점을 찾을 수 있다."
+        },
+        "module_card": "수집부터 저장까지 흐름 나누기"
+      }
+    ],
+    "tools": [
+      {
+        "name": "REST API",
+        "category": "method",
+        "what_for": "HTTP 요청과 응답으로 웹 서비스의 데이터를 주고받는 인터페이스를 설계한다.",
+        "link_to_paper": "기존 web service에서 기기 데이터를 가져와 AR mashup에 연결하는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "공개 API 문서에서 한 GET 요청의 URL과 응답 JSON 필드를 확인한다."
+      },
+      {
+        "name": "Fetch API",
+        "category": "platform",
+        "what_for": "브라우저 JavaScript에서 HTTP 요청을 보내고 응답을 처리한다.",
+        "link_to_paper": "브라우저가 기존 web service의 데이터를 받아 AR 화면에 전달하는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "샘플 JSON을 가져와 브라우저 페이지에 필드 하나를 표시해 본다."
+      },
+      {
+        "name": "A-Frame",
+        "category": "framework",
+        "what_for": "HTML 요소를 이용해 브라우저에서 3D 장면을 구성한다.",
+        "link_to_paper": "AR mashup의 장면과 기기 위에 표시할 가상 정보를 만드는 데 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "시작 예제에서 상자 하나와 텍스트 하나를 장면에 배치해 본다."
+      },
+      {
+        "name": "AR.js",
+        "category": "library",
+        "what_for": "브라우저에서 카메라 영상과 마커를 이용한 AR 장면을 구현한다.",
+        "link_to_paper": "실제 legacy thing 위에 서비스 정보를 겹쳐 보여 주는 웹 AR 구현에 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "마커 예제를 실행해 마커 위에 텍스트를 고정해 본다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

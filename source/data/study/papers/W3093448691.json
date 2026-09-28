@@ -1,0 +1,271 @@
+{
+  "paperId": "W3093448691",
+  "title": "Wi-ESP—A tool for CSI-based Device-Free Wi-Fi Sensing (DFWS)",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:20:03.806Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 Wi-Fi 신호로 사람의 활동을 감지하는 DFWS에 쓸 CSI 수집 도구 Wi-ESP를 제안한다. 기존 Intel 5300 및 Atheros 9390 도구의 비용과 CSI 측정 해상도 한계를 배경으로, ESP32 기반 도구를 소개한다. Wi-ESP는 802.11n 기반 CSI를 수집하고 DFWS를 위한 후속 처리도 수행하며, 독립형 장치로 동작한다고 설명한다. 저자들은 대규모 배포에 적합한 가능성을 제시하지만, 구체적인 실험 결과와 수치는 초록에는 없다.",
+      "five_c": {
+        "category": "CSI 기반 device-free Wi-Fi sensing용 도구 제안",
+        "context": "기존 CSI 도구는 대규모 시스템에서 배포 비용이 높고 측정 해상도에 한계가 있다고 설명한다.",
+        "correctness": "초록은 Wi-ESP가 상세 CSI 측정과 독립형 동작을 제공한다고 주장한다. 비교 실험, 성능 수치, 해상도의 정의는 초록에는 없다.",
+        "contributions": [
+          "ESP32 기반 CSI 수집 도구 Wi-ESP를 제안한다.",
+          "CSI 수집뿐 아니라 DFWS를 위한 후속 처리도 수행하는 완전한 장치로 소개한다.",
+          "독립형 동작을 통해 여러 DFWS 응용에 대규모 배포가 가능하다고 제시한다."
+        ],
+        "clarity": "문제와 도구의 역할은 분명하다. 하드웨어·처리 방식과 주장을 뒷받침하는 정량적 근거는 초록만으로 알 수 없다."
+      },
+      "reading_goal": "본문에서 Wi-ESP의 CSI 수집·처리 방식과 기존 도구 대비 비용·해상도·확장성 주장을 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "DFWS",
+        "definition_one_line": "대상에 센서를 부착하지 않고 Wi-Fi 같은 무선 신호로 상태나 활동을 감지하는 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "CSI",
+        "definition_one_line": "이 논문에서 Wi-Fi 기반 감지에 활용하는 채널 상태 정보이며, Wi-ESP가 수집하는 데이터다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Wi-ESP",
+        "definition_one_line": "CSI 측정과 DFWS용 후속 처리를 수행하도록 제안된 ESP32 기반 도구다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "ESP32",
+        "definition_one_line": "Wi-ESP의 기반 장치로 제시된 하드웨어다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "802.11n",
+        "definition_one_line": "초록에서 Wi-ESP의 상세 CSI 측정 기반으로 명시한 Wi-Fi 표준이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "독립형 동작",
+        "definition_one_line": "Wi-ESP가 다른 CSI 도구와 달리 독립 장치로 작동한다고 저자들이 설명하는 특성이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "대규모 배포",
+        "definition_one_line": "Wi-ESP가 여러 DFWS 응용에 널리 배치될 수 있다고 제시하는 목표다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "DFWS에서 활동·제스처 감지, 낙상 감지, 모니터링 등의 응용을 다룬다.",
+        "상용 Wi-Fi 장치의 CSI를 감지에 활용하는 배경을 설명한다.",
+        "ESP32 기반 Wi-ESP로 802.11n 표준에 기반한 CSI를 수집한다.",
+        "수집한 CSI를 DFWS 응용을 위해 추가 처리하며, 장치가 독립형으로 작동한다고 제안한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "기존 도구에는 대규모 배포를 어렵게 하는 한계가 있다.",
+          "evidence": "초록은 Intel 5300 및 Atheros 9390 도구의 높은 배포 비용과 CSI 측정 해상도 한계를 든다.",
+          "caveat": "비용이나 해상도에 대한 수치, 비교 조건, 실험 근거는 초록에는 없다."
+        },
+        {
+          "claim": "Wi-ESP는 상세 CSI 측정을 제공하도록 제안됐다.",
+          "evidence": "초록은 ESP32 기반 Wi-ESP가 802.11n 표준에 기반해 상세한 CSI 측정을 보고한다고 설명한다.",
+          "caveat": "상세함의 기준과 실제 측정 해상도는 초록에는 없다."
+        },
+        {
+          "claim": "Wi-ESP는 독립형 장치이며 대규모 배포에 활용될 수 있다고 제안됐다.",
+          "evidence": "초록은 Wi-ESP가 CSI를 수집하고 추가 처리하며 독립형으로 작동한다고 설명한다.",
+          "caveat": "실제 배포 규모나 확장성 검증 결과는 초록에는 없다."
+        }
+      ],
+      "critical_questions": [
+        "본문에서 CSI 측정의 해상도는 어떤 기준으로 정의하고 평가하는가?",
+        "Intel 5300 및 Atheros 9390과 비용·측정 성능을 같은 조건에서 비교했는가?",
+        "Wi-ESP의 후속 처리에는 어떤 절차가 포함되며, 어떤 DFWS 과제로 검증했는가?",
+        "독립형 동작과 대규모 배포 주장을 뒷받침하는 실험 규모와 결과는 무엇인가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "networked-data-systems",
+        "why": "Wi-ESP가 CSI를 수집하고 장치에서 추가 처리하는 데이터 흐름을 파악하는 데 필요하다. 독립형 동작과 대규모 배포 주장을 읽을 때 수집·처리 역할을 구분하는 데도 도움이 된다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기",
+          "채널 상태와 CSI 데이터",
+          "RF 반사의 물리적 연결"
+        ]
+      },
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "CSI 측정값이 DFWS 응용의 입력으로 어떻게 쓰이는지 논문 내용을 따라가는 데 필요하다. 이 논문의 도구 기여와 감지 과제의 성능 평가를 구분해 읽을 수 있다.",
+        "focus_cards": [
+          "측정 신호에서 과제로 가는 파이프라인",
+          "모델 입력과 과제 출력",
+          "센서 신호와 추론 대상"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "기존 CSI 도구의 어떤 한계를 해결하려고 Wi-ESP를 제안했는지, Wi-ESP가 CSI를 수집하고 처리하는 역할은 무엇인지, 초록에서 확인할 수 있는 근거와 본문에서 더 확인해야 할 주장을 자신의 말로 설명해 보세요.",
+      "assumptions_to_challenge": [
+        "상세 CSI 측정이 기존 도구보다 실제로 더 높은 해상도나 더 나은 성능을 뜻하는가?",
+        "독립형으로 동작한다는 점만으로 대규모 배포가 가능하다고 볼 수 있는가?",
+        "제안된 수집·처리 기능이 서로 다른 DFWS 응용에서도 유효한가?"
+      ],
+      "to_reproduce_you_need": [
+        "ESP32 장치와 Wi-Fi 송수신 구성, 펌웨어 및 설정값을 확인한다. 초록에는 없음.",
+        "CSI 측정 형식, 측정 해상도와 수집 절차를 확인한다. 초록에는 없음.",
+        "Wi-ESP의 후속 처리 단계와 실행 환경을 확인한다. 초록에는 없음.",
+        "기존 도구와 비교한 실험 조건, 비용 산정 방식, 평가 지표를 확인한다. 초록에는 없음.",
+        "독립형 동작과 배포 규모를 검증한 실험 절차 및 결과를 확인한다. 초록에는 없음."
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "시간 표본화와 Nyquist 조건",
+        "explain": "Wi-Fi CSI는 시간에 따라 달라지는 측정값이라 표본화 속도가 중요합니다. Nyquist 조건은 관심 있는 가장 빠른 변화를 놓치지 않기 위한 이론적 최소 표본화율을 줍니다. 실제 측정에서는 잡음과 여유 대역을 고려해 이 최소값보다 빠르게 기록할 수 있습니다.",
+        "equation": {
+          "latex": "f_s \\ge 2f_{\\max}",
+          "variables": [
+            {
+              "symbol": "f_s",
+              "meaning": "표본화 주파수 (Hz, 초당 표본 수)"
+            },
+            {
+              "symbol": "f_{\\max}",
+              "meaning": "관심 신호의 최고 주파수 (Hz)"
+            },
+            {
+              "symbol": "\\ge",
+              "meaning": "크거나 같음; 단위 없음"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 Wi-ESP가 CSI를 수집하고 DFWS 응용을 위해 처리한다고 설명합니다. 움직임에 따른 CSI 변화를 분석하려면 신호를 얼마나 자주 표본화해야 하는지 알아야 합니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "관심 있는 CSI 변화의 최고 주파수가 가상의 4 Hz라면 이론적 최소 표본화율은 얼마인가요? 예시값은 논문 측정값이 아닙니다.",
+          "answer": "Nyquist 조건에 대입하면 f_s ≥ 2 × 4 Hz = 8 Hz입니다. 따라서 이론적 최소 표본화율은 초당 8개 표본입니다. 이 값은 설명을 위한 예시이며 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "변위와 평균 속도",
+        "explain": "변위는 물체의 위치가 바뀐 양이고, 평균 속도는 변위를 걸린 시간으로 나눈 값입니다. 이 운동학 개념은 제스처와 활동을 사람의 물리적 움직임으로 이해하는 기초입니다. CSI 자체가 사람의 위치나 속도를 직접 측정하는 것은 아닙니다.",
+        "equation": {
+          "latex": "\\bar{\\mathbf{v}}=\\frac{\\mathbf{r}_2-\\mathbf{r}_1}{t_2-t_1}",
+          "variables": [
+            {
+              "symbol": "\\bar{\\mathbf{v}}",
+              "meaning": "평균 속도 벡터 (m/s)"
+            },
+            {
+              "symbol": "\\mathbf{r}_1,\\ \\mathbf{r}_2",
+              "meaning": "처음과 나중 위치 벡터 (m)"
+            },
+            {
+              "symbol": "t_1,\\ t_2",
+              "meaning": "처음과 나중 시각 (s)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 activity, gesture, fall detection을 DFWS 활용 예로 듭니다. 운동학은 인식 대상인 사람의 동작을 표현하는 데 도움을 주지만, CSI로 정확한 속도나 궤적을 얻는다는 연결은 간접 연결입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 제스처 예시에서 손이 x 방향으로 0.30 m 움직이는 데 0.20 s가 걸렸습니다. 평균 속도는 얼마인가요? 예시값은 논문 측정값이 아닙니다.",
+          "answer": "평균 속도 식에 대입하면 x 방향 속도는 0.30 m ÷ 0.20 s = 1.5 m/s입니다. 이는 설명을 위한 예시이며 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "전파의 경로 차이와 위상차",
+        "explain": "Wi-Fi 전파는 사람이나 주변 물체에서 반사되어 여러 경로로 수신기에 도달할 수 있습니다. 경로 길이가 달라지면 파동의 위상도 달라집니다. 여러 경로가 합쳐진 신호의 변화가 CSI 기반 센싱의 물리적 배경입니다.",
+        "equation": {
+          "latex": "\\Delta\\phi=\\frac{2\\pi\\Delta L}{\\lambda}",
+          "variables": [
+            {
+              "symbol": "\\Delta\\phi",
+              "meaning": "두 경로 사이의 위상차 (rad)"
+            },
+            {
+              "symbol": "\\Delta L",
+              "meaning": "두 전파 경로의 길이 차이 (m)"
+            },
+            {
+              "symbol": "\\lambda",
+              "meaning": "전파의 파장 (m)"
+            },
+            {
+              "symbol": "2\\pi",
+              "meaning": "한 주기의 위상각 (rad)"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 Wi-Fi 신호의 CSI를 센싱에 이용한다고 설명합니다. 경로 길이 변화가 수신 신호에 영향을 주는 원리를 알면 CSI가 사람의 움직임과 연결되는 이유를 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "설명을 위한 가상 예시에서 경로 차이가 0.025 m이고 파장이 0.10 m라면 위상차의 크기는 얼마인가요? 이 값들은 논문 측정값이 아닙니다.",
+          "answer": "식에 대입하면 Δφ = 2π × 0.025 ÷ 0.10 = 0.5π rad, 즉 π/2 rad입니다. 수치들은 설명을 위한 예시이며 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "측정 신호에서 과제로 가는 파이프라인",
+        "explain": "센싱 시스템은 측정값을 모은 뒤 처리해 응용 과제의 결과로 연결합니다. 시간 구간을 나누고 구간과 동작 라벨을 대응시키는 방식은 신호를 활동 인식 입력으로 정리할 때 쓰입니다. 파이프라인을 그리면 CSI 수집과 DFWS 응용 처리의 역할을 구분하기 쉽습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 Wi-ESP가 CSI를 수집하고 DFWS 응용을 위해 추가 처리한다고 설명합니다. 이 흐름을 데이터 입력과 과제 출력으로 나누어 보면 도구가 맡는 일을 파악할 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상의 fall detection 파이프라인을 만든다면 CSI 측정값은 입력과 출력 중 어디에 놓이며, 과제 출력은 무엇으로 표현할 수 있나요? 세부 모델은 논문에 제시됐다고 가정하지 않습니다.",
+          "answer": "수집된 CSI 측정값은 파이프라인의 입력입니다. 과제 출력은 예를 들어 fall / non-fall 결과로 표현할 수 있습니다. 이는 파이프라인을 설명하기 위한 예시이며, 초록만으로 논문의 실제 라벨이나 모델 구성을 확정할 수는 없습니다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "Wi-ESP",
+        "category": "platform",
+        "what_for": "ESP32 기반 독립 장치로 CSI를 수집하고 DFWS 응용을 위한 후속 처리를 수행합니다.",
+        "link_to_paper": "논문이 제안하는 도구이며, CSI 수집과 응용 처리를 함께 다루는 중심 사례입니다.",
+        "evidence": "abstract",
+        "first_step": "논문 초록의 기능을 CSI 수집과 후속 처리 두 상자로 나눠 그립니다."
+      },
+      {
+        "name": "ESP32",
+        "category": "hardware",
+        "what_for": "Wi-ESP가 기반으로 삼는 하드웨어 플랫폼입니다.",
+        "link_to_paper": "초록은 Wi-ESP가 ESP32 기반이라고 밝히므로 제안 도구의 하드웨어 구성을 이해할 때 참고합니다.",
+        "evidence": "abstract",
+        "first_step": "논문에서 ESP32가 Wi-ESP의 기반이라는 설명을 찾아 구성도에 표시합니다."
+      },
+      {
+        "name": "Intel 5300 CSI tool",
+        "category": "hardware",
+        "what_for": "Intel 5300 네트워크 인터페이스 컨트롤러를 이용해 CSI를 수집하는 도구입니다.",
+        "link_to_paper": "초록에서 기존 CSI 도구의 사례로 언급되며, Wi-ESP가 필요한 배경을 비교하는 데 쓰입니다.",
+        "evidence": "abstract",
+        "first_step": "초록에 나온 배포 비용과 CSI 측정 해상도 한계를 Wi-ESP와 비교해 적습니다."
+      },
+      {
+        "name": "Atheros 9390 tool",
+        "category": "hardware",
+        "what_for": "Atheros 9390 기반으로 CSI를 수집하는 도구입니다.",
+        "link_to_paper": "초록에서 기존 CSI 도구의 사례로 언급되므로 대규모 배포에서의 제약을 살펴볼 때 연결됩니다.",
+        "evidence": "abstract",
+        "first_step": "초록에서 기존 도구에 제시된 제약을 읽고 Wi-ESP가 제시된 이유를 한 줄로 정리합니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

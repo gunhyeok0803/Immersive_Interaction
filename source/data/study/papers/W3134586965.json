@@ -1,0 +1,277 @@
+{
+  "paperId": "W3134586965",
+  "title": "Predicting cybersickness based on user’s gaze behaviors in HMD-based virtual reality",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:18:14.304Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 연구는 HMD 기반 VR에서 눈 움직임을 이용해 cybersickness를 예측하고, subjective vertical mismatch(SVM) 이론에 대한 경험적 근거를 제시한다. 참가자 26명은 eye tracking 장비를 착용하고 롤러코스터 VR을 경험했으며, 장면 방향과 신체 제어 가능성을 바꾼 네 조건을 비교했다. upright 장면에서 신체를 제어할 수 없을 때 cybersickness가 더 심하다고 보고되었고, 조건별로 fixation duration과 시선·물체 위치 시퀀스 간 거리 등 눈 움직임도 달랐다. 눈 움직임 특징을 사용한 회귀 모델은 cybersickness 분산의 34.8%를 설명했으며, 초록은 이전 연구의 4.2%보다 개선된 결과라고 보고한다.",
+      "five_c": {
+        "category": "HMD 기반 VR의 cybersickness 실험 및 눈 움직임 기반 회귀 예측 연구",
+        "context": "SVM 이론을 뒷받침하려는 기존 연구는 주관적 측정이나 신체 흔들림에 주로 의존했다고 설명한다. 이 연구는 주관적 측정과 눈 움직임을 함께 살펴본다.",
+        "correctness": "초록에는 참가자 26명, 네 실험 조건, 회귀 모델이 cybersickness 분산의 34.8%를 설명했다는 결과가 있다. 측정 척도, 통계적 유의성, 모델 검증 방법은 초록에는 없음.",
+        "contributions": [
+          "실험 조건에 따른 cybersickness 보고와 눈 움직임의 차이를 제시한다.",
+          "눈 움직임 특징으로 cybersickness를 예측하는 회귀 모델을 구성한다.",
+          "주관적 측정과 눈 움직임 자료를 함께 사용해 SVM 이론에 대한 경험적 자료를 제시한다."
+        ],
+        "clarity": "조건과 주요 결과는 초록에서 확인할 수 있다. 다만 눈 움직임 특징의 계산 방식과 회귀 모델의 검증 범위는 본문에서 확인해야 한다."
+      },
+      "reading_goal": "실험 조건이 눈 움직임과 주관적 cybersickness 측정으로 이어지는 흐름을 파악하고, 분산 설명 결과가 예측 성능과 SVM 이론을 얼마나 뒷받침하는지 구분한다."
+    },
+    "keywords": [
+      {
+        "term": "Cybersickness",
+        "definition_one_line": "VR 경험 중 나타나는 불편 증상들의 묶음으로, 이 연구의 예측 대상이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Subjective vertical mismatch (SVM)",
+        "definition_one_line": "과거 경험을 통해 형성되고 갱신되는 개인의 내부 모델에 초점을 둔 cybersickness 이론이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "HMD 기반 VR",
+        "definition_one_line": "참가자가 머리에 착용하는 디스플레이를 통해 롤러코스터 가상 장면을 경험하는 실험 환경이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "실험 조건",
+        "definition_one_line": "VR 장면 방향(upright 또는 inverted)과 신체 제어 가능성(unrestrained 또는 restrained)을 조합한 네 조건이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Fixation duration",
+        "definition_one_line": "초록에서 조건별 차이를 보인 눈 움직임 특징의 한 예다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "시선·물체 위치 시퀀스 간 거리",
+        "definition_one_line": "눈 움직임의 조건별 차이를 설명할 때 든 특징으로, 구체적인 계산 방법은 초록에는 없음.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "회귀 모델",
+        "definition_one_line": "눈 움직임 특징을 사용해 cybersickness를 예측하도록 구성한 모델이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "설명 분산",
+        "definition_one_line": "회귀 모델이 cybersickness 전체 분산 중 설명한 비율로, 초록은 34.8%를 보고한다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "참가자 26명이 eye tracking 장비를 착용하고 롤러코스터 VR을 경험한다.",
+        "장면 방향과 신체 제어 가능성을 조합해 네 실험 조건을 구성한다.",
+        "조건별 주관적 cybersickness 보고와 눈 움직임을 살펴본다. 구체적인 측정 시점과 척도는 초록에는 없음.",
+        "Fixation duration과 시선·물체 위치 시퀀스 간 거리 등을 눈 움직임 특징의 예로 비교한다.",
+        "눈 움직임 특징을 사용한 회귀 모델을 구성하고, cybersickness 분산의 34.8%를 설명했다고 보고한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "upright VR 장면에서 신체 제어가 없는 조건에 참가자들이 더 심한 cybersickness를 보고했다.",
+          "evidence": "초록은 upright VR content without controllability에서 보고된 cybersickness가 더 심했다고 설명한다.",
+          "caveat": "조건 배정 방식, 차이의 크기와 통계적 유의성은 초록에는 없음."
+        },
+        {
+          "claim": "눈 움직임은 실험 조건에 따라 달랐다.",
+          "evidence": "초록은 fixation duration과 시선·물체 위치 시퀀스 간 거리 등을 차이가 관찰된 특징으로 든다.",
+          "caveat": "각 특징의 방향, 수치, 산출 절차는 초록에는 없음."
+        },
+        {
+          "claim": "눈 움직임 특징을 사용한 회귀 모델은 cybersickness 분산의 34.8%를 설명했다.",
+          "evidence": "초록은 이전 연구의 4.2%와 비교해 개선되었다고 보고한다.",
+          "caveat": "비교 연구와 평가 데이터의 조건, 검증 방법, 불확실성은 초록에는 없음."
+        }
+      ],
+      "critical_questions": [
+        "연구에서 SVM 이론의 내부 모델을 어떤 관찰값으로 조작화했으며, 눈 움직임 결과가 그 이론을 어떻게 뒷받침하는가?",
+        "Cybersickness의 주관적 측정 척도와 측정 시점은 무엇인가?",
+        "눈 움직임 특징은 어떤 전처리와 계산 절차로 만들었으며, 회귀 모델은 어떤 방식으로 검증했는가?",
+        "34.8%와 이전 연구의 4.2%는 같은 평가 기준과 비교 가능한 데이터 조건에서 나온 값인가?",
+        "참가자 26명과 롤러코스터 VR에서 얻은 결과가 다른 사용자나 VR 콘텐츠에도 적용되는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "human-centered-evaluation",
+        "why": "실험 조건, 주관적 cybersickness 보고, 눈 움직임 관찰값을 구분해 읽는 데 필요하다. 회귀 결과가 측정값과 통계 모형의 범위 안에서 무엇을 뒷받침하는지도 살펴본다.",
+        "focus_cards": [
+          "조건·관찰값·주장의 구분",
+          "비교 결과와 통계 모형의 범위"
+        ]
+      },
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "시선 움직임을 특징으로 바꾸고 예측 과제에 입력하는 흐름을 읽는 데 필요하다. 눈 움직임 특징의 정의와 모델 출력의 관계를 본문에서 확인할 때 연결한다.",
+        "focus_cards": [
+          "측정 신호에서 과제로 가는 파이프라인",
+          "모델 입력과 과제 출력"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "실험 조건에서 눈 움직임과 주관적 증상 보고를 얻고, 그 자료로 cybersickness를 예측한 흐름을 자신의 말로 설명하라. 조건별 관찰 결과와 회귀 모델의 분산 설명 결과가 각각 SVM 이론에 어떤 근거를 더하는지도 구분하라.",
+      "assumptions_to_challenge": [
+        "관찰된 눈 움직임 차이가 SVM의 내부 모델을 반영한다고 볼 근거는 무엇인가?",
+        "분산의 34.8%를 설명한 결과가 새 사용자나 다른 VR 환경에서도 예측된다는 뜻인가?",
+        "실험 조건별 증상 차이를 장면 방향과 신체 제어 가능성의 효과로 해석할 때 고려해야 할 다른 요인은 무엇인가?"
+      ],
+      "to_reproduce_you_need": [
+        "참가자 모집 및 특성, HMD와 eye tracking 장비, VR 자극의 세부 사항",
+        "네 조건의 구현, 조건 순서와 배정 방식, 각 경험의 시간",
+        "Cybersickness 측정 척도와 측정 시점",
+        "시선 자료 전처리, fixation duration 산출법, 시선·물체 위치 시퀀스 간 거리 계산법",
+        "회귀 모델의 종류, 입력 특징 선택, 검증 절차와 평가 지표",
+        "이전 연구의 4.2%와 결과를 비교할 때 사용한 기준과 데이터 조건"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "회귀의 설명력과 결정계수",
+        "explain": "회귀는 여러 입력 특징으로 연속적인 결과값을 예측합니다. 결정계수 R²는 예측이 결과의 변동을 얼마나 설명하는지 나타냅니다. 값이 클수록 평균값만 예측하는 경우보다 관측값에 잘 맞습니다.",
+        "equation": {
+          "latex": "R^2 = 1 - \\frac{\\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2}{\\sum_{i=1}^{n}(y_i-\\bar{y})^2}",
+          "variables": [
+            {
+              "symbol": "R^2",
+              "meaning": "결정계수, 단위 없음"
+            },
+            {
+              "symbol": "y_i",
+              "meaning": "참가자 i의 실제 cybersickness 평가값, 점수 단위"
+            },
+            {
+              "symbol": "\\hat{y}_i",
+              "meaning": "참가자 i의 예측 평가값, 점수 단위"
+            },
+            {
+              "symbol": "\\bar{y}",
+              "meaning": "평가값의 평균, 점수 단위"
+            },
+            {
+              "symbol": "n",
+              "meaning": "평가 사례 수, 개"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 eye-movement features로 cybersickness를 예측하는 회귀 모델을 만들고, 설명된 분산을 보고한다. 결정계수를 알면 이 결과가 예측 오차와 전체 변동에 비해 무엇을 뜻하는지 이해할 수 있다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "예시 평가값이 y=(1,2,3), 예측값이 ŷ=(1,2,2)라면 R²는 얼마인가? 이 값들은 논문 측정값이 아니다.",
+          "answer": "평균은 ȳ=2다. 예측 오차 제곱합은 0+0+1=1이고, 전체 변동 제곱합은 1+0+1=2다. 따라서 R²=1−1/2=0.5다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 회전과 좌표 변환",
+        "explain": "회전 변환은 점의 위치를 회전된 좌표계에서 표현합니다. 강체 회전은 점 사이의 거리를 보존합니다. 장면 방향이 바뀌면 물체의 위치와 사람의 기준 방향 사이 관계도 달라집니다.",
+        "equation": {
+          "latex": "\\begin{bmatrix}x'\\\\y'\\end{bmatrix}=\\begin{bmatrix}\\cos\\theta&-\\sin\\theta\\\\\\sin\\theta&\\cos\\theta\\end{bmatrix}\\begin{bmatrix}x\\\\y\\end{bmatrix}",
+          "variables": [
+            {
+              "symbol": "x, y",
+              "meaning": "회전 전 점의 좌표, m"
+            },
+            {
+              "symbol": "x', y'",
+              "meaning": "회전 후 점의 좌표, m"
+            },
+            {
+              "symbol": "\\theta",
+              "meaning": "회전각, rad"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 VR 장면을 upright 또는 inverted 방향으로 제시했다. 회전 좌표 변환은 장면의 방향 조작이 시각적 기준과 물체 위치에 미치는 영향을 이해하는 기초다. 이 식이 논문 분석에 쓰였다고 가정하지 않는다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "예시 점 (x,y)=(0,1 m)를 θ=π rad만큼 회전하면 어디에 놓이는가? 예시 좌표는 논문 측정값이 아니다.",
+          "answer": "x'=cosπ·0−sinπ·1=0 m다. y'=sinπ·0+cosπ·1=−1 m다. 따라서 회전 후 좌표는 (0,−1 m)다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "기하광학의 반사 법칙과 시선 측정",
+        "explain": "빛은 표면에 반사될 때 법선 기준 입사각과 반사각이 같습니다. 광학식 eye tracker 중 일부는 눈의 영상과 반사 신호를 이용해 시선 방향을 추정합니다. 센서의 광학 신호가 추정값으로 이어지는 기본 원리를 이해하는 데 도움이 됩니다.",
+        "equation": {
+          "latex": "\\theta_i=\\theta_r",
+          "variables": [
+            {
+              "symbol": "\\theta_i",
+              "meaning": "법선 기준 입사각, rad"
+            },
+            {
+              "symbol": "\\theta_r",
+              "meaning": "법선 기준 반사각, rad"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 HMD와 eye tracking으로 시선 움직임을 측정했다고 밝히지만, 추적기의 광학 구현은 설명하지 않는다. 따라서 반사 법칙과의 연결은 간접 연결이며, eye tracker의 물리적 측정 배경을 이해하기 위한 기초다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시 광선의 입사각이 법선 기준 π/6 rad라면 반사각은 얼마인가? 예시 각도는 논문 측정값이 아니다.",
+          "answer": "반사 법칙에 따라 θ_r=θ_i다. 따라서 반사각은 π/6 rad, 즉 30°다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "측정 신호에서 예측 과제로 가는 파이프라인",
+        "explain": "센서가 기록한 시선 신호와 예측하려는 cybersickness 평가는 서로 다른 데이터다. Fixation duration이나 시선과 물체 위치의 거리 같은 특징을 입력으로 만들고, 자기보고 평가를 예측 대상으로 둔다. 이 흐름을 구분하면 측정값과 모델의 예측값을 혼동하지 않는다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 fixation duration과 시선-물체 위치 간 거리 같은 eye-movement features로 회귀 예측을 수행했다고 직접 설명한다. 입력 특징과 예측 대상의 구분은 논문의 분석 흐름을 따라가는 데 필요하다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상 참가자의 기록에 fixation duration, 시선-물체 거리, 자기보고 cybersickness 평가가 있다. 무엇을 입력 특징으로 두고 무엇을 예측 대상으로 두는가? 예시 데이터는 논문 원자료가 아니다.",
+          "answer": "Fixation duration과 시선-물체 거리를 입력 특징으로 묶는다. 자기보고 cybersickness 평가를 예측 대상으로 둔다. 모델 예측을 실제 평가와 비교하면 특징에서 평가값으로 이어지는 과정을 확인할 수 있다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "Head-mounted display (HMD)",
+        "category": "hardware",
+        "what_for": "참가자에게 가상현실 장면을 보여준다.",
+        "link_to_paper": "참가자들은 HMD를 착용하고 roller coaster VR을 경험했다.",
+        "evidence": "abstract",
+        "first_step": "간단한 VR 체험에서 정지 장면과 움직이는 장면을 번갈아 보고 시각적 움직임을 기록한다."
+      },
+      {
+        "name": "Eye tracking",
+        "category": "sensor",
+        "what_for": "사용자의 시선 움직임을 기록해 gaze와 fixation 특징을 얻는다.",
+        "link_to_paper": "논문은 HMD의 eye tracking으로 eye-movement measures를 수집했다.",
+        "evidence": "abstract",
+        "first_step": "eye-tracking 샘플 기록에서 fixation duration과 시선 위치가 어떻게 표시되는지 확인한다."
+      },
+      {
+        "name": "Roller coaster VR scene",
+        "category": "platform",
+        "what_for": "가상 장면의 시각적 움직임을 참가자에게 제시한다.",
+        "link_to_paper": "논문 참가자들은 roller coaster VR을 경험했고, 장면 방향을 조건별로 바꿨다.",
+        "evidence": "abstract",
+        "first_step": "롤러코스터 VR 장면을 보며 장면의 진행 방향과 시선이 향하는 물체를 관찰한다."
+      },
+      {
+        "name": "Regression model",
+        "category": "method",
+        "what_for": "입력 특징으로 연속적인 결과값을 예측한다.",
+        "link_to_paper": "논문은 eye-movement features를 사용해 주관적 cybersickness 수준을 예측했다.",
+        "evidence": "abstract",
+        "first_step": "eye-movement 특징 열과 자기보고 평가 열을 가진 작은 표로 회귀 예제를 따라 해 본다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

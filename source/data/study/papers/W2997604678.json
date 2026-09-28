@@ -1,0 +1,283 @@
+{
+  "paperId": "W2997604678",
+  "title": "Interoperable information model for geovisualization and interaction in XR environments",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:20:52.777Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 기존 지리 브라우저와 위치 기반 AR 브라우저의 콘텐츠가 서로 호환되기 어려운 문제를 다룹니다. 저자들은 Web 표준과 아키텍처를 바탕으로 Digital Earth 콘텐츠 모델을 제안합니다. 이 모델은 지리 시각화와 VR·AR·MR 환경을 지원하고 XR 브라우저를 Web의 구성원으로 다루려는 구상입니다. 저자들은 콘텐츠 개발 효율이 높아질 것으로 기대하지만, 초록에는 이를 검증한 수치나 실험 결과가 없습니다.",
+      "five_c": {
+        "category": "Web 표준 기반의 XR 지리 시각화 콘텐츠 모델 제안",
+        "context": "기존 지리 브라우저와 AR 브라우저는 앱별 형식과 도메인 표준을 사용해 콘텐츠 상호운용성이 제한된다고 설명합니다.",
+        "correctness": "초록은 제안의 동기와 기대 효과를 설명합니다. 모델의 세부 명세, 구현, 검증 결과는 초록에 없습니다.",
+        "contributions": [
+          "Web 표준과 아키텍처에 기반한 Digital Earth 콘텐츠 모델을 제안합니다.",
+          "XR 브라우저가 Web에서 지리 시각화와 VR·AR·MR을 함께 지원하는 구상을 제시합니다.",
+          "Web 콘텐츠 개발 환경을 활용해 Digital Earth 콘텐츠 개발 효율을 높일 가능성을 제시합니다."
+        ],
+        "clarity": "문제와 제안 방향은 초록에서 파악할 수 있습니다. 모델의 구체적 구조와 효과를 판단하려면 본문이 필요합니다."
+      },
+      "reading_goal": "본문에서 콘텐츠 모델이 어떤 표준과 구조를 사용하는지, 여러 XR 환경 사이의 상호운용성과 개발 효율을 어떻게 확인했는지 찾습니다."
+    },
+    "keywords": [
+      {
+        "term": "Digital Earth (DE)",
+        "definition_one_line": "지구 공간 정보를 브라우저에서 시각화하고 탐색하려는 비전입니다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "geo-browser",
+        "definition_one_line": "지리 정보를 시각화하거나 탐색하는 브라우저를 가리킵니다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "XR",
+        "definition_one_line": "이 논문에서는 VR·AR·mixed reality 환경을 아우르는 표현입니다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "상호운용성",
+        "definition_one_line": "서로 다른 브라우저와 환경이 지리 콘텐츠를 함께 사용할 수 있는 성질입니다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "앱별 콘텐츠 형식",
+        "definition_one_line": "기존 브라우저의 콘텐츠가 앱별 형식과 도메인 표준으로 기술된다는 문제 설명입니다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Web 표준과 아키텍처",
+        "definition_one_line": "저자들이 Digital Earth 콘텐츠 모델의 기반으로 제안한 기술적 방향입니다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "수직 통합",
+        "definition_one_line": "초록에서 기존 애플리케이션이 콘텐츠부터 앱까지 통합된 구조라고 설명할 때 사용됩니다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "기존 지리 브라우저와 AR 브라우저의 콘텐츠 형식이 서로 달라 상호운용성이 제한된다고 문제를 설정합니다.",
+        "Web이 개방적이고 상호운용 가능한 플랫폼이며 콘텐츠 제작·공유에 이미 널리 쓰인다는 점을 제안의 배경으로 둡니다.",
+        "Web 표준과 아키텍처에 기반한 Digital Earth 콘텐츠 모델을 제안합니다.",
+        "XR 브라우저에서 지리 시각화와 VR·AR·MR을 지원하고, 콘텐츠 개발 효율을 높일 수 있다고 기대합니다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "기존 지리 브라우저와 AR 브라우저의 콘텐츠는 상호운용성이 제한적입니다.",
+          "evidence": "초록은 앱별 형식과 도메인 표준, 콘텐츠부터 앱까지의 수직 통합을 원인으로 제시합니다.",
+          "caveat": "초록에는 구체적인 브라우저 사례나 호환성 측정 결과가 없습니다."
+        },
+        {
+          "claim": "저자들은 Web 표준과 아키텍처를 바탕으로 Digital Earth 콘텐츠 모델을 제안합니다.",
+          "evidence": "초록은 이 모델이 XR 환경의 지리 시각화와 VR·AR·MR을 지원한다고 설명합니다.",
+          "caveat": "표준 목록, 모델 구조, 구현 세부사항은 초록에 없습니다."
+        },
+        {
+          "claim": "제안은 콘텐츠 개발 효율을 높일 것으로 기대됩니다.",
+          "evidence": "초록은 Web 콘텐츠 개발 환경을 활용하는 점을 기대 효과로 듭니다.",
+          "caveat": "효율 향상을 측정한 결과나 비교 기준은 초록에는 없습니다."
+        }
+      ],
+      "critical_questions": [
+        "콘텐츠 모델의 구성 요소와 데이터 구조는 무엇이며, 어떤 Web 표준을 사용합니까?",
+        "상호운용성은 어떤 브라우저와 XR 환경 사이에서 어떻게 확인했습니까?",
+        "지리 시각화와 VR·AR·MR 상호작용을 지원하는 범위는 어디까지입니까?",
+        "콘텐츠 개발 효율은 어떤 지표와 비교 기준으로 평가했습니까?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "networked-data-systems",
+        "why": "논문은 Web 기반 콘텐츠 모델과 브라우저 사이의 상호운용성을 다룹니다. 이 모듈을 통해 콘텐츠와 애플리케이션 사이의 데이터 흐름 및 시스템 구성을 읽는 기초를 연결할 수 있습니다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기"
+        ]
+      },
+      {
+        "module_id": "camera-geometry-and-3d",
+        "why": "논문에서 다루는 공간 정보의 시각화가 XR 환경에 어떻게 제시되는지 읽을 때 도움이 됩니다. 이 카드로 콘텐츠 모델과 공간 정보 제시의 역할을 구분해 봅니다.",
+        "focus_cards": [
+          "정보 획득·결손 보완·공간 정보 제시 구분하기"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "기존 지리 브라우저와 AR 브라우저의 콘텐츠가 서로 호환되기 어려운 이유를 설명하고, 저자들이 제안한 Web 기반 콘텐츠 모델이 XR 환경에서 어떤 문제를 해결하려는지 자신의 말로 정리해 보세요.",
+      "assumptions_to_challenge": [
+        "Web 기반이라는 이유만으로 실제 브라우저 간 상호운용성이 확보된다고 볼 수 있는가?",
+        "모델이 VR·AR·MR을 지원한다는 주장은 각각의 환경에서 어느 수준까지 구현되었는가?",
+        "Web 개발 환경의 재사용이 콘텐츠 개발 효율 향상으로 이어진다는 기대는 어떤 조건에서 성립하는가?"
+      ],
+      "to_reproduce_you_need": [
+        "콘텐츠 모델의 전체 명세와 데이터 구조",
+        "모델이 사용하는 Web 표준과 아키텍처의 구체적 목록",
+        "XR 브라우저와 콘텐츠를 연결한 구현 세부사항",
+        "상호운용성 시험 대상, 절차, 결과",
+        "개발 효율을 비교할 측정 지표와 평가 결과"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "아핀 좌표 변환",
+        "explain": "아핀 변환은 좌표에 행렬을 곱하고 이동 벡터를 더한다. 행렬은 회전·축척·기울임을 나타낼 수 있다. 이 식은 좌표계 변환의 기초다. 실제 GIS 변환에는 지도 투영이나 지리 기준 변환이 추가될 수 있다.",
+        "equation": {
+          "latex": "\\mathbf{y}=\\mathbf{A}\\mathbf{x}+\\mathbf{b}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{x}",
+              "meaning": "변환 전 좌표 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{A}",
+              "meaning": "회전·축척·기울임을 나타내는 행렬, 같은 좌표 단위를 쓸 때 무차원"
+            },
+            {
+              "symbol": "\\mathbf{b}",
+              "meaning": "이동 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{y}",
+              "meaning": "변환 후 좌표 벡터, m"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 위치 기반 AR과 XR 브라우저를 다루지만, 초록은 좌표 변환 방법을 지정하지 않는다. 지도 위치를 기기나 가상세계 좌표에 맞춰 표시할 때 필요한 간접 기초다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시 좌표 x=(3,4) m를 A=[[0,-1],[1,0]], b=(5,2) m로 변환하면 y는 얼마인가? 예시 값은 논문 측정값이 아니다.",
+          "answer": "Ax=(-4,3) m이다. 여기에 b를 더하면 y=(-4+5, 3+2)=(1,5) m다."
+        },
+        "module_card": "카메라 좌표계와 월드 좌표계"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체의 점 속도와 회전 운동",
+        "explain": "강체는 형태가 변하지 않는 물체로 모델링한다. 강체 위의 한 점 속도는 기준점의 병진 속도와 회전 때문에 생기는 속도의 합이다. 이 관계는 회전하는 물체의 여러 지점이 어떻게 움직이는지 설명한다. XR에서는 사용자나 시점의 움직임을 이해하는 데 도움이 된다.",
+        "equation": {
+          "latex": "\\mathbf{v}_P=\\mathbf{v}_O+\\boldsymbol{\\omega}\\times\\mathbf{r}_{P/O}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{v}_P",
+              "meaning": "점 P의 선속도, m/s"
+            },
+            {
+              "symbol": "\\mathbf{v}_O",
+              "meaning": "기준점 O의 선속도, m/s"
+            },
+            {
+              "symbol": "\\boldsymbol{\\omega}",
+              "meaning": "강체의 각속도 벡터, rad/s"
+            },
+            {
+              "symbol": "\\mathbf{r}_{P/O}",
+              "meaning": "O에서 P까지의 위치 벡터, m"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 VR·AR·mixed-reality 환경에서 상호작용을 지원하는 브라우저를 목표로 한다. 시점이 움직일 때 사용자와 콘텐츠의 상대 운동을 이해하는 기초이며, 초록에는 운동 모델이 직접 나오지 않아 간접 연결이다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시로 vO=(0,0,0) m/s, ω=(0,0,2) rad/s, rP/O=(1,0,0) m라면 vP는 얼마인가? 예시 값은 논문 측정값이 아니다.",
+          "answer": "ω×rP/O=(0,2,0) m/s다. 따라서 vP=(0,0,0)+(0,2,0)=(0,2,0) m/s다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "pinhole 카메라 투영",
+        "explain": "pinhole 모델은 3D 점이 카메라 영상면에 맺히는 위치를 근사한다. 깊이 Z가 커질수록 같은 공간 간격이 영상에서 작게 보인다. 실제 카메라 모델에는 주점과 렌즈 왜곡 보정도 들어갈 수 있다. 이 모델은 XR 장면의 기하가 화면에 표현되는 원리를 익히는 출발점이다.",
+        "equation": {
+          "latex": "u=f\\frac{X}{Z},\\quad v=f\\frac{Y}{Z}",
+          "variables": [
+            {
+              "symbol": "X",
+              "meaning": "카메라 좌표계에서 점의 가로 위치, m"
+            },
+            {
+              "symbol": "Y",
+              "meaning": "카메라 좌표계에서 점의 세로 위치, m"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라 좌표계에서 점의 깊이, m"
+            },
+            {
+              "symbol": "f",
+              "meaning": "픽셀 단위로 표현한 초점 거리, px"
+            },
+            {
+              "symbol": "u",
+              "meaning": "영상면의 가로 좌표, px"
+            },
+            {
+              "symbol": "v",
+              "meaning": "영상면의 세로 좌표, px"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 VR·AR·mixed-reality 환경에서 Digital Earth를 시각화하는 목표를 설명한다. 3D 지리 장면을 사용자의 화면에 투영하는 데 필요한 간접 기초지만, 초록은 카메라 모델을 지정하지 않는다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "주점이 원점이라고 가정하고 f=800 px, X=0.5 m, Y=0.25 m, Z=2 m일 때 u와 v를 계산하라. 예시 값은 논문 측정값이 아니다.",
+          "answer": "u=800×(0.5/2)=200 px다. v=800×(0.25/2)=100 px다."
+        },
+        "module_card": "빛의 영상 형성과 pinhole 근사"
+      },
+      {
+        "discipline": "cs",
+        "concept": "공통 콘텐츠 모델과 상호운용성",
+        "explain": "콘텐츠 모델은 정보의 구조와 각 항목의 의미를 정한다. 여러 앱이 같은 모델을 따르면 각 앱 전용 형식에 맞춰 데이터를 다시 만드는 일을 줄일 수 있다. Web 표준은 서로 다른 XR 브라우저가 콘텐츠를 공유하고 해석할 기반이 된다. 구현에서는 형식뿐 아니라 항목의 의미도 일관되게 맞춰야 한다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록은 앱별 형식 때문에 기존 geo-browser와 AR browser의 상호운용성이 제한된다고 설명한다. Web 표준과 아키텍처를 바탕으로 XR 브라우저가 함께 사용할 Digital Earth 콘텐츠 모델을 제안하는 것이 논문의 중심이다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "가상의 두 XR 앱이 같은 장소 정보를 서로 다른 앱 전용 형식으로 저장한다면, 공통 콘텐츠 모델은 상호운용성을 어떻게 도울 수 있는가?",
+          "answer": "두 앱이 합의한 공통 모델로 정보를 표현하고 각 앱이 그 모델을 읽도록 하면 된다. 앱별 형식의 필드와 의미를 공통 모델에 대응시키면 같은 장소 정보를 다른 XR 브라우저에서도 해석할 수 있다. 초록만으로는 논문이 제안한 구체적 필드명을 알 수 없다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "CesiumJS",
+        "category": "framework",
+        "what_for": "브라우저에서 지구와 지형, 위치 기반 지리 정보를 3D로 시각화하는 프레임워크다.",
+        "link_to_paper": "웹 기반 Digital Earth 시각화와 위치 기반 콘텐츠를 직접 만들어 보며 논문 주제를 실습할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "CesiumJS Sandcastle에서 지도 위에 위치 기반 피처를 표시하는 예제를 실행한다."
+      },
+      {
+        "name": "WebXR Device API",
+        "category": "platform",
+        "what_for": "웹 앱이 지원되는 브라우저와 장치에서 XR 세션, 시점, 입력을 다루도록 하는 API다.",
+        "link_to_paper": "VR·AR·mixed-reality를 함께 지원하는 XR 브라우저라는 논문 주제를 체험하는 데 쓸 수 있다.",
+        "evidence": "inferred",
+        "first_step": "브라우저의 WebXR 예제에서 XR 세션을 시작하고 시점 변화를 확인한다."
+      },
+      {
+        "name": "GeoJSON",
+        "category": "dataset",
+        "what_for": "점·선·면과 속성 정보를 JSON 구조로 표현하고 교환하는 지리 데이터 형식이다.",
+        "link_to_paper": "웹 기반 콘텐츠 모델과 지리 정보를 연결하는 기초 사례로 활용할 수 있다.",
+        "evidence": "inferred",
+        "first_step": "Point 하나를 담은 GeoJSON 피처를 만들어 지도 뷰어에서 위치를 확인한다."
+      },
+      {
+        "name": "JSON-LD",
+        "category": "method",
+        "what_for": "JSON 데이터에 공유 용어와 식별자를 연결해 항목의 의미를 표현하는 형식이다.",
+        "link_to_paper": "Web 표준 기반 콘텐츠 모델에서 정보의 구조뿐 아니라 의미를 공유하는 방식을 익히는 데 도움이 된다.",
+        "evidence": "inferred",
+        "first_step": "장소 객체 하나에 @context와 @type를 넣어 JSON-LD 형태로 표현해 본다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

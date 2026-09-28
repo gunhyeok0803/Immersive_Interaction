@@ -2,7 +2,7 @@
 // 출처: Semantic Scholar Recommendations API (키 불필요). 논문 임베딩(SPECTER) 기반으로 "이 논문과 비슷한 논문"을 돌려줌.
 //   최근 풀(recent)이 비면 전체 CS 풀(all-cs) → S2 키워드 검색 → Crossref → OpenAlex 검색 순으로 채움. 항목마다 via에 출처를 남김.
 // 모델이 논문을 지어낼 위험이 없고, 결과마다 실제 링크가 있음. 서가에 이미 있는 교수님 논문은 뺌.
-// 출력: src/data/related-papers.json  { <paperId>: { fetched_at, items: [{ title, year, venue, cited, url, doi, pdf, abstract, via }] } }
+// 출력: source/data/related-papers.json  { <paperId>: { fetched_at, items: [{ title, year, venue, cited, url, doi, pdf, abstract, via }] } }
 
 import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
@@ -11,13 +11,13 @@ import { fileURLToPath } from "node:url";
 import { parseArgs } from "./lib/codex.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const OUT = path.join(ROOT, "src", "data", "related-papers.json");
+const OUT = path.join(ROOT, "source", "data", "related-papers.json");
 const opt = parseArgs(process.argv.slice(2), { top: 5, force: false });
 const TOP = Number(opt.top);
 const FIELDS = "title,year,venue,citationCount,externalIds,url,openAccessPdf,abstract";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const { papers } = JSON.parse(await readFile(path.join(ROOT, "src", "data", "papers.json"), "utf8"));
+const { papers } = JSON.parse(await readFile(path.join(ROOT, "source", "data", "papers.json"), "utf8"));
 const own = new Set(papers.map((p) => p.doi?.toLowerCase()).filter(Boolean));
 const out = existsSync(OUT) && !opt.force ? JSON.parse(await readFile(OUT, "utf8")) : {};
 

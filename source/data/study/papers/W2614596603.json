@@ -1,0 +1,249 @@
+{
+  "paperId": "W2614596603",
+  "title": "Points of Interest Density Based Zooming Interface for Map Exploration on Smart Glass",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:25:18.389Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "제목은 smart glass에서 지도를 탐색하는 zooming interface를 다루며, 줌 방식의 기준으로 Points of Interest(POI) 밀도를 내세운다. 이는 제목에 근거한 연구 주제 요약이다. POI 밀도를 어떻게 계산하고 줌에 반영하는지는 확인할 수 없다. 초록과 본문이 없어 구현 방식, 평가, 결과는 알 수 없다.",
+      "five_c": {
+        "category": "웨어러블 지도 인터페이스 연구로 추정되나, 제목과 서지정보만으로 분야를 확정할 수 없다.",
+        "context": "제공된 서지정보는 Lecture Notes in Computer Science, 2017이다. 제목상 대상은 smart glass에서의 지도 탐색이다.",
+        "correctness": "초록과 본문이 없어 방법과 결과의 타당성을 평가할 수 없다.",
+        "contributions": [
+          "제목에서 읽히는 기여 후보는 POI 밀도를 이용한 지도 확대·축소 인터페이스다. 구체적인 기여는 확인할 수 없다."
+        ],
+        "clarity": "제목은 주제와 사용 환경을 제시하지만, POI 밀도의 정의와 줌 동작은 설명하지 않는다."
+      },
+      "reading_goal": "본문에서 POI 밀도 산출법과 줌 규칙을 확인하고, smart glass에서 인터페이스를 어떻게 평가했는지와 그 근거가 주장을 뒷받침하는지 살펴본다."
+    },
+    "keywords": [
+      {
+        "term": "Points of Interest (POI)",
+        "definition_one_line": "제목에 적힌 지도상의 관심 지점이며, 논문에서의 구체적 정의는 확인할 수 없다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "POI density",
+        "definition_one_line": "제목에서 줌 인터페이스의 기준으로 제시된 POI 밀도이며, 계산 방식은 알 수 없다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "density-based zooming",
+        "definition_one_line": "POI 밀도를 바탕으로 줌을 다루는 방식으로 제목에 나타나며, 실제 규칙은 확인할 수 없다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "zooming interface",
+        "definition_one_line": "지도 탐색을 위한 확대·축소 인터페이스를 가리키는 제목의 표현이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "map exploration",
+        "definition_one_line": "제목에 제시된 인터페이스의 사용 과제이며, 구체적 탐색 과제는 알 수 없다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "smart glass",
+        "definition_one_line": "제목에 제시된 사용 기기이며, 기기 모델과 입력 방식은 확인할 수 없다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "초록과 본문이 없어 방법의 흐름은 재구성할 수 없다. 제목에서만 POI 밀도, 줌 인터페이스, smart glass 지도 탐색의 연결을 추정할 수 있다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "연구 주제는 POI 밀도 기반 줌 인터페이스다.",
+          "evidence": "제목에 Points of Interest Density Based Zooming Interface라고 명시되어 있다.",
+          "caveat": "제목만으로 POI 밀도 계산법이나 줌 동작을 확인할 수 없다."
+        },
+        {
+          "claim": "인터페이스의 사용 환경은 smart glass다.",
+          "evidence": "제목에 on Smart Glass라고 명시되어 있다.",
+          "caveat": "기기 종류, 사용자 평가, 성능 결과는 제공된 정보에 없다."
+        }
+      ],
+      "critical_questions": [
+        "POI 밀도는 어떤 공간 범위와 계산식으로 정의했는가?",
+        "밀도 변화가 줌 단계나 지도 표시에 어떻게 반영되는가?",
+        "어떤 smart glass와 입력 방식으로 인터페이스를 사용했는가?",
+        "기존 인터페이스나 다른 줌 방식과 비교했는가? 사용성 또는 수행 결과는 무엇이었는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "human-centered-evaluation",
+        "why": "인터페이스의 효과를 평가했는지, 어떤 조건과 측정값으로 주장을 뒷받침했는지 확인하는 데 도움이 된다. 제목만으로는 사용자 실험 여부를 알 수 없다.",
+        "focus_cards": [
+          "조건·관찰값·주장의 구분",
+          "측정값은 구성개념의 일부를 대표한다",
+          "비교 결과와 통계 모형의 범위"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "제목만 보고 확정할 수 있는 내용과 추정한 내용을 구분해, 이 인터페이스가 무엇을 기준으로 지도의 줌을 바꾸고 어떤 탐색 문제를 다루려는지 자기 말로 설명해 보세요.",
+      "assumptions_to_challenge": [
+        "POI 밀도가 줌 단계에 직접 대응한다고 단정하지 않았는가?",
+        "밀도가 화면 안, 지도 타일, 또는 다른 공간 범위에서 계산된다고 근거 없이 가정하지 않았는가?",
+        "smart glass의 입력 방식이나 화면 구성을 제목만으로 추정하지 않았는가?",
+        "사용성 향상이나 탐색 시간 단축을 결과로 확인된 것처럼 말하지 않았는가?"
+      ],
+      "to_reproduce_you_need": [
+        "논문 전문과 초록",
+        "POI 데이터 출처와 밀도 정의",
+        "밀도에서 줌 또는 지도 표시로 이어지는 알고리즘과 설정값",
+        "smart glass 기기와 지도 데이터, 입력 방식, 실험 환경",
+        "평가 과제와 비교 조건, 참여자 및 측정 지표",
+        "결과와 분석 방법"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "지도 좌표에서 화면 좌표로의 확대·이동 변환",
+        "explain": "지도상의 위치를 화면 픽셀로 바꿀 때 확대율과 이동량을 적용합니다. 확대하면 같은 화면에 보이는 지도 범위가 줄어듭니다. 좌표 변환을 알면 확대 전후에 POI 위치가 어디에 표시되는지 계산할 수 있습니다.",
+        "equation": {
+          "latex": "\\mathbf{x}_{d}=s\\mathbf{x}_{m}+\\mathbf{t}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{x}_{d}",
+              "meaning": "화면 좌표 벡터, 단위 px"
+            },
+            {
+              "symbol": "\\mathbf{x}_{m}",
+              "meaning": "지도 평면 좌표 벡터, 단위 px"
+            },
+            {
+              "symbol": "s",
+              "meaning": "확대율, 무차원"
+            },
+            {
+              "symbol": "\\mathbf{t}",
+              "meaning": "화면 이동 벡터, 단위 px"
+            }
+          ]
+        },
+        "link_to_paper": "초록이 없어 제목에서 추정합니다. 지도 좌표와 화면 좌표의 변환은 POI의 표시 위치와 확대에 따른 가시 범위를 이해하는 데 쓰입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "지도 좌표가 (100, 60) px이고 확대율이 2, 이동량이 (-20, 10) px라면 화면 좌표는 얼마인가요?",
+          "answer": "예시 값이며 논문 측정값이 아닙니다. 식에 대입하면 (2×100, 2×60)+(-20, 10)=(180, 130) px입니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 자세와 시점 변화",
+        "explain": "스마트 글래스의 방향은 착용자의 머리 방향에 따라 달라질 수 있습니다. 평면 회전은 지도상의 위치 벡터를 새로운 시점 좌표로 바꿉니다. 이 관계를 알면 머리 방향이 바뀔 때 지도의 일부가 어떻게 보일지 생각할 수 있습니다.",
+        "equation": {
+          "latex": "\\begin{bmatrix}x'\\\\y'\\end{bmatrix}=\\begin{bmatrix}\\cos\\phi&-\\sin\\phi\\\\\\sin\\phi&\\cos\\phi\\end{bmatrix}\\begin{bmatrix}x\\\\y\\end{bmatrix}",
+          "variables": [
+            {
+              "symbol": "x, y",
+              "meaning": "회전 전 평면 좌표, 각각 m"
+            },
+            {
+              "symbol": "x', y'",
+              "meaning": "회전 후 평면 좌표, 각각 m"
+            },
+            {
+              "symbol": "\\phi",
+              "meaning": "회전각, 단위 rad"
+            }
+          ]
+        },
+        "link_to_paper": "초록이 없어 제목에서 추정합니다. 스마트 글래스의 자세 변화가 지도 시점이나 보이는 영역에 영향을 주는 경우에 관련됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "위치가 (1, 0) m일 때 좌표계를 90° 회전하면 새 위치는 얼마인가요?",
+          "answer": "예시 값이며 논문 측정값이 아닙니다. 식에서 cos 90°=0, sin 90°=1이므로 새 위치는 (0, 1) m입니다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "시각도와 아이콘 가독성",
+        "explain": "눈에 보이는 물체의 크기는 실제 크기뿐 아니라 관찰 거리에도 좌우됩니다. 작은 각도에서는 시각도가 물체 크기를 거리로 나눈 값에 가까워집니다. 스마트 글래스 지도에서 POI 아이콘과 글자의 크기를 생각할 때 이 근사가 출발점이 됩니다.",
+        "equation": {
+          "latex": "\\theta\\approx\\frac{h}{d}",
+          "variables": [
+            {
+              "symbol": "\\theta",
+              "meaning": "시각도, 단위 rad"
+            },
+            {
+              "symbol": "h",
+              "meaning": "표시 대상의 높이, 단위 m"
+            },
+            {
+              "symbol": "d",
+              "meaning": "눈에서 표시 대상까지의 거리, 단위 m"
+            }
+          ]
+        },
+        "link_to_paper": "초록이 없어 제목에서 추정합니다. 스마트 글래스 화면에서 POI가 얼마나 크게 보이는지와 정보 밀도를 연결해 생각하는 데 도움이 됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "표시 높이가 0.004 m이고 눈에서의 거리가 0.5 m라면 시각도는 약 얼마인가요?",
+          "answer": "예시 값이며 논문 측정값이 아닙니다. 작은 각도 근사로 0.004/0.5=0.008 rad입니다. 도 단위로 바꾸면 약 0.008×180/π=0.46°입니다."
+        },
+        "module_card": "XR 화면 표현의 시각적 배경"
+      },
+      {
+        "discipline": "cs",
+        "concept": "공간 인덱싱과 화면 영역 질의",
+        "explain": "공간 인덱스는 지도상의 점을 위치에 따라 정리해 둡니다. 화면에 보이는 지도 영역을 질의하면 그 범위 안의 POI를 빠르게 골라낼 수 있습니다. 이후 화면의 정보 밀도에 따라 아이콘을 묶거나 상세 표시를 조절할 수 있습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "초록이 없어 제목에서 추정합니다. POI 밀도를 기준으로 확대 인터페이스를 구성할 때, 현재 화면 범위의 POI를 찾고 표시 대상을 정하는 과정과 연결됩니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "가상의 지도 데이터에 POI가 100,000개 있고 현재 화면 범위에 240개가 있다면, 공간 인덱스는 렌더러에 무엇을 전달해야 하나요?",
+          "answer": "예시 수치이며 논문 측정값이 아닙니다. 화면 경계 안에 있는 240개를 후보로 전달합니다. 인터페이스는 이 후보들의 밀도를 보고 표시를 묶거나 상세도를 조절할 수 있습니다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "OpenStreetMap",
+        "category": "dataset",
+        "what_for": "지도 배경과 POI 위치를 담은 공개 지리 데이터를 제공합니다.",
+        "link_to_paper": "초록이 없어 사용 여부는 확인할 수 없지만, 제목의 POI 지도 인터페이스를 작은 지역으로 실습할 때 쓸 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "관심 도시의 작은 지리 데이터 추출본을 받아 POI 종류와 위치를 살펴보세요."
+      },
+      {
+        "name": "QGIS",
+        "category": "platform",
+        "what_for": "지도 데이터와 POI 분포를 불러와 시각화하고 공간적으로 살펴보는 데 씁니다.",
+        "link_to_paper": "논문 사용 도구인지는 알 수 없으며, POI가 특정 지도 영역에 얼마나 모여 있는지 탐색하는 데 유용합니다.",
+        "evidence": "inferred",
+        "first_step": "OpenStreetMap 데이터를 불러와 POI 종류별로 심볼을 달리 표시해 보세요."
+      },
+      {
+        "name": "Mapbox Maps SDK for Android",
+        "category": "library",
+        "what_for": "Android 앱에 지도를 표시하고 확대·이동 및 POI 표식을 구현하는 데 씁니다.",
+        "link_to_paper": "초록이 없어 논문에서 사용했는지는 확인할 수 없지만, 스마트 글래스용 지도 화면의 기본 동작을 시제품으로 만들 때 활용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "간단한 Android 앱에 지도 뷰와 POI 표식 하나를 표시해 보세요."
+      },
+      {
+        "name": "R-tree",
+        "category": "method",
+        "what_for": "2차원 위치 데이터에서 화면 경계 안에 들어오는 POI를 찾는 공간 인덱싱 방법입니다.",
+        "link_to_paper": "초록이 없어 논문 사용 여부는 확인할 수 없지만, 확대 수준이나 지도 범위가 바뀔 때 POI 후보를 찾는 과정에 적용할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "작은 POI 목록을 R-tree에 넣고 사각형 경계 질의를 실행해 보세요."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

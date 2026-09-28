@@ -1,0 +1,273 @@
+{
+  "paperId": "W4200313021",
+  "title": "Sharing Ambient Objects Using Real-time Point Cloud Streaming in Web-based XR Remote Collaboration",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:16:45.936Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 Web 기반 XR 원격 협업에서 현장 주변 물체(AO)를 공유하는 방법을 제안한다. 협업 대상 물체(OOI)는 미리 polygon mesh로 만들고, AO는 LiDAR로 point cloud를 재구성해 WebRTC로 전송한다. 원격 참여자는 전달된 point cloud를 모아 가상 공간을 구성한다. 저자들은 프로토타입과 예시 시나리오로 실용성을 보였다고 설명하지만, 구체적인 성능 수치는 초록에 없다.",
+      "five_c": {
+        "category": "Web 기반 XR 원격 협업의 AO 공유 시스템",
+        "context": "기존 방식은 정밀한 사전 모델링에 시간이 들거나, 실시간 3D 스캔에 많은 센서 설치가 필요하다. 재구성된 공간 밖의 협업에도 적용하기 어렵다고 설명한다.",
+        "correctness": "초록은 제안 방식의 설계와 프로토타입·예시 시나리오를 제시한다. 준비 시간과 센서 설치 부담을 줄인다는 주장은 있으나, 정량적 성능이나 비교 결과는 초록에 없다.",
+        "contributions": [
+          "OOI와 AO를 구분하고, OOI만 사전 polygon mesh로 모델링한다.",
+          "AO를 LiDAR point cloud로 재구성해 WebRTC로 원격 공유한다.",
+          "프로토타입과 예시 시나리오로 접근 방식의 실용성을 보인다."
+        ],
+        "clarity": "OOI와 AO의 역할, point cloud 전송 흐름은 명확하다. 분류 기준, 전송 성능, 평가 방법의 세부 정보는 초록에 없다."
+      },
+      "reading_goal": "OOI 사전 모델링과 AO 실시간 point cloud 공유가 협업 맥락을 어떻게 구성하는지 살펴본다. WebRTC가 공유 과정에서 맡는 역할과 제안 방식의 실용성 근거도 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "OOI (Object of Interest)",
+        "definition_one_line": "협업에서 주요 대상으로 삼아 사전에 polygon mesh로 모델링하는 물체다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "AO (Ambient Object)",
+        "definition_one_line": "현장 상황을 이루며 LiDAR point cloud로 재구성해 공유하는 주변 물체다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "사전 재구성",
+        "definition_one_line": "협업 전에 물체의 정밀한 polygon mesh를 만드는 접근 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "실시간 재구성",
+        "definition_one_line": "현장에서 물체를 3D 스캔해 협업에 사용하는 접근 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "LiDAR",
+        "definition_one_line": "논문에서 AO를 point cloud로 재구성하는 데 쓰는 기술이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "point cloud streaming",
+        "definition_one_line": "재구성한 AO의 점군 데이터를 원격 참여자에게 전달하는 과정이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "WebRTC",
+        "definition_one_line": "저지연 웹 기반 peer-to-peer 네트워킹 기술로, 점군 공유에 사용된다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "물리적 작업 공간의 물체를 OOI와 AO로 나눈다.",
+        "OOI만 사전에 polygon mesh로 모델링한다.",
+        "AO는 LiDAR를 사용해 point cloud로 재구성한다.",
+        "WebRTC로 점군을 원격 참여자에게 전달하고, 참여자는 이를 모아 가상 공간을 구성한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "모든 현장 물체를 polygon mesh로 만들지 않아 협업 준비 시간을 줄일 수 있다고 제안한다.",
+          "evidence": "OOI만 사전 모델링하고 AO는 point cloud로 공유하는 구성을 설명한다.",
+          "caveat": "준비 시간 절감량이나 기존 방식과의 정량 비교는 초록에 없다."
+        },
+        {
+          "claim": "많은 센서를 현장에 설치할 필요를 줄여 XR 협업의 실용성을 높인다고 주장한다.",
+          "evidence": "저자들은 프로토타입과 예시 시나리오를 제시해 접근 방식의 실용성을 보였다고 설명한다.",
+          "caveat": "필요한 장비 구성이나 센서 수 비교, 사용자 평가의 세부 결과는 초록에 없다."
+        },
+        {
+          "claim": "원격 참여자가 현장의 상황을 직관적으로 이해할 수 있도록 가상 공간을 구성한다.",
+          "evidence": "각 참여자가 전달된 point cloud를 모아 가상 공간을 형성한다고 설명한다.",
+          "caveat": "이해도나 협업 효과를 어떤 지표로 측정했는지는 초록에 없다."
+        }
+      ],
+      "critical_questions": [
+        "OOI와 AO를 나누는 기준은 무엇이며, 누가 어떤 시점에 분류하는가? 초록에는 없다.",
+        "WebRTC 점군 전송의 지연 시간과 point cloud 품질은 어떻게 측정했는가? 구체적 수치와 평가 방법은 초록에 없다.",
+        "참여자별 가상 공간에서 점군의 위치와 좌표는 어떻게 맞추는가? 초록에는 설명이 없다.",
+        "공간이나 AO가 바뀌는 상황에서 재구성 범위와 공유 방식은 어떻게 처리하는가? 초록에는 설명이 없다."
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "camera-geometry-and-3d",
+        "why": "LiDAR point cloud가 현장 공간을 나타내고, 이를 참여자의 가상 공간으로 구성하는 과정을 읽는 데 필요하다. 점군의 획득과 공간 표현을 구분해 살펴본다.",
+        "focus_cards": [
+          "정보 획득·결손 보완·공간 정보 제시 구분하기",
+          "카메라 좌표계와 월드 좌표계"
+        ]
+      },
+      {
+        "module_id": "networked-data-systems",
+        "why": "점군을 WebRTC로 원격 전송하는 데이터 흐름과 지연을 이해하는 데 필요하다. 초록에 없는 전송 성능을 비판적으로 확인할 때도 도움이 된다.",
+        "focus_cards": [
+          "수집부터 저장까지 흐름 나누기",
+          "저장량과 처리율, 기록 지연 구분"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "OOI와 AO를 나눠 다루는 이유, 각 물체에 적용한 표현 방식, 원격 참여자가 현장 상황을 공유받는 과정을 자신의 말로 설명해 보세요. 이 설계가 줄인다고 주장하는 부담과 그 근거도 구분해 보세요.",
+      "assumptions_to_challenge": [
+        "OOI가 미리 정해져 있고, 협업 전에 polygon mesh로 만들 수 있다고 가정하는가?",
+        "AO의 point cloud가 원격 참여자가 현장 상황을 이해하기에 충분하다고 가정하는가?",
+        "WebRTC의 저지연 전송이 실제 협업에서도 유지된다고 가정하는가? 초록에는 지연 수치가 없다."
+      ],
+      "to_reproduce_you_need": [
+        "OOI와 AO의 분류 기준 및 사전 polygon mesh 제작 절차. 구체 내용은 초록에 없다.",
+        "LiDAR 장비, 점군 재구성 설정, 공간 좌표 처리 방법. 구체 내용은 초록에 없다.",
+        "WebRTC 구성, 점군 전송 형식과 설정, 네트워크 조건 및 지연 측정 절차. 구체 내용은 초록에 없다.",
+        "원격 참여자의 가상 공간 구성 방법과 프로토타입 실행 환경. 구체 내용은 초록에 없다.",
+        "예시 시나리오의 진행 절차와 실용성을 평가한 기준. 구체 내용은 초록에 없다."
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "센서 좌표계에서 월드 좌표계로의 변환",
+        "explain": "3D 점은 어느 좌표계를 기준으로 기록했는지에 따라 좌표값이 달라집니다. 회전 행렬은 방향을 바꾸고, 이동 벡터는 원점을 옮깁니다. 두 변환을 적용하면 센서가 측정한 점을 XR 공간의 위치로 나타낼 수 있습니다.",
+        "equation": {
+          "latex": "\\mathbf{p}_{w}=\\mathbf{R}_{ws}\\mathbf{p}_{s}+\\mathbf{t}_{ws}",
+          "variables": [
+            {
+              "symbol": "\\mathbf{p}_{w}",
+              "meaning": "월드 좌표계에서의 점 위치 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{p}_{s}",
+              "meaning": "센서 좌표계에서의 점 위치 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{R}_{ws}",
+              "meaning": "센서 좌표를 월드 좌표로 회전시키는 행렬, 무차원"
+            },
+            {
+              "symbol": "\\mathbf{t}_{ws}",
+              "meaning": "센서 좌표계 원점의 월드 좌표 위치 벡터, m"
+            }
+          ]
+        },
+        "link_to_paper": "LiDAR가 얻은 점들을 원격 협업자의 가상 공간에 놓으려면 좌표계 관계를 알아야 합니다. 이 변환은 AO point cloud와 미리 만든 OOI 모델을 함께 배치할 때도 필요합니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값은 논문 측정값이 아닙니다. 센서 좌표의 점이 (1, 2, 0) m이고 회전은 항등행렬, 이동은 (0.5, 0, 0) m일 때 월드 좌표를 구하세요.",
+          "answer": "식을 적용하면 월드 좌표는 (1, 2, 0) + (0.5, 0, 0) = (1.5, 2, 0) m입니다."
+        },
+        "module_card": "카메라 좌표계와 월드 좌표계"
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "강체 회전과 점 사이 거리의 보존",
+        "explain": "강체가 회전하면 각 점의 좌표는 변하지만 물체의 모양과 점 사이 거리는 변하지 않습니다. 회전 행렬은 길이를 보존하는 변환입니다. 이 성질을 알면 시점이 바뀌어도 point cloud에 나타난 물체의 크기와 형상을 구분해 볼 수 있습니다.",
+        "equation": {
+          "latex": "\\left\\|\\mathbf{R}\\mathbf{p}_i-\\mathbf{R}\\mathbf{p}_j\\right\\|_2=\\left\\|\\mathbf{p}_i-\\mathbf{p}_j\\right\\|_2",
+          "variables": [
+            {
+              "symbol": "\\mathbf{R}",
+              "meaning": "강체의 회전을 나타내는 행렬, 무차원"
+            },
+            {
+              "symbol": "\\mathbf{p}_i",
+              "meaning": "강체 위 i번째 점의 위치 벡터, m"
+            },
+            {
+              "symbol": "\\mathbf{p}_j",
+              "meaning": "강체 위 j번째 점의 위치 벡터, m"
+            },
+            {
+              "symbol": "\\|\\cdot\\|_2",
+              "meaning": "벡터의 유클리드 길이, m"
+            }
+          ]
+        },
+        "link_to_paper": "원격 협업자는 현장 AO의 점들을 가상 공간의 시점에서 살펴봅니다. 회전과 시점 변화가 물체의 실제 크기를 바꾸지 않는다는 점은 장면을 해석하는 기초입니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "예시값은 논문 측정값이 아닙니다. 두 점이 각각 (1, 0, 0) m와 원점에 있고, z축을 중심으로 90° 회전할 때 회전 전후의 거리를 구하세요.",
+          "answer": "회전 전 거리는 두 점의 차이 벡터 길이인 1 m입니다. 회전 후 첫 번째 점은 (0, 1, 0) m가 되고 원점은 그대로이므로 거리도 1 m입니다."
+        },
+        "module_card": "강체 자세와 시점 변화"
+      },
+      {
+        "discipline": "physics",
+        "concept": "LiDAR의 비행시간 거리 측정",
+        "explain": "LiDAR는 빛을 내보내고 물체에서 반사되어 돌아오는 시간을 측정해 거리를 추정합니다. 측정 시간은 빛이 왕복한 시간이므로 편도 거리를 구할 때 2로 나눕니다. 여러 방향의 거리 측정값은 주변 표면의 3D 점들로 표현될 수 있습니다.",
+        "equation": {
+          "latex": "d=\\frac{c\\Delta t}{2}",
+          "variables": [
+            {
+              "symbol": "d",
+              "meaning": "센서와 반사 표면 사이의 거리, m"
+            },
+            {
+              "symbol": "c",
+              "meaning": "빛의 속력, m/s"
+            },
+            {
+              "symbol": "\\Delta t",
+              "meaning": "빛의 왕복 비행시간, s"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 LiDAR로 AO를 point cloud로 재구성한다고 설명합니다. 비행시간 원리를 알면 센서의 시간 측정이 주변 표면까지의 거리와 어떻게 이어지는지 이해할 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "예시값은 논문 측정값이 아닙니다. 빛의 왕복 시간이 20 ns이고 빛의 속력을 3×10^8 m/s로 놓을 때 표면까지의 거리를 계산하세요.",
+          "answer": "d = cΔt/2 = (3×10^8 m/s × 20×10^-9 s)/2 = 3 m입니다."
+        },
+        "module_card": "센서 신호와 추론 대상"
+      },
+      {
+        "discipline": "cs",
+        "concept": "실시간 point cloud 스트리밍 파이프라인",
+        "explain": "스트리밍 시스템은 데이터를 만든 쪽과 받는 쪽의 처리 단계를 연결합니다. 이 사례에서는 현장에서 재구성한 point cloud를 WebRTC로 전달하고, 원격 협업자가 받은 데이터를 가상 공간 구성에 사용합니다. 단계별 지연이나 데이터 누락은 원격 장면을 이해하는 데 영향을 줄 수 있습니다.",
+        "equation": {
+          "latex": "",
+          "variables": []
+        },
+        "link_to_paper": "논문은 재구성된 point cloud를 WebRTC로 원격 협업자에게 공유하는 방식을 제안합니다. 수집, 전송, 수신, 가상 공간 구성의 흐름을 구분하면 시스템의 역할과 병목을 읽기 쉽습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "논문의 협업 상황에서 현장 데이터가 원격 가상 공간에 보이기까지 필요한 주요 단계를 순서대로 설명하세요.",
+          "answer": "현장에서 LiDAR 데이터를 수집하고 AO point cloud로 재구성합니다. 이를 WebRTC로 전송한 뒤 원격 협업자가 받아 가상 공간을 구성합니다."
+        },
+        "module_card": "수집부터 저장까지 흐름 나누기"
+      }
+    ],
+    "tools": [
+      {
+        "name": "LiDAR",
+        "category": "sensor",
+        "what_for": "빛의 반사 시간을 이용해 주변 표면까지의 거리를 측정합니다.",
+        "link_to_paper": "논문은 LiDAR로 ambient objects를 point cloud로 재구성합니다.",
+        "evidence": "abstract",
+        "first_step": "공개 LiDAR 샘플의 XYZ 점들을 3D 뷰어로 열어 한 장면의 형태를 살펴봅니다."
+      },
+      {
+        "name": "WebRTC",
+        "category": "platform",
+        "what_for": "브라우저 간 실시간 peer-to-peer 데이터 통신을 지원합니다.",
+        "link_to_paper": "논문은 WebRTC를 이용해 point cloud를 원격 협업자에게 전달합니다.",
+        "evidence": "abstract",
+        "first_step": "브라우저 두 탭에서 WebRTC DataChannel 예제를 실행해 짧은 메시지를 주고받습니다."
+      },
+      {
+        "name": "Open3D",
+        "category": "library",
+        "what_for": "3D point cloud와 기하 데이터를 읽고 시각화하는 데 사용합니다.",
+        "link_to_paper": "point cloud의 형태를 확인하고 다루는 실습으로 논문의 AO 표현을 익힐 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "Open3D 입문 예제의 sample point cloud를 불러와 뷰어에서 회전해 봅니다."
+      },
+      {
+        "name": "WebXR",
+        "category": "platform",
+        "what_for": "웹 브라우저에서 XR 경험을 구현하기 위한 API를 제공합니다.",
+        "link_to_paper": "웹 기반 XR 공간에서 원격 현장 정보를 보는 맥락을 실습할 수 있습니다.",
+        "evidence": "inferred",
+        "first_step": "WebXR 예제의 기본 3D 장면을 브라우저에서 실행해 가상 공간을 띄워 봅니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

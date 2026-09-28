@@ -1,5 +1,5 @@
 /* study-panel: 사전 생성된 학습 세트를 읽어 양피지 패널에 top-down 스텝으로 렌더.
- * 논문 팩: 1차 개요(5C) → 키워드 → 2차 이해 → 먼저 볼 공통 모듈 → 유사 논문(웹) → 3차 재구성
+ * 논문 팩(학습 top-down): 1차 개요(5C) → 키워드 → 2차 이해 → 기초과학·CS(수식) → 사용 툴 → 공통 모듈 → 유사 논문(웹) → 3차 재구성
  * 공통 모듈: 개요 → 논문 키워드 → 사용 툴 → CS → 공학수학 → 역학 → 물리 → 부록: 피지컬 AI 동향
  * 데이터(모두 tools/ 스크립트가 미리 만듦):
  *   data/study/papers/<id>.json   논문 팩        data/study/common.json   모듈 목록
@@ -95,9 +95,50 @@
       <div class="smeta">출처: ${[...new Set(items.map((q) => q.via))].map(esc).join(", ")} · ${esc(rel.fetched_at?.slice(0, 10) || "")}</div>` };
   }
 
+  // 수식: KaTeX가 있으면 렌더, 없으면 LaTeX 원문
+  const tex = (s, display) => {
+    if (!s) return "";
+    try { if (window.katex) return window.katex.renderToString(s, { displayMode: display, throwOnError: false }); } catch {}
+    return `<code>${esc(s)}</code>`;
+  };
+  const moduleOfCard = (common, title) => title && Object.values(common.modules).find((m) => (m.pack?.layers || []).some((l) => l.cards.some((c) => c.title === title)));
+
+  // 기초과학·CS: 개념 → 표준 수식 → 논문 주제와의 연결 → 계산 문제
+  function foundationsStep(p, common) {
+    const list = p.foundations || [];
+    if (!list.length) return null;
+    return { key: "foundations", label: "기초과학·CS", html: `
+      <p class="hintline">이 논문 주제를 이해하는 데 필요한 기초입니다. 식은 교과서 표준 식이며, 논문 속 식 그대로는 아닙니다.</p>
+      ${list.map((f) => {
+        const mod = moduleOfCard(common, f.module_card);
+        return `
+        <article class="scard">
+          <div class="scard-head"><span class="disc">${esc(DISC[f.discipline] || f.discipline)}</span><h4>${esc(f.concept)}</h4></div>
+          <p>${esc(f.explain)}</p>
+          ${f.equation?.latex ? `<div class="eq">${tex(f.equation.latex, true)}</div>
+            <ul class="vars">${(f.equation.variables || []).map((v) => `<li>${tex(v.symbol)} ${esc(v.meaning)}</li>`).join("")}</ul>` : ""}
+          <div class="link">이 논문에서: ${esc(f.link_to_paper)} <span class="where">· ${f.evidence === "abstract" ? "초록에 명시" : "추정"}</span></div>
+          <div class="check">
+            <div class="q"><b>풀어 보기</b> ${esc(f.check?.question)}</div>
+            <button class="btn reveal" data-reveal>풀이 보기</button>
+            <div class="a" hidden>${esc(f.check?.answer)}</div>
+          </div>
+          ${mod ? `<button class="btn" data-module="${esc(mod.id)}" data-focus="${esc(f.module_card)}">공통 모듈에서 더 보기 →</button>` : ""}
+        </article>`;
+      }).join("")}` };
+  }
+
+  function toolsStep(p) {
+    const list = p.tools || [];
+    if (!list.length) return null;
+    return { key: "tools", label: "사용 툴", html: `
+      <p class="hintline">이 논문 분야에서 쓰는 도구와, 직접 해 볼 첫걸음입니다.</p>
+      <ul class="kwlist">${list.map((t) => `<li><b>${esc(t.name)}</b> <span class="where">${esc(TOOL_CAT[t.category] || t.category)} · ${t.evidence === "abstract" ? "초록에 명시" : "추정"}</span><br>${esc(t.what_for)} ${esc(t.link_to_paper)}<br><span class="where">처음 해 볼 것: ${esc(t.first_step)}</span></li>`).join("")}</ul>` };
+  }
+
   function buildPaperSteps(record, common) {
     const p = record.pack; // 레코드는 {paperId, title, model, via, generated_at, pack}
-    const head = paperHead(p);
+    const head = [...paperHead(p), foundationsStep(p, common), toolsStep(p)].filter(Boolean);
     const refs = (p.module_refs || []).map((r) => {
       const m = common.modules[r.module_id];
       return `
@@ -110,7 +151,7 @@
     }).join("");
     return [...head,
       { key: "modules", label: "공통 기초", html: `
-        <p class="hintline">CS·공학수학·역학·물리와 사용 툴은 교수님 최근 논문들이 함께 쓰는 공통 모듈에 모아 두었습니다.</p>${refs || "<p>(연결된 모듈 없음)</p>"}` },
+        <p class="hintline">더 깊게: 교수님 최근 논문들이 함께 쓰는 기초와 툴을 모은 공통 모듈입니다.</p>${refs || "<p>(연결된 모듈 없음)</p>"}` },
       relatedStep(common.related[record.paperId]),
       paperTail(p)];
   }
@@ -188,7 +229,7 @@
       const go = e.target.closest("[data-go]"); if (go) { view.i = Number(go.dataset.go); draw(); return; }
       const mod = e.target.closest("[data-module]"); if (mod && !mod.disabled) { paperView = view.kind === "paper" ? view : paperView; openModule(mod.dataset.module, mod.dataset.focus); return; }
       if (e.target.closest("[data-back]")) { view = paperView; draw(); return; }
-      const rev = e.target.closest("[data-reveal]"); if (rev) { const a = rev.nextElementSibling; a.hidden = !a.hidden; rev.textContent = a.hidden ? "정답 보기" : "정답 가리기"; }
+      const rev = e.target.closest("[data-reveal]"); if (rev) { const a = rev.nextElementSibling; a.hidden = !a.hidden; rev.dataset.label ??= rev.textContent; rev.textContent = a.hidden ? rev.dataset.label : "가리기"; }
     };
     draw();
     return { goto: (k) => { view.i = k; draw(); }, openModule };

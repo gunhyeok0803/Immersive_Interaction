@@ -1,0 +1,346 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T14:55:36.381Z",
+  "id": "signal-based-human-sensing",
+  "title": "영상·음성·무선·생체 신호로 사람의 상태 측정하기",
+  "summary": "표본화, 잡음 제거, 시계열 분할, 시간·주파수 분석을 먼저 익히고, 신호를 특징이나 학습 입력으로 바꾸는 과정을 공부합니다. 이후 Lucas–Kanade optical flow, 음성의 시간–주파수 표현, WiFi CSI, EEG, Motion History Image와 CNN을 논문별로 연결합니다. 연속적인 움직임 측정의 일치도 평가와 활동·상태 분류의 성능 평가를 구분하는 것도 필요합니다.",
+  "paper_ids": [
+    "W7211953241",
+    "W4412698102",
+    "W4402094861",
+    "W4392248749",
+    "W4372259901",
+    "W4365150374"
+  ],
+  "pack": {
+    "intro": "이 묶음은 영상·음성·WiFi CSI·EEG·압력중심 신호를 사람의 자세, 행동, 건강 또는 불편 상태와 연결하는 논문들로 이루어집니다. 공통 흐름은 신호를 측정하고, 구간이나 특징으로 표현한 다음, 궤적 간 대응이나 활동·상태 분류로 평가하는 것입니다. 논문마다 쓰는 신호와 분석법은 다르므로, 이 공부 세트는 공통 원리와 각 초록에 나온 구체적 적용을 구분해 읽도록 구성했습니다.",
+    "roadmap": [
+      "논문 키워드: 어떤 신호로 어떤 사람의 상태를 다루는지 확인한다.",
+      "사용 툴: 측정 장치와 영상 추적·분할·분류 방법을 확인한다.",
+      "CS: 신호의 입력 단위, 구간화와 라벨, 분석 과제의 출력을 연결한다.",
+      "공학수학: 시간·주파수 표현, 궤적 간 대응, 분류 지표를 읽는다.",
+      "역학: CoP와 신체 분절의 움직임, 방향별 차이를 해석한다.",
+      "물리: 센서가 다루는 신호와 영상에서 얻는 움직임 표현의 관계를 확인한다."
+    ],
+    "keywords": [
+      {
+        "term": "CoP 관련 자세 흔들림",
+        "definition_one_line": "힘 측정 시스템에서 얻은 CoP 궤적과 머리·몸통 움직임의 대응을 살피는 주제다.",
+        "appears_in": [
+          "W7211953241"
+        ]
+      },
+      {
+        "term": "단일 카메라 비마커 몸통 추적",
+        "definition_one_line": "한 대의 카메라와 optical flow로 몸통 움직임을 추적해 동작 포착 궤적과 비교한다.",
+        "appears_in": [
+          "W7211953241"
+        ]
+      },
+      {
+        "term": "소리 분할과 시간·주파수 라벨링",
+        "definition_one_line": "소리의 시간·주파수 영역에 세밀한 라벨을 붙여 활동을 분할하고 설명 가능하게 인식한다.",
+        "appears_in": [
+          "W4412698102"
+        ]
+      },
+      {
+        "term": "음절 단위 일상 대화 분석",
+        "definition_one_line": "일상 대화를 음절로 나눈 뒤 연하곤란군과 대조군을 분류한다.",
+        "appears_in": [
+          "W4402094861"
+        ]
+      },
+      {
+        "term": "WiFi CSI 기반 비접촉 HAR",
+        "definition_one_line": "WiFi 신호의 RF 반사에서 얻은 CSI를 이용해 별도 착용 센서 없이 활동을 인식한다.",
+        "appears_in": [
+          "W4392248749"
+        ]
+      },
+      {
+        "term": "MHI 기반 영상·음성 다중모달 탐지",
+        "definition_one_line": "움직임 정보를 담은 MHI와 소리를 함께 사용해 폭력적 활동을 탐지한다.",
+        "appears_in": [
+          "W4372259901"
+        ]
+      },
+      {
+        "term": "EEG 기반 사이버멀미 분석",
+        "definition_one_line": "사이버멀미 관련 뇌 활동을 측정·분석하는 기존 EEG 연구의 절차와 결과를 정리한다.",
+        "appears_in": [
+          "W4365150374"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "name": "Wii Balance Board",
+        "category": "hardware",
+        "what_for": "CoP 궤적을 얻어 머리·몸통 및 영상 기반 궤적과 비교하는 기준 측정에 쓰였다.",
+        "used_in": [
+          "W7211953241"
+        ],
+        "evidence": "abstract",
+        "first_step": "W7211953241에서 CoP 궤적이 어떤 움직임 측정값과 비교되는지 표시한다."
+      },
+      {
+        "name": "Lucas–Kanade optical flow",
+        "category": "method",
+        "what_for": "단일 카메라 영상에서 몸통 움직임을 추적하는 데 쓰였다.",
+        "used_in": [
+          "W7211953241"
+        ],
+        "evidence": "abstract",
+        "first_step": "입력 영상, 추적 대상, 출력 궤적을 세 항목으로 적는다."
+      },
+      {
+        "name": "SegNet 및 convolutional neural network (CNN)",
+        "category": "method",
+        "what_for": "SegNet은 소리 분할에, CNN은 음절 단위 연하곤란 분류와 영상·음성 기반 활동 탐지에 쓰였다.",
+        "used_in": [
+          "W4412698102",
+          "W4402094861",
+          "W4372259901"
+        ],
+        "evidence": "abstract",
+        "first_step": "각 논문에서 모델의 입력 표현과 예측 결과가 무엇인지 기록한다."
+      },
+      {
+        "name": "Speech-to-text model",
+        "category": "method",
+        "what_for": "일상 대화 오디오를 음절 단위로 나누는 데 쓰였다.",
+        "used_in": [
+          "W4402094861"
+        ],
+        "evidence": "abstract",
+        "first_step": "초록에서 음절 분할에 사용된 모델과 그 뒤의 분류 과정을 연결한다."
+      },
+      {
+        "name": "ESP32 기반 WiFi CSI sensing",
+        "category": "hardware",
+        "what_for": "상용 IoT 단일 보드 컴퓨터로 WiFi CSI를 취득해 사람의 활동을 인식한다.",
+        "used_in": [
+          "W4392248749"
+        ],
+        "evidence": "abstract",
+        "first_step": "측정 신호인 CSI와 인식 대상 활동을 짝지어 적는다."
+      },
+      {
+        "name": "Portable EEG headset",
+        "category": "sensor",
+        "what_for": "사이버멀미 EEG 연구에서 뇌 활동을 측정하는 장치로 보고되었다.",
+        "used_in": [
+          "W4365150374"
+        ],
+        "evidence": "abstract",
+        "first_step": "EEG 측정 장치, HMD 기반 VR, 사이버멀미 사이의 관계를 초록에서 표시한다."
+      }
+    ],
+    "layers": [
+      {
+        "level": "cs",
+        "title": "CS: 신호에서 분석 과제까지",
+        "cards": [
+          {
+            "title": "측정 신호에서 과제로 가는 파이프라인",
+            "body": "먼저 센서가 만드는 입력 신호와 논문이 다루는 목표 상태를 구분한다. 영상 연구는 몸통 궤적이나 MHI를 다룬다. 음성 연구는 소리나 음절 단위 오디오를 다룬다. 무선 연구는 CSI로 활동을 인식하고, EEG 연구는 사이버멀미와 관련된 뇌 활동 분석을 정리한다. 출력은 궤적 간 비교, 활동 분류, 연하곤란 이진 분류, 불편 예측처럼 서로 다르다. 논문 간 파이프라인을 비교할 때 입력, 라벨, 출력 단위를 먼저 적는다.",
+            "discipline": "cs",
+            "links_to_paper": "\"Trunk motion reflects...\"의 CoP·몸통 비교, \"Granular and explainable...\"의 소리 활동 인식, \"Deep learning approach...\"의 연하곤란 분류, \"Device Free Wireless Sensing...\"의 CSI 활동 인식, \"Brain activity during cybersickness...\"의 EEG 분석 정리로 이어진다.",
+            "linked_keywords": [
+              "CoP 관련 자세 흔들림",
+              "소리 분할과 시간·주파수 라벨링",
+              "음절 단위 일상 대화 분석",
+              "WiFi CSI 기반 비접촉 HAR",
+              "EEG 기반 사이버멀미 분석"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "논문 간 파이프라인을 비교할 때 본문이 제안한 세 항목은 무엇인가?",
+              "answer": "입력 신호, 라벨, 출력 단위다.",
+              "if_wrong_go_to": "측정 신호에서 과제로 가는 파이프라인"
+            },
+            "next_resource": "다음 카드: 시간 구간화와 라벨링"
+          },
+          {
+            "title": "시간 구간화와 라벨링",
+            "body": "구간화는 긴 신호를 분석 가능한 단위로 나누는 과정이다. \"Deep learning approach...\"는 speech-to-text model로 일상 대화를 음절 단위로 분할했다. \"Granular and explainable...\"는 소리의 전체 시간·주파수 영역에 세밀한 라벨을 붙였다. 이 연구는 픽셀 단위 라벨이 필요한 SegNet으로 소리를 분할했다. 사이버멀미 EEG 리뷰는 전처리, 특징 추출, 특징 선택, 분류의 네 단계를 분석 절차로 정리했다. 구간과 라벨 기준이 달라지면 모델의 샘플 단위도 달라지므로 초록에서 각각을 찾아야 한다.",
+            "discipline": "cs",
+            "links_to_paper": "\"Deep learning approach...\"의 음절 분할, \"Granular and explainable...\"의 시간·주파수 픽셀 라벨, \"Brain activity during cybersickness...\"의 네 단계 분석 절차와 이어진다.",
+            "linked_keywords": [
+              "소리 분할과 시간·주파수 라벨링",
+              "음절 단위 일상 대화 분석",
+              "EEG 기반 사이버멀미 분석"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "\"Deep learning approach...\"와 \"Granular and explainable...\"에서 분석 단위 또는 라벨 축은 각각 무엇인가?",
+              "answer": "전자는 음절 단위이고, 후자는 소리의 시간·주파수 영역에 붙인 픽셀 단위 라벨이다.",
+              "if_wrong_go_to": "측정 신호에서 과제로 가는 파이프라인"
+            },
+            "next_resource": "다음 카드: 모델 입력과 과제 출력"
+          },
+          {
+            "title": "모델 입력과 과제 출력",
+            "body": "분류 모델은 입력 표현을 정해진 범주에 연결한다. \"Deep learning approach...\"는 음절 분할 오디오로 연하곤란군과 대조군을 이진 분류했다. \"Abusive Activity Detection...\"은 MHI 영상과 소리를 다중모달 CNN 입력으로 사용했다. \"Device Free Wireless Sensing...\"은 라벨된 CSI 데이터로 활동 인식 모델을 학습했다. \"Trunk motion reflects...\"는 궤적의 대응을 비교하며, 초록에서 이를 분류 과제로 설명하지 않는다. 그러므로 모델 이름만 보지 말고 출력이 범주인지 연속 궤적 비교인지 확인한다.",
+            "discipline": "cs",
+            "links_to_paper": "\"Deep learning approach...\"의 이진 분류, \"Abusive Activity Detection...\"의 MHI·소리 CNN, \"Device Free Wireless Sensing...\"의 CSI 활동 인식, \"Trunk motion reflects...\"의 궤적 대응 분석을 비교한다.",
+            "linked_keywords": [
+              "음절 단위 일상 대화 분석",
+              "MHI 기반 영상·음성 다중모달 탐지",
+              "WiFi CSI 기반 비접촉 HAR",
+              "CoP 관련 자세 흔들림"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "\"Trunk motion reflects...\"를 분류 과제로 읽기 어려운 초록의 근거는 무엇인가?",
+              "answer": "초록은 CoP와 머리·몸통 궤적의 선형 대응과 일치도를 비교한다고 설명한다.",
+              "if_wrong_go_to": "시간 구간화와 라벨링"
+            },
+            "next_resource": "다음 층: 시간·주파수 표현"
+          }
+        ]
+      },
+      {
+        "level": "engineering_math",
+        "title": "공학수학: 신호 표현과 평가 지표",
+        "cards": [
+          {
+            "title": "시간영역·주파수영역·시간-주파수 표현",
+            "body": "시간영역 표현은 신호값이 시간에 따라 어떻게 변하는지 본다. 주파수영역 표현은 신호에 어떤 반복 성분이 있는지 살핀다. 시간-주파수 표현은 주파수 성분이 시간에 따라 변하는 모습을 함께 나타낸다. \"Trunk motion reflects...\"는 CoP와 신체 움직임을 시간영역과 주파수영역에서 분석했다. 사이버멀미 EEG 리뷰에서는 대부분의 연구가 주파수 또는 시간-주파수 분석으로 특징을 추출했다고 정리했다. 따라서 결과를 비교하기 전에 각 논문이 어떤 표현을 썼는지 확인한다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "\"Trunk motion reflects...\"의 시간·주파수 영역 대응 분석과 \"Brain activity during cybersickness...\"의 EEG 특징 추출 검토에 연결된다.",
+            "linked_keywords": [
+              "CoP 관련 자세 흔들림",
+              "EEG 기반 사이버멀미 분석"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "시간-주파수 표현은 시간과 주파수에 대해 각각 무엇을 보여 주는가?",
+              "answer": "주파수 성분이 시간에 따라 어떻게 달라지는지 함께 보여 준다.",
+              "if_wrong_go_to": "시간영역·주파수영역·시간-주파수 표현"
+            },
+            "next_resource": "다음 카드: 궤적 대응과 일치도"
+          },
+          {
+            "title": "궤적 대응과 일치도",
+            "body": "선형 대응은 두 측정값이 함께 변하는 정도를 묻는다. 일치도(concordance)는 두 측정의 수치가 서로 얼마나 부합하는지 보는 관점이다. 대응이 강하다고 해서 두 측정값이 같은 값이라는 뜻은 아니다. \"Trunk motion reflects...\"에서는 몸통 움직임이 머리 움직임보다 CoP와 AP 방향에서 더 강한 선형 대응을 보였다. ML 방향에서는 머리와 몸통의 대응이 비슷했고, 몸통 기반 위치 흔들림 지표는 CoP 기반 지표와 더 높은 일치도를 보였다. 초록에는 사용한 일치도 계수의 구체적 정의는 없다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "\"Trunk motion reflects...\"의 CoP와 머리·몸통 움직임 간 선형 대응 및 위치 흔들림 지표의 일치도 결과에 연결된다.",
+            "linked_keywords": [
+              "CoP 관련 자세 흔들림"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "초록에서 머리보다 몸통이 더 강한 선형 대응을 보인 방향은 무엇이며, 두 부위의 대응이 비슷한 방향은 무엇인가?",
+              "answer": "AP 방향에서는 몸통이 더 강했고, ML 방향에서는 머리와 몸통의 대응이 비슷했다.",
+              "if_wrong_go_to": "시간영역·주파수영역·시간-주파수 표현"
+            },
+            "next_resource": "다음 카드: 분류 지표와 평가 단위"
+          },
+          {
+            "title": "분류 지표와 평가 단위",
+            "body": "Accuracy는 전체 예측 중 맞힌 비율이다. Sensitivity는 실제 양성 사례 가운데 양성으로 찾아낸 비율이고, specificity는 실제 음성 사례 가운데 음성으로 맞힌 비율이다. Positive predictive value와 negative predictive value는 각각 양성 예측과 음성 예측이 실제로 맞는 비율이다. F1은 precision과 recall을 함께 요약하는 지표이고, AUC는 분류 임계값 전반의 구분 성능을 요약한다. 연하곤란 연구는 음절 분석과 개인 단위 분석에서 서로 다른 정확도 결과를 보고했다. 따라서 지표를 비교할 때는 분석 단위와 양성·음성 라벨도 함께 확인해야 한다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "\"Deep learning approach...\"의 음절 분석·개인 단위 정확도와 sensitivity·specificity·PPV·NPV·AUC, \"Granular and explainable...\"와 \"Abusive Activity Detection...\"의 F1 및 정확도 결과에 연결된다.",
+            "linked_keywords": [
+              "소리 분할과 시간·주파수 라벨링",
+              "음절 단위 일상 대화 분석",
+              "MHI 기반 영상·음성 다중모달 탐지",
+              "EEG 기반 사이버멀미 분석"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "연하곤란 연구의 0.794와 0.900 정확도를 같은 분석 결과처럼 직접 비교하기 어려운 이유는 무엇인가?",
+              "answer": "각 값이 음절 단위 분석과 개인 단위 분석이라는 서로 다른 평가 단위에서 나왔기 때문이다.",
+              "if_wrong_go_to": "궤적 대응과 일치도"
+            },
+            "next_resource": "다음 층: CoP와 신체 움직임"
+          }
+        ]
+      },
+      {
+        "level": "mechanics",
+        "title": "역학: 자세 흔들림과 움직임 측정",
+        "cards": [
+          {
+            "title": "CoP와 신체 움직임은 다른 측정값",
+            "body": "역학의 기본 개념에서 CoP는 지면 반력의 합력이 작용하는 위치를 나타낸다. \"Trunk motion reflects...\"는 조용히 서 있을 때의 CoP 궤적을 자세 흔들림 측정에 사용했다. 머리와 몸통의 움직임은 신체 분절의 운동학적 측정값이며 CoP와 같은 값은 아니다. 초록에서는 머리·몸통 움직임과 CoP 사이의 상대적 대응을 비교했다. 몸통 움직임은 AP 방향에서 머리보다 CoP와 더 강한 선형 대응을 보였다. 이 방향 차이가 생기는 역학적 원인은 초록에는 없음.",
+            "discipline": "mechanics",
+            "links_to_paper": "\"Trunk motion reflects...\"에서 Wii Balance Board 유래 CoP 궤적과 머리·몸통 움직임을 비교한 부분에 연결된다.",
+            "linked_keywords": [
+              "CoP 관련 자세 흔들림"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "CoP와 몸통 움직임은 같은 물리량인가?",
+              "answer": "아니다. CoP는 지면 반력의 합력이 작용하는 위치를 나타내고, 몸통 움직임은 신체 분절의 운동학적 측정값이다.",
+              "if_wrong_go_to": "CoP와 신체 움직임은 다른 측정값"
+            },
+            "next_resource": "다음 카드: 방향별 움직임 비교"
+          },
+          {
+            "title": "방향별 움직임 비교",
+            "body": "운동 궤적은 위치 변화와 움직임 방향을 함께 담는다. 이 연구는 AP와 ML 방향의 결과를 따로 비교했다. 머리와 몸통의 CoP 대응은 AP와 ML에서 같은 양상으로 나타나지 않았다. 단일 카메라 몸통 추적은 동작 포착 궤적과도 비교되었다. 영상 기반 AP 궤적은 동작 포착 궤적과 밀접하게 대응했지만 ML 대응은 더 약하고 변동이 컸다. 따라서 이 연구의 움직임 측정 결과는 방향과 비교 기준을 함께 읽어야 한다.",
+            "discipline": "mechanics",
+            "links_to_paper": "\"Trunk motion reflects...\"의 AP·ML 방향별 CoP 대응 및 카메라 추적과 동작 포착 궤적 비교에 연결된다.",
+            "linked_keywords": [
+              "CoP 관련 자세 흔들림",
+              "단일 카메라 비마커 몸통 추적"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "영상 기반 몸통 궤적은 동작 포착 궤적과 어느 방향에서 밀접하게 대응했고, 어느 방향에서 더 약하고 변동이 컸는가?",
+              "answer": "AP 방향에서 밀접하게 대응했고, ML 방향에서 더 약하고 변동이 컸다.",
+              "if_wrong_go_to": "CoP와 신체 움직임은 다른 측정값"
+            },
+            "next_resource": "다음 층: 센서의 물리적 신호"
+          }
+        ]
+      },
+      {
+        "level": "physics",
+        "title": "물리: 센서 신호와 관측 방식",
+        "cards": [
+          {
+            "title": "센서 신호와 추론 대상",
+            "body": "센서는 물리적 변화를 측정 가능한 신호로 바꾸며, 이것은 논문 결과를 읽기 위한 기초 원리다. \"Trunk motion reflects...\"는 Wii Balance Board에서 얻은 CoP를 사용하지만 보드의 변환 원리는 초록에는 없음. 음성 논문은 소리 데이터를 다루지만 마이크의 사양과 배치는 초록에는 없음. 무선 감지 논문은 WiFi 신호의 RF 반사에서 얻은 CSI를 활동 인식에 사용한다. EEG 연구는 뇌 활동을 측정하며 휴대형 EEG headset 사용을 보고하지만 전극 배치 등 세부 사항은 초록에는 없음. 영상 논문은 카메라로 몸통을 추적하지만 카메라 광학계의 세부 사양은 초록에는 없음. 측정 신호와 그 신호로 추론하려는 사람의 상태를 구분해 읽는다.",
+            "discipline": "physics",
+            "links_to_paper": "\"Trunk motion reflects...\"의 보드 기반 CoP와 카메라 영상, \"Device Free Wireless Sensing...\"의 WiFi CSI, \"Brain activity during cybersickness...\"의 EEG 측정, 음성 활동·연하곤란 연구의 소리 측정에 연결된다.",
+            "linked_keywords": [
+              "CoP 관련 자세 흔들림",
+              "음절 단위 일상 대화 분석",
+              "WiFi CSI 기반 비접촉 HAR",
+              "EEG 기반 사이버멀미 분석"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "무선 감지 논문에서 CSI는 어떤 신호 현상에서 얻는가?",
+              "answer": "WiFi 신호의 RF 반사에서 얻는다.",
+              "if_wrong_go_to": "센서 신호와 추론 대상"
+            },
+            "next_resource": "다음 카드: 영상 속 움직임 표현"
+          },
+          {
+            "title": "영상 속 움직임 표현",
+            "body": "광학 흐름(optical flow)은 영상 프레임 사이에서 관측되는 화상상의 움직임 표현이다. Lucas–Kanade optical flow의 계산 가정과 수식은 초록에는 없음. \"Trunk motion reflects...\"는 높은 위치의 후방 사선 카메라와 Lucas–Kanade optical flow로 몸통을 추적했다. 영상 기반 AP 궤적은 동작 포착 궤적과 밀접하게 대응했고 ML에서는 대응이 더 약하고 변동이 컸다. \"Abusive Activity Detection...\"은 움직임 정보를 반영하기 위해 MHI를 영상 입력으로 사용했다. 두 표현은 영상 움직임에 기반하며 CoP 자체를 직접 측정한다고 초록은 설명하지 않는다.",
+            "discipline": "physics",
+            "links_to_paper": "\"Trunk motion reflects...\"의 단일 카메라 optical flow 추적 결과와 \"Abusive Activity Detection...\"의 MHI 영상 사용에 연결된다.",
+            "linked_keywords": [
+              "단일 카메라 비마커 몸통 추적",
+              "MHI 기반 영상·음성 다중모달 탐지"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "왜 optical flow와 MHI를 CoP의 직접 측정값으로 읽으면 안 되는가?",
+              "answer": "둘 다 영상의 움직임 표현이며, 초록은 CoP를 별도의 보드 측정값으로 다룬다.",
+              "if_wrong_go_to": "센서 신호와 추론 대상"
+            },
+            "next_resource": "복습: 영상 추적 결과와 CoP 비교 결과를 구분해 읽기"
+          }
+        ]
+      }
+    ]
+  }
+}

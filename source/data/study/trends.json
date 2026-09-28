@@ -1,0 +1,162 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:05:43.184Z",
+  "as_of": "2026-09-28",
+  "items": [
+    {
+      "title": "다중 embodiment VLA가 전신 loco-manipulation으로 확장",
+      "summary": "VLA 연구는 팔 중심 조작에서 보행·균형·물체 조작을 함께 다루는 전신 제어로 확장되고 있습니다. Google DeepMind는 같은 Gemini Robotics 2 체크포인트를 서로 다른 세 robot embodiment에 적용해 전신 및 손 조작을 시연했다고 보고했습니다. Figure의 Helix 02도 시각·촉각·proprioception을 받아 걷기와 조작을 통합하고, 주방에서 이어지는 자율 작업을 제시했습니다. 모두 기업 자체 발표의 시연 결과이므로 독립적인 현장 검증과는 구분해 읽을 필요가 있습니다.",
+      "why_it_matters": "카메라 관측을 로봇 동작으로 연결하는 사례를 통해 시각 입력과 embodied policy가 만나는 지점을 살펴볼 수 있습니다.",
+      "related_modules": [
+        "camera-geometry-and-3d"
+      ],
+      "sources": [
+        {
+          "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+          "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+          "publisher": "Google DeepMind",
+          "date": "2026-07-30",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "title": "Introducing Helix 02: Full-Body Autonomy",
+          "url": "https://www.figure.ai/news/helix-02",
+          "publisher": "Figure",
+          "date": "2026-01-27",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "title": "Embodied reasoning이 공간 이해·행동 검증 계층으로 분화",
+      "summary": "로봇용 모델에서 시각 입력을 해석해 물체 위치를 짚고, 작업 계획을 돕고, 성공 여부를 판단하는 고수준 reasoning 기능이 강조되고 있습니다. Gemini Robotics-ER 1.6은 공간 추론과 다중 시점 이해를 개선하고, 물체 pointing·counting 및 계기판 읽기 같은 기능을 소개했습니다. Google은 자체 평가에서 이전 모델 대비 향상을 보고했으며, 결과는 평가 조건에 따라 달라질 수 있습니다.",
+      "why_it_matters": "다중 시점 관측과 공간 내 위치·점 추정은 카메라 좌표, 투영, 가시성 같은 3D 기초가 실제 로봇 추론에서 쓰이는 방식을 보여줍니다.",
+      "related_modules": [
+        "camera-geometry-and-3d"
+      ],
+      "sources": [
+        {
+          "title": "Gemini Robotics-ER 1.6: Powering real-world robotics tasks through enhanced embodied reasoning",
+          "url": "https://deepmind.google/blog/gemini-robotics-er-1-6/",
+          "publisher": "Google DeepMind",
+          "date": "2026-04-14",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "title": "World-Action Model이 미래 예측과 행동 생성을 통합",
+      "summary": "World-Action Model(WAM)은 관측과 언어 지시를 행동으로 바꾸는 데서 나아가, 행동 후보가 만들 미래 상태까지 예측하는 연구 흐름입니다. τ₀-WM은 여러 시점의 영상, 지시문, 로봇 상태를 받아 미래 시각 표현과 연속 행동 구간을 함께 예측하고, 행동 조건부 비디오 시뮬레이터로 후보 행동을 평가합니다. 저자들은 원격조작, UMI 방식 상호작용, egocentric human video 등을 포함한 약 27,300시간의 자료를 사용했다고 보고했습니다. 최근 WAM survey는 공간·다중 시점 일관성, 장기 기억, 효율적인 추론을 남은 과제로 정리합니다.",
+      "why_it_matters": "비디오와 proprioceptive 상태를 시간에 따라 함께 다루는 방식은 시계열 신호 분석과 카메라 기반 공간 관측을 로봇 예측·제어로 연결합니다.",
+      "related_modules": [
+        "signal-based-human-sensing",
+        "camera-geometry-and-3d"
+      ],
+      "sources": [
+        {
+          "title": "τ₀-WM: A Unified Video-Action World Model for Robotic Manipulation",
+          "url": "https://arxiv.org/abs/2606.01027",
+          "publisher": "arXiv",
+          "date": "2026-05-31",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "title": "World-Action Models for Robot Learning and Control: A Survey",
+          "url": "https://arxiv.org/abs/2609.16074",
+          "publisher": "arXiv",
+          "date": "2026-09-13",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "title": "시뮬레이션 활용이 sim-to-real 학습과 real-to-sim 평가로 확장",
+      "summary": "최근 사례들은 synthetic data로 실제 로봇에 정책을 옮기는 sim-to-real과 실제 시연 영상을 simulation으로 변환해 정책을 평가하는 real-to-sim을 각각 다룹니다. 한 WAM 연구는 task당 약 800개의 synthetic demonstration만으로 Franka 로봇에서 zero-shot 평가를 했고, 세 조작 과제의 평균 성공률은 35%라고 보고했습니다. RobotArena ∞는 로봇 시연 영상을 3D simulation으로 변환하고, VLM 점수와 crowdworker 선호 평가를 사용해 다양한 장면 변형에서 VLA를 비교합니다. 두 사례는 학습 전이와 평가 확장 가능성을 보여주지만, 실제 배치 성능을 보장하지는 않습니다.",
+      "why_it_matters": "영상에서 3D 장면을 구성하고 이를 평가 환경으로 만드는 과정은 카메라 기하와 시뮬레이션 데이터의 실제 차이를 살펴보는 데 이어집니다. RobotArena ∞의 사람 선호 평가는 객관적 성공률과 주관적 판단을 함께 검토하는 사례입니다.",
+      "related_modules": [
+        "camera-geometry-and-3d",
+        "human-centered-evaluation"
+      ],
+      "sources": [
+        {
+          "title": "Efficient Sim-to-Real Transfer of World-Action Models from Synthetic Priors",
+          "url": "https://arxiv.org/abs/2606.31101",
+          "publisher": "arXiv",
+          "date": "2026-06-30",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "title": "RobotArena ∞: Scalable Robot Benchmarking via Real-to-Sim Translation",
+          "url": "https://arxiv.org/abs/2510.23571",
+          "publisher": "arXiv",
+          "date": "2025-10-27",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "title": "인간 영상 기반 모션 데이터에 물리 제약형 retargeting 적용",
+      "summary": "휴머노이드 학습에서 사람 동작 데이터를 늘리는 동시에 로봇이 실행할 수 있는 움직임으로 정제하는 흐름이 나타납니다. PHUMA는 motion capture와 인터넷 영상을 함께 사용해 73시간 규모의 데이터셋을 구성하고, 물리 기반 선별과 제약형 retargeting으로 관절 한계·지면 접촉·발 미끄러짐 문제를 다룹니다. 저자들은 동작 추적 평가에서 AMASS와 Humanoid-X보다 높은 성능을 보고했고, Unitree G1에서 zero-shot 전이도 평가했습니다.",
+      "why_it_matters": "영상에서 사람의 연속 동작을 추정해 3D 관절 궤적으로 바꾸고 로봇에 맞게 재매핑하는 과정은 동작 신호 처리와 3D 복원 양쪽에 연결됩니다.",
+      "related_modules": [
+        "signal-based-human-sensing",
+        "camera-geometry-and-3d"
+      ],
+      "sources": [
+        {
+          "title": "PHUMA: Physically Reliable Humanoid Locomotion Dataset",
+          "url": "https://arxiv.org/abs/2510.26236",
+          "publisher": "arXiv",
+          "date": "2025-10-30",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "title": "촉각·시각 동시 입력을 조작 정책에 결합",
+      "summary": "TacThru는 물체를 보는 시각 정보와 접촉을 감지하는 촉각 정보를 동시에 얻는 See-Through-Skin 센서를 제안합니다. TacThru-UMI는 두 신호를 Transformer 기반 Diffusion Policy에 연결해 접촉 감지와 정밀 조작에 사용했습니다. 저자들은 실제 5개 과제에서 평균 성공률 85.5%를 보고했으며, 촉각 단독 및 시각 단독 baseline은 각각 66.3%, 55.4%였습니다.",
+      "why_it_matters": "서로 다른 센서 신호의 동기화와 결합은 연구실의 신호 전처리·특징 구성·다중 모달 입력 학습 주제와 방법론적으로 이어집니다.",
+      "related_modules": [
+        "signal-based-human-sensing"
+      ],
+      "sources": [
+        {
+          "title": "Simultaneous Tactile-Visual Perception for Learning Multimodal Robot Manipulation",
+          "url": "https://arxiv.org/abs/2512.09851",
+          "publisher": "arXiv",
+          "date": "2025-12-10",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "title": "XR 원격조작이 촉각 피드백과 시연 데이터 수집을 결합",
+      "summary": "XRoboToolKit-T는 접촉이 중요한 조작을 위해 촉각 정보를 활용하는 원격조작 체계를 제안합니다. 시스템은 힘 분포를 읽어 촉각 보조를 제공하고, 별도 모듈에서는 VLA가 촉각 데이터와 작업 설명을 이용해 조작 행동을 다듬습니다. 논문은 변형 가능한 pipette를 이용한 액체 옮기기와 syringe 삽입 과제를 제시하고, 촉각 보조가 없는 원격조작보다 데이터 수집 효율과 안정성이 높았다고 보고합니다. 결과는 2026년 9월 공개된 preprint의 실험 범위에 한정됩니다.",
+      "why_it_matters": "사람의 원격 명령과 로봇의 촉각 피드백이 오가는 데이터 흐름은 지연·대역폭·저장 설계와 관련됩니다. 작업 성능과 조작자 경험을 함께 평가하는 XR 연구에도 연결됩니다.",
+      "related_modules": [
+        "networked-data-systems",
+        "human-centered-evaluation"
+      ],
+      "sources": [
+        {
+          "title": "XRoboToolKit-T: Teleoperation with High Stability and Precision with Tactile Sensing for Contact-rich Manipulation",
+          "url": "https://arxiv.org/abs/2609.16437",
+          "publisher": "arXiv",
+          "date": "2026-09-14",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    }
+  ]
+}

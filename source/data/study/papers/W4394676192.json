@@ -1,0 +1,321 @@
+{
+  "paperId": "W4394676192",
+  "title": "Gappy AE: A nonlinear approach for Gappy data reconstruction using auto-encoder",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:11:25.991Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 논문은 희소 측정값이나 결손 데이터로부터 공간 상태를 복원하는 Gappy auto-encoder(Gappy AE)를 제안한다. 기존 Gappy POD가 선형 부분공간을 사용해 Kolmogorov N-width가 천천히 감소하는 해를 표현하기 어렵다는 한계를 다룬다. Gappy AE는 비선형 다양체 표현을 사용하며, 2D 확산·방사형 이류·파동 방정식의 수치 예제로 평가됐다. 초록은 희소 측정 조건에서 Gappy AE가 Gappy POD보다 복원 성능이 높다고 보고하지만, 구체적인 수치는 초록에는 없다.",
+      "five_c": {
+        "category": "희소 관측으로 공간 데이터를 복원하는 비선형 auto-encoder 방법 연구",
+        "context": "Gappy POD는 선형 부분공간에 의존해 Kolmogorov N-width가 천천히 감소하는 해를 정확히 표현하는 데 한계가 있다.",
+        "correctness": "초록은 여러 수치 예제에서 Gappy AE가 Gappy POD보다 복원 성능이 높다고 보고한다. 정량적 결과와 검증 조건은 초록에는 없다.",
+        "contributions": [
+          "희소 측정 데이터의 결손을 채우는 Gappy AE를 제안한다.",
+          "2D 확산, 2D 방사형 이류, 2D 파동 방정식 문제의 수치 예제로 평가한다.",
+          "네 가지 표본 추출 알고리즘이 복원 정확도에 미치는 영향을 평가한다."
+        ],
+        "clarity": "초록은 문제, 비선형 표현의 동기, 평가 문제와 비교 결과를 제시한다. 모델 구조와 학습 절차는 초록만으로 확인하기 어렵다."
+      },
+      "reading_goal": "Gappy AE가 Gappy POD의 선형 표현 한계를 어떤 비선형 표현으로 다루는지 파악하고, 표본 추출 방식과 복원 성능 비교의 범위를 확인한다."
+    },
+    "keywords": [
+      {
+        "term": "Gappy auto-encoder (Gappy AE)",
+        "definition_one_line": "희소 측정값에서 결손 데이터를 복원하도록 제안된 auto-encoder 기반 알고리즘이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Gappy POD",
+        "definition_one_line": "희소 측정이나 결손 데이터의 복원에 널리 쓰이며 선형 부분공간에 의존하는 비교 방법이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Kolmogorov N-width",
+        "definition_one_line": "초록에서 해를 선형 부분공간으로 표현하기 어려운 정도와 관련해 언급된 개념이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "비선형 다양체 표현",
+        "definition_one_line": "Gappy AE가 기존 Gappy POD의 선형 표현 한계를 다루기 위해 활용하는 표현 방식이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "희소 측정",
+        "definition_one_line": "공간 상태 전체가 아니라 일부 위치에서만 얻은 관측값으로 복원하는 조건이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "표본 추출 알고리즘",
+        "definition_one_line": "복원 정확도에 미치는 영향을 평가한 DEIM, S-OPT, Latin hypercube, 균일 분포 표본 추출이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "수치 예제",
+        "definition_one_line": "방법을 평가하기 위해 사용한 2D 확산, 방사형 이류, 파동 방정식 문제다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "희소 측정이나 결손 데이터에서 전체 상태를 복원하는 문제를 설정한다.",
+        "선형 부분공간에 기반한 Gappy POD의 표현 한계를 문제로 삼는다.",
+        "비선형 다양체 표현을 활용하는 Gappy AE를 제안한다. 구체적인 구조와 학습 절차는 초록에는 없다.",
+        "2D 확산, 방사형 이류, 파동 방정식 문제에서 네 가지 표본 추출 알고리즘과 함께 복원 성능을 평가한다.",
+        "초록은 희소 측정 조건에서 Gappy AE가 Gappy POD보다 복원 성능이 높다고 보고한다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "Gappy AE는 희소 측정에서 Gappy POD보다 복원 성능이 높다.",
+          "evidence": "초록은 여러 수치 예제의 결과가 Gappy AE의 우수한 복원 성능을 보여 준다고 보고한다.",
+          "caveat": "오차 지표, 성능 차이의 크기, 표본 수와 세부 비교 결과는 초록에는 없다."
+        },
+        {
+          "claim": "Gappy AE는 선형 부분공간의 표현 한계를 다루기 위해 비선형 다양체 표현을 사용한다.",
+          "evidence": "초록은 Gappy POD가 선형 부분공간에 의존하는 점과 Gappy AE의 비선형 다양체 표현을 대조한다.",
+          "caveat": "구체적인 잠재 표현, 네트워크 구조, 학습 방법은 초록에는 없다."
+        },
+        {
+          "claim": "표본 추출 방식은 복원 정확도 평가의 한 요소다.",
+          "evidence": "DEIM, S-OPT, Latin hypercube sampling, 균일 분포 표본 추출 네 가지의 영향을 평가한다.",
+          "caveat": "각 알고리즘의 조건별 성능 순위와 차이는 초록에는 없다."
+        },
+        {
+          "claim": "이 방법은 실시간 상태 예측과 digital twin 및 image correction 응용에 유용할 수 있다.",
+          "evidence": "초록은 희소 측정에서 실시간 상태 예측 능력과 해당 응용 가능성을 언급한다.",
+          "caveat": "실시간 처리 지연이나 실제 응용 시스템에서의 검증 결과는 초록에는 없다."
+        }
+      ],
+      "critical_questions": [
+        "Gappy AE의 encoder와 decoder 구조, 학습 데이터와 손실 함수는 무엇인가?",
+        "복원 성능을 어떤 오차 지표와 측정 비율로 비교했으며, 여러 조건에서도 Gappy AE가 우세한가?",
+        "네 가지 표본 추출 알고리즘은 각 문제와 측정 개수에서 어떤 차이를 보였는가?",
+        "실시간 상태 예측이라는 주장을 뒷받침하는 계산 시간과 하드웨어 조건은 무엇인가?",
+        "수치 예제에서 얻은 결과가 실제 측정 데이터나 digital twin, image correction에도 적용되는가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "sparse-field-reconstruction",
+        "why": "이 논문은 희소 측정값에서 공간 상태를 복원하고, Gappy POD와 auto-encoder 기반 비선형 표현을 비교한다. 복원 정확도와 표본 위치·선택 방식의 관계를 읽는 데 이 모듈이 필요하다.",
+        "focus_cards": []
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "선형 부분공간으로 충분히 표현하기 어려운 해를 희소 측정값만으로 복원할 때, Gappy AE는 Gappy POD와 어떤 점이 다르며 초록의 수치 예제는 그 차이를 어떻게 평가했는가?",
+      "assumptions_to_challenge": [
+        "Gappy AE의 우위가 세 수치 문제와 초록에서 평가한 조건 밖에서도 유지된다고 볼 수 있는가?",
+        "비선형 다양체 표현이 복원 성능 차이의 원인이라고 분리해 확인했는가?",
+        "네 가지 표본 추출 방식의 결과가 측정 개수와 위치 선택에 얼마나 민감한가?",
+        "수치 예제에서의 성능이 실제 데이터의 잡음과 분포 변화에도 이어지는가?",
+        "실시간 상태 예측이라는 설명에 필요한 지연 기준과 계산 조건은 무엇인가?"
+      ],
+      "to_reproduce_you_need": [
+        "세 수치 문제의 방정식 설정, 경계 조건, 해상도와 생성한 데이터",
+        "Gappy AE의 구조, 학습 절차, 하이퍼파라미터와 학습·평가 데이터 분할",
+        "Gappy POD의 구현 설정과 공정한 비교 조건",
+        "희소 측정 비율과 각 표본 추출 알고리즘의 설정 및 선택 위치",
+        "복원 오차 지표, 반복 횟수, 보고된 정량 결과",
+        "실시간 성능을 확인할 계산 환경과 처리 시간 측정 방법"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "Kolmogorov N-width와 선형 근사",
+        "explain": "Kolmogorov N-width는 상태 집합을 N차원 선형 부분공간으로 얼마나 잘 근사할 수 있는지 나타냅니다. 값이 작으면 적은 기저 벡터로 상태를 표현할 수 있습니다. 값이 천천히 줄면 선형 축소 표현의 효율이 낮습니다. 아래는 표준 정의이며 논문 고유 식이 아닙니다.",
+        "equation": {
+          "latex": "d_N(\\mathcal{M})=\\inf_{\\dim V=N}\\sup_{u\\in\\mathcal{M}}\\inf_{v\\in V}\\|u-v\\|",
+          "variables": [
+            {
+              "symbol": "\\mathcal{M}",
+              "meaning": "가능한 상태 벡터의 집합; 각 상태의 단위는 문제에 따라 다름"
+            },
+            {
+              "symbol": "N",
+              "meaning": "근사 부분공간의 차원; 무차원"
+            },
+            {
+              "symbol": "V",
+              "meaning": "N차원 선형 근사 부분공간; 차원은 N"
+            },
+            {
+              "symbol": "u",
+              "meaning": "집합에서 선택한 상태 벡터; 단위는 문제에 따라 다름"
+            },
+            {
+              "symbol": "v",
+              "meaning": "부분공간 V 안의 근사 벡터; u와 같은 단위"
+            },
+            {
+              "symbol": "\\|\\cdot\\|",
+              "meaning": "상태 오차를 재는 노름; 결과 단위는 상태와 같음"
+            },
+            {
+              "symbol": "d_N(\\mathcal{M})",
+              "meaning": "최선의 N차원 선형 근사에서의 최악 오차; 선택한 노름의 단위"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 Gappy POD의 선형 부분공간이 천천히 감소하는 Kolmogorov N-width를 가진 해를 정확히 표현하기 어렵다고 설명합니다. 이 개념을 알면 논문이 비선형 표현을 도입한 이유를 이해할 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "무차원 상태 집합이 \\(\\mathcal{M}=\\{(1,0),(0,1)\\}\\)이고 후보 부분공간이 \\(V=\\operatorname{span}\\{(1,0)\\}\\)일 때, 이 부분공간에서의 최악 근사 오차는 얼마인가요?",
+          "answer": "첫 번째 상태 (1,0)은 V에 있으므로 오차가 0입니다. 두 번째 상태 (0,1)을 V에 가장 가깝게 투영하면 (0,0)이 되어 오차는 1입니다. 따라서 이 후보 부분공간에서 최악 오차는 1이고, 정의상 최적 N-width는 이 값 이하입니다. 예시 값은 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "파동 방정식과 전파 속도",
+        "explain": "파동 방정식은 변위의 시간 변화와 공간 곡률을 연결합니다. 균일한 매질에서 파동은 속도 c로 전파됩니다. 논문의 파동 방정식 예제에서 상태장의 시간·공간 패턴을 이해하는 기초입니다. 초록은 파동 문제의 구체적인 물리 매질을 지정하지 않습니다.",
+        "equation": {
+          "latex": "\\frac{\\partial^2 u}{\\partial t^2}=c^2\\frac{\\partial^2 u}{\\partial x^2}",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "파동 변위; 예를 들면 m"
+            },
+            {
+              "symbol": "t",
+              "meaning": "시간; s"
+            },
+            {
+              "symbol": "x",
+              "meaning": "위치; m"
+            },
+            {
+              "symbol": "c",
+              "meaning": "파동 전파 속도; m/s"
+            }
+          ]
+        },
+        "link_to_paper": "초록에는 2D wave equation 문제가 수치 예제로 등장합니다. 표준 파동 방정식은 시간과 공간에서 변하는 해를 익히게 해 주며, 희소 측정으로 이런 상태장을 복원하는 문제를 이해하는 데 도움이 됩니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "\\(u=0.01\\sin(2x-6t)\\) m일 때 이 파동의 속도 c를 구하고 식이 맞는지 확인해 보세요. 계수 2와 6의 단위는 각각 m⁻¹와 s⁻¹입니다.",
+          "answer": "위상은 2x−6t이므로 파동 속도는 각주파수/파수, 즉 c=6/2=3 m/s입니다. 시간에 대해 두 번 미분하면 u_tt=−36u의 형태가 되고, 공간에 대해 두 번 미분하면 u_xx=−4u입니다. c²u_xx=9(−4u)=−36u이므로 파동 방정식을 만족합니다. 예시 값은 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "확산 방정식",
+        "explain": "확산 방정식은 농도나 온도처럼 공간에 퍼진 상태가 시간에 따라 변하는 모습을 나타냅니다. D는 퍼짐의 속도를 정합니다. 공간 규모가 같으면 D가 클수록 변화가 빠릅니다. 아래는 표준 확산식이며 논문 고유 식이 아닙니다.",
+        "equation": {
+          "latex": "\\frac{\\partial u}{\\partial t}=D\\nabla^2u",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "확산하는 상태장; 단위는 문제에 따라 다름"
+            },
+            {
+              "symbol": "t",
+              "meaning": "시간; s"
+            },
+            {
+              "symbol": "D",
+              "meaning": "확산 계수; m²/s"
+            },
+            {
+              "symbol": "\\nabla^2",
+              "meaning": "공간 라플라시안; m⁻²"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 2D diffusion을 수치 예제로 듭니다. 확산 방정식은 공간 상태가 매끄럽게 퍼지는 과정을 설명하므로, 일부 측정값으로 나머지 공간 상태를 복원하는 문제를 이해하는 데 연결됩니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "1차원 확산에서 모드의 진폭이 \\(e^{-Dk^2t}\\)에 비례한다고 합시다. D=0.02 m²/s, k=4 m⁻¹일 때 1초 후 진폭은 처음의 몇 배인가요?",
+          "answer": "지수에 −Dk²t를 대입하면 −0.02×4²×1=−0.32입니다. 따라서 진폭 비율은 e⁻⁰·³²≈0.73입니다. 예시 값은 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "Autoencoder의 잠재 표현과 복원",
+        "explain": "Autoencoder는 encoder가 입력을 잠재 표현으로 줄이고 decoder가 이를 복원하는 신경망입니다. 아래 평균제곱오차는 표준적인 복원 학습 목적의 한 예입니다. 초록은 Gappy AE의 구체적인 손실식을 밝히지 않으므로 이 식이 논문에서 사용된 손실식이라는 뜻은 아닙니다.",
+        "equation": {
+          "latex": "\\min_{\\theta,\\phi}\\frac{1}{Mn}\\sum_{i=1}^{M}\\sum_{j=1}^{n}(x_{ij}-\\hat{x}_{ij})^2",
+          "variables": [
+            {
+              "symbol": "\\theta",
+              "meaning": "encoder의 학습 파라미터; 단위는 표현에 따라 다름"
+            },
+            {
+              "symbol": "\\phi",
+              "meaning": "decoder의 학습 파라미터; 단위는 표현에 따라 다름"
+            },
+            {
+              "symbol": "M",
+              "meaning": "학습 예제 수; 개"
+            },
+            {
+              "symbol": "n",
+              "meaning": "예제당 상태 성분 수; 개"
+            },
+            {
+              "symbol": "x_{ij}",
+              "meaning": "i번째 예제의 j번째 입력 성분; 단위는 문제에 따라 다름"
+            },
+            {
+              "symbol": "\\hat{x}_{ij}",
+              "meaning": "i번째 예제의 j번째 복원 성분; 입력과 같은 단위"
+            }
+          ]
+        },
+        "link_to_paper": "초록에서 Gappy AE는 희소 측정으로부터 전체 상태를 복원하며 비선형 manifold 표현을 사용합니다. Autoencoder의 압축과 복원 흐름을 알면 이 제안의 기본 구조를 따라갈 수 있습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "성분이 2개인 입력이 (1,0), 복원값이 (0.8,0.2)일 때 평균제곱오차를 계산하세요. 값은 무차원이라고 가정합니다.",
+          "answer": "성분별 제곱오차는 (1−0.8)²=0.04, (0−0.2)²=0.04입니다. 두 성분의 평균은 (0.04+0.04)/2=0.04입니다. 예시 값은 논문 측정값이 아닙니다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "Gappy AE",
+        "category": "method",
+        "what_for": "희소한 측정값에서 전체 상태를 비선형 표현으로 복원합니다.",
+        "link_to_paper": "초록에서 제안한 핵심 복원 방법입니다.",
+        "evidence": "abstract",
+        "first_step": "작은 2D toy field에서 격자 몇 칸을 가린 뒤 복원 결과와 원래 상태장을 나란히 비교합니다."
+      },
+      {
+        "name": "Gappy POD",
+        "category": "method",
+        "what_for": "POD 선형 기저와 일부 관측값을 이용해 빠진 상태값을 복원합니다.",
+        "link_to_paper": "초록에서 Gappy AE가 비교하는 기존 복원 방법입니다.",
+        "evidence": "abstract",
+        "first_step": "작은 snapshot 행렬로 POD 기저를 만들고 관측 행만 사용해 전체 상태를 복원해 봅니다."
+      },
+      {
+        "name": "Discrete Empirical Interpolation Method (DEIM)",
+        "category": "method",
+        "what_for": "축소 모델에서 필요한 대표 샘플 위치를 선택합니다.",
+        "link_to_paper": "초록에서 복원 정확도에 영향을 주는 샘플링 알고리즘으로 평가합니다.",
+        "evidence": "abstract",
+        "first_step": "작은 기저 행렬에 DEIM의 greedy 선택을 적용하고 선택된 행 위치를 표시합니다."
+      },
+      {
+        "name": "S-OPT",
+        "category": "method",
+        "what_for": "공간 상태를 측정할 위치를 고르는 샘플링 알고리즘입니다.",
+        "link_to_paper": "초록에서 복원 정확도 비교에 포함된 샘플링 알고리즘입니다.",
+        "evidence": "abstract",
+        "first_step": "작은 2D 격자에서 측정점 수를 정하고 S-OPT가 고른 위치를 그림에 표시합니다."
+      },
+      {
+        "name": "Latin hypercube sampling",
+        "category": "method",
+        "what_for": "여러 차원의 영역에 표본점이 고르게 분포하도록 생성합니다.",
+        "link_to_paper": "초록에서 비교하는 네 가지 샘플링 방식 중 하나입니다.",
+        "evidence": "abstract",
+        "first_step": "2D 정사각 영역에 표본점 20개를 생성하고 좌표를 그려 분포를 살펴봅니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}

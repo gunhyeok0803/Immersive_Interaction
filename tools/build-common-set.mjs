@@ -1,8 +1,8 @@
 // [3단계] 공통 공부 세트 생성 (Codex CLI). 사용:
 //   node tools/build-common-set.mjs [plan|modules|trends|all] [--force] [--model 이름] [--effort 단계]
-// plan    : 최근(2023~) 논문을 4~6개 모듈로 묶음      → src/data/study/common.json
-// modules : 모듈마다 top-down 공부 세트                → src/data/study/modules/<id>.json
-// trends  : 피지컬 AI 동향(웹 검색) + 출처 URL 확인     → src/data/study/trends.json
+// plan    : 최근(2023~) 논문을 4~6개 모듈로 묶음      → source/data/study/common.json
+// modules : 모듈마다 top-down 공부 세트                → source/data/study/modules/<id>.json
+// trends  : 피지컬 AI 동향(웹 검색) + 출처 URL 확인     → source/data/study/trends.json
 // 스키마·프롬프트는 lib/common-prompts.mjs. 이미 있는 결과는 건너뜀(--force면 다시).
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -15,7 +15,7 @@ import {
 } from "./lib/common-prompts.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const DIR = path.join(ROOT, "src", "data", "study");
+const DIR = path.join(ROOT, "source", "data", "study");
 const INDEX = path.join(DIR, "common.json");
 const MOD_DIR = path.join(DIR, "modules");
 const TRENDS = path.join(DIR, "trends.json");
@@ -27,7 +27,7 @@ const stamp = () => ({ model, via: "codex-cli", generated_at: new Date().toISOSt
 const readJson = async (p) => JSON.parse(await readFile(p, "utf8"));
 const save = (p, j) => writeFile(p, JSON.stringify(j, null, 2), "utf8");
 
-const { papers } = await readJson(path.join(ROOT, "src", "data", "papers.json"));
+const { papers } = await readJson(path.join(ROOT, "source", "data", "papers.json"));
 const recent = papers.filter((p) => (p.year ?? 0) >= RECENT_FROM);
 const byId = Object.fromEntries(papers.map((p) => [p.id, p]));
 const brief = (p, n = 1400) => `[${p.id}] ${p.title} (${p.year}, ${p.venue || "-"})\n초록: ${(p.abstract || "(초록 없음)").slice(0, n)}`;

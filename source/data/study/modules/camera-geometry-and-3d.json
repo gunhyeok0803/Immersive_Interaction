@@ -1,0 +1,333 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T14:53:49.085Z",
+  "id": "camera-geometry-and-3d",
+  "title": "카메라 좌표계부터 3D 공간 복원·렌더링까지",
+  "summary": "좌표 변환, 카메라 투영, 깊이 정보, 다중 시점 정합과 가시성을 공통 기초로 공부합니다. 이를 바탕으로 3D reconstruction, 스캔 시점 계획, Gaussian splatting과 시점 간 일관성으로 확장합니다. 초록이 없는 inpainting과 StreamSplat 논문은 제목에 나타난 기법을 기준으로 잠정 배치했습니다.",
+  "paper_ids": [
+    "W7207805119",
+    "W4413820694",
+    "W4391461004",
+    "W4385982751",
+    "W4367662842"
+  ],
+  "pack": {
+    "intro": "이 세트는 여러 시점의 정보를 3D 공간 표현으로 연결하고, 공간 정보를 획득·보완·제시하는 공통 배경을 다룹니다. W439는 부족한 영역을 채울 스캔 시점을 계획하고, W720은 3D 장면의 결손 보완을 다룹니다. W441의 렌더링 구조와 W438·W436의 XR 인터페이스를 이어 읽으면 복원된 공간 정보가 어떻게 화면에 전달되는지 볼 수 있습니다. 제공 자료에서 초록이 비어 있던 W720과 W441은 각각 [RePaintGS 초록](https://arxiv.org/abs/2507.08434)과 [StreamSplat 공식 페이지](https://streamsplat.pengpark.com/)에서 확인한 초록 내용만 반영했습니다.",
+    "roadmap": [
+      "키워드에서 스캔 계획, 3D 표현, 결손 보완, 화면 제시의 연결을 확인한다.",
+      "툴에서 장면 표현·렌더링, 스캔 시점 계획, 인터페이스 비교가 각각 무엇을 하는지 살핀다.",
+      "CS에서 여러 시점의 정보와 결손 데이터가 3D 표현에서 어떤 역할을 하는지 읽는다.",
+      "공학수학에서 카메라·월드 좌표계, 투영, 깊이, 재투영의 관계를 익힌다.",
+      "역학에서 시점의 위치·자세와 부족한 영역을 관측할 경로를 이해한다.",
+      "물리에서 빛의 영상 형성과 가려진 표면이 관측되지 않는 이유를 연결한다."
+    ],
+    "keywords": [
+      {
+        "term": "3D reconstruction",
+        "definition_one_line": "실제 공간이나 대상의 관측 정보를 3D 공간 표현으로 만드는 과정이다.",
+        "appears_in": [
+          "W4391461004",
+          "W4385982751",
+          "W4367662842"
+        ]
+      },
+      {
+        "term": "autonomous view planning",
+        "definition_one_line": "미관측·부족한 영역을 보완할 스캔 시점이나 경로를 자동으로 계획하는 주제다.",
+        "appears_in": [
+          "W4391461004"
+        ]
+      },
+      {
+        "term": "insufficient or missing data",
+        "definition_one_line": "3D 모델에서 관측이 부족하거나 비어 있어 추가 정보가 필요한 영역이다.",
+        "appears_in": [
+          "W4391461004"
+        ]
+      },
+      {
+        "term": "3D Gaussian Splatting",
+        "definition_one_line": "3D 장면 표현과 렌더링에 사용되는 Gaussian 기반 표현이다.",
+        "appears_in": [
+          "W7207805119",
+          "W4413820694"
+        ]
+      },
+      {
+        "term": "view consistency",
+        "definition_one_line": "서로 다른 시점의 장면 결과가 기하와 외관 면에서 서로 맞는 성질이다.",
+        "appears_in": [
+          "W7207805119"
+        ]
+      },
+      {
+        "term": "depth-based fusion",
+        "definition_one_line": "깊이 정보를 이용해 렌더링 결과를 화면 공간에서 합성하는 방식이다.",
+        "appears_in": [
+          "W4413820694"
+        ]
+      },
+      {
+        "term": "context-sharing interface",
+        "definition_one_line": "원격 협업자가 작업 공간 정보를 공유받는 화면 인터페이스다.",
+        "appears_in": [
+          "W4385982751",
+          "W4367662842"
+        ]
+      },
+      {
+        "term": "360° video",
+        "definition_one_line": "작업 공간의 주변 시야를 전달하는 협업 화면 형식이다.",
+        "appears_in": [
+          "W4385982751",
+          "W4367662842"
+        ]
+      },
+      {
+        "term": "spatial information",
+        "definition_one_line": "작업 공간의 위치와 배치를 이해하는 데 필요한 공간 정보다.",
+        "appears_in": [
+          "W4385982751",
+          "W4367662842",
+          "W4391461004"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "name": "3D Gaussian Splatting (3DGS)",
+        "category": "method",
+        "what_for": "3D 장면 표현과 새 시점 렌더링에 쓰인다. W720 초록은 3DGS 기반 장면 보완을, W441 초록은 3DGS 처리를 설명한다. [W720 초록](https://arxiv.org/abs/2507.08434), [W441 초록](https://streamsplat.pengpark.com/)",
+        "used_in": [
+          "W7207805119",
+          "W4413820694"
+        ],
+        "evidence": "abstract",
+        "first_step": "3DGS 표현이 여러 시점의 장면을 어떻게 나타내는지 그림으로 확인한다."
+      },
+      {
+        "name": "Depth-based screen-space fusion",
+        "category": "method",
+        "what_for": "깊이 정보를 이용해 화면 공간에서 렌더링 결과를 합성한다. [W441 초록](https://streamsplat.pengpark.com/)",
+        "used_in": [
+          "W4413820694"
+        ],
+        "evidence": "abstract",
+        "first_step": "W441의 시스템 그림에서 깊이 정보가 어느 단계에서 쓰이는지 찾는다."
+      },
+      {
+        "name": "WebGL·WebGPU",
+        "category": "platform",
+        "what_for": "웹 브라우저 안에서 플랫폼에 독립적인 렌더링을 제공하는 기술이다. [W441 초록](https://streamsplat.pengpark.com/)",
+        "used_in": [
+          "W4413820694"
+        ],
+        "evidence": "abstract",
+        "first_step": "W441 초록에서 브라우저 렌더링의 제약과 목표를 표시한다."
+      },
+      {
+        "name": "3D scanning과 autonomous view planning",
+        "category": "method",
+        "what_for": "대상을 스캔하고 부족하거나 누락된 영역을 보충할 시점·경로를 계획하는 주제다.",
+        "used_in": [
+          "W4391461004"
+        ],
+        "evidence": "abstract",
+        "first_step": "스캔 입력에서 보충이 필요한 영역까지의 과정을 한 줄로 요약한다."
+      },
+      {
+        "name": "Sankey diagram",
+        "category": "method",
+        "what_for": "W439 초록에서 선택된 연구와 연구 동향을 시각화하는 데 쓰인다.",
+        "used_in": [
+          "W4391461004"
+        ],
+        "evidence": "abstract",
+        "first_step": "논문에서 Sankey diagram이 어떤 연구 동향을 보여 주는지 확인한다."
+      },
+      {
+        "name": "2D video·360° video·3D reconstruction view",
+        "category": "method",
+        "what_for": "작업 공간의 맥락을 공유하는 세 인터페이스 조건이다.",
+        "used_in": [
+          "W4385982751",
+          "W4367662842"
+        ],
+        "evidence": "abstract",
+        "first_step": "세 인터페이스가 각각 어떤 형태의 공간 정보를 전달하는지 비교한다."
+      }
+    ],
+    "layers": [
+      {
+        "level": "cs",
+        "title": "CS: 관측을 3D 공간 정보로 연결하기",
+        "cards": [
+          {
+            "title": "다중 시점 정보를 3D 표현으로 묶기",
+            "body": "한 장의 영상은 장면을 한 시점에서 본 결과다. 시점이 달라지면 보이는 표면과 가려지는 표면도 달라진다. 여러 관측을 3D 표현으로 묶으면 시점에 따른 공간 정보를 다룰 수 있다. W439는 부족한 데이터를 보충할 스캔 시점이나 경로를 검토한다. W438과 W436은 2D 영상, 360° 영상, 3D 재구성 화면을 비교한다. W720은 기준 시점과 다른 시점 사이의 inpainting 일관성을 다룬다.",
+            "discipline": "cs",
+            "links_to_paper": "W439의 스캔 시점·경로, W438과 W436의 3D reconstruction view, W720의 reference-guided view consistency와 연결된다. W720 초록은 [RePaintGS 초록](https://arxiv.org/abs/2507.08434)에 근거한다.",
+            "linked_keywords": [
+              "3D reconstruction",
+              "autonomous view planning",
+              "view consistency",
+              "context-sharing interface"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "한 시점의 영상에 더해 여러 시점의 정보가 필요한 이유는 무엇인가?",
+              "answer": "시점에 따라 보이는 표면이 달라지므로, 여러 관측을 묶어야 공간 정보를 더 폭넓게 다룰 수 있다.",
+              "if_wrong_go_to": "다중 시점 정보를 3D 표현으로 묶기"
+            },
+            "next_resource": "컴퓨터 비전 입문 자료의 3D reconstruction과 multi-view representation 단원"
+          },
+          {
+            "title": "정보 획득·결손 보완·공간 정보 제시 구분하기",
+            "body": "3D 모델을 만들 때 표면이 충분히 관측되지 않을 수 있다. W439는 미관측 또는 부족한 영역을 보충할 시점 계획을 검토한다. W720은 물체 제거 뒤 드러난 가려진 영역을 채우는 3D 장면 inpainting을 다룬다. 스캔 계획은 관측 자료를 더 모으는 쪽이다. inpainting은 기존 장면 표현의 결손을 보완하는 쪽이다. W438과 W436은 3D 공간 정보를 협업 화면으로 제공하는 쪽에 놓인다.",
+            "discipline": "cs",
+            "links_to_paper": "W439의 부족한 스캔 데이터 보충, W720의 3D scene inpainting, W438·W436의 context-sharing interface를 구분해 읽는다. W720 초록은 [RePaintGS 초록](https://arxiv.org/abs/2507.08434)에 근거한다.",
+            "linked_keywords": [
+              "insufficient or missing data",
+              "autonomous view planning",
+              "context-sharing interface",
+              "spatial information"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "스캔 계획, inpainting, XR 인터페이스의 역할을 각각 어떻게 구분할 수 있는가?",
+              "answer": "스캔 계획은 관측을 더 모으고, inpainting은 결손을 보완하며, XR 인터페이스는 공간 정보를 협업자에게 제시한다.",
+              "if_wrong_go_to": "다중 시점 정보를 3D 표현으로 묶기"
+            },
+            "next_resource": "3D scanning, 3D scene inpainting, XR remote collaboration의 문제 정의를 나란히 읽는다."
+          }
+        ]
+      },
+      {
+        "level": "engineering_math",
+        "title": "공학수학: 좌표계·투영·깊이",
+        "cards": [
+          {
+            "title": "카메라 좌표계와 월드 좌표계",
+            "body": "월드 좌표계는 장면을 설명하는 기준이고, 카메라 좌표계는 카메라 위치와 방향을 기준으로 삼는다. 같은 3D 점도 어느 좌표계에서 표현하는지에 따라 좌표값이 달라진다. 두 좌표계 사이의 강체 변환은 회전과 평행이동으로 쓴다. 이를 알면 움직인 시점들의 관측을 하나의 장면 기준으로 비교할 수 있다. W439의 스캔 시점·경로와 W438·W436의 3D 공간 정보가 이 배경과 이어진다. 구체적인 좌표변환식은 초록에는 없다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "W439의 스캔 시점·경로와 W438·W436의 3D reconstruction view에 필요한 배경 수학이다. 좌표계 변환은 이 초록들에 명시되지 않아 간접 연결이다.",
+            "linked_keywords": [
+              "3D reconstruction",
+              "autonomous view planning",
+              "spatial information"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "강체 좌표변환은 어떤 두 요소로 표현하는가?",
+              "answer": "회전과 평행이동으로 표현한다.",
+              "if_wrong_go_to": "다중 시점 정보를 3D 표현으로 묶기"
+            },
+            "next_resource": "선형대수 또는 로보틱스 입문 자료의 homogeneous transform 단원"
+          },
+          {
+            "title": "투영·깊이·재투영",
+            "body": "투영은 공간의 3D 점을 카메라 영상의 2D 위치에 대응시킨다. 깊이는 그 점이 시선 방향으로 얼마나 떨어져 있는지를 나타낸다. 깊이가 있으면 같은 영상 위치에 겹쳐 보이는 표면의 앞뒤를 구별할 수 있다. 3D 점을 다른 시점의 화면으로 다시 투영하면 여러 관측의 위치를 맞출 수 있다. W720의 reference inpainting warp와 W441의 depth-based screen-space fusion이 이 배경과 연결된다. 각 논문의 투영식이나 깊이 취득 방식은 초록에는 없다.",
+            "discipline": "engineering_math",
+            "links_to_paper": "W720의 reference inpainting을 다른 시점으로 warp하는 과정과 W441의 depth-based screen-space fusion에 연결된다. [W720 초록](https://arxiv.org/abs/2507.08434), [W441 초록](https://streamsplat.pengpark.com/).",
+            "linked_keywords": [
+              "3D Gaussian Splatting",
+              "view consistency",
+              "depth-based fusion"
+            ],
+            "check": {
+              "bloom": "apply",
+              "question": "같은 영상 위치에 두 표면이 겹쳐 보일 때 깊이는 무엇을 구분하게 해 주는가?",
+              "answer": "시선 방향 거리로 두 표면의 앞뒤 관계를 구분하게 해 준다.",
+              "if_wrong_go_to": "카메라 좌표계와 월드 좌표계"
+            },
+            "next_resource": "컴퓨터 비전 입문 자료의 pinhole projection, depth, image warping 단원"
+          }
+        ]
+      },
+      {
+        "level": "mechanics",
+        "title": "역학: 시점의 자세와 스캔 경로",
+        "cards": [
+          {
+            "title": "강체 자세와 시점 변화",
+            "body": "카메라나 scanner를 강체로 보면 위치와 방향을 자세(pose)로 나타낼 수 있다. 위치는 어디에 있는지를, 방향은 어느 쪽을 보는지를 나타낸다. 자세가 바뀌면 영상에 들어오는 표면도 바뀐다. 3D scanning에서는 필요한 영역이 보이도록 여러 자세를 골라야 한다. W439는 3D scanning을 위한 최적의 시점이나 경로를 검토한다. 초록에는 구체적인 로봇 운동학 모델이 나오지 않는다.",
+            "discipline": "mechanics",
+            "links_to_paper": "W439의 optimal scanning paths or views와 연결된다. W438·W436은 작업 공간의 환경 변화를 공유하는 인터페이스를 설명하지만, 자세 계산은 초록에 나오지 않아 간접 연결이다.",
+            "linked_keywords": [
+              "autonomous view planning",
+              "3D reconstruction",
+              "spatial information"
+            ],
+            "check": {
+              "bloom": "understand",
+              "question": "시점의 자세를 나타내는 두 정보는 무엇인가?",
+              "answer": "위치와 방향이다.",
+              "if_wrong_go_to": "카메라 좌표계와 월드 좌표계"
+            },
+            "next_resource": "로보틱스 입문 자료의 rigid body pose와 coordinate frames 단원"
+          },
+          {
+            "title": "부족한 영역을 보는 경로 선택",
+            "body": "한 자세에서 센서가 볼 수 있는 영역은 제한되어 있다. 위치나 방향을 바꾸면 새로 관측되는 표면이 생긴다. 3D 모델에 부족하거나 누락된 영역이 있으면 그 부분을 드러낼 다음 시점을 골라야 한다. 좋은 추가 시점은 이미 충분히 본 곳을 반복하기보다 부족한 곳에 새 정보를 보탠다. W439는 부족하거나 누락된 데이터를 보충할 최적의 스캔 경로와 시점을 다룬다. 구체적인 경로 최적화 기준은 초록에는 없다.",
+            "discipline": "mechanics",
+            "links_to_paper": "W439 초록의 autonomous view planning 목표인 부족·누락 데이터 보충과 직접 연결된다.",
+            "linked_keywords": [
+              "autonomous view planning",
+              "insufficient or missing data"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "스캔 결과에서 특정 영역의 데이터가 부족하다면 다음 시점은 어떤 기준으로 고르는가?",
+              "answer": "부족한 영역이 새로 보이도록 위치와 방향을 바꿀 시점을 고른다.",
+              "if_wrong_go_to": "강체 자세와 시점 변화"
+            },
+            "next_resource": "3D scanning survey에서 view planning의 입력, 목표, 출력이 무엇인지 표로 정리한다."
+          }
+        ]
+      },
+      {
+        "level": "physics",
+        "title": "물리: 빛의 영상 형성과 가림",
+        "cards": [
+          {
+            "title": "빛의 영상 형성과 pinhole 근사",
+            "body": "카메라 영상은 장면에서 온 빛의 분포를 평면 센서에 기록한 것이다. 간단한 pinhole model은 각 광선이 camera center를 지나 영상면과 만난다고 본다. 이 근사로 3D 위치와 2D 화면 위치의 관계를 설명할 수 있다. 2D 영상이나 렌더링 화면은 공간 장면을 화면에 보이는 값으로 바꾼 결과다. W438·W436은 2D·360° 영상 인터페이스를 비교하고, W441은 웹에서 렌더링 결과를 합성한다. 구체적인 렌즈·센서 모델은 초록에는 없다.",
+            "discipline": "physics",
+            "links_to_paper": "W438·W436의 video interfaces와 W441의 web rendering에 연결된다. 이 논문 초록들은 빛의 센서 형성 모델을 설명하지 않으므로 간접 연결이다. [W441 초록](https://streamsplat.pengpark.com/).",
+            "linked_keywords": [
+              "360° video",
+              "context-sharing interface",
+              "3D Gaussian Splatting"
+            ],
+            "check": {
+              "bloom": "remember",
+              "question": "pinhole model은 장면의 한 점에서 나온 광선이 영상면과 어떻게 만난다고 보는가?",
+              "answer": "광선이 camera center를 지나 영상면과 만난다고 본다.",
+              "if_wrong_go_to": "투영·깊이·재투영"
+            },
+            "next_resource": "광학 또는 컴퓨터 비전 강의의 pinhole camera와 image formation 단원"
+          },
+          {
+            "title": "빛의 가림과 관측되지 않는 표면",
+            "body": "표면과 카메라 사이에 물체가 있으면 그 표면에서 오는 빛이 가려진다. 그래서 한 시점의 영상에는 보이지 않는 표면이 생긴다. 시점을 옮기면 가려졌던 표면이 새로 보일 수 있다. 관측되지 않은 영역은 추가 스캔 시점으로 얻거나 기존 관측을 바탕으로 보완해야 한다. W720 초록은 물체 제거 뒤 드러나는 가려진 영역과 3D 장면 inpainting을 다룬다. W439는 부족하거나 누락된 데이터를 보충할 스캔 시점을 검토한다.",
+            "discipline": "physics",
+            "links_to_paper": "W720의 object removal 뒤 드러나는 occluded regions와 W439의 insufficient or missing data 보충에 연결된다. W720 초록은 [RePaintGS 초록](https://arxiv.org/abs/2507.08434)에 근거한다.",
+            "linked_keywords": [
+              "view consistency",
+              "insufficient or missing data",
+              "autonomous view planning"
+            ],
+            "check": {
+              "bloom": "analyze",
+              "question": "물체에 가려져 한 시점에서 보이지 않는 표면을 스캔으로 관측하려면 무엇을 바꾸어야 하는가?",
+              "answer": "표면으로 오는 빛이 보이도록 카메라나 센서의 시점을 바꾸어야 한다.",
+              "if_wrong_go_to": "빛의 영상 형성과 pinhole 근사"
+            },
+            "next_resource": "컴퓨터 그래픽스 입문 자료의 visibility, occlusion, view-dependent rendering 단원"
+          }
+        ]
+      }
+    ]
+  }
+}

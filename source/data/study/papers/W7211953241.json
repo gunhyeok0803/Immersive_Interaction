@@ -1,0 +1,327 @@
+{
+  "paperId": "W7211953241",
+  "title": "Trunk motion reflects center-of-pressure dynamics and supports markerless single-camera postural sway assessment",
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-27T15:09:16.737Z",
+  "pack": {
+    "pass1_overview": {
+      "one_paragraph": "이 연구는 조용히 서 있을 때 머리와 몸통의 움직임이 압력중심(CoP)의 흔들림을 얼마나 잘 반영하는지 비교한다. 여섯 가지 optic-flow 조건에서 Wii Balance Board로 얻은 CoP 궤적과 머리·몸통 움직임을 시간·주파수 영역에서 비교하고, 단일 후방 사선 카메라와 Lucas–Kanade optical flow로 몸통을 추적한다. 몸통 움직임은 특히 전후 방향에서 머리 움직임보다 CoP와 더 강하게 대응했고, 동영상으로 얻은 전후 방향 몸통 궤적도 motion capture 궤적과 밀접하게 대응했다. 별도의 세 명 proof-of-concept에서는 한 카메라 화면 안에서 여러 사람을 동시에 추적할 가능성을 보였다.",
+      "five_c": {
+        "category": "자세 흔들림 측정과 단일 카메라 기반 markerless 움직임 추적",
+        "context": "CoP 측정에는 전용 힘 측정 장비가 필요할 수 있어, 더 접근하기 쉬운 운동학적 지표가 연구되고 있다. 머리와 몸통 움직임 중 어느 쪽이 CoP 관련 흔들림과 더 잘 대응하는지는 불분명했다.",
+        "correctness": "초록은 몸통 움직임이 특히 전후 방향에서 CoP 관련 흔들림을 잘 반영하며, 단일 카메라 추적의 가능성을 뒷받침한다고 보고한다. CoP를 직접 측정하거나 모든 방향에서 동등한 정확도를 입증했다고 해석해서는 안 된다.",
+        "contributions": [
+          "머리와 몸통 움직임을 CoP 궤적 및 위치 기반 흔들림 지표와 비교했다.",
+          "전후 방향에서 몸통의 CoP 대응이 머리보다 강하다는 결과를 시간·주파수 분석에서 보고했다.",
+          "단일 후방 사선 카메라와 Lucas–Kanade optical flow로 몸통을 추적하고 motion capture 궤적과 비교했다."
+        ],
+        "clarity": "비교 대상, 측정 방향, 추적 방법이 초록에 제시되어 있다. 표본 수, 수치적 오차, 세부 분석 절차는 초록에는 없음."
+      },
+      "reading_goal": "본문에서 방향별 비교 방법과 일치도 지표를 확인하고, 몸통 움직임을 CoP의 대리 지표로 쓰는 주장과 단일 카메라 추적의 실현 가능성을 구분해 읽는다."
+    },
+    "keywords": [
+      {
+        "term": "자세 흔들림",
+        "definition_one_line": "조용히 서 있을 때 나타나는 자세의 움직임으로, 이 연구에서는 CoP 및 신체 부위의 움직임과 비교한다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "압력중심(CoP)",
+        "definition_one_line": "Wii Balance Board에서 얻어 머리·몸통 움직임과 비교한 흔들림 궤적이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "몸통 움직임",
+        "definition_one_line": "CoP 관련 흔들림을 나타내는 운동학적 측정값으로 평가된 신체 움직임이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "전후·좌우 방향",
+        "definition_one_line": "연구가 CoP 대응과 카메라 기반 궤적 추적 결과를 따로 비교한 두 움직임 방향이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "Lucas–Kanade optical flow",
+        "definition_one_line": "단일 카메라 영상에서 몸통을 추적하는 데 사용한 방법이다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "궤적 대응",
+        "definition_one_line": "몸통 또는 머리 움직임의 궤적이 CoP 궤적과 얼마나 함께 변하는지 비교한 관계다.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "optic-flow 조건",
+        "definition_one_line": "조용히 서기 실험에서 비교한 여섯 가지 시각 조건이다. 구체적인 조건 구성은 초록에는 없음.",
+        "where_in_paper": "초록"
+      },
+      {
+        "term": "후방 사선 카메라",
+        "definition_one_line": "몸통 동영상 추적에 사용한, 높게 설치된 단일 카메라의 시점이다.",
+        "where_in_paper": "초록"
+      }
+    ],
+    "pass2_understanding": {
+      "method_flow": [
+        "조용히 선 상태에서 여섯 optic-flow 조건을 적용하고, Wii Balance Board 기반 CoP 궤적과 머리·몸통 움직임을 비교한다.",
+        "전후·좌우 방향별로 시간·주파수 영역의 선형 대응과 위치 기반 흔들림 지표의 일치도를 평가한다.",
+        "높게 설치한 후방 사선 단일 카메라와 Lucas–Kanade optical flow로 몸통을 추적하고, 동영상 궤적을 motion capture 궤적과 비교한다.",
+        "별도의 세 명 proof-of-concept에서 한 카메라 화면에 잡힌 여러 사람을 동시에 추적할 수 있는지 보인다."
+      ],
+      "key_evidence": [
+        {
+          "claim": "전후 방향에서 몸통 움직임은 머리 움직임보다 CoP와 더 강하게 선형 대응했다.",
+          "evidence": "초록은 시간 영역과 주파수 영역 분석 모두에서 이 결과를 보고한다.",
+          "caveat": "대응 정도의 수치와 통계적 불확실성은 초록에는 없음."
+        },
+        {
+          "claim": "좌우 방향에서는 머리와 몸통 움직임의 CoP 대응이 비슷했다.",
+          "evidence": "초록은 좌우 방향의 대응이 비교 가능했다고 기술한다.",
+          "caveat": "정확한 비교 지표와 수치 결과는 초록에는 없음."
+        },
+        {
+          "claim": "몸통에서 계산한 위치 기반 흔들림 지표가 머리에서 계산한 지표보다 CoP 지표와 일관되게 더 잘 일치했다.",
+          "evidence": "초록은 해당 지표들의 concordance 비교 결과를 보고한다.",
+          "caveat": "지표 정의와 concordance 산출 방식은 초록에는 없음."
+        },
+        {
+          "claim": "단일 카메라 추적은 전후 방향에서 motion capture 몸통 궤적과 밀접하게 대응했지만, 좌우 방향 대응은 더 약하고 변동이 컸다.",
+          "evidence": "초록은 동영상 기반 궤적을 motion-capture-derived 궤적과 비교한 결과를 기술한다.",
+          "caveat": "추적 정확도의 수치와 주요 비교 실험의 참가자 수는 초록에는 없음."
+        },
+        {
+          "claim": "한 카메라 화면에서 여러 사람을 동시에 추적할 가능성이 별도 proof-of-concept에서 보였다.",
+          "evidence": "초록은 세 명을 대상으로 한 별도 시연을 언급한다.",
+          "caveat": "세 명의 결과만으로 더 큰 집단이나 다양한 환경에서의 성능을 판단할 수는 없다."
+        }
+      ],
+      "critical_questions": [
+        "주요 비교 실험의 참가자 수와 참가자 특성은 무엇이며, 별도 세 명 proof-of-concept와 어떻게 구분되는가?",
+        "선형 대응, 위치 기반 흔들림 지표, concordance는 각각 어떤 방법으로 계산했는가?",
+        "여섯 optic-flow 조건의 구체적 내용과 실험 절차는 무엇인가?",
+        "카메라 위치, 가림, 조명, 사람 간 간격이 달라질 때 좌우 방향 추적의 약하고 변동이 큰 결과가 어떻게 바뀌는가?",
+        "몸통 움직임과 CoP의 대응은 힘 측정 장비를 대체할 근거인가, CoP 관련 흔들림을 추정하는 보조 지표인가?"
+      ]
+    },
+    "module_refs": [
+      {
+        "module_id": "signal-based-human-sensing",
+        "why": "이 논문은 몸통 영상 움직임과 CoP 신호를 궤적으로 비교하고, optical flow로 움직임을 추적한다. 궤적 일치도와 신체 움직임 및 CoP가 서로 다른 측정값이라는 점을 먼저 익히면 결과의 범위를 해석하기 쉽다.",
+        "focus_cards": [
+          "궤적 대응과 일치도",
+          "CoP와 신체 움직임은 다른 측정값"
+        ]
+      },
+      {
+        "module_id": "human-centered-evaluation",
+        "why": "여섯 조건에서 비교한 관찰 결과와 세 명의 proof-of-concept가 뒷받침하는 주장의 범위를 구분해야 한다. 특히 신체 움직임 지표가 자세 흔들림을 어느 정도 대표하는지 평가할 때 측정값의 한계를 살펴보는 데 도움이 된다.",
+        "focus_cards": [
+          "조건·관찰값·주장의 구분",
+          "측정값은 구성개념의 일부를 대표한다"
+        ]
+      }
+    ],
+    "pass3_reconstruct": {
+      "restate_in_own_words_prompt": "논문을 덮고, 연구 질문과 비교 절차를 설명해 보세요. 몸통이 머리보다 CoP와 더 잘 대응한 방향, 단일 카메라 추적이 잘 된 방향과 제한이 드러난 방향을 구분하고, 이 결과가 뒷받침하는 주장까지 말해 보세요.",
+      "assumptions_to_challenge": [
+        "몸통 움직임이 모든 방향에서 CoP를 같은 수준으로 대표한다고 가정하는가?",
+        "CoP와의 대응이 확인되었다는 이유만으로 몸통 추적이 힘 측정 장비를 대체할 수 있다고 보는가?",
+        "단일 카메라의 전후 방향 추적 결과가 좌우 방향에도 그대로 적용된다고 가정하는가?",
+        "세 명의 동시 추적 시연이 더 큰 집단이나 다른 촬영 환경에서도 유지된다고 가정하는가?"
+      ],
+      "to_reproduce_you_need": [
+        "주요 비교 실험과 별도 proof-of-concept의 참가자 수, 특성, 실험 절차",
+        "여섯 optic-flow 조건의 내용과 제시 방식",
+        "Wii Balance Board, motion capture, 머리·몸통 움직임의 측정 및 전처리 방법",
+        "시간·주파수 영역 대응과 위치 기반 흔들림 지표의 정의, concordance 및 통계 분석 방법",
+        "카메라 위치와 영상 사양, Lucas–Kanade optical flow 설정 및 몸통 추적 절차"
+      ]
+    },
+    "foundations": [
+      {
+        "discipline": "engineering_math",
+        "concept": "시간영역과 주파수영역",
+        "explain": "시간 신호는 흔들림 위치가 시간에 따라 어떻게 변하는지 나타냅니다. Fourier 변환은 신호를 주파수 성분으로 표현합니다. 주파수 성분을 보면 느린 흔들림과 빠른 흔들림을 나누어 살펴볼 수 있습니다.",
+        "equation": {
+          "latex": "X(f)=\\int_{-\\infty}^{\\infty}x(t)e^{-i2\\pi ft}\\,\\mathrm{d}t",
+          "variables": [
+            {
+              "symbol": "X(f)",
+              "meaning": "주파수 성분의 복소 진폭, 단위 m·s"
+            },
+            {
+              "symbol": "x(t)",
+              "meaning": "시간 t에서의 흔들림 변위, 단위 m"
+            },
+            {
+              "symbol": "t",
+              "meaning": "시간, 단위 s"
+            },
+            {
+              "symbol": "f",
+              "meaning": "주파수, 단위 Hz"
+            },
+            {
+              "symbol": "i",
+              "meaning": "허수 단위, 무차원"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 몸통과 CoP의 대응을 시간영역과 주파수영역에서 비교했다고 설명합니다. Fourier 변환은 주파수영역이 무엇인지 이해하는 기초이며, 논문의 구체적인 변환식은 가정하지 않습니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "예시로 몸통 흔들림의 주기가 2초라고 하자. 주파수 스펙트럼에서 주요 성분은 어느 주파수에 나타날까?",
+          "answer": "주기 성분의 주파수는 f=1/T이다. 따라서 f=1/2=0.5 Hz이며, 양의 주파수 스펙트럼에서 0.5 Hz 부근을 살펴본다. 이 예시 값은 설명용이며 논문 측정값이 아니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "mechanics",
+        "concept": "CoP와 신체 운동의 역학적 관계",
+        "explain": "CoP는 지면에 작용하는 힘의 합력이 작용하는 위치를 나타냅니다. 몸통 움직임은 신체 부위의 위치 변화이므로 CoP와 같은 측정값이 아닙니다. 단순 선형 역진자 모델에서는 CoP 위치와 무게중심의 가속도가 연결됩니다.",
+        "equation": {
+          "latex": "\\ddot{x}_{\\mathrm{COM}}=\\frac{g}{z_c}\\left(x_{\\mathrm{COM}}-x_{\\mathrm{CoP}}\\right)",
+          "variables": [
+            {
+              "symbol": "\\ddot{x}_{\\mathrm{COM}}",
+              "meaning": "전후 방향 무게중심 가속도, 단위 m/s²"
+            },
+            {
+              "symbol": "x_{\\mathrm{COM}}",
+              "meaning": "전후 방향 무게중심 위치, 단위 m"
+            },
+            {
+              "symbol": "x_{\\mathrm{CoP}}",
+              "meaning": "전후 방향 CoP 위치, 단위 m"
+            },
+            {
+              "symbol": "g",
+              "meaning": "중력가속도, 단위 m/s²"
+            },
+            {
+              "symbol": "z_c",
+              "meaning": "무게중심의 일정한 높이로 둔 값, 단위 m"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 몸통 움직임과 CoP 궤적의 대응을 비교합니다. 이 단순 모델은 두 값이 관련되면서도 서로 다른 측정값인 이유를 해석하는 배경이며, 논문이 이 모델을 사용했다고 뜻하지는 않습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "설명용 선형 역진자 예시에서 x_COM=0.020 m, x_CoP=0.010 m, z_c=1.0 m, g=9.8 m/s²라면 무게중심 가속도는 얼마인가?",
+          "answer": "식에 대입하면 가속도는 (9.8/1.0)×(0.020−0.010)=9.8×0.010=0.098 m/s²이다. 이는 설명을 위한 예시이며 논문 측정값이 아니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "physics",
+        "concept": "카메라 투영과 영상 속 움직임",
+        "explain": "카메라는 3차원 공간의 몸통 움직임을 2차원 영상 위치로 투영합니다. 따라서 영상에서 보이는 움직임은 실제 움직임의 투영이며, 카메라 방향과 거리에 따라 달라질 수 있습니다. 단일 카메라 영상은 몸통 움직임을 추정하는 신호가 됩니다.",
+        "equation": {
+          "latex": "u=f_x\\frac{X}{Z}+c_x",
+          "variables": [
+            {
+              "symbol": "u",
+              "meaning": "영상의 가로 좌표, 단위 px"
+            },
+            {
+              "symbol": "f_x",
+              "meaning": "가로 방향 초점거리, 단위 px"
+            },
+            {
+              "symbol": "X",
+              "meaning": "카메라 좌표계의 가로 위치, 단위 m"
+            },
+            {
+              "symbol": "Z",
+              "meaning": "카메라로부터의 깊이, 단위 m"
+            },
+            {
+              "symbol": "c_x",
+              "meaning": "영상 중심의 가로 좌표, 단위 px"
+            }
+          ]
+        },
+        "link_to_paper": "논문은 단일 카메라 영상으로 몸통 궤적을 추적합니다. 투영을 알면 카메라 시점에 따라 전후·좌우 움직임의 영상 표현이 달라질 수 있음을 이해할 수 있습니다.",
+        "evidence": "inferred",
+        "check": {
+          "question": "설명용 예시에서 f_x=800 px, X=0.10 m, Z=2.0 m, c_x=640 px라면 영상 가로 좌표 u는 얼마인가?",
+          "answer": "식에 대입하면 u=800×(0.10/2.0)+640=40+640=680 px이다. 이 예시 값은 설명용이며 논문 측정값이 아니다."
+        },
+        "module_card": ""
+      },
+      {
+        "discipline": "cs",
+        "concept": "Lucas–Kanade optical flow의 영상 움직임 추정",
+        "explain": "Optical flow는 연속된 영상 프레임 사이에서 무늬가 움직인 방향과 속도를 추정합니다. 밝기가 짧은 시간 동안 유지된다는 가정에서 아래 제약식을 얻습니다. Lucas–Kanade 방법은 작은 이웃 영역에서 움직임이 비슷하다고 보고 여러 픽셀을 이용해 흐름을 계산합니다.",
+        "equation": {
+          "latex": "I_xu+I_yv+I_t=0",
+          "variables": [
+            {
+              "symbol": "I_x",
+              "meaning": "영상 밝기의 가로 공간 변화율, 단위 gray level/px"
+            },
+            {
+              "symbol": "I_y",
+              "meaning": "영상 밝기의 세로 공간 변화율, 단위 gray level/px"
+            },
+            {
+              "symbol": "u",
+              "meaning": "가로 방향 영상 흐름 속도, 단위 px/s"
+            },
+            {
+              "symbol": "v",
+              "meaning": "세로 방향 영상 흐름 속도, 단위 px/s"
+            },
+            {
+              "symbol": "I_t",
+              "meaning": "시간에 따른 영상 밝기 변화율, 단위 gray level/s"
+            }
+          ]
+        },
+        "link_to_paper": "초록은 단일 카메라 영상에서 몸통을 추적할 때 Lucas–Kanade optical flow를 사용했다고 밝힙니다. 이 제약식은 영상 속 움직임을 추정하는 기본 원리를 설명합니다.",
+        "evidence": "abstract",
+        "check": {
+          "question": "설명용 한 지점에서 I_x=2 gray level/px, I_y=1 gray level/px, I_t=−5 gray level/s이고 세로 흐름 v=1 px/s라고 하자. 가로 흐름 u는 얼마인가?",
+          "answer": "식에 대입하면 2u+1×1−5=0이다. 따라서 2u=4이고 u=2 px/s이다. 이 예시 값은 설명용이며 논문 측정값이 아니다."
+        },
+        "module_card": ""
+      }
+    ],
+    "tools": [
+      {
+        "name": "Wii Balance Board",
+        "category": "hardware",
+        "what_for": "발바닥에 작용하는 힘으로부터 자세 흔들림의 CoP 궤적을 얻습니다.",
+        "link_to_paper": "논문은 Wii Balance Board에서 얻은 CoP 궤적을 몸통 및 머리 움직임과 비교합니다.",
+        "evidence": "abstract",
+        "first_step": "보드 위에서 30초간 정지서기 데이터를 기록하고 전후·좌우 CoP 궤적을 그려 봅니다."
+      },
+      {
+        "name": "Lucas–Kanade optical flow",
+        "category": "method",
+        "what_for": "연속 프레임의 밝기 패턴을 추적해 영상 속 움직임을 추정합니다.",
+        "link_to_paper": "논문은 이 방법으로 단일 카메라 영상에서 몸통 움직임을 추적합니다.",
+        "evidence": "abstract",
+        "first_step": "연속 프레임 두 장에서 몸통의 작은 영상 영역을 골라 이동 벡터를 표시해 봅니다."
+      },
+      {
+        "name": "Motion capture",
+        "category": "sensor",
+        "what_for": "마커의 3차원 위치를 기록해 신체 움직임 궤적을 측정합니다.",
+        "link_to_paper": "논문은 영상에서 얻은 전후 몸통 궤적을 Motion capture 궤적과 비교합니다.",
+        "evidence": "abstract",
+        "first_step": "짧은 앞뒤 흔들림을 기록하고 영상 추적 궤적과 시간을 맞춰 겹쳐 봅니다."
+      },
+      {
+        "name": "Single camera",
+        "category": "sensor",
+        "what_for": "몸통 움직임을 영상으로 기록해 마커 없이 위치 변화를 추적할 입력을 제공합니다.",
+        "link_to_paper": "논문은 높이를 둔 후방 사선 카메라 한 대로 몸통 추적의 가능성을 평가합니다.",
+        "evidence": "abstract",
+        "first_step": "카메라를 뒤쪽 비스듬한 위치에 고정해 정지서기 영상을 촬영하고 몸통 위치를 프레임별로 표시해 봅니다."
+      }
+    ]
+  },
+  "foundations_model": "gpt-6-luna (max)"
+}
