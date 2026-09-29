@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:34.467Z",
+  "paper_id": "W3093448691",
+  "summary": "Wi-ESP라는 ESP32 기반 도구를 제안해 802.11n Wi-Fi 기기의 채널 상태 정보(CSI)를 수집하고 비접촉 감지용으로 처리한다. 독립형으로 작동하며 기존 CSI 도구의 배포 비용과 측정 해상도 한계를 보완해 대규모 감지 응용에 활용하도록 설계한다.",
+  "core": [
+    "esp32-csi-device-free-sensing"
+  ],
+  "path": [
+    {
+      "concept": "signals-time-series",
+      "role": "시간에 따라 변하는 CSI 측정값을 감지 입력으로 다룬다."
+    },
+    {
+      "concept": "waves-electromagnetism",
+      "role": "Wi-Fi 무선 신호가 주변 환경과 상호작용하며 채널 측정값을 만드는 배경을 제공한다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "CSI를 얻는 802.11n 통신 링크와 장치 구성을 이해하는 바탕이다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "사람의 움직임과 잡음에 따라 달라지는 CSI 측정값을 확률적으로 해석하는 기초다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "여러 측정값과 채널 성분을 배열 형태의 데이터로 다루는 바탕이다."
+    },
+    {
+      "concept": "optimization-basics",
+      "role": "학습 기반 감지 응용에서 모델을 맞추는 절차를 이해하는 기초다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "CSI 시계열의 표본화와 시간 변화 해석의 한계를 이해한다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "CSI 변화의 주파수 성분을 살펴보는 신호 분석 관점을 제공한다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "CSI 측정값을 감지 응용에 쓸 수 있도록 디지털 방식으로 처리하는 틀이다."
+    },
+    {
+      "concept": "wireless-channel-state-information",
+      "role": "Wi-Fi 채널의 CSI를 비접촉 감지를 위한 측정 정보로 활용한다."
+    },
+    {
+      "concept": "supervised-learning-classification",
+      "role": "CSI 기반 감지 응용에서 측정 패턴을 활동 범주와 연결하는 학습 접근을 이해한다."
+    },
+    {
+      "concept": "esp32-csi-device-free-sensing",
+      "role": "ESP32로 CSI를 수집하고 처리해 장치를 몸에 부착하지 않는 Wi-Fi 감지를 지원한다."
+    }
+  ]
+}

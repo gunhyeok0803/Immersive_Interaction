@@ -1,0 +1,107 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:32:23.708Z",
+  "id": "measurement-noise",
+  "name": "측정과 오차",
+  "english": "Measurement and Noise",
+  "level": 1,
+  "field": "physics",
+  "one_line": "측정값은 실제 상태의 근삿값이며 오차와 잡음은 센서와 환경에서 발생하는 불확실성을 나타낸다.",
+  "prerequisites": [
+    "probability-random-variables"
+  ],
+  "applications": [
+    "heat-transfer",
+    "spatial-thermal-comfort-modeling",
+    "heterogeneous-sensor-data-modeling",
+    "lucas-kanade-postural-sway-assessment"
+  ],
+  "card": {
+    "id": "measurement-noise",
+    "intuition": "같은 물체를 여러 번 재면 측정값은 참값 주변에 흩어집니다. 눈금 조정이 틀리면 그 값들이 한쪽으로 함께 밀립니다. 흩어짐은 잡음(noise), 한쪽으로 밀리는 현상은 편향(bias)입니다. 둘을 구분해야 측정값을 얼마나 믿을지 판단할 수 있습니다.",
+    "definition": "측정값(measurement)은 측정 대상(measurand)의 참값(true value)을 추정한 값입니다. 측정 오차(error)는 측정값과 참값의 차이며, 편향은 반복 측정에도 남는 체계적 오차이고 잡음은 측정마다 달라지는 무작위 성분입니다.",
+    "formula": {
+      "latex": "x_{\\mathrm{meas}}=x_{\\mathrm{true}}+b+\\varepsilon",
+      "symbols": [
+        {
+          "symbol": "x_{\\mathrm{meas}}",
+          "meaning": "측정값, 측정 대상과 같은 단위(예: °C)"
+        },
+        {
+          "symbol": "x_{\\mathrm{true}}",
+          "meaning": "참값, 측정 대상과 같은 단위(예: °C)"
+        },
+        {
+          "symbol": "b",
+          "meaning": "편향, 반복 측정에 공통으로 더해지는 오차; 측정 대상과 같은 단위"
+        },
+        {
+          "symbol": "\\varepsilon",
+          "meaning": "무작위 잡음, 간단한 모델에서는 평균이 0인 오차 성분; 측정 대상과 같은 단위"
+        }
+      ],
+      "reading": "측정값은 참값에 편향과 잡음을 더한 값으로 모델링합니다. 따라서 이 간단한 모델에서 측정 오차는 편향과 잡음의 합입니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "측정 대상과 참값",
+          "role": "센서가 알아내려는 물리량과 그 기준이 되는 값을 정합니다."
+        },
+        {
+          "name": "센서와 보정",
+          "role": "센서는 물리량을 읽을 수 있는 신호로 바꾸고, 보정은 눈금의 체계적 치우침을 줄입니다."
+        },
+        {
+          "name": "편향 b",
+          "role": "센서나 보정의 문제로 측정값 전체가 한쪽으로 밀리는 성분입니다."
+        },
+        {
+          "name": "잡음 ε",
+          "role": "센서와 환경의 작은 변화로 측정값이 매번 달라지는 성분입니다."
+        }
+      ],
+      "flow": "온도계가 참온도 22.0°C를 잰다고 해 봅시다. 보정 오차가 +0.3°C이고 이번 측정의 잡음이 −0.1°C이면 표시값은 22.2°C입니다. 같은 조건으로 반복해도 편향은 비슷하게 남지만 잡음은 매번 달라집니다. 독립적인 잡음을 여러 번 평균 내면 흔들림은 줄어들 수 있지만, 편향은 보정하지 않으면 남습니다."
+    },
+    "key_points": [
+      "측정값은 참값 그 자체가 아니라 참값의 추정값입니다.",
+      "편향은 여러 번 측정해 평균을 내도 자동으로 없어지지 않습니다.",
+      "독립적인 평균 0 잡음은 반복 측정의 평균으로 줄어들 수 있습니다.",
+      "측정값의 흩어짐이 작아도 편향이 크면 참값에 가깝다고 할 수 없습니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "참온도는 30.0°C이고 온도계의 편향은 +0.4°C입니다. 이번 측정의 잡음이 −0.1°C라면 측정값은 얼마인가요?",
+        "choices": [],
+        "answer": -1,
+        "solution": "측정 모델에 대입하면 30.0 + 0.4 + (−0.1) = 30.3입니다. 측정값은 30.3°C입니다."
+      },
+      {
+        "kind": "choice",
+        "question": "기준 온도계와 비교했더니 센서의 반복 측정값이 서로 조금씩 흩어지고, 평균은 기준값보다 0.5°C 높았습니다. 가장 알맞은 해석은 무엇인가요?",
+        "choices": [
+          "편향은 없고 잡음만 있다.",
+          "잡음은 없고 편향만 있다.",
+          "편향과 잡음이 모두 있을 수 있다.",
+          "측정값이 흩어지면 참값도 같은 폭으로 변한다."
+        ],
+        "answer": 2,
+        "solution": "정답은 3번입니다. 반복값의 흩어짐은 잡음이 있음을, 평균의 지속적인 +0.5°C 차이는 편향이 있음을 시사합니다. 1번은 평균 차이를 설명하지 못하고, 2번은 값의 흩어짐을 설명하지 못합니다. 4번은 센서의 측정값 변화와 참값 변화를 혼동합니다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\nimport matplotlib.pyplot as plt\n\nrng = np.random.default_rng(4)\ntrue = 22.0\nbias = 0.3\nreadings = true + bias + rng.normal(0.0, 0.2, 1000)\nprint(round(readings.mean(), 2), round(readings.std(ddof=1), 2))\nplt.hist(readings, bins=30)\nplt.axvline(true, color=\"black\", label=\"true\")\nplt.axvline(readings.mean(), color=\"red\", label=\"mean\")\nplt.xlabel(\"Temperature (deg C)\")\nplt.ylabel(\"Count\")\nplt.legend()\nplt.show()",
+      "what_it_shows": "히스토그램의 폭은 무작위 잡음의 크기를, 참값과 측정 평균의 간격은 편향을 보여 줍니다. 표본 평균과 표준편차를 출력해 두 효과를 따로 살펴볼 수 있습니다."
+    },
+    "references": [
+      {
+        "title": "An Introduction to Error Analysis: The Study of Uncertainties in Physical Measurements",
+        "source": "J. R. Taylor",
+        "where": "제2판, 1–2장"
+      }
+    ],
+    "used_in_lab": "열전달과 공간 열쾌적성 모델에서 온도 센서값의 불확실성을 해석하고, 이기종 센서 융합과 Lucas–Kanade 기반 자세 흔들림 평가에서 측정 오차를 구분하는 데 씁니다."
+  }
+}

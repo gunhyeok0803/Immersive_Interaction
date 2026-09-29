@@ -1,0 +1,95 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:11:22.850Z",
+  "id": "xr-remote-collaboration-interface-evaluation",
+  "name": "XR 원격 협업 인터페이스 평가",
+  "english": "XR Remote-Collaboration Interface Evaluation",
+  "level": 3,
+  "field": "hci",
+  "one_line": "2D·360도·3D 재구성 화면, 손짓, 3D 드로잉과 가상 복제물을 비교해 조립 과업 시간, 협업 경험, 선호도를 측정한다.",
+  "prerequisites": [
+    "xr-rendering-interaction",
+    "human-subject-usability",
+    "psychometrics-questionnaires"
+  ],
+  "applications": [],
+  "card": {
+    "id": "xr-remote-collaboration-interface-evaluation",
+    "intuition": "같은 조립 과업도 화면이 2D인지, 360도 영상인지, 3D 재구성인지에 따라 찾고 가리키는 방식이 달라진다. 손짓이나 3D 드로잉, 가상 복제물도 협업에 서로 다른 도움을 준다. 한 장면을 보고 “더 좋다”고 정하기보다, 조건을 비교하고 과업 결과와 사용자의 경험을 함께 측정해야 한다. 사용자 실험과 사용성 평가, 심리측정의 원리를 XR 협업에 적용하는 개념이다.",
+    "definition": "XR 원격 협업 인터페이스 평가는 조립 과업을 수행하는 팀이 여러 시각 표현이나 상호작용 조건을 사용할 때의 차이를 체계적으로 측정하는 비교 평가다. 독립변수(independent variable)는 화면 표현이나 입력 방식이고, 종속변수(dependent variable)는 과업 시간·오류·완성도·협업 경험·선호도 등이 될 수 있다. 인터페이스 조건 외의 과업 난이도와 안내 방식도 가능한 한 통제하고, 설문 척도는 측정하려는 경험에 맞게 선택한다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "평가 질문과 조건",
+          "role": "예를 들어 2D·360도·3D 재구성 중 어떤 표현이 조립 위치를 찾기 쉽게 하는지 질문하고 비교할 조건을 정한다."
+        },
+        {
+          "name": "참가자와 과업",
+          "role": "두 사람이 같은 역할로 협력해 같은 난이도의 부품 조립 과업을 수행하도록 한다."
+        },
+        {
+          "name": "측정 항목",
+          "role": "완료 시간과 오류 같은 수행 지표, 협업 경험 설문, 조건 선호도를 각각 기록한다."
+        },
+        {
+          "name": "비교와 해석",
+          "role": "조건 간 차이를 비교하고 시간 단축이 오류 증가나 협업 경험 저하와 함께 나타났는지도 살핀다."
+        }
+      ],
+      "flow": "예를 들어 같은 팀이 2D 도면과 3D 재구성 화면에서 동일한 부품 조립을 한다. 화면 외의 안내와 과업 난이도는 맞추고, 팀마다 조건 순서를 바꿔 먼저 해본 경험이 결과를 좌우하는 일을 줄인다. 완료 시간과 조립 오류를 기록한 뒤, 각 조건의 협업 경험과 선호도를 같은 설문 척도로 묻는다. 결과를 함께 보면 빠르지만 오류가 많은 조건과, 조금 느려도 협업이 편한 조건을 구분할 수 있다."
+    },
+    "key_points": [
+      "화면 표현이나 입력 방식이 비교하려는 조건이며, 시간·오류·경험은 서로 다른 결과 지표다.",
+      "협업 과업에서는 개인이 아니라 팀을 평가 단위로 삼을 수 있다.",
+      "조건 순서를 고정하면 연습 효과가 특정 인터페이스에 유리하게 작용할 수 있다.",
+      "선호도가 높다고 해서 과업 성능이나 협업 경험도 반드시 좋은 것은 아니다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "두 팀이 같은 조립 과업을 했다. 인터페이스 A는 더 빨랐지만 오류가 많았고, B는 조금 느렸지만 오류가 적었다. 두 조건을 균형 있게 비교하려면 무엇을 기록하는 것이 가장 적절한가?",
+        "choices": [
+          "A의 완료 시간만 기록한다.",
+          "완료 시간과 오류를 기록하고, 협업 경험과 선호도도 별도로 측정한다.",
+          "마지막에 더 마음에 든 인터페이스만 묻는다.",
+          "팀이 자유롭게 과업을 바꾸게 하고 전체 인상만 기록한다."
+        ],
+        "answer": 1,
+        "solution": "정답은 1번이다. 시간과 오류는 서로 다른 수행 결과이므로 함께 봐야 하고, 협업 경험과 선호도는 별도 지표로 측정해야 한다. 0번은 오류를 놓치고, 2번은 수행 결과를 설명하지 못한다. 3번은 과업 조건이 달라져 인터페이스 차이를 공정하게 비교하기 어렵다."
+      },
+      {
+        "kind": "choice",
+        "question": "참가자 전원이 2D 화면을 먼저 쓰고, 그다음 360도 화면을 쓰도록 했다. 360도 조건의 결과가 더 좋았다면 우선 확인해야 할 문제는 무엇인가?",
+        "choices": [
+          "참가자가 360도 화면을 선호했는지 여부만 확인한다.",
+          "두 조건에서 사용한 설문 문항 수가 같았는지 확인한다.",
+          "조건 순서가 고정되어 생긴 연습 효과나 순서 효과를 확인한다.",
+          "조립 과업 시간을 결과에서 제외한다."
+        ],
+        "answer": 2,
+        "solution": "정답은 2번이다. 참가자가 첫 조건에서 과업을 익혔을 수 있으므로 조건 순서를 바꾸거나 균형 있게 배정해야 한다. 0번은 선호도만으로 수행 차이를 설명하려는 문제를 해결하지 못한다. 1번은 설문 비교에는 도움이 되지만 순서 효과를 없애지 않는다. 3번은 중요한 수행 지표를 근거 없이 버리는 선택이다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Research Methods in Human-Computer Interaction",
+        "source": "Jonathan Lazar, Jinjuan Heidi Feng, Harry Hochheiser",
+        "where": "Chapter 2, Experimental Research; Chapter 5, Survey Research"
+      },
+      {
+        "title": "MIT OpenCourseWare 6.831/6.813 User Interface Design and Implementation",
+        "source": "MIT",
+        "where": "Lecture 13, User Testing; Experiment Analysis"
+      },
+      {
+        "title": "Virtual Reality",
+        "source": "Steven M. LaValle",
+        "where": "Chapter 12, Evaluating VR Systems and Experiences"
+      }
+    ],
+    "used_in_lab": "XR 원격 조립 과업에서 화면 표현과 입력 방식에 따른 시간·오류·협업 경험·선호도를 함께 비교하는 데 쓴다."
+  }
+}

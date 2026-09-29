@@ -1,0 +1,108 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:57:49.258Z",
+  "id": "distributed-edge-systems",
+  "name": "분산·엣지 시스템",
+  "english": "Distributed and Edge Systems",
+  "level": 2,
+  "field": "systems",
+  "one_line": "분산·엣지 시스템은 데이터를 여러 장치와 서버에 나누어 처리해 지연, 확장성, 저장 제약을 관리한다.",
+  "prerequisites": [
+    "network-communication-basics",
+    "algorithms-complexity"
+  ],
+  "applications": [
+    "interoperable-xr-content-and-decentralized-web",
+    "ipfs-mqtt-hybrid-iot-storage",
+    "semantic-digital-twin-me-centric-iot"
+  ],
+  "card": {
+    "id": "distributed-edge-systems",
+    "intuition": "센서마다 모든 원자료를 먼 서버로 보내면 네트워크가 붐비고 반응도 늦어진다. 데이터를 만든 곳 가까이에서 먼저 처리하면 빠른 응답이 가능하고, 서버는 여러 장치의 큰 작업을 모아 처리할 수 있다. 네트워크 통신과 계산 복잡도를 바탕으로 어떤 일을 장치·엣지·클라우드에 둘지 정한다. 각 위치의 저장 공간과 연결 상태도 함께 고려해야 한다.",
+    "definition": "분산 시스템(Distributed System)은 네트워크로 연결된 여러 컴퓨터나 장치가 협력해 하나의 서비스나 작업을 제공하는 시스템이다. 엣지 컴퓨팅(Edge Computing)은 데이터가 생기는 장치나 가까운 게이트웨이에서 일부 계산과 저장을 수행하는 방식이다. 설계에서는 지연, 대역폭, 계산 능력, 저장 용량, 장애와 데이터 일관성을 함께 고려한다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "장치와 데이터 원천",
+          "role": "센서나 XR 기기가 원자료와 이벤트를 생성한다."
+        },
+        {
+          "name": "엣지 노드",
+          "role": "게이트웨이나 가까운 서버가 데이터를 필터링·요약하거나 긴급 판단을 수행한다."
+        },
+        {
+          "name": "메시지 전달",
+          "role": "MQTT 같은 발행·구독 프로토콜은 생산자와 구독자가 주제별 이벤트를 교환하도록 돕는다. [OASIS MQTT Version 5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)은 이를 클라이언트·서버 메시지 전송 프로토콜로 정의한다."
+        },
+        {
+          "name": "클라우드 서비스",
+          "role": "중앙 서버는 여러 엣지의 자료를 모아 장기 분석이나 넓은 범위의 처리를 수행한다."
+        },
+        {
+          "name": "콘텐츠 주소와 보관",
+          "role": "IPFS CID는 콘텐츠 기반 식별자다. [IPFS의 콘텐츠 주소 문서](https://docs.ipfs.tech/concepts/content-addressing/)에 따르면 CID는 저장 위치 자체를 나타내지 않으므로, 실제 접근성을 유지하려면 데이터를 보유한 노드가 필요하다."
+        }
+      ],
+      "flow": "예를 들어 현장 센서가 이상 징후를 내면 엣지 노드가 근처에서 먼저 판단하고, 필요한 이벤트만 MQTT 주제로 발행한다. 센서가 저장한 큰 이미지나 XR 자산은 IPFS CID로 식별하고, 다른 노드가 데이터를 보유하도록 보관·복제 정책을 둔다. 클라우드는 여러 현장의 이벤트를 모아 장기 추세를 계산한다. 이 구성은 원자료를 전부 전송하는 부담을 줄일 수 있지만, 엣지 장애나 네트워크 단절 때 자료를 어떻게 보관하고 동기화할지도 정해야 한다."
+    },
+    "key_points": [
+      "엣지는 데이터 생성 지점 가까이에 계산을 두어 지연과 네트워크 전송량을 줄일 수 있다.",
+      "모든 작업을 엣지로 옮길 수는 없다. 장치의 계산 능력과 저장 공간이 제한될 수 있다.",
+      "MQTT는 이벤트 메시지 전달을, IPFS CID는 콘텐츠 기반 식별을 맡는다.",
+      "CID를 알고 있다는 사실만으로 콘텐츠가 계속 저장되거나 이용 가능하다는 보장은 없다.",
+      "분산 노드 사이의 장애, 연결 단절, 복제와 일관성을 설계해야 한다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "로봇이 장애물을 감지하면 즉시 멈춰야 한다. 처리 위치로 가장 적절한 선택은?",
+        "choices": [
+          "엣지나 로봇 내부에서 감지·정지 판단을 수행하고, 요약 정보를 클라우드에 보낸다.",
+          "원자료를 클라우드로 보내고 응답이 올 때까지 로봇을 계속 움직인다.",
+          "모든 영상과 센서 기록을 IPFS CID로 바꾸면 정지 판단이 자동으로 된다.",
+          "클라우드가 모든 결과를 처리할 때까지 로컬 저장을 금지한다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 즉각 반응이 필요한 작업은 가까운 곳에서 처리해 네트워크 왕복 지연을 줄이는 편이 적절하다. 1번은 긴급 동작을 네트워크 상태에 맡기고, 2번은 콘텐츠 주소가 분석이나 제어를 대신한다고 오해하며, 3번은 연결 단절과 장치 자원 제약을 무시한다."
+      },
+      {
+        "kind": "choice",
+        "question": "센서 이벤트는 짧은 메시지로 여러 서비스에 보내고, 큰 사진은 콘텐츠 기반 주소로 공유하려 한다. 역할을 올바르게 나눈 조합은?",
+        "choices": [
+          "MQTT로 이벤트를 발행·구독하고, IPFS CID로 사진 콘텐츠를 식별한다.",
+          "MQTT에 사진 전체를 저장하고, IPFS CID로 구독자를 관리한다.",
+          "두 데이터를 모두 CID로 바꾸면 실시간 전달과 보관이 자동 보장된다.",
+          "MQTT는 위치 좌표를 인코딩하고, IPFS는 이벤트 순서를 정한다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. MQTT는 이벤트 메시지의 발행·구독에, CID는 콘텐츠를 식별하는 데 쓸 수 있다. 1번은 각 기술의 역할을 뒤바꿨고, 2번은 식별만으로 실시간 전달과 지속적 보관이 보장된다고 잘못 가정하며, 3번은 두 기술의 기능을 혼동한다."
+      },
+      {
+        "kind": "choice",
+        "question": "서비스가 IPFS CID를 데이터베이스에 기록했다. 데이터를 계속 이용할 수 있게 하려면 무엇을 더 고려해야 하는가?",
+        "choices": [
+          "CID가 저장 위치와 복제까지 보장하므로 추가 조치가 필요 없다.",
+          "데이터를 보유한 노드가 연결 가능하고 필요한 기간 동안 콘텐츠를 유지하도록 보관·복제 정책을 둔다.",
+          "MQTT 구독을 등록하면 해당 CID의 파일이 자동으로 저장된다.",
+          "CID를 짧게 줄이면 콘텐츠가 더 오래 남는다."
+        ],
+        "answer": 1,
+        "solution": "정답은 1번이다. CID는 콘텐츠를 식별하지만, 어디에 저장되는지나 노드가 계속 보유할지는 보장하지 않는다. 0번은 CID의 역할을 과장하고, 2번은 메시지 구독을 파일 보관과 혼동하며, 3번은 CID의 길이와 보관 기간이 관련 있다고 잘못 본다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nrng = np.random.default_rng(7)\nsignal = 20 + rng.normal(0, 0.6, 1000)\nsignal[500:520] += 12\nchange = np.abs(np.diff(signal, prepend=signal[0]))\nevents = np.flatnonzero(change > 5)\nprint(f\"raw samples sent: {signal.size}\")\nprint(f\"edge events sent: {events.size}\")\nprint(f\"event indices: {events.tolist()}\")",
+      "what_it_shows": "엣지에서 값의 큰 변화만 이벤트로 골라 보내면 원자료 1,000개 대신 변화 지점만 전송할 수 있음을 확인한다. 이 간단한 예는 전송량 감소를 보여 주며, 실제 시스템에서는 임계값과 누락된 세부 자료의 필요성도 함께 정해야 한다."
+    },
+    "references": [
+      {
+        "title": "Distributed Systems: Principles and Paradigms",
+        "source": "Andrew S. Tanenbaum, Maarten van Steen",
+        "where": "분산 시스템의 구조와 통신 관련 장"
+      }
+    ],
+    "used_in_lab": "분산·엣지 시스템은 상호운용 XR 콘텐츠와 분산 웹의 자산 전달, MQTT 이벤트와 IPFS CID를 결합한 IoT 저장, 의미 기반 디지털 트윈의 현장 처리를 뒷받침한다."
+  }
+}

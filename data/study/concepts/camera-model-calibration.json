@@ -1,0 +1,129 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:38:11.264Z",
+  "id": "camera-model-calibration",
+  "name": "카메라 모델과 보정",
+  "english": "Camera Models and Calibration",
+  "level": 2,
+  "field": "vision",
+  "one_line": "카메라 모델은 3D 공간을 2D 영상에 투영하는 과정을 기술하고 보정은 카메라의 내부·외부 파라미터를 구한다.",
+  "prerequisites": [
+    "coordinate-geometry",
+    "matrices-linear-maps"
+  ],
+  "applications": [
+    "three-dimensional-reconstruction",
+    "rendering-rasterization",
+    "neural-radiance-fields"
+  ],
+  "card": {
+    "id": "camera-model-calibration",
+    "intuition": "3D 점을 사진으로 옮기는 카메라는 공간을 한 점에서 바라보는 투시 장치처럼 생각할 수 있다. 점이 카메라 가까이에 있으면 크게, 멀리 있으면 작게 보이며 렌즈와 센서의 배치도 픽셀 위치에 영향을 준다. 카메라 모델(Camera Model)은 이 투영 과정을 수식으로 나타낸다. 보정(Calibration)은 알려진 공간 점과 사진 속 점을 맞춰 카메라의 특성과 위치를 알아내는 과정이다.",
+    "definition": "이상적인 핀홀 카메라 모델(pinhole camera model)은 카메라 좌표의 3D 점을 원근 투영으로 2D 픽셀 좌표에 대응시킨다. 내부 파라미터(intrinsics)는 초점거리의 픽셀 표현과 주점(principal point) 등을 나타내고, 외부 파라미터(extrinsics)는 월드 좌표계에서 카메라 좌표계로의 회전과 이동을 나타낸다. 보정은 알려진 3D 점과 영상에서 찾은 대응점으로 이 파라미터를 추정하며, 실제 렌즈의 왜곡은 별도 왜곡 모델로 다룰 수 있다.",
+    "formula": {
+      "latex": "\\begin{aligned}\\mathbf{X}_c&=R\\mathbf{X}_w+\\mathbf{t},\\\\u&=f_x\\frac{X_c}{Z_c}+c_x,\\qquad v=f_y\\frac{Y_c}{Z_c}+c_y.\\end{aligned}",
+      "symbols": [
+        {
+          "symbol": "\\mathbf{X}_w",
+          "meaning": "월드 좌표계의 3D 점; 좌표 단위는 m 등 사용한 길이 단위"
+        },
+        {
+          "symbol": "\\mathbf{X}_c=(X_c,Y_c,Z_c)^T",
+          "meaning": "카메라 좌표계에서 본 3D 점; 좌표 단위는 월드 좌표와 동일"
+        },
+        {
+          "symbol": "R",
+          "meaning": "월드 좌표를 카메라 방향으로 회전시키는 회전 행렬; 무차원"
+        },
+        {
+          "symbol": "\\mathbf{t}",
+          "meaning": "월드 좌표계 원점을 카메라 좌표계로 옮기는 이동 벡터; 길이 단위"
+        },
+        {
+          "symbol": "u,v",
+          "meaning": "영상의 가로·세로 픽셀 좌표; pixel"
+        },
+        {
+          "symbol": "f_x,f_y",
+          "meaning": "가로·세로 방향 유효 초점거리; pixel"
+        },
+        {
+          "symbol": "c_x,c_y",
+          "meaning": "주점의 가로·세로 픽셀 좌표; pixel"
+        },
+        {
+          "symbol": "Z_c",
+          "meaning": "카메라 좌표계에서의 깊이; 길이 단위"
+        }
+      ],
+      "reading": "먼저 회전 R과 이동 t로 월드 점을 카메라 좌표로 바꾼다. 그다음 X_c와 Y_c를 깊이 Z_c로 나누고 초점거리와 주점으로 변환해 픽셀 위치를 얻는다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "월드 좌표계와 3D 점",
+          "role": "장면의 점을 기준 좌표계에서 표현한다."
+        },
+        {
+          "name": "외부 파라미터(extrinsics)",
+          "role": "회전 R과 이동 t로 장면 점을 카메라 좌표계로 변환한다."
+        },
+        {
+          "name": "내부 파라미터(intrinsics)",
+          "role": "초점거리와 주점 등을 이용해 카메라 좌표를 픽셀 좌표에 대응시킨다."
+        },
+        {
+          "name": "렌즈 왜곡(distortion)",
+          "role": "실제 렌즈에서 이상적 핀홀 투영과 달라지는 방사·접선 왜곡을 보정한다."
+        },
+        {
+          "name": "보정에 쓰는 대응점",
+          "role": "알려진 3D 점과 영상에서 검출한 2D 점을 연결해 파라미터를 추정한다."
+        }
+      ],
+      "flow": "예를 들어 체커보드의 칸 간격이 알려져 있으면 각 모서리의 3D 위치를 정할 수 있다. 여러 방향에서 촬영한 영상에서 모서리의 픽셀 위치를 검출해 3D–2D 대응점을 만든다. 이 대응점의 투영 위치가 영상과 잘 맞도록 내부·외부 파라미터와 필요한 왜곡 계수를 추정한다. 보정된 모델은 새 3D 점의 영상 위치를 예측하거나 여러 영상의 기하 관계를 계산하는 데 쓴다."
+    },
+    "key_points": [
+      "내부 파라미터는 카메라 자체의 투영 특성이고, 외부 파라미터는 카메라의 위치와 방향이다.",
+      "보정에는 알려진 공간 점과 영상에서 검출한 점의 대응이 필요하다.",
+      "핀홀 모델은 렌즈 왜곡을 자동으로 설명하지 않으므로 필요한 경우 왜곡 계수를 함께 추정한다.",
+      "보정은 카메라 모델의 파라미터를 구하는 일이며, 장면의 3D 깊이를 단독으로 알아내는 일은 아니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "왜곡이 없고 카메라 좌표가 X_c=0.5 m, Y_c=-0.25 m, Z_c=2 m이다. f_x=f_y=800 pixel, c_x=320 pixel, c_y=240 pixel일 때 픽셀 위치 (u,v)를 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "u=800·(0.5/2)+320=200+320=520 pixel이다. v=800·(-0.25/2)+240=-100+240=140 pixel이다. 따라서 영상 위치는 (520, 140) pixel이다."
+      },
+      {
+        "kind": "choice",
+        "question": "같은 렌즈와 같은 해상도를 유지한 채 카메라를 삼각대 위에서 옮겼다. 이상적인 모델에서 어떤 파라미터가 바뀌는가?",
+        "choices": [
+          "외부 파라미터 R,t가 바뀌고 내부 파라미터는 유지된다.",
+          "내부 파라미터만 바뀌고 외부 파라미터는 유지된다.",
+          "내부와 외부 파라미터가 모두 반드시 바뀐다.",
+          "아무 파라미터도 바뀌지 않는다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 카메라를 옮기면 월드 좌표계에서 카메라의 위치와 방향이 달라지므로 외부 파라미터 R,t가 바뀐다. 렌즈와 해상도가 같다면 이상적인 조건에서 초점거리와 주점 등 내부 파라미터는 유지된다. 1번은 카메라 이동과 내부 파라미터를 혼동한다. 2번은 내부 파라미터가 반드시 바뀐다고 했지만 조건상 그렇지 않다. 3번은 위치·방향 변화를 반영하지 못한다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Computer Vision: Algorithms and Applications, 2nd ed.",
+        "source": "Richard Szeliski",
+        "where": "Ch. 2, Image Formation"
+      },
+      {
+        "title": "Multiple View Geometry in Computer Vision, 2nd ed.",
+        "source": "Richard Hartley and Andrew Zisserman",
+        "where": "Camera models and projective geometry"
+      }
+    ],
+    "used_in_lab": "보정된 카메라 모델을 3D 재구성과 렌더링·래스터화에서 3D 점을 영상 좌표에 투영할 때 쓴다."
+  }
+}

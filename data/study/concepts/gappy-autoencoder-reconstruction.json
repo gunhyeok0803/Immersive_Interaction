@@ -1,0 +1,133 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:00:53.465Z",
+  "id": "gappy-autoencoder-reconstruction",
+  "name": "Gappy 오토인코더",
+  "english": "Gappy Autoencoder",
+  "level": 3,
+  "field": "ml",
+  "one_line": "Gappy 오토인코더는 희소 관측값으로 비선형 잠재 표현을 추정해 데이터를 복원하며 선형 축소의 한계와 Kolmogorov N-width를 비교한다.",
+  "prerequisites": [
+    "autoencoders-latent-representation",
+    "sparse-field-reconstruction",
+    "reduced-order-modeling"
+  ],
+  "applications": [
+    "thermal-field-reconstruction-evaluation",
+    "earthquake-ground-motion-reconstruction"
+  ],
+  "card": {
+    "id": "gappy-autoencoder-reconstruction",
+    "intuition": "POD는 공간장을 정해진 직선형 기저의 조합으로 나타냅니다. 하지만 실제 상태들이 휘어진 곡면처럼 놓여 있다면, 선형 기저로는 작은 오차를 내려 많은 모드가 필요할 수 있습니다. 오토인코더는 학습한 비선형 잠재 표현으로 이런 곡면을 나타내고, 관측된 값과 관측 위치 표시를 이용해 잠재 코드를 추정한 뒤 전체장을 복원합니다. 관측이 너무 적거나 학습에 없던 상태라면 오토인코더도 실제 값을 유일하게 알아낼 수는 없습니다.",
+    "definition": "Gappy 오토인코더는 전체 상태 snapshot으로 encoder와 decoder를 학습하고, 추론할 때 희소 관측값과 관측 마스크(mask)를 입력해 전체 상태를 복원하는 오토인코더입니다. encoder가 잠재 코드(latent code)를 직접 예측하는 방식이 있고, decoder가 관측값과 가장 잘 맞도록 잠재 코드를 찾는 방식도 있습니다. Kolmogorov n-width는 상태 집합을 n차원 선형 공간으로 근사할 때 가능한 최선의 최악 오차를 뜻하며, 이 값이 천천히 감소하면 POD 같은 선형 축소에는 많은 모드가 필요할 수 있습니다.",
+    "formula": {
+      "latex": "\\mathbf{z}=E_{\\phi}\\!\\left(\\operatorname{concat}(\\mathbf{m}\\odot\\mathbf{x},\\mathbf{m})\\right),\\quad \\hat{\\mathbf{x}}=D_{\\psi}(\\mathbf{z})",
+      "symbols": [
+        {
+          "symbol": "\\mathbf{x}",
+          "meaning": "완전한 기준 상태 벡터. 각 성분은 온도나 속도처럼 상태장의 물리 단위를 가집니다."
+        },
+        {
+          "symbol": "\\mathbf{m}",
+          "meaning": "관측 마스크 벡터. 관측된 위치는 1, 빠진 위치는 0이며 단위가 없습니다."
+        },
+        {
+          "symbol": "\\odot",
+          "meaning": "같은 위치끼리 곱하는 원소별 곱 연산입니다."
+        },
+        {
+          "symbol": "\\operatorname{concat}",
+          "meaning": "희소 입력 벡터와 마스크를 이어 붙이는 연산입니다."
+        },
+        {
+          "symbol": "E_{\\phi}",
+          "meaning": "학습된 encoder 함수. 희소 입력과 마스크를 잠재 코드로 변환합니다."
+        },
+        {
+          "symbol": "\\phi",
+          "meaning": "encoder의 학습 매개변수입니다. 입력 정규화 기준에서 수치 매개변수이며 단위가 없습니다."
+        },
+        {
+          "symbol": "\\mathbf{z}",
+          "meaning": "encoder가 추정한 저차원 잠재 코드입니다. 보통 정규화된 무차원 값으로 다룹니다."
+        },
+        {
+          "symbol": "D_{\\psi}",
+          "meaning": "학습된 decoder 함수. 잠재 코드를 전체 상태장으로 변환합니다."
+        },
+        {
+          "symbol": "\\psi",
+          "meaning": "decoder의 학습 매개변수입니다. 입력 정규화 기준에서 수치 매개변수이며 단위가 없습니다."
+        },
+        {
+          "symbol": "\\hat{\\mathbf{x}}",
+          "meaning": "decoder가 복원한 전체 상태 벡터. 각 성분 단위는 상태장과 같습니다."
+        }
+      ],
+      "reading": "관측되지 않은 위치를 0으로 가린 값과 관측 마스크를 encoder에 넣어 잠재 코드를 구합니다. decoder는 그 코드에서 전체 상태장을 출력합니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "전체 상태 snapshot",
+          "role": "비선형 encoder와 decoder가 학습할 상태장의 사례를 제공합니다."
+        },
+        {
+          "name": "희소 입력과 마스크",
+          "role": "관측값을 남기고 어떤 위치가 관측되었는지 표시합니다."
+        },
+        {
+          "name": "Encoder와 잠재 코드",
+          "role": "희소 입력의 패턴을 저차원 비선형 표현으로 압축합니다."
+        },
+        {
+          "name": "Decoder와 복원 평가",
+          "role": "잠재 코드에서 전체장을 만들고 관측값 및 알려진 정답과 비교합니다."
+        }
+      ],
+      "flow": "훈련 때 전체 열환경장 snapshot에 여러 센서 마스크를 적용해 희소 입력과 마스크를 만듭니다. encoder는 두 입력을 받아 잠재 코드를 만들고, decoder는 전체 격자의 온도장을 출력하도록 학습합니다. 실제 사용 때는 일부 온도와 센서 위치 표시만 encoder에 넣어 나머지 격자 온도를 복원합니다. 복원은 학습 데이터가 대표하는 상태에 의존하므로, 관측 위치가 부적절하거나 새 환경이 학습 범위를 벗어나면 오차가 커질 수 있습니다."
+    },
+    "key_points": [
+      "마스크는 값이 0인 위치가 실제 측정 0인지, 관측되지 않은 위치인지 구분합니다.",
+      "POD는 고정된 선형 부분공간을 사용하고, 오토인코더는 비선형 잠재 표현을 학습할 수 있습니다.",
+      "Kolmogorov n-width가 천천히 감소한다는 것은 n개 모드의 선형 근사 오차가 빠르게 줄지 않는다는 뜻입니다. 이것이 오토인코더의 성공을 보장하지는 않습니다.",
+      "센서 수가 적을수록 서로 다른 상태가 같은 희소 관측값을 만들 수 있어 복원이 모호해집니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "세 위치의 관측 입력이 v=(2,0,4), 마스크가 m=(1,0,1)입니다. 이 연습용 encoder는 z=(v₁+v₃)/2를 계산하고 decoder는 x̂=(z,z+1,z+2)를 출력합니다. 잠재 코드와 복원 벡터를 구하세요.",
+        "choices": [],
+        "answer": -1,
+        "solution": "마스크가 1인 첫째와 셋째 위치의 관측값은 2와 4입니다. 따라서 z=(2+4)/2=3이고, decoder 출력은 (3,4,5)입니다."
+      },
+      {
+        "kind": "choice",
+        "question": "상태 snapshot이 휘어진 저차원 집합에 놓여 있고, 적은 POD 모드로 근사할 때 오차가 잘 줄지 않습니다. 희소 관측값이 주어졌을 때 Gappy 오토인코더의 역할을 가장 정확히 설명한 것은 무엇인가요?",
+        "choices": [
+          "비선형 encoder와 decoder가 휘어진 잠재 구조를 학습해 복원을 개선할 수 있지만, 센서 관측과 학습 범위에 따라 오차가 남을 수 있다.",
+          "비선형 모델이므로 어떤 센서 위치를 쓰더라도 전체 상태를 정확히 알아낸다.",
+          "Kolmogorov n-width가 크면 오토인코더는 자동으로 오차가 0이 된다.",
+          "오토인코더는 센서 위치를 알려주는 마스크를 사용할 수 없다."
+        ],
+        "answer": 0,
+        "solution": "0번은 비선형 표현이 선형 POD의 한계를 줄일 수 있음을 말하면서도, 복원이 센서와 학습 데이터에 의존한다는 점을 포함합니다. 1번은 희소 관측의 모호성과 나쁜 센서 배치를 무시합니다. 2번은 선형 공간의 n-width가 크다는 사실만으로 학습 모델의 오차가 0이 되지는 않습니다. 3번은 마스크를 입력으로 사용해 관측 위치와 결측 위치를 구분하는 방식을 놓칩니다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "[Deep Learning](https://www.deeplearningbook.org/contents/autoencoders.html)",
+        "source": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+        "where": "14장 Autoencoders, 특히 14.6절 Learning Manifolds with Autoencoders"
+      },
+      {
+        "title": "[Data-Driven Science and Engineering](https://www.cambridge.org/highereducation/books/data-driven-science-and-engineering/6F9A730B7A9A9F43F68CF21A24BEC339)",
+        "source": "Steven L. Brunton, J. Nathan Kutz",
+        "where": "12.7절 Machine Learning ROMs"
+      }
+    ],
+    "used_in_lab": "열환경장과 지진 지반운동을 복원할 때 센서가 드문 관측값과 위치 마스크에서 잠재 코드를 추정해 전체 상태를 실시간으로 채우는 데 쓸 수 있다."
+  }
+}

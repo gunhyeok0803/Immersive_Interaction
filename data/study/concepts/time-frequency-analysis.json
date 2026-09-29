@@ -1,0 +1,126 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:36:32.726Z",
+  "id": "time-frequency-analysis",
+  "name": "시간-주파수 분석",
+  "english": "Time-Frequency Analysis",
+  "level": 2,
+  "field": "signal",
+  "one_line": "시간-주파수 분석은 신호의 주파수 성분이 시간에 따라 어떻게 변하는지 보여준다.",
+  "prerequisites": [
+    "digital-signal-processing",
+    "fourier-transform"
+  ],
+  "applications": [
+    "lucas-kanade-postural-sway-assessment",
+    "eeg-heartbeat-evoked-cybersickness"
+  ],
+  "card": {
+    "id": "time-frequency-analysis",
+    "intuition": "전체 신호의 푸리에 변환은 어떤 주파수가 들어 있는지는 보여 주지만, 그 주파수가 언제 나타났는지는 알려 주지 않는다. 음악에서 어떤 음이 사용됐는지는 알지만 음이 시작된 시점은 모르는 것과 비슷하다. 시간-주파수 분석은 짧은 구간마다 주파수를 살펴 이 둘을 함께 보여 준다. 그래서 시간에 따라 내용이 바뀌는 신호를 이해할 때 필요하다.",
+    "definition": "시간-주파수 분석은 신호의 주파수 성분이 시간에 따라 어떻게 나타나고 변하는지 표현하는 방법이다. 대표적인 방법인 단시간 푸리에 변환(Short-Time Fourier Transform, STFT)은 이동하는 창(window)을 신호에 곱하고 각 구간을 푸리에 변환한다. 각 구간의 변환 크기나 전력을 시간과 주파수에 따라 그린 결과를 스펙트로그램(spectrogram)이라고 한다.",
+    "formula": {
+      "latex": "X_r(e^{j\\omega})=\\sum_{n=-\\infty}^{\\infty}x[n]w[n-rR]e^{-j\\omega n}",
+      "symbols": [
+        {
+          "symbol": "X_r(e^{j\\omega})",
+          "meaning": "r번째 구간에서 계산한 국소 주파수 스펙트럼. 단위는 변환하지 않은 x[n]의 단위에 표본 수를 곱한 값이다."
+        },
+        {
+          "symbol": "x[n]",
+          "meaning": "n번째 입력 신호 표본. 단위는 측정 신호에 따라 V, m/s² 등이다."
+        },
+        {
+          "symbol": "w[n-rR]",
+          "meaning": "r번째 구간에 적용하는 창의 가중치. 무차원이다."
+        },
+        {
+          "symbol": "n",
+          "meaning": "신호 표본의 정수 인덱스. 단위는 표본(sample)이다."
+        },
+        {
+          "symbol": "r",
+          "meaning": "구간 또는 프레임 번호. 무차원 정수다."
+        },
+        {
+          "symbol": "R",
+          "meaning": "연속 구간 사이의 이동 간격(hop size). 단위는 표본(sample)이다."
+        },
+        {
+          "symbol": "\\omega",
+          "meaning": "각주파수. 단위는 rad/sample이다."
+        },
+        {
+          "symbol": "j",
+          "meaning": "허수 단위로 j²=-1이며, 무차원이다."
+        }
+      ],
+      "reading": "r번째 창으로 신호의 한 구간을 골라 각 표본에 창 가중치를 곱한 다음, 그 구간의 푸리에 변환을 계산한다. 구간마다 계산한 스펙트럼을 해당 시간 위치에 놓으면 주파수가 시간에 따라 변하는 모습을 볼 수 있다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "입력 신호 x[n]",
+          "role": "시간 순서가 있는 표본을 제공한다."
+        },
+        {
+          "name": "창 w[n]",
+          "role": "한 번에 분석할 구간을 정하고 구간 가장자리의 영향을 조절한다."
+        },
+        {
+          "name": "이동 간격 R",
+          "role": "다음 분석 구간으로 창을 얼마나 옮길지 정한다."
+        },
+        {
+          "name": "구간별 푸리에 변환",
+          "role": "각 구간에 들어 있는 주파수 성분을 계산한다."
+        },
+        {
+          "name": "스펙트로그램",
+          "role": "각 구간의 주파수 세기를 시간과 주파수 축에 표시한다."
+        }
+      ],
+      "flow": "예를 들어 128 Hz로 표본화한 신호가 처음 1초 동안 8 Hz이고 이후 24 Hz라고 하자. 길이 64표본인 창을 32표본씩 옮기면 각 구간을 0.5초 동안 분석하고 0.25초마다 새 결과를 얻는다. 앞쪽 구간에서는 8 Hz 부근, 뒤쪽 구간에서는 24 Hz 부근의 성분이 크게 나타난다. 긴 창은 주파수를 더 세밀하게 구분하지만 급격한 변화가 일어난 시점은 덜 선명하게 보여 준다."
+    },
+    "key_points": [
+      "전체 푸리에 변환은 주파수 성분의 전체 분포를 알려 주지만 시간 위치 정보는 제공하지 않는다.",
+      "창 길이가 길면 주파수 구분이 세밀해지고 시간 변화의 위치는 흐려진다. 짧은 창에서는 반대 경향이 나타난다.",
+      "창을 겹치면 구간 사이의 변화를 더 촘촘히 볼 수 있지만, 창 길이에 따른 시간·주파수 해상도 절충은 사라지지 않는다.",
+      "스펙트로그램은 보통 크기나 전력을 보여 주므로 위상 정보는 그대로 드러나지 않는다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "x[0]=1, x[1]=2, x[2]=0, x[3]=1이고 그 밖의 표본은 0이다. 창은 w[0]=w[1]=1이고 그 밖의 위치에서 0인 직사각 창이다. 이동 간격 R=2일 때, r=1인 구간의 STFT 값을 각주파수 ω=0에서 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "rR=1×2=2이므로 창 w[n-rR]은 n=2,3에서만 1이다. ω=0이면 e^{-jωn}=1이다. 따라서 X₁(e^{j0})=x[2]+x[3]=0+1=1이다."
+      },
+      {
+        "kind": "choice",
+        "question": "갑작스러운 주파수 변화의 시점보다 주파수 성분을 더 세밀하게 구분하고 싶다. 어떤 창 길이를 선택하는 것이 알맞은가?",
+        "choices": [
+          "긴 창을 사용한다. 주파수 구분은 세밀해지고 시간상 변화 시점은 흐려진다.",
+          "짧은 창을 사용한다. 주파수 구분은 세밀해지고 시간상 변화 시점도 선명해진다.",
+          "창 길이는 해상도에 영향을 주지 않으므로 어느 길이나 같다.",
+          "창을 더 많이 겹치면 긴 창과 짧은 창의 해상도 절충이 사라진다."
+        ],
+        "answer": 0,
+        "solution": "긴 창은 한 구간에서 더 많은 표본을 사용해 주파수 성분을 더 세밀하게 구분하지만, 변화가 시작된 시간은 덜 정확하게 나타낸다. 짧은 창은 시간상 변화 위치를 더 잘 드러내지만 주파수 구분은 거칠어진다. 창 길이는 해상도에 영향을 준다. 창을 겹치면 구간 간격은 촘촘해지지만 창 길이의 시간·주파수 절충은 사라지지 않는다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nfs = 128\nt = np.arange(0, 2, 1 / fs)\nx = np.where(t < 1, np.sin(2 * np.pi * 8 * t),\n             np.sin(2 * np.pi * 24 * t))\nlength, hop = 64, 32\nfreq = np.fft.rfftfreq(length, d=1 / fs)\nfor start in range(0, len(x) - length + 1, hop):\n    frame = x[start:start + length] * np.hanning(length)\n    spectrum = np.abs(np.fft.rfft(frame))\n    peak = 1 + np.argmax(spectrum[1:])\n    print(f\"{start / fs:.2f}s: {freq[peak]:.1f} Hz\")",
+      "what_it_shows": "8 Hz에서 24 Hz로 바뀌는 신호를 여러 구간으로 나누고 각 구간에서 가장 큰 주파수 성분을 출력한다. 전환 부근의 구간에서는 두 주파수 성분이 함께 나타날 수 있다."
+    },
+    "references": [
+      {
+        "title": "A Wavelet Tour of Signal Processing: The Sparse Way",
+        "source": "Stéphane Mallat",
+        "where": "Time-Frequency Analysis 장"
+      }
+    ],
+    "used_in_lab": "이 연구실에서는 자세 흔들림이나 사이버멀미와 관련된 생체신호의 주파수 성분이 시간에 따라 어떻게 변하는지 살필 때 사용한다."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:34:44.301Z",
+  "paper_id": "W4212903058",
+  "summary": "수직형 소비자 IoT 시스템에서 생기는 데이터 단절과 상호운용성 문제를 다루기 위해 분산형 ME 중심 아키텍처를 제시한다. 엣지 컴퓨팅, 분산 저장, 디지털 트윈, 블록체인, 시맨틱 온톨로지를 결합해 확장성과 복원력을 갖춘 소비자 IoT 생태계를 설계한다.",
+  "core": [
+    "distributed-edge-systems",
+    "heterogeneous-sensor-data-modeling",
+    "semantic-digital-twin-me-centric-iot"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "IoT 장치와 서비스에서 데이터를 처리하는 기반을 익힌다."
+    },
+    {
+      "concept": "algorithms-complexity",
+      "role": "여러 엣지 노드에 작업과 데이터를 나눌 때 필요한 계산 절차를 이해한다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "장치, 엣지, 분산 저장소를 연결하는 통신 기반을 다룬다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "서로 다른 IoT 응용 사이에서 데이터를 표현하고 교환하는 형식을 익힌다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "이기종 센서가 수집한 값의 오차와 변동을 해석하는 기초가 된다."
+    },
+    {
+      "concept": "distributed-edge-systems",
+      "role": "계산과 저장을 엣지와 분산 자원에 배치하는 구조를 설명한다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 기반 데이터 표현과 통신으로 서로 다른 IoT 서비스가 연동되는 방식을 다룬다."
+    },
+    {
+      "concept": "heterogeneous-sensor-data-modeling",
+      "role": "형식과 특성이 다른 센서 데이터를 함께 표현하고 처리하는 방법을 익힌다."
+    },
+    {
+      "concept": "semantic-digital-twin-me-centric-iot",
+      "role": "분산 IoT 자원과 디지털 트윈을 시맨틱 데이터로 연결하는 ME 중심 구조를 다룬다."
+    }
+  ]
+}

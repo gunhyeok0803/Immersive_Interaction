@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:45:16.275Z",
+  "paper_id": "W2614596603",
+  "summary": "POI 밀도를 이용해 스마트글래스에서 지도를 탐색하는 줌 인터페이스를 다룬다. 관심 지점의 분포와 줌 동작을 연결해 지도 탐색 방식을 구성하는 데 초점을 둔다.",
+  "core": [
+    "poi-density-smartglass-zooming"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "지도 탐색 인터페이스의 동작과 POI 데이터를 처리하는 기초를 제공한다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "웹 기반 스마트글래스 환경에서 지도 데이터를 전달하는 방식을 이해하게 한다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "POI와 지도 정보를 시스템이 처리할 수 있는 형식으로 표현한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "스마트글래스 사용자의 시각과 신체 반응을 이해하는 기초를 제공한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "밀도에 따라 바뀌는 지도와 줌 수준이 사용자에게 어떻게 보이는지 다룬다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "사용자 평가에서 관찰된 차이를 표본 자료로 해석하는 토대를 제공한다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "지도 탐색 과업과 평가 조건을 구성하는 기초를 제공한다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 기반 환경에서 스마트글래스 지도 콘텐츠와 상호작용을 연결한다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "POI가 표시된 지도를 스마트글래스 화면에 시각적으로 구성한다."
+    },
+    {
+      "concept": "human-subject-usability",
+      "role": "밀도 기반 줌 인터페이스가 지도 탐색 과업에서 사용하기 쉬운지 평가하는 관점을 제공한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "스마트글래스 화면에 지도를 표시하고 줌 조작과의 상호작용을 다룬다."
+    },
+    {
+      "concept": "poi-density-smartglass-zooming",
+      "role": "관심 지점 밀도에 따라 스마트글래스 지도 탐색의 줌을 조정하는 인터페이스 문제를 다룬다."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:54:07.369Z",
+  "id": "sparse-field-reconstruction",
+  "name": "희소 관측장 복원",
+  "english": "Sparse-Observation Field Reconstruction",
+  "level": 2,
+  "field": "ml",
+  "one_line": "희소 관측장 복원은 일부 위치에서만 측정한 값으로 전체 공간장의 상태를 추정한다.",
+  "prerequisites": [
+    "matrix-decomposition",
+    "sampling-nyquist",
+    "optimization-basics"
+  ],
+  "applications": [
+    "gappy-pod-reconstruction",
+    "gappy-autoencoder-reconstruction",
+    "earthquake-ground-motion-reconstruction"
+  ],
+  "card": {
+    "id": "sparse-field-reconstruction",
+    "intuition": "넓은 들판의 온도를 모든 지점에서 재기는 어렵지만, 몇 군데의 측정값으로 나머지를 추정하고 싶을 수 있다. 행렬 분해에서 배운 저차원 구조는 들판이 몇 가지 대표 패턴의 조합으로 움직인다는 가정을 제공한다. 표본화와 나이퀴스트 원리는 적은 측정으로 복원할 수 있는 조건과 한계를 생각하게 한다. 최적화는 대표 패턴 중 센서값에 가장 잘 맞는 조합을 고른다.",
+    "definition": "희소 관측장 복원(sparse-observation field reconstruction)은 공간장 전체의 값을 일부 위치에서만 측정한 관측으로 추정하는 역문제(inverse problem)다. 관측값만으로 해가 유일하지 않은 경우가 많으므로, 저차원 기저나 오토인코더 잠재공간처럼 가능한 장의 구조를 제한 조건으로 둔다. 복원 결과는 관측과의 일치뿐 아니라 그 구조 가정이 실제 상태를 잘 나타내는지에 달려 있다.",
+    "formula": {
+      "latex": "\\mathbf{x}\\approx\\boldsymbol{\\mu}+\\mathbf{\\Phi}\\mathbf{a},\\quad \\mathbf{y}=\\mathbf{M}\\mathbf{x}+\\boldsymbol{\\varepsilon},\\quad \\hat{\\mathbf{a}}=\\arg\\min_{\\mathbf{a}}\\left\\|\\mathbf{M}(\\boldsymbol{\\mu}+\\mathbf{\\Phi}\\mathbf{a})-\\mathbf{y}\\right\\|_2^2+\\lambda\\|\\mathbf{a}\\|_2^2,\\quad \\hat{\\mathbf{x}}=\\boldsymbol{\\mu}+\\mathbf{\\Phi}\\hat{\\mathbf{a}}",
+      "symbols": [
+        {
+          "symbol": "\\mathbf{x}",
+          "meaning": "공간 격자 n개 지점의 실제 전체 장 벡터, 각 항의 단위는 물리량 단위 U(예: K 또는 m/s²)"
+        },
+        {
+          "symbol": "\\boldsymbol{\\mu}",
+          "meaning": "학습 스냅샷에서 얻은 평균장 또는 기준장, 단위 U"
+        },
+        {
+          "symbol": "\\mathbf{\\Phi}",
+          "meaning": "n×r 저차원 공간 기저 행렬; 열은 대표 모드이며 정규화된 기저에서는 무차원"
+        },
+        {
+          "symbol": "\\mathbf{a}",
+          "meaning": "r개 모드의 계수 벡터, 단위 U"
+        },
+        {
+          "symbol": "\\mathbf{y}",
+          "meaning": "m개 센서의 희소 관측값 벡터, 단위 U"
+        },
+        {
+          "symbol": "\\mathbf{M}",
+          "meaning": "m×n 관측 연산자; 센서 위치를 선택하거나 측정값을 조합하며, 선택 행렬이면 무차원"
+        },
+        {
+          "symbol": "\\boldsymbol{\\varepsilon}",
+          "meaning": "센서 관측 잡음 벡터, 단위 U"
+        },
+        {
+          "symbol": "\\lambda",
+          "meaning": "계수 크기 벌점의 비중, 0 이상; 정규화된 기저와 같은 변수 단위를 쓸 때 무차원"
+        },
+        {
+          "symbol": "\\hat{\\mathbf{a}}",
+          "meaning": "관측에 맞춰 추정한 모드 계수 벡터, 단위 U"
+        },
+        {
+          "symbol": "\\hat{\\mathbf{x}}",
+          "meaning": "복원된 전체 공간장, 단위 U"
+        }
+      ],
+      "reading": "전체 장을 평균장과 소수의 기저 모드 조합으로 제한한 다음, 관측 연산자로 센서 위치의 값만 뽑아 관측값에 맞는 계수를 찾는다. 추정한 계수를 전체 기저에 적용해 공간장 전체를 복원하며, 정규화 항은 지나치게 큰 계수를 억제한다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "스냅샷 또는 학습 데이터",
+          "role": "POD나 오토인코더가 대표 공간 패턴을 배우도록 가능한 전체 장의 예를 모은다."
+        },
+        {
+          "name": "저차원 표현",
+          "role": "POD는 기저 모드와 계수로, 오토인코더는 잠재 변수와 디코더로 가능한 장을 제한한다."
+        },
+        {
+          "name": "센서와 관측 연산자",
+          "role": "공간 중 일부 위치의 값을 골라 관측 벡터를 만들며, 센서 위치는 서로 다른 모드를 구별할 수 있어야 한다."
+        },
+        {
+          "name": "계수 추정",
+          "role": "최소제곱 또는 정규화 최적화로 잠재 계수 중 관측과 가장 잘 맞는 것을 찾는다."
+        },
+        {
+          "name": "전체장 복원과 점검",
+          "role": "계수를 모든 격자 위치로 펼친 뒤, 보류한 센서나 알려진 전체장과 비교해 오차를 확인한다."
+        }
+      ],
+      "flow": "세 지점의 온도장을 두 기저 패턴의 조합으로 나타내고, 첫째와 셋째 지점에서 2와 5를 측정했다고 하자. 기저가 첫째 지점은 첫 계수만, 셋째 지점은 두 계수의 합을 나타내도록 주어지면 계수는 각각 2와 3이다. 두 계수로 둘째 지점까지 계산하면 전체장은 [2, 3, 5]가 된다. 센서가 같은 정보만 반복해 측정하면 두 계수를 구별하지 못하므로 위치 선택은 복원 가능성에 중요하다."
+    },
+    "key_points": [
+      "관측이 적어 역문제가 불충분하게 정해질 수 있으므로 저차원 기저나 학습된 디코더 같은 사전 구조가 필요하다.",
+      "센서 수만 늘리는 것보다 기저 모드들을 구별할 위치에 센서를 두는 것이 중요하다. 관측된 기저의 열들이 선형 독립이고 조건수가 지나치게 크지 않은지 살핀다.",
+      "실제 장이 기저나 잠재공간이 표현할 수 있는 범위를 벗어나면, 관측 지점은 맞아도 관측되지 않은 영역의 복원은 틀릴 수 있다.",
+      "잡음이 큰 관측은 계수 추정을 흔들 수 있다. 정규화는 안정성을 높일 수 있지만 세부 정보를 지나치게 줄일 수 있다.",
+      "학습에 쓰지 않은 센서나 알려진 전체장으로 복원 오차를 확인한다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "평균장을 0으로 두고 기저 행렬의 세 행이 각각 [1,0], [0,1], [1,1]이라고 하자. 첫째와 셋째 지점만 측정해 y=[2,5]를 얻었다. 계수 a와 복원장 x̂를 구하라. 정규화 계수는 λ=0이다.",
+        "choices": [],
+        "answer": -1,
+        "solution": "첫째 지점 관측은 a₁=2를 준다. 셋째 지점 관측은 a₁+a₂=5이므로 a₂=3이다. 따라서 a=[2,3]이고, 기저에 계수를 적용한 전체장은 x̂=[2,3,5]다."
+      },
+      {
+        "kind": "choice",
+        "question": "두 모드의 계수를 추정하는데 센서 두 개가 같은 공간 지점의 값을 중복 측정한다. 가장 타당한 판단은 무엇인가?",
+        "choices": [
+          "센서 수가 모드 수와 같으므로 계수는 반드시 유일하게 정해진다.",
+          "중복 관측은 새로운 모드 정보를 주지 않아 계수를 유일하게 정하지 못할 수 있다.",
+          "정규화 항을 0으로 두면 중복 관측에서 자동으로 새 정보를 얻는다.",
+          "관측 지점이 적으면 어떤 기저를 쓰더라도 복원은 불가능하다."
+        ],
+        "answer": 1,
+        "solution": "정답은 1번이다. 같은 위치의 중복 측정은 잡음을 줄이는 데 도움을 줄 수 있지만 새로운 공간 패턴 정보를 추가하지 않아 관측된 기저 모드들이 독립적으로 구별되지 않을 수 있다. 0번은 센서 개수만으로 유일성이 보장된다고 잘못 본다. 2번 정규화는 해를 안정화할 수 있지만 새로운 관측 정보를 만들지 않는다. 3번은 지나치게 단정적이다. 적은 관측이라도 장이 저차원 구조를 따르고 센서가 그 구조를 식별하면 복원할 수 있다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nPhi = np.array([[1., 0.], [0., 1.], [1., 1.]])\nM = np.array([[1., 0., 0.], [0., 0., 1.]])\ny = np.array([2., 5.])\na_hat = np.linalg.lstsq(M @ Phi, y, rcond=None)[0]\nx_hat = Phi @ a_hat\nprint('coefficients:', a_hat)\nprint('reconstructed field:', x_hat)",
+      "what_it_shows": "센서 위치에서 얻은 두 값으로 저차원 계수를 추정하고, 그 계수로 관측하지 않은 격자점까지 복원한다. 실행하면 계수 [2, 3]과 복원장 [2, 3, 5]가 출력된다."
+    },
+    "references": [
+      {
+        "title": "[Data-Driven Science and Engineering, 2nd ed.](https://www.cambridge.org/highereducation/books/data-driven-science-and-engineering/6F9A730B7A9A9F43F68CF21A24BEC339)",
+        "source": "Steven L. Brunton·J. Nathan Kutz, Cambridge University Press",
+        "where": "Chapter 12.1–12.4, Gappy POD와 센서 선택"
+      }
+    ],
+    "used_in_lab": "Gappy POD와 센서 위치 선택, Gappy 오토인코더, 지진 지반운동 실시간 복원에서 적은 관측으로 공간장 전체를 추정하는 데 사용한다."
+  }
+}

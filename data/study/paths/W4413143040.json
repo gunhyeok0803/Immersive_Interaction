@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:30:27.822Z",
+  "paper_id": "W4413143040",
+  "summary": "희소 지진 관측값으로 Gappy 오토인코더를 학습해 소규모 지진의 지반운동장을 복원하고, 지진원 특성화와 시뮬레이션에 의존하지 않는 빠른 평가를 살핀다. SW4 모의 자료와 버클리 지역의 실제 지진 자료에 적용해 복원 성능과 실용 가능성을 평가한다.",
+  "core": [
+    "earthquake-ground-motion-reconstruction"
+  ],
+  "path": [
+    {
+      "concept": "calculus-derivatives",
+      "role": "복원 문제에서 변화량과 최적화의 기초를 이해하는 데 쓰인다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "지반운동 기록을 시간에 따라 변하는 신호로 다루는 기초다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "희소 관측 시점이 시간 신호의 복원에 미치는 영향을 이해하는 바탕이 된다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "지반운동 신호를 주파수 성분으로 바라보는 기초를 제공한다."
+    },
+    {
+      "concept": "matrix-decomposition",
+      "role": "여러 지반운동 자료의 공통 패턴을 저차원 구조로 표현하는 토대가 된다."
+    },
+    {
+      "concept": "optimization-basics",
+      "role": "관측값과 모형의 차이를 줄이도록 복원 과정을 조정하는 원리를 제공한다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "이산 지진 기록을 복원에 적합한 형태로 다루는 신호 처리 기초다."
+    },
+    {
+      "concept": "reduced-order-modeling",
+      "role": "복잡한 지반운동장을 주요 패턴을 중심으로 간결하게 표현하는 방법을 제공한다."
+    },
+    {
+      "concept": "sparse-field-reconstruction",
+      "role": "일부 위치에서만 측정한 지진 자료로 공간 전체의 지반운동장을 복원하는 문제를 다룬다."
+    },
+    {
+      "concept": "autoencoders-latent-representation",
+      "role": "지반운동 자료의 압축된 잠재 표현을 학습하는 오토인코더의 작동 방식을 설명한다."
+    },
+    {
+      "concept": "gappy-autoencoder-reconstruction",
+      "role": "희소 관측값을 조건으로 잠재 표현을 복원해 지반운동장을 추정한다."
+    },
+    {
+      "concept": "earthquake-ground-motion-reconstruction",
+      "role": "복원한 지반운동장으로 소규모 지진의 지반 흔들림을 빠르게 평가한다."
+    }
+  ]
+}

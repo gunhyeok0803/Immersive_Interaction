@@ -1,0 +1,106 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:57:49.256Z",
+  "id": "web-interoperability-xr",
+  "name": "웹 상호운용성과 XR",
+  "english": "Web Interoperability and XR",
+  "level": 2,
+  "field": "systems",
+  "one_line": "웹 상호운용성은 공개 데이터 형식과 웹 표준을 이용해 서로 다른 XR 앱과 장치가 콘텐츠를 공유하게 한다.",
+  "prerequisites": [
+    "data-encoding-formats",
+    "programming-data-processing",
+    "network-communication-basics"
+  ],
+  "applications": [
+    "interoperable-xr-content-and-decentralized-web",
+    "webized-xr-apps-displays-and-devices",
+    "semantic-digital-twin-me-centric-iot",
+    "poi-density-smartglass-zooming"
+  ],
+  "card": {
+    "id": "web-interoperability-xr",
+    "intuition": "서로 다른 장치가 같은 장면을 이해하려면 공통된 포장법과 사용 규칙이 필요하다. 데이터 인코딩과 형식은 자산의 표현을 맞추고, 네트워크 통신은 그것을 전달한다. 프로그램은 표준 API를 통해 각 장치의 기능을 요청한다. 이 층들이 맞아야 XR 콘텐츠와 장치가 함께 동작한다.",
+    "definition": "웹 상호운용성(Web Interoperability)은 서로 다른 앱과 장치가 공개 형식, API, 통신 규약, 의미 규칙을 공유해 데이터를 교환하고 해석할 수 있는 능력이다. XR에서는 3D 자산 형식과 기기 접근 API가 서로 다른 역할을 맡는다. 형식이 같아도 좌표계, 기능 지원, 의미 메타데이터가 다르면 결과가 달라질 수 있다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "자산 형식",
+          "role": "glTF 같은 공통 형식은 장면, 메시, 재질, 애니메이션 등의 3D 자산 표현을 정한다. [Khronos glTF 2.0 명세](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)는 API와 독립적인 런타임 자산 전달 형식으로 이를 설명한다."
+        },
+        {
+          "name": "기기 API",
+          "role": "WebXR Device API는 웹 앱이 XR 기기, 센서, 디스플레이와 상호작용하는 인터페이스를 제공한다. [W3C WebXR 명세](https://immersive-web.github.io/webxr/)는 세션, 공간, 입력을 다룬다."
+        },
+        {
+          "name": "의미 메타데이터",
+          "role": "공유된 어휘와 좌표 기준은 POI나 디지털 트윈 객체가 무엇이며 어디에 있는지 여러 앱이 함께 해석하도록 돕는다."
+        },
+        {
+          "name": "전달과 발견",
+          "role": "네트워크 규약과 자원 주소는 앱이 필요한 자산과 메타데이터를 찾아 가져오는 방법을 정한다."
+        },
+        {
+          "name": "기능 확인",
+          "role": "클라이언트는 장치가 제공하는 기능을 확인하고, 필수 기능과 선택 기능에 맞춰 동작을 조정한다."
+        }
+      ],
+      "flow": "예를 들어 제작 도구에서 박물관 장면을 glTF로 내보내고, POI에 공유 식별자와 위치 메타데이터를 붙인다. 웹 앱은 자산을 가져온 뒤 WebXR 세션과 공간 정보를 이용해 기기 화면에 장면을 표시한다. 앱은 해당 기기에서 필요한 입력 기능이 제공되는지도 확인하고, 선택 기능이 없으면 대체 동작을 사용한다. 다른 호환 앱도 같은 형식과 의미 규칙을 지원하면 자산을 다시 제작하지 않고 활용할 수 있다."
+    },
+    "key_points": [
+      "자산 형식은 콘텐츠 표현을, API는 실행 중 기기 접근을 다룬다.",
+      "glTF를 읽을 수 있다고 모든 확장 기능이나 재질이 같은 방식으로 지원되는 것은 아니다.",
+      "파일 형식만으로 POI의 의미나 좌표 기준까지 자동으로 통일되지는 않는다.",
+      "표준을 사용해도 각 장치의 기능 지원과 권한 조건을 확인해야 한다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "웹 XR 앱이 공통 3D 장면을 불러오고 헤드셋의 위치·방향 정보를 사용하려 한다. 각 역할에 맞는 조합은?",
+        "choices": [
+          "glTF로 3D 자산을 표현하고 WebXR API로 XR 기기와 상호작용한다.",
+          "WebXR로 3D 자산 파일을 표현하고 glTF로 헤드셋 센서를 제어한다.",
+          "MQTT로 메시를 저장하고 IPFS로 센서 입력을 요청한다.",
+          "같은 웹 주소를 쓰면 별도의 형식이나 API 없이 자동 호환된다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. glTF는 3D 자산 표현을, WebXR은 웹 앱의 XR 기기 접근을 맡는다. 1번은 두 표준의 역할을 뒤바꿨고, 2번은 메시 표현과 기기 제어에 해당하지 않는 역할을 붙였으며, 3번은 주소만 같으면 데이터와 기능까지 호환된다고 잘못 가정한다."
+      },
+      {
+        "kind": "choice",
+        "question": "같은 glTF 장면이 앱마다 크기가 다르고 POI 이름도 다르게 표시된다. 가장 먼저 확인할 항목은?",
+        "choices": [
+          "각 앱의 화면 밝기만 확인한다.",
+          "단위와 좌표 변환, POI 의미 메타데이터의 해석 규칙을 확인한다.",
+          "glTF가 모든 앱에서 완전히 같은 결과를 보장한다고 가정한다.",
+          "자산을 다시 인코딩하면 의미 규칙도 자동으로 통일된다고 본다."
+        ],
+        "answer": 1,
+        "solution": "정답은 1번이다. 공통 자산 형식만으로 단위, 좌표계, POI 의미가 자동으로 일치하지 않으므로 그 해석 규칙을 확인해야 한다. 0번은 크기와 이름 차이를 설명하지 못하고, 2번은 형식의 보장 범위를 과장하며, 3번은 인코딩과 의미 규칙을 혼동한다."
+      },
+      {
+        "kind": "choice",
+        "question": "XR 앱은 머리 움직임 추적이 꼭 필요하지만 손 추적은 있으면 편리하다. 기능 지원 차이에 대응하는 방법은?",
+        "choices": [
+          "머리 추적과 손 추적을 모두 필수로 요청하고, 손 추적이 없으면 앱 전체를 종료한다.",
+          "필수 기능은 최소한으로 요청하고 손 추적은 선택 기능으로 처리해 미지원 때 대체 동작을 제공한다.",
+          "앱이 장치 기능을 확인하지 않고 모든 장치가 손 추적을 지원한다고 가정한다.",
+          "장치별로 별도 3D 자산 형식을 만든다."
+        ],
+        "answer": 1,
+        "solution": "정답은 1번이다. 필수와 선택 기능을 구분하면 필요한 XR 경험을 유지하면서 장치 차이에 대응할 수 있다. 0번은 선택 기능까지 필수로 만들어 불필요하게 실행을 막고, 2번은 기능 확인을 생략하며, 3번은 기기 기능 문제를 자산 형식 문제와 혼동한다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "3D User Interfaces: Theory and Practice",
+        "source": "Doug A. Bowman, Ernst Kruijff, Joseph J. LaViola Jr., Ivan Poupyrev",
+        "where": "3D 사용자 인터페이스와 XR 상호작용 기초"
+      }
+    ],
+    "used_in_lab": "웹화 XR 앱·디스플레이·장치 사이의 자산 연결, 의미 기반 디지털 트윈·ME 중심 IoT의 데이터 호환, POI 밀도 기반 스마트글래스 줌의 위치 의미 교환에 쓰인다."
+  }
+}

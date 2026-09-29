@@ -1,0 +1,122 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:26:28.457Z",
+  "id": "algorithms-complexity",
+  "name": "알고리즘과 계산 복잡도",
+  "english": "Algorithms and Computational Complexity",
+  "level": 1,
+  "field": "cs",
+  "one_line": "알고리즘은 문제를 푸는 절차이며 계산 복잡도는 입력 크기에 따른 시간과 메모리 사용량을 나타낸다.",
+  "prerequisites": [
+    "programming-data-processing"
+  ],
+  "applications": [
+    "view-planning",
+    "three-dimensional-scanning",
+    "distributed-edge-systems"
+  ],
+  "card": {
+    "id": "algorithms-complexity",
+    "intuition": "같은 목적지로 가는 두 길을 비교할 때, 가까운 거리뿐 아니라 사람이 늘어났을 때 얼마나 붐비는지도 생각할 수 있습니다. 알고리즘도 입력이 작을 때는 둘 다 빨라 보이지만, 입력이 커지면 필요한 계산량이 크게 달라질 수 있습니다. 계산 복잡도(computational complexity)는 입력 크기에 따라 시간과 추가 메모리가 어떻게 증가하는지 살펴봅니다. 그래서 큰 문제를 다룰 방법을 고르거나 자원이 부족해질 지점을 예상할 수 있습니다.",
+    "definition": "알고리즘(algorithm)은 문제를 풀기 위한 명확한 유한 단계의 절차입니다. 계산 복잡도(computational complexity)는 입력 크기 n에 따라 필요한 기본 연산 수와 메모리 사용량이 어떻게 변하는지를 나타냅니다. 점근 표기(asymptotic notation)인 Big-O는 충분히 큰 n에서 성장률의 상한을 표현하며, 상수 계수와 작은 입력에서의 차이는 생략합니다.",
+    "formula": {
+      "latex": "T(n) \\in O(f(n)),\\qquad S(n) \\in O(g(n))",
+      "symbols": [
+        {
+          "symbol": "n",
+          "meaning": "입력 크기. 예를 들어 목록의 원소 수이며 단위는 원소 개수입니다."
+        },
+        {
+          "symbol": "T(n)",
+          "meaning": "입력 크기 n에서의 기본 연산 수입니다. 단위는 연산 횟수입니다."
+        },
+        {
+          "symbol": "S(n)",
+          "meaning": "입력 크기 n에서 입력 자체를 제외하고 추가로 쓰는 공간입니다. 단위는 바이트나 메모리 워드입니다."
+        },
+        {
+          "symbol": "f(n), g(n)",
+          "meaning": "각각 시간과 추가 공간을 상한으로 묶는 입력 크기의 함수입니다."
+        },
+        {
+          "symbol": "O",
+          "meaning": "충분히 큰 입력에서 상수배까지 허용하는 점근적 상한을 나타냅니다."
+        }
+      ],
+      "reading": "입력 크기가 n일 때 연산 수 T(n)은 f(n)의 상수배를 넘지 않는 성장률로, 추가 공간 S(n)은 g(n)의 상수배를 넘지 않는 성장률로 묶입니다. Big-O는 실제 실행 시간(초)이나 정확한 연산 수를 뜻하지 않습니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "입력 크기 정하기",
+          "role": "어떤 값이 커질 때 비용을 비교할지 n으로 정합니다."
+        },
+        {
+          "name": "비용 모형 정하기",
+          "role": "비교할 기본 연산과 추가 메모리의 범위를 정합니다."
+        },
+        {
+          "name": "비용 세기",
+          "role": "절차를 따라 연산 횟수와 추가 저장 공간을 입력 크기의 함수로 나타냅니다."
+        },
+        {
+          "name": "성장률 비교",
+          "role": "상수와 작은 입력의 영향을 줄이고 큰 입력에서 비용이 어떻게 증가하는지 봅니다."
+        }
+      ],
+      "flow": "원소 n개를 한 번씩 확인하는 알고리즘을 생각해 봅시다. 각 원소마다 비교를 한 번 한다면 연산 수는 n에 비례하므로 시간 복잡도는 O(n)입니다. 확인한 값 중 최댓값 하나만 기억하면 추가 공간은 입력 크기와 무관하게 일정해 O(1)입니다. 반대로 원소마다 새 결과를 하나씩 저장하면 추가 공간도 입력 크기에 따라 증가해 O(n)이 됩니다."
+    },
+    "key_points": [
+      "O(n)은 선형 성장의 상한이지, 정확히 n번 실행되거나 n초 걸린다는 뜻이 아닙니다.",
+      "Big-O만으로 실제 실행 시간이 더 빠른 알고리즘을 항상 고를 수는 없습니다. 상수 비용과 입력 크기도 영향을 줍니다.",
+      "시간 복잡도와 공간 복잡도는 별도로 셉니다. 빠른 알고리즘이 항상 메모리도 적게 쓰는 것은 아닙니다.",
+      "최선·평균·최악 중 어떤 경우를 분석하는지 밝히지 않으면 복잡도 비교가 불완전할 수 있습니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "주어진 비용 모형에서 알고리즘은 초기화에 2회, 원소 하나마다 기본 연산 3회, 마지막에 고정 연산 5회를 수행합니다. 입력 크기가 n=10일 때 총 연산 수와 시간 복잡도를 구하세요.",
+        "choices": [],
+        "answer": -1,
+        "solution": "초기화와 마지막 고정 연산은 2+5=7회입니다. 반복 연산은 3n회이므로 T(n)=3n+7입니다. n=10이면 3×10+7=37회이고, 상수항과 상수 계수를 생략하면 시간 복잡도는 O(n)입니다."
+      },
+      {
+        "kind": "calc",
+        "question": "입력이 아닌 결과 배열에 원소마다 1바이트짜리 값을 하나씩 저장합니다. 입력 크기가 500일 때 필요한 추가 공간은 몇 바이트이며, 공간 복잡도는 무엇인가요? 배열 자체의 고정 오버헤드는 무시하세요.",
+        "choices": [],
+        "answer": -1,
+        "solution": "500개 원소 각각에 1바이트를 저장하므로 추가 공간은 500바이트입니다. 원소 수 n에 따라 바이트 수가 n에 비례하므로 공간 복잡도는 O(n)입니다."
+      },
+      {
+        "kind": "choice",
+        "question": "최악의 경우 시간 복잡도를 O(n)으로 분석한 알고리즘에 대해 맞는 설명은 무엇인가요?",
+        "choices": [
+          "실행 시간은 모든 입력에서 정확히 n초다.",
+          "충분히 큰 입력에서 최악의 기본 연산 수는 n의 상수배를 넘지 않으며, 실제 시간은 기계와 상수 비용에도 달려 있다.",
+          "입력 크기를 두 배로 하면 실행 시간은 반드시 정확히 두 배가 된다.",
+          "O(n)은 작은 입력에서만 적용되는 표기다."
+        ],
+        "answer": 1,
+        "solution": "정답은 두 번째입니다. Big-O는 충분히 큰 입력에서의 성장률 상한을 나타내며, 실제 초 단위 시간은 실행 환경과 상수 비용에도 좌우됩니다. 첫 번째는 복잡도를 초 단위로 오해했고, 세 번째는 상수 비용을 무시한 점근 성장률을 정확한 비율로 해석했습니다. 네 번째는 점근 표기가 작은 입력에서만 적용된다는 잘못된 설명입니다."
+      }
+    ],
+    "code": {
+      "snippet": "def scan_count(n):\n    count = 0\n    for i in range(n):\n        count += 1\n    return count\n\ndef pair_count(n):\n    count = 0\n    for i in range(n):\n        for j in range(n):\n            count += 1\n    return count\n\nfor n in [5, 10, 20]:\n    print(n, scan_count(n), pair_count(n))",
+      "what_it_shows": "입력 크기가 5, 10, 20으로 커질 때 한 번 순회하는 절차의 연산 수는 비례해 늘고, 중첩 반복의 연산 수는 훨씬 빠르게 늘어나는 것을 확인합니다. 출력은 각각 O(n)과 O(n²) 성장의 예입니다."
+    },
+    "references": [
+      {
+        "title": "Introduction to Algorithms, 4th ed.",
+        "source": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
+        "where": "Chapter 3, Characterizing Running Times"
+      },
+      {
+        "title": "Introduction to Algorithms, MIT OpenCourseWare 6.006",
+        "source": "MIT OpenCourseWare",
+        "where": "Lecture 1, Algorithmic Thinking, Peak Finding"
+      }
+    ],
+    "used_in_lab": "연구실에서는 엣지 장치가 영상이나 센서 데이터를 제시간에 처리할 수 있도록 알고리즘의 연산량과 추가 메모리를 비교합니다."
+  }
+}

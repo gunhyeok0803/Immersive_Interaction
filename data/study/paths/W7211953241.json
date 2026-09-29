@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T09:16:40.050Z",
+  "paper_id": "W7211953241",
+  "summary": "조용히 선 자세에서 머리·몸통 궤적을 밸런스 보드로 얻은 CoP와 비교하고, 시간·주파수 영역의 선형 대응과 흔들림 지표의 일치도를 살폈다. 이어 후방 사선 단일 카메라 영상에 Lucas–Kanade 광학 흐름을 적용해 몸통을 추적하고 모션 캡처 궤적과 비교했으며, 여러 사람을 한 시야에서 함께 추적할 가능성도 확인했다.",
+  "core": [
+    "lucas-kanade-postural-sway-assessment",
+    "optical-flow",
+    "time-frequency-analysis"
+  ],
+  "path": [
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "신체 움직임과 CoP의 방향 및 공간 좌표를 표현하는 기초가 된다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "CoP와 머리·몸통 궤적을 시간에 따라 변하는 신호로 다룬다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "영상과 CoP의 이산 표본이 움직임을 얼마나 잘 표현하는지 이해하는 데 쓰인다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "자세 궤적을 주파수 성분으로 바꿔 CoP와의 대응을 살펴보는 기초가 된다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "단일 카메라 영상의 픽셀 배열을 몸통 추적의 입력으로 다룬다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "영상 좌표에서 전후·좌우 방향의 위치와 이동을 구분하는 데 쓰인다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "CoP·모션 캡처·영상 추적 간 차이를 측정 오차와 실제 흔들림의 변동으로 해석한다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "표본화된 자세 궤적을 시간·주파수 영역에서 비교할 수 있도록 처리한다."
+    },
+    {
+      "concept": "time-frequency-analysis",
+      "role": "시간 영역과 주파수 영역에서 몸통 및 머리 움직임이 CoP를 얼마나 반영하는지 분석한다."
+    },
+    {
+      "concept": "video-motion-analysis",
+      "role": "연속 영상의 프레임 변화를 이용해 몸통의 움직임 궤적을 구한다."
+    },
+    {
+      "concept": "optical-flow",
+      "role": "Lucas–Kanade 방법으로 영상 내 국소 픽셀 이동을 계산해 몸통을 추적한다."
+    },
+    {
+      "concept": "lucas-kanade-postural-sway-assessment",
+      "role": "몸통 기반 자세 흔들림 지표와 단일 카메라 추적을 CoP 및 모션 캡처 궤적에 견주어 평가한다."
+    }
+  ]
+}

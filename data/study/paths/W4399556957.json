@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:30:25.794Z",
+  "paper_id": "W4399556957",
+  "summary": "복잡한 조립 과업에서 원격 VR 전문가와 현장 AR 작업자 사이의 안내 방식을 간소화된 하드웨어 구성으로 구현하고, 손짓·3D 드로잉·가상 복제물을 사용자 실험으로 비교했다. 과업 완료 시간, 설문 응답, 선호 순위에서 가상 복제물이 효율성과 사용자 선호를 보였으며, 전문가의 지시를 더 분명하게 전달하는 방식으로 제시된다.",
+  "core": [
+    "xr-remote-collaboration-interface-evaluation"
+  ],
+  "path": [
+    {
+      "concept": "probability-random-variables",
+      "role": "과업 결과와 설문 응답의 변동을 관측 자료로 해석하는 기초가 된다."
+    },
+    {
+      "concept": "descriptive-statistics",
+      "role": "세 인터페이스의 과업 시간과 선호 응답을 요약하는 데 쓰인다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "사용자 실험 결과를 바탕으로 인터페이스 간 차이를 판단하는 틀을 제공한다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "세 안내 인터페이스를 비교하는 사용자 실험의 조건과 절차를 이해하게 한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "XR 상호작용에서 사용자의 감각과 신체 반응을 고려하는 바탕이 된다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "가상 복제물이 전문가의 지시를 더 분명하고 직관적으로 전달하는 이유를 살피게 한다."
+    },
+    {
+      "concept": "programming-data-processing",
+      "role": "VR·AR 인터페이스와 사용자 입력 처리를 이해하는 기반이 된다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "가상 복제물과 3D 드로잉이 XR 화면에 표현되는 원리를 이해하게 한다."
+    },
+    {
+      "concept": "psychometrics-questionnaires",
+      "role": "주관적 설문 문항과 응답을 측정 자료로 다루는 관점을 제공한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "손짓·3D 드로잉·가상 복제물을 XR 협업 인터페이스로 구성하는 기반이다."
+    },
+    {
+      "concept": "human-subject-usability",
+      "role": "사용자 실험에서 과업 시간과 주관적 평가로 안내 방식의 사용성을 비교한다."
+    },
+    {
+      "concept": "xr-remote-collaboration-interface-evaluation",
+      "role": "원격 전문가와 현장 작업자의 조립 안내를 위한 XR 인터페이스들을 비교·평가하는 중심 개념이다."
+    }
+  ]
+}

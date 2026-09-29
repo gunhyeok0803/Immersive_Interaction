@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:30:27.824Z",
+  "paper_id": "W4402094861",
+  "summary": "일상 대화 음성을 음절 단위로 나눈 뒤 CNN으로 연하장애군과 대조군을 분류하고, 비디오투시 연하검사 결과를 기준으로 성능을 평가한다. 음절 단위와 개인 단위 결과를 함께 살펴 일상 환경에서의 비침습적 조기 탐지 가능성을 검토한다.",
+  "core": [
+    "syllable-speech-dysphagia-detection"
+  ],
+  "path": [
+    {
+      "concept": "signals-time-series",
+      "role": "일상 대화 음성을 시간에 따라 변하는 신호로 다루는 기초다."
+    },
+    {
+      "concept": "waves-electromagnetism",
+      "role": "음성이 파동으로 전달되는 현상을 이해하는 바탕이다."
+    },
+    {
+      "concept": "acoustics",
+      "role": "음절과 발화에 담긴 음향 특성을 해석하는 기초를 제공한다."
+    },
+    {
+      "concept": "programming-data-processing",
+      "role": "음성 자료를 음절 단위로 나누고 모델 입력으로 준비하는 데 필요한 기초다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "합성곱 모델이 다루는 배열형 입력과 국소 패턴 표현을 이해하는 바탕이다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "대화 음성을 디지털 신호로 다루고 분석 입력을 준비하는 기초다."
+    },
+    {
+      "concept": "audio-speech-processing",
+      "role": "음성인식 도구로 대화 음성을 음절 구간으로 나누고 분석에 연결한다."
+    },
+    {
+      "concept": "neural-networks",
+      "role": "연하장애 여부를 학습하는 CNN의 신경망 기반을 설명한다."
+    },
+    {
+      "concept": "convolutional-neural-networks",
+      "role": "음성 입력의 패턴을 학습해 연하장애군과 대조군을 분류한다."
+    },
+    {
+      "concept": "semantic-segmentation-object-detection",
+      "role": "분할과 분류의 역할을 구분하는 비교 개념이며, 실제 음절 구간 분할은 음성인식 도구가 수행한다."
+    },
+    {
+      "concept": "classification-metrics",
+      "role": "민감도, 특이도, 정확도 등으로 연하장애 탐지 성능을 평가한다."
+    },
+    {
+      "concept": "syllable-speech-dysphagia-detection",
+      "role": "음절 단위 대화 음성 특징으로 연하장애 여부를 이진 판별한다."
+    }
+  ]
+}

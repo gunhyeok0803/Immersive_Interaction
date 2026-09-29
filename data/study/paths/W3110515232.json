@@ -1,0 +1,58 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:25.196Z",
+  "paper_id": "W3110515232",
+  "summary": "HTML을 확장한 통합 표현으로 XR 콘텐츠를 VR·AR 환경에서 함께 기술하고, 두 환경에서 콘텐츠를 화면에 그리는 절차를 제안한다. 이를 통해 환경별 콘텐츠 복제와 사전 지정 부담을 줄이고, 기존 웹 문서 및 웹 자원을 활용하는 브라우저 기반 저작 방식을 마련한다.",
+  "core": [
+    "webized-xr-apps-displays-and-devices",
+    "web-interoperability-xr",
+    "xr-rendering-interaction"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "웹 문서와 XR 콘텐츠를 연결하고 브라우저에서 처리하는 구현 기반을 제공한다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "HTML 확장 형식으로 XR 콘텐츠와 속성을 기술하는 표현 방식을 이해하게 한다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "웹의 리소스에 접근해 XR 콘텐츠를 브라우저에서 제공하는 연결 기반을 다룬다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "XR 장면을 화면에 출력할 때 디지털 영상이 배열로 표현되는 방식을 설명한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "VR·AR 화면 자극을 사람이 감각하는 생리적 배경을 제공한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "사용자 상호작용 환경에 맞춰 XR 장면을 제시하는 지각적 배경을 제공한다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "렌더러가 XR 장면을 화면에 그리는 과정을 이해하는 바탕이 된다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "VR과 AR 환경에 맞춰 콘텐츠를 렌더링하고 상호작용하는 방식을 다룬다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "XR 콘텐츠 표현을 HTML 및 기존 웹 문서와 함께 사용할 수 있게 하는 상호운용성의 틀을 제공한다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "웹을 통해 XR 콘텐츠와 관련 자원에 접근하는 전달 구조의 배경을 제공한다."
+    },
+    {
+      "concept": "webized-xr-apps-displays-and-devices",
+      "role": "웹 브라우저에서 VR·AR 양쪽으로 동작하는 XR 콘텐츠 표현과 렌더링 구성을 다룬다."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:30:27.823Z",
+  "paper_id": "W4405266536",
+  "summary": "제한된 센서 자료로 온도와 기류 속도장을 복원하기 위해 Gappy POD와 Gappy 오토인코더를 적용한다. DesignBuilder와 EnergyPlus 모의 자료로 알고리즘을 평가해 위치별 열쾌적성 판정이 측정값만 사용할 때보다 정밀해지는지 살핀다.",
+  "core": [
+    "thermal-field-reconstruction-evaluation"
+  ],
+  "path": [
+    {
+      "concept": "calculus-derivatives",
+      "role": "열전달에서 온도 변화와 공간적 변화를 이해하는 기초다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "센서 측정의 불확실성이 환경장 복원과 열쾌적성 평가에 미치는 영향을 다룬다."
+    },
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "센서 위치와 기류 속도를 좌표와 방향을 가진 값으로 다루는 기초다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "실내 위치별 환경값을 공간상의 좌표에 대응시키는 방법을 제공한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "모의 환경장 자료의 여러 상태를 복원 알고리즘이 다루는 자료 기반으로 이해하게 한다."
+    },
+    {
+      "concept": "heat-transfer",
+      "role": "온도와 기류 분포가 실내 열환경을 형성하는 원리를 설명한다."
+    },
+    {
+      "concept": "spatial-thermal-comfort-modeling",
+      "role": "복원된 위치별 온도와 기류를 공간별 열쾌적성 판정으로 연결한다."
+    },
+    {
+      "concept": "reduced-order-modeling",
+      "role": "온도장과 기류장의 주요 패턴을 저차원 표현으로 간결하게 나타낸다."
+    },
+    {
+      "concept": "sparse-field-reconstruction",
+      "role": "일부 센서에서만 얻은 환경값으로 공간 전체의 장을 추정한다."
+    },
+    {
+      "concept": "gappy-pod-reconstruction",
+      "role": "POD 기반 저차원 표현으로 누락된 온도·기류장 값을 복원한다."
+    },
+    {
+      "concept": "gappy-autoencoder-reconstruction",
+      "role": "오토인코더 기반으로 희소 센서에서 관측되지 않은 환경장을 복원한다."
+    },
+    {
+      "concept": "thermal-field-reconstruction-evaluation",
+      "role": "복원된 환경장으로 위치별 열쾌적성을 평가하고 공간에 따른 차이를 분석한다."
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:49:04.097Z",
+  "id": "reduced-order-modeling",
+  "name": "저차원 축소 모델링",
+  "english": "Reduced-Order Modeling",
+  "level": 2,
+  "field": "mechanics",
+  "one_line": "저차원 축소 모델링은 고차원 상태의 주요 변동을 소수의 기저 벡터로 표현해 계산량을 줄인다.",
+  "prerequisites": [
+    "matrix-decomposition",
+    "signals-time-series"
+  ],
+  "applications": [
+    "gappy-pod-reconstruction",
+    "gappy-autoencoder-reconstruction"
+  ],
+  "card": {
+    "id": "reduced-order-modeling",
+    "intuition": "복잡한 온도장이나 변형장은 겉보기엔 수많은 숫자지만, 실제 변화는 몇 가지 반복되는 모양의 조합일 때가 많다. 모든 숫자를 매번 계산하는 대신, 자주 나타나는 모양을 몇 개의 기저 벡터로 잡고 그 조합 계수만 계산하면 된다. 행렬 분해로 시계열 스냅샷에서 중요한 패턴을 찾는 생각을 모델 계산에 적용한 것이다. 기저가 학습한 변화와 잘 맞으면 계산이 빨라지고, 맞지 않으면 중요한 세부 변화가 사라진다.",
+    "definition": "저차원 축소 모델링(Reduced-Order Modeling, ROM)은 고차원 모델의 상태를 낮은 차원의 부분공간에서 근사해 계산하는 방법이다. 흔한 절차는 상태 스냅샷(snapshot)에서 기저를 만들고, 원래 상태를 소수의 계수로 표현한 뒤, 그 계수에 대한 축소 모델을 계산하는 것이다. proper orthogonal decomposition(POD)은 특이값 분해(SVD) 등을 이용해 스냅샷의 주요 변동을 나타내는 기저를 만드는 대표적인 방법이다.",
+    "formula": {
+      "latex": "\\mathbf{x}(t)\\approx\\bar{\\mathbf{x}}+\\mathbf{\\Phi}_r\\mathbf{a}(t)",
+      "symbols": [
+        {
+          "symbol": "\\mathbf{x}(t)",
+          "meaning": "시간 t에서의 전체 상태 벡터. 예를 들어 온도장이라면 각 격자점의 온도이며, 각 성분의 단위는 K 또는 °C이다."
+        },
+        {
+          "symbol": "\\bar{\\mathbf{x}}",
+          "meaning": "스냅샷의 평균 상태 벡터. 각 성분의 단위는 상태와 같다."
+        },
+        {
+          "symbol": "\\mathbf{\\Phi}_r",
+          "meaning": "유지한 r개 기저 벡터를 열로 쌓은 행렬. 기저 벡터를 단위 길이로 정규화하면 무차원이다."
+        },
+        {
+          "symbol": "\\mathbf{a}(t)",
+          "meaning": "시간 t에서의 r개 기저 계수. 상태 성분이 같은 물리량이면 각 계수는 그 물리량과 같은 단위를 갖는다."
+        },
+        {
+          "symbol": "r",
+          "meaning": "유지한 기저 벡터 수. 단위가 없는 정수이며 전체 상태 차원보다 작다."
+        },
+        {
+          "symbol": "t",
+          "meaning": "시간. SI 단위는 s이다."
+        }
+      ],
+      "reading": "전체 상태는 평균 상태에 기저 모양들을 계수만큼 더한 것으로 근사한다. r을 늘리면 일반적으로 더 세밀하게 표현할 수 있지만 계산량도 증가한다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "스냅샷 행렬",
+          "role": "고차원 모델이나 측정에서 여러 시간·조건의 상태를 모아 변화 사례를 제공한다."
+        },
+        {
+          "name": "기저 추출",
+          "role": "POD/SVD로 스냅샷에서 반복되고 큰 변동을 설명하는 방향을 찾는다."
+        },
+        {
+          "name": "축소 좌표와 모델",
+          "role": "각 상태를 기저 계수로 표현하고, 그 적은 계수에 대해 시간 변화나 입력 반응을 계산한다."
+        },
+        {
+          "name": "복원과 확인",
+          "role": "계수로 전체 상태를 근사 복원하고, 관심 범위에서 오차가 허용되는지 확인한다."
+        }
+      ],
+      "flow": "예를 들어 실내 온도장의 스냅샷을 여러 시간대에 모아 각 열이 한 시점의 온도 분포인 행렬을 만든다. 평균을 빼고 SVD를 적용해 온도 분포의 주요 패턴을 구한 뒤, 필요한 개수만 남겨 기저를 만든다. 새 시점의 온도 변화를 소수의 계수로 계산하고, 계수를 기저에 곱해 온도장을 복원한다. 스냅샷에 없던 급격한 국소 변화가 생기면 복원 오차가 커질 수 있으므로 적용 범위도 점검한다."
+    },
+    "key_points": [
+      "기저가 잘 표현하는 학습 상태에서는 전체 차원보다 적은 계수만 계산해 속도를 높일 수 있다.",
+      "기저는 스냅샷의 선택과 전처리에 영향을 받으므로, 관심 있는 시간·조건 범위를 포함해야 한다.",
+      "기저 수 r을 늘리면 표현력과 계산 비용이 함께 커지는 경향이 있다.",
+      "흔한 오해: 상태 재구성이 잘 된다는 사실만으로 축소 동역학 모델의 예측도 항상 정확한 것은 아니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "두 지점의 온도 상태가 x=[22, 24] °C이고 평균 상태가 x̄=[20, 20] °C이다. 기저가 Φ=[1, 0]ᵀ일 때 투영 계수 a와 복원 상태 x̂를 구하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "평균을 뺀 상태는 x−x̄=[2, 4] °C이다. 계수는 a=Φᵀ(x−x̄)=2 °C이고, 복원 상태는 x̂=x̄+Φa=[22, 20] °C이다. 두 번째 지점의 4 °C 변화는 이 기저로 표현되지 않는다."
+      },
+      {
+        "kind": "choice",
+        "question": "POD 기반 축소 모델의 기저를 만들 때 가장 적절한 스냅샷 선택은 무엇인가?",
+        "choices": [
+          "관심 있는 운전 조건과 시간 변화를 대표하는 스냅샷을 모은다.",
+          "계산하기 쉬운 한 시점의 스냅샷만 모아 모든 조건에 사용한다.",
+          "센서 수가 많은 조건만 선택하고 관심 출력은 고려하지 않는다.",
+          "스냅샷을 모으지 않고 기저 수 r만 크게 정한다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 관심 범위를 대표하는 스냅샷이 있어야 그 안의 변화를 설명하는 기저를 만들 수 있다. 1번은 한 상태만으로 다양한 변화를 포착하기 어렵다. 2번은 센서 수만으로 기저의 유용성을 보장할 수 없다. 3번은 r을 정해도 기저를 구성할 데이터가 없으므로 모델을 만들 수 없다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\nrng = np.random.default_rng(0)\nx = np.linspace(0, 1, 60)\nmodes = np.column_stack([\n    np.sin(np.pi * x), np.cos(2 * np.pi * x), np.sin(3 * np.pi * x)\n])\ncoeff = rng.normal(size=(3, 40))\nX = modes @ coeff + 0.01 * rng.normal(size=(60, 40))\nmean = X.mean(axis=1, keepdims=True)\nU, s, Vt = np.linalg.svd(X - mean, full_matrices=False)\nfor r in (1, 3):\n    Xhat = mean + U[:, :r] @ np.diag(s[:r]) @ Vt[:r, :]\n    err = np.linalg.norm(X - Xhat) / np.linalg.norm(X - mean)\n    print(f\"r={r}: 상대 복원 오차={err:.4f}\")",
+      "what_it_shows": "열마다 하나의 공간 스냅샷인 행렬을 SVD로 분해하고, 기저 수 r을 바꿔 복원 오차가 어떻게 달라지는지 출력한다."
+    },
+    "references": [
+      {
+        "title": "Projection-Based Model Order Reduction",
+        "source": "Stanford University, CME 345",
+        "where": "강의 자료의 Proper Orthogonal Decomposition 주제"
+      },
+      {
+        "title": "Proper Orthogonal Decomposition: Theory and Reduced-Order Modelling",
+        "source": "Stefan Volkwein",
+        "where": "공개 강의 노트"
+      }
+    ],
+    "used_in_lab": "희소 센서 측정에서 열·변형 상태를 복원하도록 센서 위치를 고르거나 Gappy POD와 Gappy 오토인코더를 구성할 때 쓰인다."
+  }
+}

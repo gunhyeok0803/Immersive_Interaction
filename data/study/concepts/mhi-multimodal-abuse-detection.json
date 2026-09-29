@@ -1,0 +1,122 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:06:10.633Z",
+  "id": "mhi-multimodal-abuse-detection",
+  "name": "MHI·다중 모달 학대 행동 감지",
+  "english": "MHI-Based Multimodal Abuse Detection",
+  "level": 3,
+  "field": "vision",
+  "one_line": "Motion History Image(MHI)가 나타내는 움직임과 음향 특징을 CNN으로 결합해 학대 행동을 탐지하고 단일 모달 성능과 비교한다.",
+  "prerequisites": [
+    "multimodal-fusion",
+    "convolutional-neural-networks",
+    "classification-metrics",
+    "video-motion-analysis"
+  ],
+  "applications": [],
+  "card": {
+    "id": "mhi-multimodal-abuse-detection",
+    "intuition": "Motion History Image(MHI)는 움직임을 여러 장의 프레임 대신 한 장에 남긴 흔적 지도와 같다. 방금 움직인 픽셀은 밝게, 시간이 지난 흔적은 어둡게 표시하면 움직임의 시간 순서가 희미한 꼬리처럼 보인다. 영상만으로 놓칠 수 있는 단서를 음향 특징과 함께 보면 두 감각의 정보를 보완할 수 있다. CNN은 이런 시각·음향 특징을 바탕으로 정해진 행동 범주의 점수를 계산한다.",
+    "definition": "MHI·다중 모달 학대 행동 감지는 연속 영상에서 움직임의 최근성을 픽셀 밝기로 요약한 MHI와 음향 특징을 결합해 행동 범주를 분류하는 절차다. 보통 영상용 입력과 음향 특징을 각각 처리한 뒤 특징 표현을 합쳐 분류기에 전달한다. 분류 결과는 입력과 학습된 범주 사이의 유사도이며, 실제 상황에 대한 최종 판정은 아니다.",
+    "formula": {
+      "latex": "H_\\tau(x,y,t)=\\begin{cases}\\tau,&D(x,y,t)=1\\\\\\max(0,H_\\tau(x,y,t-1)-1),&D(x,y,t)=0\\end{cases}",
+      "symbols": [
+        {
+          "symbol": "H_\\tau(x,y,t)",
+          "meaning": "픽셀 (x,y)의 현재 움직임 이력값; 0부터 τ까지의 프레임 단위 값"
+        },
+        {
+          "symbol": "D(x,y,t)",
+          "meaning": "현재 프레임에서 해당 픽셀에 움직임이 있으면 1, 없으면 0인 이진 마스크; 무차원"
+        },
+        {
+          "symbol": "\\tau",
+          "meaning": "움직임 이력이 유지되는 최대 시간 길이; 프레임 수"
+        },
+        {
+          "symbol": "x,y",
+          "meaning": "영상의 가로·세로 픽셀 좌표; 픽셀"
+        },
+        {
+          "symbol": "t",
+          "meaning": "현재 프레임 번호; 프레임"
+        },
+        {
+          "symbol": "H_\\tau(x,y,t-1)",
+          "meaning": "직전 프레임에서 해당 픽셀에 저장된 움직임 이력값; 프레임 단위 값"
+        }
+      ],
+      "reading": "픽셀에 새 움직임이 잡히면 이력값을 τ로 되돌린다. 움직임이 없으면 프레임마다 1씩 줄여 0에서 멈추므로, 최근 움직임일수록 값이 크다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "움직임 마스크",
+          "role": "연속 프레임을 비교해 움직임이 검출된 픽셀을 이진 마스크로 만든다."
+        },
+        {
+          "name": "MHI 생성",
+          "role": "각 픽셀에서 새 움직임은 밝게 기록하고 시간이 지나면 이력값을 감소시킨다."
+        },
+        {
+          "name": "음향 특징",
+          "role": "해당 영상 구간의 소리에서 스펙트로그램이나 MFCC 같은 특징을 만든다."
+        },
+        {
+          "name": "특징 융합",
+          "role": "MHI와 음향 특징을 각각 표현한 뒤 결합해 CNN 분류기에 전달한다."
+        },
+        {
+          "name": "성능 비교",
+          "role": "같은 학습·평가 분할에서 영상 단독, 음향 단독, 결합 입력의 분류 성능을 비교한다."
+        }
+      ],
+      "flow": "예를 들어 손이 화면 왼쪽에서 오른쪽으로 움직이면 MHI에는 최근 위치가 밝고 이전 위치가 점점 어두운 흔적으로 남는다. 같은 구간의 음향을 스펙트로그램 특징으로 바꾸어 MHI와 함께 분류기에 넣는다. 분류기는 두 입력의 특징을 합쳐 행동 범주별 점수를 출력한다. 영상 단독, 음향 단독 결과도 같은 평가 자료로 계산해 결합 입력이 어떤 도움을 주는지 비교한다."
+    },
+    "key_points": [
+      "MHI의 밝기는 움직임의 최근성을 나타내며 물체의 종류나 속도를 직접 나타내지 않는다.",
+      "움직임 마스크의 품질과 카메라 흔들림은 MHI 결과에 영향을 준다.",
+      "다중 모달 비교에서는 영상·음향 입력의 평가 데이터 분할을 동일하게 맞춘다.",
+      "분류 점수 하나만으로 학대 여부를 확정하지 말고 다른 맥락 정보와 함께 해석한다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "움직임 이력 길이 τ = 6프레임이고 픽셀의 직전 값이 4다. 이후 세 프레임에서 움직임 마스크 값이 차례로 0, 1, 0이면 MHI 값은 차례로 얼마가 되는가?",
+        "choices": [],
+        "answer": -1,
+        "solution": "첫 프레임에는 움직임이 없으므로 max(0, 4 − 1) = 3이다. 둘째 프레임에는 움직임이 있어 τ 값인 6으로 갱신된다. 셋째 프레임에는 다시 움직임이 없으므로 6 − 1 = 5다. 결과는 3, 6, 5프레임이다."
+      },
+      {
+        "kind": "choice",
+        "question": "MHI에서 밝은 픽셀이 주로 나타내는 것은 무엇인가?",
+        "choices": [
+          "그 픽셀에서 움직임이 더 최근에 검출되었다는 것",
+          "그 픽셀에 있는 물체의 종류",
+          "그 픽셀의 움직임 속도가 반드시 더 빠르다는 것",
+          "해당 위치의 소리 에너지가 더 크다는 것"
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 새 움직임이 잡힌 픽셀은 큰 이력값으로 설정되고, 시간이 지나며 값이 줄어든다. 1번은 MHI가 물체 범주를 저장하지 않으므로 틀리다. 2번은 밝기가 최근성을 나타내며 속도를 직접 측정하지 않으므로 틀리다. 3번은 MHI가 영상에서 만든 움직임 표현이라 소리 에너지를 담지 않으므로 틀리다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nmotion = np.array([1, 0, 0, 1, 0])\ntau = 6\nh = 0\nhistory = []\nfor detected in motion:\n    h = tau if detected else max(0, h - 1)\n    history.append(h)\nprint(history)",
+      "what_it_shows": "한 픽셀에서 움직임이 잡힌 프레임에는 값을 τ로 갱신하고, 움직임이 없는 프레임에는 값을 1씩 줄인다. 출력되는 이력값으로 MHI의 밝기가 시간에 따라 사라지는 과정을 확인할 수 있다."
+    },
+    "references": [
+      {
+        "title": "[Motion History Images for Action Recognition and Understanding](https://link.springer.com/book/10.1007/978-1-4471-4730-5)",
+        "source": "Md. Atiqur Rahman Ahad, Springer",
+        "where": "제3장 Motion History Image"
+      },
+      {
+        "title": "[Deep Learning](https://www.deeplearningbook.org/)",
+        "source": "Ian Goodfellow, Yoshua Bengio, Aaron Courville, MIT Press",
+        "where": "제9장 Convolutional Networks, 제11장 Practical Methodology"
+      }
+    ],
+    "used_in_lab": "영상의 움직임과 음향 특징을 결합해 행동 범주를 분류하고, 단일 입력 방식과 성능을 비교할 때 사용한다."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:26:28.452Z",
+  "id": "digital-images-arrays",
+  "name": "디지털 영상과 배열",
+  "english": "Digital Images and Arrays",
+  "level": 1,
+  "field": "vision",
+  "one_line": "디지털 영상은 밝기나 색상 값이 격자 형태의 픽셀 배열에 저장된 데이터다.",
+  "prerequisites": [
+    "matrices-linear-maps"
+  ],
+  "applications": [
+    "video-motion-analysis",
+    "three-dimensional-reconstruction",
+    "rendering-rasterization",
+    "neural-radiance-fields",
+    "convolutional-neural-networks",
+    "semantic-segmentation-object-detection"
+  ],
+  "card": {
+    "id": "digital-images-arrays",
+    "intuition": "장면을 바둑판 격자로 나누고 각 칸에 밝기나 색을 기록한다고 생각하면 디지털 영상의 기본 모습이 보입니다. 행렬에서 행과 열을 찾듯이 픽셀의 위치를 배열에서 찾을 수 있습니다. 격자를 촘촘하게 만들면 더 세밀한 공간 정보를 담지만, 저장해야 할 값도 늘어납니다. 색 영상은 한 픽셀에 색상 채널 여러 개를 함께 기록합니다.",
+    "definition": "디지털 영상(digital image)은 유한한 격자 위치마다 화소(pixel)의 값을 저장한 데이터입니다. 영상은 보통 행과 열을 나타내는 2차원 배열(array)로 표현하고, 색상 채널(channel)이 있으면 채널 축을 추가합니다. 화소 값은 밝기 하나일 수도 있고, RGB처럼 여러 색상 값의 묶음일 수도 있습니다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "행과 열 (rows, columns)",
+          "role": "배열에서 픽셀의 위치를 나타내며, 높이와 너비를 정합니다."
+        },
+        {
+          "name": "화소 값 (pixel value)",
+          "role": "해당 위치의 밝기나 색 정보를 담습니다."
+        },
+        {
+          "name": "색상 채널 (color channels)",
+          "role": "RGB 영상처럼 한 위치의 색을 여러 값으로 나눠 저장합니다."
+        },
+        {
+          "name": "자료형과 값 범위 (data type and range)",
+          "role": "값을 저장하는 방식과 표현 가능한 범위를 정합니다."
+        }
+      ],
+      "flow": "예를 들어 회색조 영상은 높이 H와 너비 W를 가진 배열로 저장할 수 있습니다. 배열의 [1, 2]는 두 번째 행, 세 번째 열의 밝기를 가리킵니다. RGB 영상은 같은 위치에 빨강·초록·파랑 값이 있어 NumPy에서는 보통 H×W×3 모양을 씁니다. uint8 자료형은 흔히 0~255 값을 저장하지만, 실수 자료형 영상은 0~1 범위를 쓰기도 합니다."
+    },
+    "key_points": [
+      "NumPy의 영상 배열은 보통 [행, 열, 채널] 순서로 접근합니다. 가로 좌표 x와 세로 좌표 y를 배열 인덱스 순서와 혼동하지 마세요.",
+      "회색조 영상은 흔히 H×W, RGB 영상은 H×W×3 모양이지만, 라이브러리에 따라 채널 축의 위치가 다를 수 있습니다.",
+      "자료형은 값의 범위와 표현 정밀도에 영향을 줍니다. uint8의 범위를 모든 영상 표현에 적용하면 안 됩니다.",
+      "배열 인덱스만으로 실제 길이나 시야각을 알 수는 없습니다. 실제 공간 크기를 알려면 보정 정보가 필요합니다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "높이 480, 너비 640인 회색조 영상이 채널 축을 따로 저장하지 않을 때, NumPy 배열의 모양은 무엇인가요?",
+        "choices": [
+          "(640, 480)",
+          "(480, 640, 3)",
+          "(480, 640)",
+          "(3, 480, 640)"
+        ],
+        "answer": 2,
+        "solution": "정답은 (480, 640)입니다. 첫 축은 행, 둘째 축은 열입니다. (640, 480)은 높이와 너비를 바꿨고, 나머지 두 보기는 색상 채널 축을 추가했으므로 이 회색조 표현과 맞지 않습니다."
+      },
+      {
+        "kind": "choice",
+        "question": "NumPy에서 모양이 H×W×3인 RGB 영상 img의 4행 6열 픽셀에서 빨강 채널 값을 얻는 올바른 인덱싱은 무엇인가요? (인덱스는 0부터 시작합니다.)",
+        "choices": [
+          "img[3, 5, 0]",
+          "img[5, 3, 0]",
+          "img[3, 5, 2]",
+          "img[0, 3, 5]"
+        ],
+        "answer": 0,
+        "solution": "정답은 img[3, 5, 0]입니다. 4행과 6열은 0부터 세면 인덱스 3과 5이고, RGB의 빨강 채널 인덱스는 0입니다. 두 번째 보기는 행과 열을 바꿨고, 세 번째는 파랑 채널이며, 네 번째는 축 순서가 다릅니다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\ngray = np.array([[0, 128, 255], [30, 100, 200]], dtype=np.uint8)\nrgb = np.stack([gray, np.zeros_like(gray), 255 - gray], axis=2)\n\nprint(gray.shape, gray.dtype)\nprint(gray[0, 1])\nprint(rgb.shape)\nprint(rgb[0, 1])",
+      "what_it_shows": "회색조 배열의 행·열 모양과 한 픽셀의 값을 확인합니다. 세 채널을 쌓으면 RGB 배열의 모양이 바뀌고, 같은 픽셀 위치가 세 값으로 표현되는 것도 볼 수 있습니다."
+    },
+    "references": [
+      {
+        "title": "Digital Image Processing, 4th ed.",
+        "source": "Rafael C. Gonzalez, Richard E. Woods",
+        "where": "Chapter 2, Digital Image Fundamentals"
+      }
+    ],
+    "used_in_lab": "연구실에서는 영상 움직임 분석이나 객체 검출을 위해 픽셀 배열에서 위치별 밝기와 색 값을 읽고 처리합니다."
+  }
+}

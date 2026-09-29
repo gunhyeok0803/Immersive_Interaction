@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:34.466Z",
+  "paper_id": "W3023139129",
+  "summary": "불완전한 기계 부품 스캔에서 기본 형상을 찾아 실제 형상을 추정하고, 그 정보를 이용해 로봇 스캐너의 다음 시점과 스캔 경로를 생성한다. 역설계에 필요한 다중 시점 측정과 표면 복원을 스캔 계획과 연결한다.",
+  "core": [
+    "autonomous-nbv-robotic-scanning"
+  ],
+  "path": [
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "물체와 스캐너의 위치·방향을 서로 다른 좌표계에서 표현하는 바탕이다."
+    },
+    {
+      "concept": "calculus-derivatives",
+      "role": "스캐너의 자세와 물체 형상이 연속적으로 변하는 관계를 이해하는 기초다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "스캐너와 물체 사이의 좌표 변환을 나타내는 데 쓰인다."
+    },
+    {
+      "concept": "programming-data-processing",
+      "role": "부분 스캔 자료를 처리하고 형상 탐지와 경로 생성을 구현하는 바탕이다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "불완전하거나 잡음이 섞인 측정값을 해석할 때 고려한다."
+    },
+    {
+      "concept": "algorithms-complexity",
+      "role": "제한된 측정 자료에서 후보 시점과 스캔 경로를 계산하는 절차를 이해한다."
+    },
+    {
+      "concept": "rigid-body-kinematics",
+      "role": "로봇에 장착된 스캐너의 이동과 회전 자세를 표현한다."
+    },
+    {
+      "concept": "optimization-basics",
+      "role": "부분 스캔으로부터 적절한 스캔 경로와 자세를 선택하는 문제를 이해한다."
+    },
+    {
+      "concept": "robot-pose-planning",
+      "role": "선택한 관측 시점을 로봇 스캐너가 취할 자세와 경로로 연결한다."
+    },
+    {
+      "concept": "view-planning",
+      "role": "현재 측정 범위와 추정 형상을 바탕으로 다음 관측 시점을 고른다."
+    },
+    {
+      "concept": "three-dimensional-scanning",
+      "role": "여러 시점의 측정으로 기계 부품의 3D 형상을 얻는 과정을 다룬다."
+    },
+    {
+      "concept": "autonomous-nbv-robotic-scanning",
+      "role": "부분 스캔에서 형상을 추정하고 로봇의 다음 관측 시점과 스캔 경로를 자동으로 생성한다."
+    }
+  ]
+}

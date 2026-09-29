@@ -1,0 +1,114 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:06:10.631Z",
+  "id": "eeg-heartbeat-evoked-cybersickness",
+  "name": "EEG·심장유발전위 사이버멀미 분석",
+  "english": "EEG and Heartbeat-Evoked Cybersickness Analysis",
+  "level": 3,
+  "field": "signal",
+  "one_line": "VR 경험 중 기록한 EEG와 심장 신호에서 시간·주파수 특성과 심장박동유발전위(HEP)를 추출해 불편감 변화와 비교한다.",
+  "prerequisites": [
+    "biosignal-processing",
+    "time-frequency-analysis",
+    "cybersickness-models",
+    "human-subject-usability"
+  ],
+  "applications": [],
+  "card": {
+    "id": "eeg-heartbeat-evoked-cybersickness",
+    "intuition": "VR 멀미는 화면 자극만으로 드러나지 않는다. EEG는 뇌 전기활동의 파형이고, ECG의 R peak는 심장 한 주기의 기준점이다. 여러 R peak에 맞춰 EEG 파형을 겹치면 박동과 함께 반복되는 작은 성분은 남고 제각각인 잡음은 줄어드는 경향이 있다. 주파수대별 변화와 HEP를 불편감 보고와 나란히 놓으면 어떤 신호가 함께 변하는지 볼 수 있다.",
+    "definition": "EEG·심장유발전위(HEP) 사이버멀미 분석은 VR 중 EEG·ECG, VR 이벤트 시각, 불편감 점수를 동기화해 기록하고 시간·주파수 특징과 HEP를 계산해 비교하는 절차다. HEP는 ECG R peak에 시간 정렬한 EEG 구간(epoch)들을 평균한 파형이다. 이 평균을 순수한 뇌 반응이라고 단정하지 않으며, 신호와 불편감의 동반 변화가 인과관계를 증명하는 것도 아니다.",
+    "formula": {
+      "latex": "\\operatorname{HEP}(\\tau)=\\frac{1}{N}\\sum_{i=1}^{N} e_i(\\tau)",
+      "symbols": [
+        {
+          "symbol": "\\operatorname{HEP}(\\tau)",
+          "meaning": "R peak에서 τ만큼 지난 시점의 평균 EEG 전압; 마이크로볼트(μV)"
+        },
+        {
+          "symbol": "N",
+          "meaning": "분석에 사용한 심장박동 구간 수; 무차원"
+        },
+        {
+          "symbol": "e_i(\\tau)",
+          "meaning": "i번째 R peak에 맞춘, 기준선 보정 후 EEG 전압; 마이크로볼트(μV)"
+        },
+        {
+          "symbol": "\\tau",
+          "meaning": "ECG R peak로부터의 시간 지연; 초(s)"
+        }
+      ],
+      "reading": "각 박동에 맞춘 EEG 구간에서 같은 시간 지점의 전압을 모아 평균한다. 박동마다 반복되는 성분은 남고 독립적인 잡음은 평균 과정에서 줄어들 수 있다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "동기화된 기록",
+          "role": "EEG·ECG·VR 이벤트와 불편감 보고를 같은 시간축에 놓는다."
+        },
+        {
+          "name": "신호 정제",
+          "role": "기준선 보정, 눈 깜박임과 움직임 점검 등으로 분석에 쓸 구간을 고른다."
+        },
+        {
+          "name": "특징 추출",
+          "role": "EEG의 시간·주파수 특징을 계산하고 ECG R peak에 맞춘 EEG를 평균해 HEP를 구한다."
+        },
+        {
+          "name": "시간에 따른 비교",
+          "role": "각 분석 구간의 신호 특징을 해당 시점의 불편감 보고와 비교한다."
+        },
+        {
+          "name": "해석 점검",
+          "role": "심장 전기장 아티팩트 등 다른 원인이 HEP에 섞일 수 있음을 고려한다."
+        }
+      ],
+      "flow": "예를 들어 ECG에서 R peak를 찾고, 각 peak 전 200 ms부터 후 800 ms까지 EEG를 자른다. 각 구간의 앞부분을 기준선으로 보정하고 눈 깜박임이나 심장 전기장 아티팩트를 점검한 뒤, 같은 전극의 전압을 시간 지점별로 평균한다. 별도로 몇 초 단위 EEG 구간의 대역 파워를 계산한다. 마지막으로 두 특징을 해당 구간의 불편감 점수와 비교해 시간에 따른 동반 변화를 살핀다."
+    },
+    "key_points": [
+      "HEP는 ECG의 R peak를 기준으로 정렬한 EEG 평균 파형이다.",
+      "주파수 특징은 특정 시간 구간의 대역별 변화를, HEP는 박동에 맞춘 변화를 요약한다.",
+      "심장에서 비롯된 전기장 아티팩트가 HEP처럼 보일 수 있으므로 기록과 전처리를 점검한다.",
+      "신호와 불편감이 함께 변해도 하나가 다른 하나의 원인이라고 결론 내릴 수는 없다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "특정 지연 시점에서 세 EEG 구간의 기준선 보정 전압이 2 μV, −1 μV, 5 μV였다. 이 시점의 평균 HEP 전압은 얼마인가?",
+        "choices": [],
+        "answer": -1,
+        "solution": "HEP는 세 전압의 평균이다. (2 + (−1) + 5) / 3 = 2이므로 평균 HEP 전압은 2 μV다."
+      },
+      {
+        "kind": "choice",
+        "question": "HEP를 계산할 때 ECG를 함께 기록하는 핵심 이유는 무엇인가?",
+        "choices": [
+          "ECG의 R peak를 기준으로 EEG 구간을 정렬하고, 심장 관련 아티팩트를 점검할 수 있다.",
+          "ECG가 EEG의 표본화 주파수를 자동으로 높여 준다.",
+          "ECG를 기록하면 눈 깜박임과 머리 움직임 아티팩트가 모두 제거된다.",
+          "ECG 파형을 EEG 파형으로 변환해 뇌 활동을 직접 측정한다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. R peak가 박동 시점의 기준점이라 EEG를 박동에 맞춰 평균할 수 있고, 심장 전기장 아티팩트도 점검할 수 있다. 1번은 ECG가 EEG의 표본화 주파수를 바꾸지 않으므로 틀리다. 2번은 ECG가 눈 깜박임이나 움직임을 없애지 않으므로 틀리다. 3번은 ECG와 EEG가 서로 다른 신호이며, ECG가 뇌 활동으로 변환되는 것이 아니므로 틀리다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nrng = np.random.default_rng(7)\nt = np.arange(-0.2, 0.801, 0.01)\nshared = 2.0 * np.exp(-((t - 0.30) / 0.08) ** 2)  # μV\nnoise = rng.normal(0, 5, size=(100, t.size))\nepochs = shared + noise\nhep = epochs.mean(axis=0)\nnear = np.abs(t - 0.30).argmin()\nprint('single epoch:', round(float(epochs[0, near]), 2), 'μV')\nprint('100-beat average:', round(float(hep[near]), 2), 'μV')",
+      "what_it_shows": "각 박동 구간에 같은 작은 파형과 독립적인 잡음을 넣어 평균한다. 한 구간에서는 잡음이 크지만 여러 구간을 평균하면 공통 파형이 더 잘 드러나는 모습을 확인할 수 있다."
+    },
+    "references": [
+      {
+        "title": "[An Introduction to the Event-Related Potential Technique, 2nd ed.](https://mitpress.mit.edu/9780262525855/an-introduction-to-the-event-related-potential-technique/)",
+        "source": "Steven J. Luck, The MIT Press",
+        "where": "제5장 EEG 기록, 제6장 아티팩트, 제8장 평균과 시간-주파수 분석"
+      },
+      {
+        "title": "[Signals and Systems, 2nd ed.](https://www.pearson.com/en-gb/subject-catalog/p/signals-and-systems-pearson-new-international-edition/P200000005151)",
+        "source": "Alan V. Oppenheim, Alan S. Willsky, S. Hamid Nawab, Pearson",
+        "where": "제6장 신호의 시간·주파수 특성화"
+      }
+    ],
+    "used_in_lab": "VR 사용성 실험에서 불편감 보고와 EEG 대역 파워 및 R peak 정렬 HEP의 시간 변화를 비교할 때 사용한다."
+  }
+}

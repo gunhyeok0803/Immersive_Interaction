@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:25.195Z",
+  "paper_id": "W3134586965",
+  "summary": "HMD 기반 롤러코스터 VR에서 장면 방향과 신체 제어 가능성을 조합한 조건을 비교해, 시선 고정 시간과 시선·물체 위치 시퀀스 간 거리가 멀미 수준에 따라 어떻게 달라지는지 살폈다. 이 시선 특징으로 주관적 사이버멀미 수준을 예측하는 회귀 모델을 만들었다.",
+  "core": [
+    "gaze-regression-cybersickness-prediction",
+    "gaze-behavior-analysis",
+    "cybersickness-models"
+  ],
+  "path": [
+    {
+      "concept": "human-physiology",
+      "role": "눈 움직임과 멀미 증상을 연결해 해석하는 생리적 배경을 제공한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "연속 시선 좌표와 고정 시간을 시간에 따른 자료로 다루는 바탕이 된다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "시선 위치와 물체 위치 시퀀스 사이의 거리를 해석하는 좌표 기반을 제공한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "가상 장면의 움직임과 지각된 수직 방향 사이의 불일치가 불편감으로 이어지는 배경을 제공한다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "참가자별 시선 특징과 멀미 보고의 변동성을 다루는 기초를 제공한다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "실험 조건에 따른 시선 및 증상 차이를 비교하는 통계적 바탕이 된다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "장면 방향과 신체 제어 가능성을 조합한 비교 조건의 구조를 이해하게 한다."
+    },
+    {
+      "concept": "gaze-behavior-analysis",
+      "role": "고정 시간과 시선·물체 위치 간 거리를 조건별 시선 특징으로 정리한다."
+    },
+    {
+      "concept": "cybersickness-models",
+      "role": "주관적 수직 불일치 관점을 실험 결과와 멀미 증상의 관계를 해석하는 데 연결한다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "여러 시선 특징을 회귀 입력 자료로 표현하는 바탕을 제공한다."
+    },
+    {
+      "concept": "linear-regression",
+      "role": "시선 특징과 주관적 멀미 수준 사이의 관계를 모델링한다."
+    },
+    {
+      "concept": "gaze-regression-cybersickness-prediction",
+      "role": "시선 행동 특징을 사용해 사이버멀미 수준을 예측하는 연구의 핵심 구성을 다룬다."
+    }
+  ]
+}

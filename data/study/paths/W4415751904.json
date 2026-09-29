@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:31:14.779Z",
+  "paper_id": "W4415751904",
+  "summary": "재구성된 환경 데이터를 공간적 열쾌적성 평가에 연결해 열제어를 살핀다. 실내 열환경의 공간적 차이를 고려해 제어를 평가하는 문제를 다룬다.",
+  "core": [
+    "thermal-field-reconstruction-evaluation"
+  ],
+  "path": [
+    {
+      "concept": "probability-random-variables",
+      "role": "환경 측정값과 쾌적성 평가에 존재하는 변동을 이해하는 기초가 된다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "실내 환경 데이터의 측정 오차가 복원과 쾌적성 평가에 미치는 영향을 다룬다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "실내 위치에 따른 열환경과 쾌적성의 공간 분포를 표현한다."
+    },
+    {
+      "concept": "heat-transfer",
+      "role": "실내 열환경과 열제어가 연결되는 물리적 배경을 제공한다."
+    },
+    {
+      "concept": "matrix-decomposition",
+      "role": "환경장 데이터의 구조와 저차원 표현을 이해하는 수학적 바탕이다."
+    },
+    {
+      "concept": "reduced-order-modeling",
+      "role": "환경장의 주요 변화를 압축된 표현으로 나타내는 방법을 다룬다."
+    },
+    {
+      "concept": "sparse-field-reconstruction",
+      "role": "일부 위치의 관측값을 바탕으로 공간 환경장을 복원하는 문제를 다룬다."
+    },
+    {
+      "concept": "autoencoders-latent-representation",
+      "role": "환경 데이터의 압축 표현을 학습해 결측 영역 복원의 기반을 제공한다."
+    },
+    {
+      "concept": "spatial-thermal-comfort-modeling",
+      "role": "실내 위치별 열환경 데이터를 공간적 열쾌적성 평가와 연결한다."
+    },
+    {
+      "concept": "gappy-pod-reconstruction",
+      "role": "일부 관측값만으로 저차원 환경장 표현의 빠진 값을 복원하는 접근을 다룬다."
+    },
+    {
+      "concept": "gappy-autoencoder-reconstruction",
+      "role": "희소 관측값과 잠재 표현을 이용해 환경장의 결손 영역을 복원하는 접근을 다룬다."
+    },
+    {
+      "concept": "thermal-field-reconstruction-evaluation",
+      "role": "복원된 열환경장을 공간적 쾌적성 관점에서 열제어 평가에 연결한다."
+    }
+  ]
+}

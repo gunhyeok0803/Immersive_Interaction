@@ -1,0 +1,95 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:24:26.659Z",
+  "id": "signals-time-series",
+  "name": "신호와 시계열",
+  "english": "Signals and Time Series",
+  "level": 1,
+  "field": "signal",
+  "one_line": "신호는 시간이나 공간에 따라 변하는 측정값이며 시계열은 시간 순서대로 기록한 신호다.",
+  "prerequisites": [
+    "calculus-derivatives"
+  ],
+  "applications": [
+    "sampling-nyquist",
+    "fourier-transform",
+    "waves-electromagnetism",
+    "acoustics",
+    "digital-signal-processing",
+    "filtering-feature-extraction",
+    "wireless-channel-state-information",
+    "biosignal-processing",
+    "multimodal-fusion",
+    "reduced-order-modeling",
+    "gaze-behavior-analysis"
+  ],
+  "card": {
+    "id": "signals-time-series",
+    "intuition": "온도계가 매초 가리키는 값을 점으로 찍으면, 시간이 흐르며 값이 어떻게 변하는지 한눈에 볼 수 있다. 이런 시간이나 공간에 따른 값의 변화를 신호(signal)라고 생각하면 된다. 그중 시간 순서에 따라 관측값을 기록한 것이 시계열(time series)이다. 미분과 변화율은 신호가 얼마나 빠르게 변하는지를 알려 주지만, 신호 자체는 관측값 또는 그 변화를 나타내는 표현이다.",
+    "definition": "신호(signal)는 시간이나 위치처럼 독립 변수에 따라 값이 달라지는 물리량 또는 정보량의 표현이다. 시간 순서대로 기록한 관측값들의 열은 시계열(time series)이며, 관측 간격은 일정할 수도 불규칙할 수도 있다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "대상 현상",
+          "role": "온도, 전압, 밝기처럼 측정하거나 표현하려는 양이다."
+        },
+        {
+          "name": "독립 변수",
+          "role": "값이 어느 시각이나 위치에서 정해지는지 나타낸다."
+        },
+        {
+          "name": "진폭(amplitude)",
+          "role": "독립 변수의 각 지점에서 신호가 갖는 값이다."
+        },
+        {
+          "name": "표현과 기록",
+          "role": "연속적인 곡선이나 순서가 있는 관측값으로 신호를 나타낸다."
+        }
+      ],
+      "flow": "방 온도를 매초 측정한다고 하자. 시간은 독립 변수이고, 각 시각의 온도는 신호의 값이다. 측정값을 시간 순서대로 저장하면 온도 시계열이 된다. 사진의 밝기처럼 위치에 따라 달라지는 값도 신호지만, 시간 순서로 기록한 것은 아니므로 시계열은 아니다."
+    },
+    "key_points": [
+      "신호의 독립 변수는 시간뿐 아니라 공간일 수도 있다.",
+      "시계열은 시간 순서가 있는 관측값의 모음이다.",
+      "신호의 값과 그 값의 변화율은 서로 다른 양이다.",
+      "연속 신호와 표본으로 기록한 이산 신호를 구별한다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "다음 중 시계열에 해당하는 설명은 무엇인가?",
+        "choices": [
+          "사진의 각 픽셀 위치에 저장된 밝기값",
+          "매분 측정해 시간 순서대로 기록한 실내 온도값",
+          "온도값 자체가 아니라 온도가 변하는 속도만 나타낸 값",
+          "시간이나 위치에 따라 변하지 않는 상수 하나"
+        ],
+        "answer": 1,
+        "solution": "정답은 2번이다. 매분 측정한 온도값은 시간 순서대로 기록되어 시계열을 이룬다. 1번은 위치에 따른 공간 신호이고, 3번은 신호의 변화율을 나타낸다. 4번은 독립 변수에 따라 달라지지 않으므로 변화하는 신호가 아니다."
+      },
+      {
+        "kind": "choice",
+        "question": "신호에 대한 설명으로 옳은 것은 무엇인가?",
+        "choices": [
+          "전압과 전류만 신호가 될 수 있다.",
+          "시간에 따라 변하는 값만 신호이며 공간에 따른 값은 신호가 아니다.",
+          "밝기가 위치에 따라 달라지는 영상도 공간 신호로 볼 수 있다.",
+          "미분값이 신호이고 원래 측정값은 신호가 아니다."
+        ],
+        "answer": 2,
+        "solution": "정답은 3번이다. 신호는 시간뿐 아니라 위치 같은 변수에 따라 달라지는 값도 표현한다. 1번은 신호의 종류를 전기량으로 부당하게 제한한다. 2번은 공간 신호를 제외해 틀렸다. 4번은 신호와 그 변화율을 혼동한다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Signals and Systems",
+        "source": "Alan V. Oppenheim, Alan S. Willsky, S. Hamid Nawab",
+        "where": "Chapter 1, Signals and Systems"
+      }
+    ],
+    "used_in_lab": "무선 채널 상태 정보나 생체 센서 기록을 분석할 때 시간 순서에 맞춰 측정값을 신호와 시계열로 표현한다."
+  }
+}

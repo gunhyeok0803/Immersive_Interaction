@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:30:25.799Z",
+  "paper_id": "W4394676192",
+  "summary": "희소 측정이나 누락 데이터에서 전체 상태를 복원하도록 잠재공간의 비선형 다양체를 이용하는 Gappy AE를 제안하고, 확산·방사형 이류·파동 방정식 예제에서 Gappy POD 및 네 가지 표본 추출 방식을 비교했다. 희소 측정 조건의 복원 성능에서 Gappy AE가 Gappy POD보다 우수한 결과를 보였다.",
+  "core": [
+    "gappy-autoencoder-reconstruction"
+  ],
+  "path": [
+    {
+      "concept": "probability-random-variables",
+      "role": "희소 관측값과 복원 결과의 변동을 자료 관점에서 다루는 기초가 된다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "상태장과 관측값을 수치 배열로 나타내는 바탕이 된다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "파동 방정식처럼 변화하는 상태장을 시간에 따른 데이터로 보는 관점을 제공한다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "성긴 관측으로 전체 장을 복원하는 표본화 문제를 이해하게 한다."
+    },
+    {
+      "concept": "optimization-basics",
+      "role": "관측 자료에 맞는 복원 상태를 찾는 계산 문제의 기초가 된다."
+    },
+    {
+      "concept": "matrix-decomposition",
+      "role": "선형 부분공간을 사용하는 Gappy POD와 저차원 표현을 이해하는 데 필요하다."
+    },
+    {
+      "concept": "reduced-order-modeling",
+      "role": "상태장의 주요 변화를 저차원 표현으로 줄이는 관점을 제공한다."
+    },
+    {
+      "concept": "sparse-field-reconstruction",
+      "role": "일부 위치의 측정만으로 누락된 전체 상태장을 복원하는 문제를 다룬다."
+    },
+    {
+      "concept": "supervised-learning-classification",
+      "role": "데이터 예제로 신경망을 학습하는 지도학습의 기본 틀을 제공한다."
+    },
+    {
+      "concept": "neural-networks",
+      "role": "입력 측정값으로부터 비선형 상태 표현을 학습하는 모델의 토대가 된다."
+    },
+    {
+      "concept": "autoencoders-latent-representation",
+      "role": "데이터를 잠재 표현으로 압축하고 복원하는 오토인코더 구조를 설명한다."
+    },
+    {
+      "concept": "gappy-autoencoder-reconstruction",
+      "role": "오토인코더의 비선형 표현으로 희소 측정에서 전체 데이터를 복원하는 중심 방법이다."
+    }
+  ]
+}

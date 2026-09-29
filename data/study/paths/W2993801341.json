@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:40:08.457Z",
+  "paper_id": "W2993801341",
+  "summary": "요양시설 노인을 지속적으로 모니터링해 돌봄 인력이 행동 패턴을 파악하고 위급 상황에 대응하도록 KLog-Home을 소개한다. IoT와 통신 기술에 영상을 결합한 VAAL 방식으로 안전과 독립적인 생활을 지원한다.",
+  "core": [
+    "heterogeneous-health-sensor-log-fusion"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "지속 모니터링 자료를 처리하는 시스템의 데이터 처리 기반이다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "센서 측정값과 관측 변동을 해석하는 기초가 된다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "여러 입력 자료를 수학적으로 표현하고 다루는 토대다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "시간에 따라 쌓이는 모니터링 자료와 행동 변화를 이해하는 데 쓰인다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "영상과 IoT 자료를 교환하고 처리할 데이터 형식의 배경이다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "센서 관측에 섞이는 오차를 고려하는 관점을 제공한다."
+    },
+    {
+      "concept": "supervised-learning-classification",
+      "role": "활동이나 위급 사건을 자동으로 구분하는 접근을 읽을 때 필요한 분류 개념이다."
+    },
+    {
+      "concept": "matrix-decomposition",
+      "role": "다양한 입력을 학습 모델의 표현으로 다룰 때 필요한 행렬 기반이다."
+    },
+    {
+      "concept": "neural-networks",
+      "role": "다중 입력에서 행동 패턴을 학습하는 접근을 이해하는 모델 배경이다."
+    },
+    {
+      "concept": "multimodal-fusion",
+      "role": "IoT와 영상 자료를 함께 활용하는 VAAL 구성의 핵심 관점이다."
+    },
+    {
+      "concept": "heterogeneous-sensor-data-modeling",
+      "role": "서로 다른 형식의 모니터링 자료를 함께 다루는 문제를 설명한다."
+    },
+    {
+      "concept": "heterogeneous-health-sensor-log-fusion",
+      "role": "이기종 건강·활동 자료를 돌봄 모니터링에 결합하는 응용 주제다."
+    }
+  ]
+}

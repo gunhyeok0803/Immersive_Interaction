@@ -1,0 +1,52 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:35:00.347Z",
+  "paper_id": "W4389000805",
+  "summary": "IPFS의 분산 저장과 중앙 CID 관리 시스템을 MQTT 및 데이터베이스로 연결하는 하이브리드 구조를 제안한다. 저장된 CID와 메타데이터로 데이터 상태를 확인해, 업로드가 끝나 안전하게 지울 수 있는 데이터를 IoT 기기에서 삭제하도록 한다.",
+  "core": [
+    "ipfs-mqtt-hybrid-iot-storage"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "IoT 데이터와 CID 메타데이터를 처리하는 절차의 기초다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "기기와 중앙 관리 시스템 사이의 메시지 전달 기반을 제공한다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "CID와 메타데이터를 교환하고 저장하는 데이터 형식을 다룬다."
+    },
+    {
+      "concept": "algorithms-complexity",
+      "role": "기기와 중앙 시스템에 저장·처리 작업을 나누는 방식을 이해하는 바탕이다."
+    },
+    {
+      "concept": "distributed-edge-systems",
+      "role": "기기와 중앙 서비스 사이에 저장 및 관리 역할을 배분한다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "MQTT를 이용해 CID를 전달하는 흐름을 이해한다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "센서 데이터의 변동과 불확실성을 다루는 기초다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "저장 데이터의 상태를 판단할 때 실제 센서 측정의 오차 가능성을 고려하는 배경이다."
+    },
+    {
+      "concept": "heterogeneous-sensor-data-modeling",
+      "role": "기기 데이터와 관련 메타데이터를 함께 관리하는 구조를 이해한다."
+    },
+    {
+      "concept": "ipfs-mqtt-hybrid-iot-storage",
+      "role": "IPFS 저장, MQTT 기반 CID 전송, 중앙 메타데이터 관리를 결합해 업로드 완료 데이터를 안전하게 삭제한다."
+    }
+  ]
+}

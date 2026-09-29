@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:35:00.350Z",
+  "paper_id": "W4365150374",
+  "summary": "사이버멀미를 EEG로 측정한 실험 연구를 모아 전처리, 특징 추출, 특징 선택, 분류의 분석 단계별 방법을 살폈다. 주파수 및 시간-주파수 특징 추출과 분류 예측의 사용 양상, VR 콘텐츠·장비·참가자 범위를 정리했다.",
+  "core": [
+    "cybersickness-integrated-review"
+  ],
+  "path": [
+    {
+      "concept": "human-physiology",
+      "role": "EEG가 신체의 생리 활동을 기록한 신호라는 배경을 제공한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "메스꺼움, 방향감각 상실, 안구 불편감 등 사이버멀미 증상을 지각 현상으로 이해한다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "실험 결과와 분류 성능의 변동을 해석하는 통계적 바탕이다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "포함된 실험 연구의 결과와 분류 성능을 해석하는 기준을 제공한다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "연구별 참가자와 측정 조건을 비교해 실험 결과의 맥락을 이해한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "EEG를 시간에 따라 변하는 생체 신호로 다룬다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "연속적인 뇌파를 디지털 신호로 기록할 때 표본화 원리를 이해한다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "EEG를 주파수 성분으로 나눠 특징을 추출하는 기초다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "EEG 전처리와 주파수 분석 절차의 기반을 제공한다."
+    },
+    {
+      "concept": "biosignal-processing",
+      "role": "EEG를 전처리하고 생체 신호 특징을 추출하는 분석 흐름을 다룬다."
+    },
+    {
+      "concept": "cybersickness-models",
+      "role": "사이버멀미 증상과 생체 신호를 연결해 불편을 측정하거나 예측하는 관점을 제공한다."
+    },
+    {
+      "concept": "cybersickness-integrated-review",
+      "role": "EEG 사이버멀미 실험의 분석 파이프라인과 측정·연구 경향을 범위 문헌고찰로 정리한다."
+    }
+  ]
+}

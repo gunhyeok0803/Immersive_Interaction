@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:35:00.349Z",
+  "paper_id": "W4372259901",
+  "summary": "노인 돌봄 현장의 학대 행동 감지를 위해 움직임 정보를 담은 Motion History Image와 소리 데이터를 CNN 기반 다중 모달 시스템에 결합했다. 다중 모달 방식의 정확도와 F1 점수가 이미지 전용 및 소리 전용 방식보다 높게 보고됐다.",
+  "core": [
+    "mhi-multimodal-abuse-detection"
+  ],
+  "path": [
+    {
+      "concept": "probability-random-variables",
+      "role": "분류 결과와 성능 지표에 나타나는 변동을 이해하는 통계적 바탕이다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "영상과 이미지 특징을 배열로 표현해 신경망 입력으로 다루는 기초다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "탐지 성능 지표를 비교하고 결과를 해석하는 통계적 틀을 제공한다."
+    },
+    {
+      "concept": "supervised-learning-classification",
+      "role": "입력 데이터에서 학대 행동 범주를 판별하도록 학습하는 문제를 다룬다."
+    },
+    {
+      "concept": "neural-networks",
+      "role": "CNN과 다중 모달 탐지 모델을 구성하는 학습 가능한 계층 구조의 바탕이다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "Motion History Image를 영상 기반 이미지 자료로 표현한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "소리 데이터를 시간에 따라 변하는 신호로 다루는 기초다."
+    },
+    {
+      "concept": "video-motion-analysis",
+      "role": "Motion History Image로 영상 속 움직임 정보를 요약한다."
+    },
+    {
+      "concept": "convolutional-neural-networks",
+      "role": "이미지와 소리 기반 입력에서 학대 행동 패턴을 판별한다."
+    },
+    {
+      "concept": "multimodal-fusion",
+      "role": "Motion History Image 정보와 소리 정보를 결합해 탐지에 활용한다."
+    },
+    {
+      "concept": "classification-metrics",
+      "role": "정확도와 F1 점수로 다중 모달 방식과 단일 모달리티 방식을 비교한다."
+    },
+    {
+      "concept": "mhi-multimodal-abuse-detection",
+      "role": "MHI와 소리를 결합한 CNN 기반 시스템으로 학대 행동을 감지하고 단일 모달 방식과 비교한다."
+    }
+  ]
+}

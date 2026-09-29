@@ -1,0 +1,106 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:21:28.985Z",
+  "id": "vectors-coordinate-systems",
+  "name": "벡터와 좌표계",
+  "english": "Vectors and Coordinate Systems",
+  "level": 1,
+  "field": "math",
+  "one_line": "벡터는 크기와 방향을 가진 양이며 좌표계는 공간의 위치를 수로 표현한다.",
+  "prerequisites": [],
+  "applications": [
+    "matrices-linear-maps",
+    "rigid-body-kinematics",
+    "coordinate-geometry"
+  ],
+  "card": {
+    "id": "vectors-coordinate-systems",
+    "intuition": "지도에서 같은 이동을 동서·남북으로 표현할 수도 있고, 다른 방향의 두 축으로 표현할 수도 있다. 이동 자체는 그대로지만 좌표계(coordinate system)를 바꾸면 적는 숫자는 달라진다. 벡터(vector)는 크기와 방향을 가진 이동이나 힘을 나타내고, 좌표는 그 벡터를 선택한 축에 맞춰 적는 방법이다. 이 구분이 있어야 위치와 이동을 혼동하지 않고 공간 문제를 계산할 수 있다.",
+    "definition": "벡터는 크기(magnitude)와 방향(direction)을 가진 양이며, 좌표계는 원점과 기저(basis)를 정해 점이나 벡터를 수로 표현하는 기준이다. 벡터의 좌표 성분은 좌표계에 따라 달라질 수 있지만, 벡터가 나타내는 기하학적 대상은 바뀌지 않는다. 점은 위치를 나타내고, 두 점의 차이는 변위 벡터(displacement vector)를 나타낸다.",
+    "formula": {
+      "latex": "\\Delta\\mathbf r=\\mathbf r_B-\\mathbf r_A=(x_B-x_A)\\mathbf e_x+(y_B-y_A)\\mathbf e_y",
+      "symbols": [
+        {
+          "symbol": "\\Delta\\mathbf r",
+          "meaning": "A에서 B로 향하는 변위 벡터. 위치가 길이 단위이면 단위는 m 등 길이 단위이다."
+        },
+        {
+          "symbol": "\\mathbf r_A,\\mathbf r_B",
+          "meaning": "원점 기준으로 쓴 A와 B의 위치 벡터. 길이 단위는 m 등이다."
+        },
+        {
+          "symbol": "x_A,x_B,y_A,y_B",
+          "meaning": "A와 B의 2차원 직교 좌표 성분. 이 예에서는 길이 단위 m를 쓴다."
+        },
+        {
+          "symbol": "\\mathbf e_x,\\mathbf e_y",
+          "meaning": "x축과 y축 방향의 단위 기저 벡터. 길이가 1이므로 무차원이다."
+        }
+      ],
+      "reading": "B의 위치에서 A의 위치를 빼면 A에서 B로 가는 변위가 된다. 직교좌표에서는 x 성분끼리, y 성분끼리 각각 빼서 두 기저 방향으로 나타낸다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "기하학적 벡터",
+          "role": "크기와 방향을 가진 대상 자체를 나타낸다."
+        },
+        {
+          "name": "좌표계",
+          "role": "원점과 축 또는 기저 방향을 정해 표현의 기준을 제공한다."
+        },
+        {
+          "name": "좌표 성분",
+          "role": "벡터를 각 기저 방향으로 얼마나 더해야 하는지 숫자로 나타낸다."
+        },
+        {
+          "name": "위치와 변위",
+          "role": "위치는 원점에서 점까지의 벡터로 나타내고, 두 위치의 차는 변위가 된다."
+        }
+      ],
+      "flow": "동쪽을 x축, 북쪽을 y축으로 정하고 A=(1,2)m, B=(4,6)m라고 하자. B−A를 계산하면 변위는 (3,4)m이다. 이는 A에서 동쪽으로 3m, 북쪽으로 4m 이동한다는 뜻이다. 축을 돌려 새 좌표계를 쓰면 성분은 달라져도 같은 이동 벡터를 가리킨다."
+    },
+    "key_points": [
+      "벡터는 크기와 방향을 나타내며, 좌표 성분은 그 벡터를 특정 기저에서 표현한 숫자다.",
+      "좌표계에는 원점과 기저 방향이 필요하다.",
+      "위치 두 개를 빼면 점이 아니라 변위 벡터가 나온다.",
+      "흔한 오해: 좌표 성분이 바뀌면 벡터 자체도 바뀐다고 생각하는 것. 좌표계가 바뀌어도 기하학적 벡터는 같을 수 있다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "2차원 좌표계에서 A=(1,2)m, B=(4,6)m이다. A에서 B로 가는 변위 벡터의 좌표 성분을 구하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "변위는 B−A이므로 x 성분은 4−1=3m, y 성분은 6−2=4m이다. 따라서 변위 벡터는 (3,4)m이다."
+      },
+      {
+        "kind": "choice",
+        "question": "같은 화살표를 그대로 둔 채 좌표축을 회전했다. 무엇이 달라질 수 있는가?",
+        "choices": [
+          "좌표 성분은 달라질 수 있지만, 화살표가 나타내는 벡터는 같다",
+          "벡터의 크기와 방향이 반드시 모두 달라진다",
+          "좌표 성분은 같고, 원점만 반드시 달라진다",
+          "벡터는 좌표축을 회전하면 더는 표현할 수 없다"
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 좌표계가 바뀌면 같은 벡터의 성분은 바뀔 수 있지만 기하학적 벡터는 그대로다. 1번은 대상 자체가 바뀐다고 잘못 말하고, 2번은 원점이 반드시 바뀐다고 단정하며, 3번은 새 좌표계에서도 벡터를 좌표로 표현할 수 있다는 점을 놓친다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Calculus, Volume 3",
+        "source": "OpenStax",
+        "where": "Chapter 2: Vectors in Space"
+      },
+      {
+        "title": "Introduction to Linear Algebra",
+        "source": "Gilbert Strang",
+        "where": "Chapter 1: Vectors and Linear Combinations"
+      }
+    ],
+    "used_in_lab": "강체 운동학과 좌표기하에서는 위치·방향·변위를 표현하고, 서로 다른 좌표계 사이에서 같은 공간 대상을 일관되게 다루는 데 사용한다."
+  }
+}

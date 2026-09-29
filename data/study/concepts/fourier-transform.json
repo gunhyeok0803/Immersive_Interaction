@@ -1,0 +1,117 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:24:26.661Z",
+  "id": "fourier-transform",
+  "name": "푸리에 변환",
+  "english": "Fourier Transform",
+  "level": 1,
+  "field": "signal",
+  "one_line": "푸리에 변환은 신호를 여러 주파수 성분의 조합으로 표현한다.",
+  "prerequisites": [
+    "signals-time-series"
+  ],
+  "applications": [
+    "digital-signal-processing",
+    "time-frequency-analysis"
+  ],
+  "card": {
+    "id": "fourier-transform",
+    "intuition": "여러 음이 섞인 소리는 시간에 따른 하나의 파형으로 보이지만, 귀에는 낮고 높은 음이 함께 들린다. 푸리에 변환(Fourier transform)은 복잡한 파형을 여러 주파수 성분으로 나누어 바라보게 한다. 시간 그래프가 파형의 모양을 보여 준다면, 주파수 표현은 어떤 빠르기의 진동이 얼마나 들어 있는지 보여 준다. 그래서 소리의 음높이를 찾거나 특정 주파수 대역을 필터링할 때 유용하다.",
+    "definition": "푸리에 변환(Fourier transform)은 적분이 수렴하는 연속 시간 신호 \\(x(t)\\)를 주파수에 따른 복소 함수 \\(X(f)\\)로 표현하는 방법이다. 각 주파수에서의 복소값은 그 성분의 크기와 위상 정보를 담는다. 주파수 성분을 모두 보존하면 역변환으로 시간 신호를 복원할 수 있다.",
+    "formula": {
+      "latex": "X(f)=\\int_{-\\infty}^{\\infty}x(t)e^{-j2\\pi ft}\\,\\mathrm{d}t",
+      "symbols": [
+        {
+          "symbol": "x(t)",
+          "meaning": "시간 t에서의 연속 신호; 예를 들어 전압 신호라면 단위는 V"
+        },
+        {
+          "symbol": "X(f)",
+          "meaning": "주파수 f에서의 복소 스펙트럼 값; x(t)가 V이면 단위는 V·s"
+        },
+        {
+          "symbol": "t",
+          "meaning": "시간(s)"
+        },
+        {
+          "symbol": "f",
+          "meaning": "주파수(Hz, 즉 s⁻¹)"
+        },
+        {
+          "symbol": "j",
+          "meaning": "제곱하면 −1이 되는 허수 단위; 단위 없음"
+        },
+        {
+          "symbol": "e^{-j2\\pi ft}",
+          "meaning": "주파수 f의 복소 사인파 성분을 비교하는 무차원 함수"
+        },
+        {
+          "symbol": "\\mathrm{d}t",
+          "meaning": "적분에서 더하는 시간 구간 요소(s)"
+        }
+      ],
+      "reading": "각 주파수 f의 복소 사인파와 신호 x(t)가 얼마나 잘 맞는지 시간 전체에 걸쳐 더한다. 그 결과 X(f)의 크기와 위상이 주파수별 성분 정보를 담는다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "시간 신호",
+          "role": "분석할 파형 x(t)를 입력으로 제공한다."
+        },
+        {
+          "name": "주파수 성분 비교",
+          "role": "각 주파수의 복소 사인파를 신호와 비교해 가중치를 구한다."
+        },
+        {
+          "name": "복소 스펙트럼",
+          "role": "주파수별 가중치의 크기와 위상을 담는다."
+        },
+        {
+          "name": "역변환",
+          "role": "주파수별 성분 정보를 합쳐 시간 신호를 되돌린다."
+        }
+      ],
+      "flow": "1초 동안 녹음한 소리를 입력한다고 하자. 푸리에 변환은 440 Hz, 880 Hz처럼 여러 주파수의 성분이 파형에 얼마나 들어 있는지 계산한다. 스펙트럼에서 성분의 크기를 보면 상대적인 세기를 살펴볼 수 있고, 위상은 각 성분이 시간축에서 어떻게 정렬되는지 나타낸다. 크기와 위상을 함께 보존하면 원래 파형을 복원할 수 있다."
+    },
+    "key_points": [
+      "푸리에 변환은 신호를 시간 표현에서 주파수 표현으로 바꾼다.",
+      "스펙트럼은 크기만이 아니라 위상 정보도 포함한다.",
+      "주파수 f는 초당 진동 횟수이고, 각주파수 \\(\\omega\\)와는 \\(\\omega=2\\pi f\\) 관계다.",
+      "푸리에 변환은 신호 자체를 바꾸는 것이 아니라 같은 정보를 다른 방식으로 표현한다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "신호 x(t)가 0초부터 0.5초까지 2 V이고 그 밖에서는 0 V라고 하자. 푸리에 변환 식에서 f=0일 때 X(0)을 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "f=0이면 지수 함수는 1이다. 따라서 X(0)은 0초부터 0.5초까지 x(t)를 적분한 값이다. 2 V × 0.5 s = 1 V·s이므로 X(0)=1 V·s다."
+      },
+      {
+        "kind": "choice",
+        "question": "푸리에 변환의 크기와 위상에 대한 설명으로 가장 정확한 것은 무엇인가?",
+        "choices": [
+          "크기와 위상은 같은 정보를 중복해서 나타내므로 하나만 알면 항상 원래 신호를 복원할 수 있다.",
+          "크기는 주파수 성분의 가중치 크기를, 위상은 성분의 시간축 정렬 정보를 나타내며 둘 다 원래 파형 복원에 필요하다.",
+          "위상만 알면 신호에 포함된 주파수 성분의 크기를 알 수 있다.",
+          "푸리에 변환은 시간 신호를 새 신호로 바꾸므로 역변환으로 되돌릴 수 없다."
+        ],
+        "answer": 1,
+        "solution": "정답은 2번이다. 복소 스펙트럼의 크기와 위상은 각각 주파수 성분의 가중치 크기와 정렬 정보를 담으며, 둘을 함께 알아야 일반적으로 원래 파형을 복원할 수 있다. 1번은 위상 정보가 중요하다는 점을 놓친다. 3번은 위상만으로 크기를 알 수 있다고 잘못 말한다. 4번은 표현을 바꾸는 변환과 신호 자체의 변화를 혼동하며, 역변환이 가능하다는 점도 놓친다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nfs = 100.0\nt = np.arange(0, 1, 1 / fs)\nx = np.sin(2 * np.pi * 5 * t) + 0.5 * np.sin(2 * np.pi * 12 * t)\nX = np.fft.rfft(x)\nf = np.fft.rfftfreq(len(x), 1 / fs)\npeak_bins = np.argsort(np.abs(X))[-2:]\nprint(np.sort(f[peak_bins]))",
+      "what_it_shows": "5 Hz와 12 Hz 사인파를 섞은 신호의 이산 푸리에 변환에서 두 주파수 성분이 가장 큰 봉우리로 나타나는 것을 확인한다. 이 코드는 유한 길이로 표본화한 신호의 주파수 분석을 보여 준다."
+    },
+    "references": [
+      {
+        "title": "Signals and Systems",
+        "source": "Alan V. Oppenheim, Alan S. Willsky, S. Hamid Nawab",
+        "where": "Chapter 4, Continuous-Time Fourier Transform"
+      }
+    ],
+    "used_in_lab": "음향·생체신호나 무선 채널의 주파수 성분을 살펴보고 필요한 대역을 필터링하거나 시간-주파수 분석을 할 때 사용한다."
+  }
+}

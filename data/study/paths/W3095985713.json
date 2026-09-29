@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:25.196Z",
+  "paper_id": "W3095985713",
+  "summary": "치매 노인 돌봄 현장의 일상 활동 기록 부담을 줄이기 위해, YOLO-v3 객체 검출을 활용해 영상에서 활동을 인식하고 기계 보조 사람 태깅 절차를 제안한다. 제안한 활동 인식 모델을 실제 영상에 적용해 활동 기록 지원 가능성을 평가한다.",
+  "core": [
+    "yolo-elderly-activity-video-tagging",
+    "semantic-segmentation-object-detection",
+    "classification-metrics"
+  ],
+  "path": [
+    {
+      "concept": "matrices-linear-maps",
+      "role": "영상 특징과 모델 입력을 배열 및 행렬 연산으로 표현하는 기반이 된다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "영상 프레임을 객체 검출 모델의 입력으로 이해하는 기초를 제공한다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "활동 인식 결과와 성능 평가값의 변동을 다루는 통계적 바탕이 된다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "검출 결과를 평가하고 성능 지표를 해석하는 통계적 기초를 제공한다."
+    },
+    {
+      "concept": "optimization-basics",
+      "role": "모델이 학습 과정에서 예측 오차를 줄이는 방식을 이해하게 한다."
+    },
+    {
+      "concept": "supervised-learning-classification",
+      "role": "영상 자료와 활동 범주를 연결해 활동을 판별하는 학습 설정을 설명한다."
+    },
+    {
+      "concept": "neural-networks",
+      "role": "영상 특징을 학습해 활동을 구분하는 신경망의 기본 구조를 제공한다."
+    },
+    {
+      "concept": "convolutional-neural-networks",
+      "role": "영상에서 공간적 특징을 추출해 객체 검출에 활용하는 모델 구조를 다룬다."
+    },
+    {
+      "concept": "semantic-segmentation-object-detection",
+      "role": "YOLO-v3가 영상 속 객체를 찾아 활동 인식에 활용되는 방식을 이해하게 한다."
+    },
+    {
+      "concept": "classification-metrics",
+      "role": "객체 검출과 활동 인식 결과의 정밀도를 포함한 성능 평가를 해석한다."
+    },
+    {
+      "concept": "video-motion-analysis",
+      "role": "연속된 영상 프레임에서 노인의 활동 장면을 분석하는 배경을 제공한다."
+    },
+    {
+      "concept": "yolo-elderly-activity-video-tagging",
+      "role": "YOLO 기반 활동 인식 결과를 돌봄 기록을 위한 영상 태깅에 연결한다."
+    }
+  ]
+}

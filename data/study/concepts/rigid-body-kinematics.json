@@ -1,0 +1,109 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:32:23.708Z",
+  "id": "rigid-body-kinematics",
+  "name": "강체 운동학",
+  "english": "Rigid-Body Kinematics",
+  "level": 1,
+  "field": "mechanics",
+  "one_line": "강체 운동학은 물체의 위치와 방향이 시간에 따라 어떻게 변하는지 기술한다.",
+  "prerequisites": [
+    "vectors-coordinate-systems",
+    "calculus-derivatives"
+  ],
+  "applications": [
+    "robot-pose-planning"
+  ],
+  "card": {
+    "id": "rigid-body-kinematics",
+    "intuition": "물체에 붙인 점들을 투명한 판 위에 그렸다고 생각해 보세요. 판을 옮기거나 돌리면 모든 점이 함께 움직이지만, 점 사이의 거리는 그대로입니다. 강체 운동학(rigid-body kinematics)은 이 이동과 회전을 알면 물체 위의 각 점이 어디로 가는지 알려 줍니다. 로봇 자세를 계획할 때는 위치뿐 아니라 방향도 함께 추적해야 합니다.",
+    "definition": "강체(rigid body)는 물체 위 임의의 두 점 사이 거리가 시간에 따라 일정하다고 가정한 물체입니다. 강체 운동학은 힘이나 토크의 원인 대신 물체의 위치와 방향이 시간에 따라 어떻게 변하는지 기술합니다. 위치와 방향을 합쳐 자세(pose)라고 합니다.",
+    "formula": {
+      "latex": "\\mathbf{p}_{W}(t)=\\begin{bmatrix}\\cos\\theta(t)&-\\sin\\theta(t)\\\\\\sin\\theta(t)&\\cos\\theta(t)\\end{bmatrix}\\mathbf{p}_{B}+\\mathbf{d}(t)",
+      "symbols": [
+        {
+          "symbol": "\\mathbf{p}_{W}(t)",
+          "meaning": "물체에 붙은 점의 세계 좌표, m"
+        },
+        {
+          "symbol": "\\theta(t)",
+          "meaning": "세계 좌표계에서 본 물체의 평면 회전각, rad"
+        },
+        {
+          "symbol": "\\mathbf{p}_{B}",
+          "meaning": "같은 점의 물체 좌표계 좌표; 물체에 붙어 있으므로 고정, m"
+        },
+        {
+          "symbol": "\\mathbf{d}(t)",
+          "meaning": "물체 좌표계 원점의 세계 좌표, m"
+        },
+        {
+          "symbol": "t",
+          "meaning": "시간, s"
+        }
+      ],
+      "reading": "2차원에서 물체 좌표계의 점을 먼저 회전시키고, 물체 원점의 위치만큼 옮기면 세계 좌표를 얻습니다. 시간에 따라 회전각과 원점 위치가 바뀌면 그 점의 궤적도 바뀝니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "물체 좌표계 (body frame)",
+          "role": "물체에 고정된 기준으로 점들의 위치를 나타냅니다."
+        },
+        {
+          "name": "세계 좌표계 (world frame)",
+          "role": "로봇이나 주변 환경의 위치를 공통 기준으로 나타냅니다."
+        },
+        {
+          "name": "병진 위치 d(t) (translation)",
+          "role": "물체 좌표계 원점이 세계 좌표계에서 어디에 있는지 정합니다."
+        },
+        {
+          "name": "방향 R(θ) (orientation)",
+          "role": "물체가 세계 좌표계에 대해 얼마나 회전했는지 정합니다."
+        }
+      ],
+      "flow": "물체에 붙은 점의 물체 좌표가 (1, 0)m이라고 합시다. 물체를 반시계 방향으로 90° 돌리면 점은 원점 기준으로 (0, 1)m에 놓입니다. 물체 원점이 세계 좌표계에서 (2, 3)m이면 이 점의 세계 좌표는 (2, 4)m입니다. 시간이 흐르며 원점 위치와 각도가 변할 때도 같은 순서로 각 점의 위치를 구할 수 있습니다."
+    },
+    "key_points": [
+      "강체는 정지한 물체가 아니라 점 사이 거리가 유지되는 물체입니다.",
+      "점의 좌표는 기준 좌표계에 따라 달라질 수 있습니다.",
+      "이동만으로는 회전을, 회전만으로는 이동을 표현할 수 없으므로 둘 다 추적합니다.",
+      "운동학은 운동을 기술하지만 운동을 일으키는 힘과 토크는 설명하지 않습니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "물체 좌표계의 점이 p_B=(1, 0)m에 있습니다. 물체가 반시계 방향으로 90° 회전하고 원점이 d=(2, 3)m로 이동했다면 점의 세계 좌표 p_W는 무엇인가요?",
+        "choices": [],
+        "answer": -1,
+        "solution": "90° 회전은 (1, 0)을 (0, 1)로 바꿉니다. 여기에 원점 이동량 (2, 3)을 더하면 p_W=(2, 4)m입니다."
+      },
+      {
+        "kind": "choice",
+        "question": "강체가 움직이는 동안 반드시 유지되는 성질은 무엇인가요?",
+        "choices": [
+          "물체 위의 모든 점이 세계 좌표에서 고정된다.",
+          "물체 위 임의의 두 점 사이 거리가 일정하다.",
+          "물체의 방향이 항상 일정하다.",
+          "물체 위 모든 점의 속도가 같다."
+        ],
+        "answer": 1,
+        "solution": "정답은 2번입니다. 강체 가정은 물체 위 모든 점 쌍의 거리가 변하지 않는다는 뜻입니다. 1번은 정지와 강체를 혼동하며, 3번은 회전을 배제합니다. 4번은 회전하는 물체에서 점마다 속도가 다를 수 있으므로 틀립니다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\nimport matplotlib.pyplot as plt\n\ntheta = np.linspace(0, np.pi / 2, 100)\np_b = np.array([1.0, 0.0])\nd = np.column_stack((0.4 * theta / (np.pi / 2), 0.2 * theta / (np.pi / 2)))\np_w = np.column_stack((\n    np.cos(theta) * p_b[0] - np.sin(theta) * p_b[1] + d[:, 0],\n    np.sin(theta) * p_b[0] + np.cos(theta) * p_b[1] + d[:, 1]\n))\nprint(np.round(p_w[0], 2), np.round(p_w[-1], 2))\nplt.plot(p_w[:, 0], p_w[:, 1])\nplt.axis(\"equal\")\nplt.xlabel(\"x_W (m)\")\nplt.ylabel(\"y_W (m)\")\nplt.show()",
+      "what_it_shows": "물체에 붙은 한 점이 회전과 병진을 함께 겪을 때 세계 좌표에서 그리는 궤적을 표시합니다. 출력된 처음과 끝 좌표를 식으로 계산한 값과 비교할 수 있습니다."
+    },
+    "references": [
+      {
+        "title": "Introduction to Robotics: Mechanics and Control",
+        "source": "John J. Craig",
+        "where": "제3판, 2장 Spatial Descriptions and Transformations"
+      }
+    ],
+    "used_in_lab": "로봇 자세 계획에서 목표 자세와 관절·센서 좌표를 같은 기준 좌표계로 변환해 경로를 계산하는 데 씁니다."
+  }
+}

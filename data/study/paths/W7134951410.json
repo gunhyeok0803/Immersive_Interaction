@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:31:14.777Z",
+  "paper_id": "W7134951410",
+  "summary": "개방형 설문 응답과 공감 이론을 결합해 대화형 에이전트의 공감 특성을 적극적 경청, 개인화, 감정 표현, 페르소나 매력으로 구성한다. 이어 사용자 평가에서 이 특성들이 관점 취하기, 공감적 관심, 개인적 고통 등 인지·정서 공감 요소와 맺는 관계를 구조방정식모형으로 살핀다.",
+  "core": [
+    "psychometrics-questionnaires",
+    "structural-equation-modeling",
+    "aeri-empathy-sem-validation"
+  ],
+  "path": [
+    {
+      "concept": "probability-random-variables",
+      "role": "설문 응답과 공감 평가를 변동이 있는 관측값으로 다루는 기초가 된다."
+    },
+    {
+      "concept": "descriptive-statistics",
+      "role": "에이전트 특성과 공감 평가 응답의 분포를 요약하는 데 쓰인다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "관측된 특성과 공감 평가 사이의 관계를 통계적으로 판단하는 바탕이 된다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "관찰된 특성과 공감 구성요소 사이의 관계를 수식으로 표현하는 데 필요한 수학 기초다."
+    },
+    {
+      "concept": "linear-regression",
+      "role": "에이전트 특성이 공감 평가와 맺는 선형 관계를 이해하는 바탕이 된다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "두 단계 설문 연구의 질문과 측정 절차가 어떤 비교를 가능하게 하는지 이해한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "공감의 인지·정서적 측면을 이해하기 위한 인간의 생리적 기초를 제공한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "사용자가 에이전트의 말과 행동을 공감 단서로 받아들이는 과정을 해석한다."
+    },
+    {
+      "concept": "human-subject-usability",
+      "role": "사용자 설문으로 에이전트에 대한 인식과 평가를 수집하는 연구 절차를 이해한다."
+    },
+    {
+      "concept": "psychometrics-questionnaires",
+      "role": "IRI와 공감 관련 설문 척도가 심리적 구성개념을 어떻게 측정하는지 다룬다."
+    },
+    {
+      "concept": "structural-equation-modeling",
+      "role": "에이전트 특성과 인지·정서 공감 요소 사이의 관계를 모형화하고 검토한다."
+    },
+    {
+      "concept": "aeri-empathy-sem-validation",
+      "role": "네 가지 에이전트 특성과 사용자 공감 평가를 통합한 공감 반응 프레임워크를 검증한다."
+    }
+  ]
+}

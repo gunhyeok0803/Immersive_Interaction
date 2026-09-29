@@ -1,0 +1,49 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:31:14.778Z",
+  "paper_id": "W7207805119",
+  "summary": "참조 영상의 단서를 활용해 3D 장면의 결손 영역을 채우는 인페인팅 문제를 다룬다. 가우시안 스플래팅으로 장면을 표현하면서 결과의 사실성과 여러 시점 간 일관성을 함께 추구한다.",
+  "core": [
+    "gaussian-splatting-rendering",
+    "reference-guided-gaussian-scene-inpainting"
+  ],
+  "path": [
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "장면의 위치와 시점 방향을 공간 벡터로 표현하는 기초가 된다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "3D 점과 카메라 좌표 사이의 변환을 이해하는 수학적 바탕이다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "장면 속 점과 카메라의 위치를 좌표로 나타내는 방법을 제공한다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "참조 영상과 렌더링 결과를 픽셀 배열로 다룬다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "영상의 픽셀과 장면의 3D 위치가 맺는 관계를 설명한다."
+    },
+    {
+      "concept": "three-dimensional-reconstruction",
+      "role": "여러 시점의 영상 정보를 이용해 3D 장면의 구조를 표현하는 기초가 된다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "장면 표현을 화면의 2D 영상으로 변환하는 과정을 다룬다."
+    },
+    {
+      "concept": "gaussian-splatting-rendering",
+      "role": "3D 장면을 가우시안 요소로 표현하고 시점별 영상을 생성하는 기반 표현이다."
+    },
+    {
+      "concept": "reference-guided-gaussian-scene-inpainting",
+      "role": "참조 영상 정보를 이용해 장면의 빠진 영역을 채우고 시점 간 일관성을 추구한다."
+    }
+  ]
+}
