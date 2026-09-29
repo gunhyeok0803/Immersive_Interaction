@@ -69,7 +69,7 @@
     const g = await loadGraph(), c = g?.byId[id];
     if (!c) return "<p>(개념 정보 없음)</p>";
     const rec = await fetchConcept(id), k = rec?.card;
-    const pre = c.prerequisites.map((p) => conceptBtn(g, p)).join("") || `<span class="where">없음 — 여기서 시작해도 됩니다</span>`;
+    const pre = c.prerequisites.map((p) => conceptBtn(g, p)).join("") || `<span class="where">없음 — 가장 아래 기초입니다</span>`;
     const apps = (c.applications || []).map((p) => conceptBtn(g, p)).join("") || `<span class="where">(가장 위 단계)</span>`;
     const users = (ctx.users?.[id] || []).filter((u) => u.paperId !== ctx.paperId);
     // 학습 단계 (사용자 결정 2026-09-29): ① 왜 → ② 직관 → ③ 정의·식 → ④ 핵심 → ⑤ 풀어 보기(문제마다 한 화면) → ⑥ 연결
@@ -121,13 +121,20 @@
       ${paper.url ? `<p><a href="${esc(paper.url)}" target="_blank" rel="noopener">원문 (DOI) 열기</a></p>` : ""}
       <p class="where">다음 ▶ 으로 학습 경로 → 개념 카드 순서로 넘어갑니다.</p>`;
   }
-  // 학습 경로: 기초부터 중심 개념까지, 단계마다 이 논문에서 하는 일
+  // top-down 순서 (사용자 정의 "상위 계층부터 학습하고 기초 개념으로 내려가는 학습", 2026-09-30):
+  // 저장된 경로는 선수 개념이 앞(기초 → 연구 기법)이라 뒤집고, 수준 L3 → L2 → L1으로 정렬. 선수 개념은 항상 같거나 낮은 수준이라
+  // 이 순서면 어떤 개념도 그 선수 개념보다 먼저 나온다. 바닥 = L1(학부 1~2학년 기초)
+  function topDown(path, g) {
+    const list = (path?.path || []).filter((s) => g?.byId[s.concept]).reverse();
+    return list.map((s, i) => [s, i]).sort((a, b) => g.byId[b[0].concept].level - g.byId[a[0].concept].level || a[1] - b[1]).map(([s]) => s);
+  }
+  // 학습 경로: 중심 개념(연구 기법)에서 기초까지, 단계마다 이 논문에서 하는 일
   async function pathHtml(path) {
     const g = await loadGraph();
     if (!path?.path?.length) return "<p>(학습 경로 생성 중)</p>";
     return `
-      <p class="hintline">이 논문을 읽기 위해 공부할 순서입니다. 아래(기초)부터 위(연구 기법)로 쌓입니다. 개념을 누르면 카드로 갑니다.</p>
-      <ol class="steps">${path.path.map((s) => { const c = g.byId[s.concept]; return c ? `<li>${conceptBtn(g, s.concept)}<div class="role">${esc(s.role)}</div></li>` : ""; }).join("")}</ol>`;
+      <p class="hintline">이 논문에서 시작해 필요한 개념으로 내려갑니다: 연구 기법(L3) → 전공(L2) → 기초(L1, 학부 1~2학년). 아는 개념은 건너뛰고, 막히는 개념에서 아래로 내려가세요. 개념을 누르면 카드로 갑니다.</p>
+      <ol class="steps">${topDown(path, g).map((s) => { const c = g.byId[s.concept]; return c ? `<li>${conceptBtn(g, s.concept)}<div class="role">${esc(s.role)}</div></li>` : ""; }).join("")}</ol>`;
   }
   // 관련 논문: 같은 개념을 많이 공유하는 교수님 논문 + 웹 유사 논문
   async function relatedHtml(paper, path, ctx) {
@@ -141,5 +148,5 @@
       ${top.length ? `<h4>같은 개념을 많이 쓰는 교수님 논문</h4><ul class="plist">${top.map(([id, n]) => `<li><button class="plink" data-paper="${esc(id)}">${esc(ctx.paperTitle?.(id) || id)}</button><div class="where">공통 개념 ${n}개</div></li>`).join("")}</ul>` : ""}
       ${web.length ? `<h4>웹 유사 논문 (논문 DB)</h4><ul class="plist">${web.map((q) => `<li><a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.title)}</a><div class="where">${esc(q.year ?? "-")} · ${esc(q.venue || "-")} · 인용 ${esc(q.cited ?? 0)}</div></li>`).join("")}</ul>` : ""}`;
   }
-  window.StudyPanel = { loadCommon, loadGraph, fetchConcept, fetchPath, conceptUsers, conceptHtml, summaryHtml, pathHtml, relatedHtml, esc, LEVEL, FIELD };
+  window.StudyPanel = { loadCommon, loadGraph, fetchConcept, fetchPath, conceptUsers, conceptHtml, summaryHtml, pathHtml, relatedHtml, topDown, esc, LEVEL, FIELD };
 })();
