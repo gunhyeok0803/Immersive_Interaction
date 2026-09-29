@@ -129,6 +129,14 @@ async function captureCurrent(b, out) {
   await b.js(`document.querySelector('[data-dback]').click();`); await sleep(1000);
   p = await panel("concepts"); await b.click(p[0], p[1]); await sleep(1500);
   await b.shot(path.join(out, "07-상세-필요한-개념.png"));
+  // 식이 없는 개념(구조 + 보기 고르기) 예: 네트워크 통신 기초
+  await b.js(`const h = ${H_}; h.openConcept("network-communication-basics");`); await sleep(1500);
+  const toStage = (name) => b.js(`for (let k = 0; k < 12 && !(document.querySelector('#dSteps .now')?.textContent || '').includes('${name}'); k++) { document.querySelector('[data-dnav="1"]').click(); await new Promise(r => setTimeout(r, 200)); }`);
+  await toStage("정의"); await sleep(800);
+  await b.shot(path.join(out, "06-구조형-개념-정의·구조.png"));
+  await toStage("풀어"); await sleep(600);
+  await b.js(`document.querySelector('#dBody .page:not([hidden]) [data-choice="0"]')?.click();`); await sleep(700);
+  await b.shot(path.join(out, "06-구조형-개념-보기-고르기.png"));
 }
 
 // ---------- git 기록 속 이전 버전들 (각 단계의 첫 화면) ----------

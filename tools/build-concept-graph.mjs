@@ -77,6 +77,11 @@ function tidyCard(card) {
     const ok = p.kind === "choice" && p.choices?.length >= 2 && p.answer >= 0 && p.answer < p.choices.length;
     if (p.kind === "choice" && !ok) { p.kind = "calc"; }
     if (p.kind === "calc") { p.choices = []; p.answer = -1; }
+    // 해설의 "○번"을 화면 표기(①②③④)로 (9/30: 0부터 센 해설과 1부터 센 해설이 섞여 "정답은 0번"처럼 보였음)
+    if (p.kind === "choice" && /\d번/.test(p.solution)) {
+      const zero = /(^|[^0-9])0번/.test(p.solution);
+      p.solution = p.solution.replace(/(^|[^0-9])(\d)번/g, (m, pre, d) => { const j = zero ? +d : +d - 1; return j >= 0 && j < p.choices.length ? pre + String.fromCharCode(0x2460 + j) : m; });
+    }
   }
   const kinds = (card.practice || []).map((p) => (p.kind === "choice" ? "선" : "계")).join("");
   const warn = !card.formula && !card.structure ? " ⚠식·구조 없음" : "";
