@@ -4,8 +4,9 @@
 # Temporary extraction/rendering outputs
 /tmp/
 
-# Planning notes stay local (only README.md files are published)
-/docs/
+# Planning notes stay local (only README.md files and the system study note are published)
+/docs/*
+!/docs/15-system-study.md
 
 # Dependencies and build outputs
 node_modules/
