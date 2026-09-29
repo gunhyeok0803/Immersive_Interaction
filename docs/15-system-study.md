@@ -393,6 +393,103 @@ AI가 처음 만든 것을 써 보고 바꾼 것. "확인"의 **실제 손** = �
 | 해설에 "정답은 0번"처럼 보임 | 0부터·1부터 센 번호 섞임 → ①②③④로 통일 (113개) | 스크립트 검사 |
 | 학습 경로가 기초부터 나와 top-down과 모순 | 상세 창 순서 L1 → L3 에서 L3 → L1로 (`topDown`) | 44개 경로 코드 검사 |
 
+### 바꾼 수치
+
+값의 변화는 작업 기록(편집 이력)에서 순서대로 뽑은 것.
+
+| 값 | 파일 | 변화 | 왜 |
+| --- | --- | --- | --- |
+| 은하 회전 이득 `rotateGain` | `paper-galaxy.js` | 4 → 5 → 10 → 6 → **3** | "돌리기 안 됨" → 올림 → 너무 빠름 → 줄임 → 내가 3으로 지정 |
+| 은하 돌리기 시작 기준 (편 정도) | `paper-galaxy.js` `openEnough` | 0.8 → **0.55** (도는 중 유지 0.35) | 모델의 Open_Palm 점수는 편 손도 0.6~0.8이라 0.8을 거의 못 넘음 |
+| 은하 크기·자리 | `index.html` `#galaxy` | 반지름 3.2 → 4.2 → 3.2 → **4.6**, 자리 `0 1.5 -5.4` → `0 1.35 -7` → `0 1.95 -7.5` → **`0 2.75 -7.5`**, 기울기 0.55 → 0.42 → **0.5** | 패널과 겹침·글자 가림을 피해 뒤·위로, "은하 크기 키워줘" |
+| 조준 카드 흐림 조건 | `paper-galaxy.js` `cardOp` | `canRotate ? 1 : 0.35` → **`detailOpen ? 0.35 : 1`** | 패널이 열리면 카드가 흐려져 은하와 같이 멈춘 것처럼 보임 → 상세 창일 때만 흐리게 |
+| 핀치 직전 고정 `lockAt` | `hand-cursor.js` | 0.42 → **0.36** (+ `lockMs` 600 시간 초과 추가) | 편하게 둔 손도 0.42 아래라 고정이 안 풀림 |
+| 주먹 유지 시간 `fistMs` | `hand-cursor.js` | 3000 → **600** ms | 3초는 너무 김. 주먹 = 한 단계 뒤로 |
+| 층 끝까지 펼침 `commitAt` | `concept-stack.js` `pullable` | 0.9 → **0.75** | 편 손 점수가 0.9까지 잘 안 올라감 |
+| 층 회전 끝 `rotateUntil` | `concept-stack.js` `pullable` | 0.5 → **0.35** | 편 손 판정을 모델 점수로 바꾸면서 `commitAt`과 함께 그 점수 범위에 맞춤 |
+| One Euro `minCutoff` / `beta` | `hand-cursor.js` | 1.0 → 1.8 → **4.0** / 0.3 → 0.5 → **0.6** | 멈춘 뒤 커서가 늦게 도착 (1Hz면 수렴 약 0.8초 → 4Hz면 0.2초) |
+| 핀치 켜짐 / 꺼짐 | `index.html` `hand-cursor` | 0.25 → **0.28** / 0.40 → **0.45** | 첫 프로토타입(9/21)에서 조정. 켜짐은 조금 쉽게, 꺼짐은 더 벌려야 풀리게 (구체적 이유는 기록 없음) |
+| 레이 대상 | `index.html` `#ray` | `.target` → **`.target, .blocker`** | 가림막(층 프레임)도 레이가 맞게 해서 뒤를 막음 |
+
+### 바꾼 코드 (전 → 후)
+
+**① 커서 기준점** (`hand-cursor.js` `feedHand`)
+
+```js
+// 전: 엄지 끝(4)·검지 끝(8)의 중간 — 핀치하거나 손을 펴면 이 점 자체가 움직임
+const px = this.data.pointer === "pinch" ? (tip.x + thumb.x) / 2 : tip.x;
+// 후: 검지·중지 뿌리 관절(5·9)의 중간 — 손가락을 움직여도 거의 그대로
+const knucklePoint = (lm) => [1 - (lm[5].x + lm[9].x) / 2, (lm[5].y + lm[9].y) / 2];
+```
+
+**② 손 추적 모델과 추론 장치** (`startHandTracking`)
+
+```js
+// 전: 관절만 주는 Hand Landmarker, GPU 먼저 (실패할 때만 CPU)
+landmarker = await makeLandmarker("GPU");            // HandLandmarker.createFromOptions
+const res = landmarker.detectForVideo(videoEl, now);
+// 후: 관절 + 손 모양 분류를 주는 Gesture Recognizer, GPU·CPU를 둘 다 재서 빠른 쪽
+for (const delegate of ["GPU", "CPU"]) { const lm = await makeLandmarker(delegate); cands.push({ delegate, lm, ms: bench(lm) }); }
+cands.sort((x, y) => x.ms - y.ms);
+const res = landmarker.recognizeForVideo(videoEl, now);   // res.landmarks + res.gestures
+```
+
+**③ 주먹 판정** (`feedHand`)
+
+```js
+// 전: 네 손가락 끝이 둘째 관절보다 손목에 가까우면 주먹 (직접 만든 기하 규칙), 3초 유지
+const fist = indexCurled && curled(12, 10) && curled(16, 14) && curled(20, 18);
+// 후: 학습된 모델의 분류 점수, 0.6초 유지
+const fist = top?.categoryName === "Closed_Fist" && top.score >= this.data.fistScore;
+```
+
+**④ 편 손 판정** (`feedHand`)
+
+```js
+// 전: 손가락 펴짐·벌어짐 비율을 직접 정한 구간(1.55~1.9, 0.75~1.25)으로 0~1
+let open = (c01((ext - extFrom) / (extTo - extFrom)) + c01((spread - spreadFrom) / (spreadTo - spreadFrom))) / 2;
+// 후: 모델이 있으면 Open_Palm 점수 (위 식은 모델이 없을 때의 대체값으로만 남김)
+if (cats) { const palm = cats.find((c) => c.categoryName === "Open_Palm"); open = palm ? palm.score : 0; }
+```
+
+**⑤ 가림막 (z-버퍼처럼)** (`hand-cursor.js` `readRay`, `concept-stack.js` `stack-layer.pose`)
+
+```js
+// 추가: 레이가 가장 먼저 맞은 것이 가림막이면 대상 없음
+if (first?.classList.contains("blocker")) first = null;
+// 추가: 보이는 층은 가림막
+const block = op > 0.3;
+if (this.el.classList.contains("blocker") !== block) { this.el.classList.toggle("blocker", block); this.el.emit("hud-hit-dirty"); }
+```
+
+**⑥ 은하는 빈 공간에서만 돎** (`paper-galaxy.js` `rotateByHand`)
+
+```js
+// 추가: 커서가 패널·카드·노드(더 앞의 대상)나 HTML 위면 회전을 시작하지 않음
+const overSomething = !!hc?.target || !!hc?.overUi;
+const open = hc?.mode === "hand" && openEnough && !hc.pinching && this.canRotate && !busy && hc.filtered && (this.rot || !overSomething);
+```
+
+**⑦ 학습 경로 순서** (`study-panel.js`, `hud.js`)
+
+```js
+// 전: 저장된 순서 그대로 (기초 L1이 먼저)
+${path.path.map((s) => ...)}
+// 후: 뒤집고 수준 L3 → L2 → L1로 안정 정렬
+function topDown(path, g) {
+  const list = (path?.path || []).filter((s) => g?.byId[s.concept]).reverse();
+  return list.map((s, i) => [s, i]).sort((a, b) => g.byId[b[0].concept].level - g.byId[a[0].concept].level || a[1] - b[1]).map(([s]) => s);
+}
+```
+
+**⑧ 해설 번호 통일** (`build-concept-graph.mjs` `tidyCard`)
+
+```js
+// 추가: 해설에 "0번"이 있으면 0부터 센 것, 없으면 1부터 센 것으로 보고 ①②③④로 바꿈
+const zero = /(^|[^0-9])0번/.test(p.solution);
+p.solution = p.solution.replace(/(^|[^0-9])(\d)번/g, (m, pre, d) => { const j = zero ? +d : +d - 1; return j >= 0 && j < p.choices.length ? pre + String.fromCharCode(0x2460 + j) : m; });
+```
+
 ### 코드 검토로 고친 결함 (별도 에이전트 검토 → 수정)
 
 | 결함 | 고친 것 |
