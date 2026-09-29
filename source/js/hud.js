@@ -302,7 +302,7 @@ AFRAME.registerComponent("hud", {
       { key: "summary", label: "논문 요약", render: () => StudyPanel.summaryHtml(p, rec) },
       { key: "path", label: "학습 경로", render: () => StudyPanel.pathHtml(rec) },
     ];
-    const path = (rec?.path || []).filter((s) => g?.byId[s.concept]);
+    const path = StudyPanel.topDown(rec, g); // L3 → L2 → L1 (top-down)
     path.forEach((s, i) => steps.push({ key: `c:${s.concept}`, concept: s.concept, label: `경로 ${i + 1}/${path.length} · ${g.byId[s.concept].name}`,
       render: () => StudyPanel.conceptHtml(s.concept, { ...ctx, role: s.role }) }));
     steps.push({ key: "related", label: "관련 논문", render: () => StudyPanel.relatedHtml(p, rec, ctx) });
