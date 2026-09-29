@@ -1,0 +1,131 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:45:35.119Z",
+  "id": "real-time-streaming",
+  "name": "실시간 스트리밍",
+  "english": "Real-Time Streaming",
+  "level": 2,
+  "field": "systems",
+  "one_line": "실시간 스트리밍은 영상·공간 데이터를 네트워크로 연속 전송하며 지연과 대역폭을 관리한다.",
+  "prerequisites": [
+    "network-communication-basics",
+    "programming-data-processing",
+    "data-encoding-formats"
+  ],
+  "applications": [
+    "hybrid-nerf-asset-cloud-rendering",
+    "streamsplat-depth-fusion-web-architecture",
+    "lidar-point-cloud-webrtc-streaming",
+    "webized-xr-apps-displays-and-devices",
+    "ipfs-mqtt-hybrid-iot-storage"
+  ],
+  "card": {
+    "id": "real-time-streaming",
+    "intuition": "파일을 전부 받은 뒤 재생하면 기다리는 동안 영상과 공간 데이터가 낡아 버릴 수 있다. 실시간 스트리밍은 수도관처럼 데이터를 작은 단위로 계속 보내 도착하는 대로 처리한다. 네트워크 속도가 흔들리면 대기열이 길어져 화면이 늦어지고, 데이터를 너무 많이 줄이면 품질이 떨어진다. 그래서 전송률과 버퍼 크기를 조절해 재생 시한 안에 최신 데이터를 전달한다.",
+    "definition": "실시간 스트리밍(real-time streaming)은 시간 순서대로 생성되는 데이터를 나누어 전송하고, 수신 측에서 도착한 단위부터 복원·재생하는 방식이다. 데이터가 정해진 지연 한도 안에 도착하도록 인코딩 비트율, 전송 대역폭, 버퍼링, 손실 처리를 함께 관리한다.",
+    "formula": {
+      "latex": "T_{\\mathrm{e2e}}=T_{\\mathrm{capture}}+T_{\\mathrm{encode}}+T_{\\mathrm{queue}}+\\frac{S}{R}+T_{\\mathrm{propagation}}+T_{\\mathrm{decode}}+T_{\\mathrm{render}}",
+      "symbols": [
+        {
+          "symbol": "T_{\\mathrm{e2e}}",
+          "meaning": "생성 시점부터 재생까지의 전체 지연 (초, s)"
+        },
+        {
+          "symbol": "T_{\\mathrm{capture}}",
+          "meaning": "프레임이나 데이터 단위를 수집하는 시간 (초, s)"
+        },
+        {
+          "symbol": "T_{\\mathrm{encode}}",
+          "meaning": "데이터를 압축·인코딩하는 시간 (초, s)"
+        },
+        {
+          "symbol": "T_{\\mathrm{queue}}",
+          "meaning": "전송 대기열이나 재생 버퍼에서 기다리는 시간 (초, s)"
+        },
+        {
+          "symbol": "S",
+          "meaning": "전송할 프레임 또는 데이터 단위의 크기 (비트, bit)"
+        },
+        {
+          "symbol": "R",
+          "meaning": "유효 전송률 (초당 비트, bit/s)"
+        },
+        {
+          "symbol": "T_{\\mathrm{propagation}}",
+          "meaning": "네트워크를 지나가는 전파 지연 (초, s)"
+        },
+        {
+          "symbol": "T_{\\mathrm{decode}}",
+          "meaning": "수신 데이터를 복원하는 시간 (초, s)"
+        },
+        {
+          "symbol": "T_{\\mathrm{render}}",
+          "meaning": "화면에 표시하거나 공간 데이터를 사용하는 데 드는 시간 (초, s)"
+        }
+      ],
+      "reading": "전체 지연은 수집, 인코딩, 대기, 전송, 전파, 복원, 표시 시간이 합쳐진 값이다. 크기 S인 데이터의 전송 시간은 전송률 R이 높을수록 짧아진다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "데이터 생성·인코딩",
+          "role": "카메라나 LiDAR가 새 프레임을 만들고 전송에 적합한 크기로 압축한다."
+        },
+        {
+          "name": "패킷화·전송",
+          "role": "인코딩된 데이터를 네트워크 패킷으로 나누어 수신 측으로 보낸다."
+        },
+        {
+          "name": "수신 버퍼",
+          "role": "패킷 도착 시각의 흔들림을 흡수해 재생 흐름을 안정시킨다."
+        },
+        {
+          "name": "복원·표시",
+          "role": "패킷을 프레임으로 복원해 기한에 맞춰 화면이나 애플리케이션에 전달한다."
+        },
+        {
+          "name": "전송률 조절",
+          "role": "대역폭 변화에 맞춰 품질과 전송량을 조정해 대기열이 계속 커지는 것을 막는다."
+        }
+      ],
+      "flow": "예를 들어 LiDAR가 점군 프레임을 만들면 인코더가 압축하고, 송신기는 이를 패킷으로 나누어 보낸다. 각 프레임의 크기 S와 유효 전송률 R이 전송 시간을 결정하며, 네트워크 혼잡은 대기 시간을 늘린다. 수신 버퍼는 도착 시각의 흔들림을 흡수하지만, 너무 크면 재생 지연도 커진다. 대기열이 계속 늘면 전송률이나 품질을 낮추고, 기한이 지난 오래된 프레임은 최신 장면을 위해 버릴 수 있다."
+    },
+    "key_points": [
+      "평균 대역폭이 충분해도 순간적인 전송률 저하와 패킷 도착 시간의 흔들림 때문에 지연이 생길 수 있다.",
+      "버퍼는 도착 시각의 흔들림을 줄이지만, 버퍼를 크게 할수록 재생이 늦어진다.",
+      "비트율을 네트워크 용량보다 계속 높게 잡으면 전송 대기열과 전체 지연이 누적된다.",
+      "오래된 데이터가 기한 뒤에 도착하면, 실시간 애플리케이션에서는 재전송보다 버리는 편이 나을 수 있다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "한 프레임의 크기가 1.2 Mbit이고 유효 전송률이 12 Mbit/s다. 수집 15 ms, 인코딩 10 ms, 대기 20 ms, 전파 5 ms, 복원 8 ms, 표시 7 ms가 걸릴 때 전체 지연을 구하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "전송 시간은 S/R = 1.2 Mbit ÷ 12 Mbit/s = 0.1 s = 100 ms다. 전체 지연은 15 + 10 + 20 + 100 + 5 + 8 + 7 = 165 ms다."
+      },
+      {
+        "kind": "choice",
+        "question": "평균 전송률은 충분하지만 패킷 도착 간격이 들쭉날쭉해 재생이 끊긴다. 가장 알맞은 조치는 무엇인가?",
+        "choices": [
+          "작은 재생 버퍼로 도착 흔들림을 흡수하고, 재생 기한이 지난 오래된 프레임은 버린다.",
+          "화면 해상도를 높여 수신 패킷 사이의 빈 시간을 채운다.",
+          "도착한 패킷을 모두 무기한 저장해 어떤 지연도 없애지 않는다.",
+          "기한과 상관없이 모든 손실 패킷을 재전송해 재생을 기다린다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 작은 버퍼는 도착 시간의 흔들림을 흡수하고, 늦은 프레임을 버리면 최신 데이터를 제때 쓸 수 있다. 1번은 해상도를 높여도 패킷 도착 간격이 해결되지 않고 데이터량만 늘릴 수 있다. 2번은 대기 시간을 제한하지 않아 지연이 계속 커진다. 3번은 기한이 지난 데이터를 기다리느라 실시간 재생이 더 늦어진다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Computer Networking: A Top-Down Approach",
+        "source": "James F. Kurose, Keith W. Ross",
+        "where": "Multimedia Networking 장"
+      }
+    ],
+    "used_in_lab": "WebRTC로 LiDAR 점군이나 XR 프레임을 보낼 때, 전송률과 버퍼 지연을 조절하는 데 쓴다."
+  }
+}

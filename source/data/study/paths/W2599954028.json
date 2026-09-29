@@ -1,0 +1,57 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:46:01.480Z",
+  "paper_id": "W2599954028",
+  "summary": "기존 장비를 IoT 기기로 교체하지 않고, 웹 증강현실 매시업으로 기존 웹 서비스와 사물을 연결하는 구성을 제안한다. 기존 장비를 활용해 IoT 연결에 따르는 교체 비용을 줄이는 데 초점을 둔다.",
+  "core": [
+    "web-interoperability-xr",
+    "webized-xr-apps-displays-and-devices"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "기존 웹 서비스와 사물의 데이터를 다뤄 매시업 앱으로 연결하는 구현 바탕이다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "교체하지 않은 장비와 웹 서비스 사이에서 정보가 오가는 연결을 이해한다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "서비스와 사물에서 온 정보를 웹 매시업이 읽고 전달하는 표현 형식을 다룬다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "AR 화면에 놓이는 영상 요소를 픽셀 배열로 이해한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "AR 콘텐츠와 현실 장면의 위치 및 시점이 대응하는 관계를 읽는다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "현실 장면 위에 AR 정보를 화면으로 그려 내는 과정을 설명한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "사용자가 기존 장비와 겹쳐 제시된 AR 정보를 보는 방식을 고려한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "웹 서비스와 사물 정보를 AR 경험 안에서 보여 주고 조작하는 측면을 다룬다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "기존 웹 서비스와 사물을 교체 없이 연결하는 매시업의 핵심 접점이다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "연결된 서비스와 사물의 정보가 웹 경험으로 전달되는 흐름을 이해하는 배경이다."
+    },
+    {
+      "concept": "webized-xr-apps-displays-and-devices",
+      "role": "웹화한 AR 매시업으로 기존 사물에 접속하는 시스템 수준의 개념이다."
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:28:05.695Z",
+  "id": "coordinate-geometry",
+  "name": "좌표기하",
+  "english": "Coordinate Geometry",
+  "level": 1,
+  "field": "math",
+  "one_line": "좌표기하는 점, 선, 면의 기하학적 관계를 좌표와 방정식으로 표현한다.",
+  "prerequisites": [
+    "vectors-coordinate-systems"
+  ],
+  "applications": [
+    "optical-flow",
+    "camera-model-calibration",
+    "spatial-thermal-comfort-modeling",
+    "gaze-behavior-analysis"
+  ],
+  "card": {
+    "id": "coordinate-geometry",
+    "intuition": "격자 지도에 점을 찍으면 ‘어디’라는 말이 숫자 쌍으로 바뀝니다. 좌표계는 위치를 표현할 기준점을 제공하고, 좌표는 각 위치를 그 기준에 대한 숫자로 나타냅니다. 이렇게 바꾸면 눈대중 대신 식으로 거리, 교점, 정렬 여부를 계산할 수 있습니다. 벡터와 좌표계에서 배운 기준과 성분을 점·직선·곡선의 관계에 연결하는 방법입니다.",
+    "definition": "좌표기하(Coordinate Geometry, analytic geometry)는 점을 좌표로 나타내고, 직선이나 곡선 같은 기하 도형을 방정식 또는 부등식으로 표현하는 방법입니다. 도형은 그 방정식을 만족하는 점들의 집합으로 정의됩니다. 방정식의 해를 구해 교점이나 평행 관계 같은 기하적 성질을 분석합니다.",
+    "formula": {
+      "latex": "y-y_1=\\frac{y_2-y_1}{x_2-x_1}(x-x_1)",
+      "symbols": [
+        {
+          "symbol": "x, y",
+          "meaning": "직선 위의 임의의 점의 가로·세로 좌표. 두 축이 미터 단위라면 각각 m."
+        },
+        {
+          "symbol": "x_1, y_1",
+          "meaning": "직선 위의 첫 번째 알려진 점의 가로·세로 좌표. 단위는 좌표계의 길이 단위, 예: m."
+        },
+        {
+          "symbol": "x_2, y_2",
+          "meaning": "직선 위의 두 번째 알려진 점의 가로·세로 좌표. 단위는 좌표계의 길이 단위, 예: m."
+        },
+        {
+          "symbol": "\\frac{y_2-y_1}{x_2-x_1}",
+          "meaning": "직선의 기울기(slope). x축과 y축의 단위가 같으면 무차원이며, x_2≠x_1일 때 정의."
+        }
+      ],
+      "reading": "x좌표가 다른 두 점 (x₁,y₁), (x₂,y₂)를 지나는 직선 위의 모든 점은 이 식을 만족합니다. 수직선은 이 식으로 기울기를 계산할 수 없으며 x=x₁로 나타냅니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "좌표계 (coordinate system)",
+          "role": "원점, 축의 방향, 눈금과 단위를 정해 위치를 숫자로 읽을 기준을 제공합니다."
+        },
+        {
+          "name": "점의 좌표 (point coordinates)",
+          "role": "각 점의 위치를 순서쌍 (x,y) 또는 공간에서 순서쌍 (x,y,z)로 나타냅니다."
+        },
+        {
+          "name": "도형의 방정식 (equation of a geometric object)",
+          "role": "직선이나 곡선 위에 놓이는 점들의 좌표가 만족해야 할 조건을 표현합니다."
+        },
+        {
+          "name": "대수적 분석 (algebraic analysis)",
+          "role": "방정식을 풀거나 좌표를 대입해 교점과 도형의 관계를 판별합니다."
+        }
+      ],
+      "flow": "먼저 원점과 축의 단위가 정해진 좌표계를 사용합니다. 두 점 A(1,2), B(3,6)을 좌표로 읽으면 기울기는 2이고, 이 점들을 지나는 직선은 y−2=2(x−1)입니다. 후보 점 (2,4)를 대입하면 양변이 같으므로 이 점은 직선 위에 있습니다. 이처럼 위치를 좌표로 바꾸고, 방정식을 세운 뒤, 해를 통해 기하 관계를 확인합니다."
+    },
+    "key_points": [
+      "좌표는 점 자체가 아니라 선택한 좌표계와 단위에 따른 점의 표현입니다.",
+      "방정식은 도형 위의 점들이 만족하는 조건이며, 그 해 전체가 도형을 나타냅니다.",
+      "기울기는 x가 변할 때 y가 얼마나 변하는지를 나타냅니다. 기울기가 정의되지 않는 수직선은 x=k 형태로 씁니다.",
+      "서로 다른 좌표계에서 같은 점의 좌표는 달라질 수 있습니다. 좌표를 비교하려면 기준 좌표계를 먼저 맞춰야 합니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "두 점 A(1,2), B(3,6)을 지나는 직선의 기울기와 점-기울기 형태의 방정식을 구하세요.",
+        "choices": [],
+        "answer": -1,
+        "solution": "기울기는 (6−2)/(3−1)=4/2=2입니다. 점 A를 식 y−y₁=m(x−x₁)에 넣으면 y−2=2(x−1)입니다."
+      },
+      {
+        "kind": "calc",
+        "question": "두 직선 y=2x+1과 y=−x+7의 교점을 구하세요.",
+        "choices": [],
+        "answer": -1,
+        "solution": "교점에서는 두 직선의 y값이 같으므로 2x+1=−x+7입니다. 이를 풀면 3x=6, x=2이고, 첫 번째 식에 대입하면 y=2·2+1=5입니다. 교점은 (2,5)입니다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Precalculus 2e",
+        "source": "OpenStax, Jay Abramson 외",
+        "where": "§2.1 Linear Functions, §2.2 Graphs of Linear Functions, Chapter 10 Introduction to Analytic Geometry"
+      }
+    ],
+    "used_in_lab": "카메라 보정에서는 영상 좌표와 실제 좌표 사이의 점·직선 관계를 계산하고, 시선 분석과 공간 열쾌적성 모델에서는 위치 데이터를 공통 좌표계에 정렬하는 데 씁니다."
+  }
+}

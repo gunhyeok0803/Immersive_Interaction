@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:40:08.475Z",
+  "paper_id": "W2801545084",
+  "summary": "사이버멀미의 유발 원인, 인간의 인지체계, 증상 측정법을 연결해 가상현실에서의 불편을 설명하는 통합 관점을 제시한다. 원인을 콘텐츠·하드웨어·사용자 특성으로 분류하고, VR 콘텐츠 충실도 관점에서 선행 연구를 해석하며 객관적·주관적 측정 도구의 한계를 검토한다.",
+  "core": [
+    "cybersickness-integrated-review"
+  ],
+  "path": [
+    {
+      "concept": "human-physiology",
+      "role": "사이버멀미와 관련된 신체 반응 및 생리 신호를 이해하는 기초다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "가상현실 경험과 인지·지각이 불편감에 연결되는 과정을 설명한다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "관측된 증상과 측정 결과의 변동성을 이해하는 통계적 바탕이다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "서로 다른 사이버멀미 연구 결과를 비교하고 해석하는 데 쓰인다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "사람을 대상으로 한 사이버멀미 유발 요인과 측정 연구의 설계를 이해한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "시간에 따라 변하는 생리 반응과 증상 자료의 기초가 된다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "생리 신호를 디지털로 측정할 때 표본화 방식을 이해하는 데 필요하다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "생리 신호를 주파수 성분으로 나누어 해석하는 기반이다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "디지털 생리 신호의 분석과 측정 지표 추출을 다룬다."
+    },
+    {
+      "concept": "biosignal-processing",
+      "role": "사이버멀미 연구에서 쓰이는 객관적 생리 측정 자료를 처리하는 개념이다."
+    },
+    {
+      "concept": "cybersickness-models",
+      "role": "유발 요인, 지각, 불편 증상을 연결하는 설명 틀을 제공한다."
+    },
+    {
+      "concept": "cybersickness-integrated-review",
+      "role": "사이버멀미의 원인과 인지·측정 관점을 종합해 연구 결과를 검토한다."
+    }
+  ]
+}

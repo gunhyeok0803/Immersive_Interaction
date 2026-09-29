@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:40:08.458Z",
+  "paper_id": "W2963237354",
+  "summary": "중앙 서버에 의존하는 XR 협업 구조를 바탕으로, 분산 웹 기술을 결합한 웹 기반 XR 협업 프레임워크를 탐색한다. P2P 방식의 3D 대면 협업을 지원할 수 있는 아키텍처를 다룬다.",
+  "core": [
+    "interoperable-xr-content-and-decentralized-web"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "웹 기반 XR 협업 기능과 참가자 상태를 처리하는 소프트웨어 기반이다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "서로 다른 웹 XR 구성 요소가 콘텐츠와 데이터를 주고받는 형식의 배경이다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "참가자 간 P2P 연결과 분산 통신 구조를 이해하는 기초다."
+    },
+    {
+      "concept": "algorithms-complexity",
+      "role": "분산 환경에서 참가자와 작업을 처리하는 절차의 효율성을 이해하는 데 쓰인다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "XR에서 다루는 시각 콘텐츠가 디지털 영상 자료로 표현되는 방식을 제공한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "3D XR 장면의 시점과 공간 좌표를 연결하는 시각 시스템의 배경이다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "3D 협업 장면을 화면에 표시하는 렌더링 과정을 이해하는 기반이다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "참가자가 XR 장면과 상호작용을 지각하는 측면을 설명한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "3D XR 환경에서 참가자들이 함께 보고 상호작용하는 기능을 다룬다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 기술과 XR 콘텐츠·기능이 함께 작동하는 구조를 설명한다."
+    },
+    {
+      "concept": "distributed-edge-systems",
+      "role": "중앙 서버에 집중하지 않는 협업 아키텍처의 분산 구조를 뒷받침한다."
+    },
+    {
+      "concept": "interoperable-xr-content-and-decentralized-web",
+      "role": "분산 웹을 바탕으로 상호운용 가능한 XR 협업 콘텐츠와 구조를 다룬다."
+    }
+  ]
+}

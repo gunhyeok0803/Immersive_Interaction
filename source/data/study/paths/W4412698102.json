@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:30:27.823Z",
+  "paper_id": "W4412698102",
+  "summary": "시간·주파수 전 영역에 활동 라벨을 붙인 소리 자료를 구성하고, 이미지 분할용 SegNet을 소리 활동 분할에 적용한다. 여섯 활동의 세분화된 인식 성능을 평가하고 전문 사무실 환경에서도 인식 가능성을 확인한다.",
+  "core": [
+    "segnet-sound-activity-segmentation"
+  ],
+  "path": [
+    {
+      "concept": "signals-time-series",
+      "role": "활동 소리를 시간에 따라 변하는 신호로 다루는 출발점이다."
+    },
+    {
+      "concept": "waves-electromagnetism",
+      "role": "소리가 파동으로 전파되는 현상을 이해하는 기초다."
+    },
+    {
+      "concept": "programming-data-processing",
+      "role": "음향 자료와 시간·주파수 라벨을 처리하는 데 필요한 기초다."
+    },
+    {
+      "concept": "acoustics",
+      "role": "말소리, 기침, 코골이 등 활동별 소리 특성을 이해하는 바탕이다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "소리 자료를 분할 모델에 입력할 수 있도록 디지털 신호로 다루는 기초다."
+    },
+    {
+      "concept": "audio-speech-processing",
+      "role": "활동 소리의 음향 정보를 모델 입력과 라벨에 연결한다."
+    },
+    {
+      "concept": "neural-networks",
+      "role": "활동 소리의 패턴을 학습하는 SegNet의 신경망 기반을 설명한다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "시간·주파수 소리 표현을 분할 모델이 다루는 배열 구조로 이해하도록 돕는다."
+    },
+    {
+      "concept": "convolutional-neural-networks",
+      "role": "국소적인 소리 패턴을 학습하는 합성곱 신경망 구조를 제공한다."
+    },
+    {
+      "concept": "semantic-segmentation-object-detection",
+      "role": "이미지의 픽셀 단위 분할 방식을 시간·주파수 영역의 활동 분할에 연결한다."
+    },
+    {
+      "concept": "classification-metrics",
+      "role": "활동별 인식 결과를 F1 점수 등으로 평가하는 방법을 제공한다."
+    },
+    {
+      "concept": "segnet-sound-activity-segmentation",
+      "role": "SegNet으로 소리 구간마다 활동 라벨을 예측해 세분화된 인간 활동 인식을 수행한다."
+    }
+  ]
+}

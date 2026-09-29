@@ -1,0 +1,48 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:34:49.900Z",
+  "paper_id": "W3136467879",
+  "summary": "물리 환경의 XR 원격 협업에서 불안정한 시점과 시점 의존성, 확장성 및 콘텐츠 표현 문제를 줄이도록 웹 기반 시스템을 구성한다. 장치 인터페이스의 웹화, VR·AR에서 호환되는 XR 표현, 월드 좌표 통합을 통해 VR 참여자는 가상 대응 물체를 조작하고 AR 참여자는 실제 물체 위의 오버레이를 보며 작업 진행을 공유한다.",
+  "core": [
+    "webized-xr-apps-displays-and-devices"
+  ],
+  "path": [
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "실제 작업 현장의 물체 위치와 자세를 월드 좌표로 나타내는 바탕이다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "물리 물체와 가상 대응 물체의 좌표 변환을 이해한다."
+    },
+    {
+      "concept": "programming-data-processing",
+      "role": "웹 브라우저와 XR 장치 인터페이스를 연결하는 구현 기반이다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "원격 참여자 사이의 협업 정보 교환을 뒷받침한다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "VR·AR에서 호환되는 XR 콘텐츠 표현을 이해한다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹에서 XR 콘텐츠와 장치 인터페이스를 상호운용하는 기반이다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "원격 작업 현장의 물체 자세와 진행 상황을 실시간으로 공유한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "VR의 가상 물체 조작과 AR의 실제 물체 위 오버레이를 다룬다."
+    },
+    {
+      "concept": "webized-xr-apps-displays-and-devices",
+      "role": "웹 기반 XR에서 실제·가상 공간의 장치와 콘텐츠를 연결해 원격 협업을 지원한다."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:45:16.274Z",
+  "paper_id": "W2613287532",
+  "summary": "VR 기반의 인터랙티브 인테리어 디자인 시스템을 웹 기반으로 구성하고 구현한다. 가상 공간 디자인의 조작 경험을 브라우저 기반 시스템으로 제공하는 접근을 다룬다.",
+  "core": [
+    "xr-rendering-interaction"
+  ],
+  "path": [
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "실내 구조와 객체의 위치 및 방향을 표현하는 기초를 제공한다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "가상 공간의 실내 요소에 이동·회전 등의 변환을 적용하는 방식을 설명한다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "방과 가구의 위치 관계를 공간 좌표로 다루게 한다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "인테리어 장면이 화면에 출력되는 픽셀 배열로 구성됨을 이해하게 한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "VR 공간을 경험하는 사용자의 시각과 신체 반응을 이해하는 기초를 제공한다."
+    },
+    {
+      "concept": "programming-data-processing",
+      "role": "웹 시스템의 동작과 인터랙션을 구현하는 바탕을 제공한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "가상 카메라의 시점과 투영을 실내 장면의 좌표에 연결한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "가상 인테리어 장면이 사용자에게 어떻게 지각되는지 이해하게 한다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "실내 장면과 가구 배치를 VR 화면의 이미지로 만든다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "웹에서 VR 인테리어 장면을 표시하고 사용자의 상호작용을 다룬다."
+    }
+  ]
+}

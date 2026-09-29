@@ -1,239 +1,145 @@
-/* study-panel: 사전 생성된 학습 세트를 읽어 양피지 패널에 top-down 스텝으로 렌더.
- * 논문 팩(학습 top-down): 1차 개요(5C) → 키워드 → 2차 이해 → 기초과학·CS(수식) → 사용 툴 → 공통 모듈 → 유사 논문(웹) → 3차 재구성
- * 공통 모듈: 개요 → 논문 키워드 → 사용 툴 → CS → 공학수학 → 역학 → 물리 → 부록: 피지컬 AI 동향
- * 데이터(모두 tools/ 스크립트가 미리 만듦):
- *   data/study/papers/<id>.json   논문 팩        data/study/common.json   모듈 목록
- *   data/study/modules/<id>.json  모듈 세트      data/study/trends.json   피지컬 AI 동향
- *   data/related-papers.json      웹 유사 논문
- * 근거: docs/01-topic-references.md §5, docs/09-how-it-works.md §9
- * 조작: 버튼은 마우스 클릭 또는 손 핀치(index.html 이 핀치 위치의 DOM 요소를 클릭해 줌). 버튼은 크게.
+/* study-panel: 학습 세트 데이터를 읽고, HUD 상세 창에 띄울 HTML을 만든다. (2026-09-29 개념 그래프 기반으로 교체)
+ *
+ * 학습 단위 = 개념 (사용자 결정): 연구실 논문 전체에 필요한 개념 90개를 학부 1~2학년 기초(L1) → 전공(L2) → 연구 기법(L3)으로 쌓고,
+ * 선수 개념 → 응용 개념으로 이어 둠. 개념 카드 = 직관 · 정의 · 핵심 식 · 꼭 기억할 점 · 연습 문제 · 코드 · 참고 자료.
+ * 논문은 입구: 논문을 고르면 "이 논문을 읽으려면 이 순서로" 학습 경로가 나오고, 경로의 각 개념이 이 논문에서 하는 일이 붙는다.
+ * 유기적 연결: 개념 카드마다 선수·응용 개념 버튼, 그 개념을 쓰는 다른 교수님 논문 버튼이 있어 개념 ↔ 논문을 오갈 수 있다.
+ *
+ * 데이터 (tools/build-concept-graph.mjs가 만듦):
+ *   data/study/graph.json            개념 90개 (id, 이름, 수준, 분야, 한 줄, 선수, 응용)
+ *   data/study/concepts/<id>.json    개념 카드
+ *   data/study/paths/<paperId>.json  논문 요약 + 학습 경로 + 중심 개념
+ *   data/related-papers.json         웹 유사 논문 (논문 DB에서 가져온 실제 논문)
+ * 상세 HTML 안의 버튼: data-concept(그 개념으로), data-paper(그 논문으로), data-reveal(풀이 보기). 처리는 index.html → hud.js
  */
 (function () {
   const getJson = (u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
-
-  // 논문 팩. 없으면 null (아직 생성 전)
-  const packCache = {};
-  function fetchPaperPack(id) {
-    packCache[id] ??= getJson(`data/study/papers/${id}.json`);
-    return packCache[id];
-  }
-
-  // 공통 세트·동향·유사 논문은 한 번만 읽어 둠. 없으면 빈 값
-  let commonP = null;
-  function loadCommon() {
-    commonP ??= (async () => {
-      const [index, trends, related] = await Promise.all([getJson("data/study/common.json"), getJson("data/study/trends.json"), getJson("data/related-papers.json")]);
-      const modules = {};
-      if (index) await Promise.all(index.modules.map(async (m) => { modules[m.id] = (await getJson(`data/study/modules/${m.id}.json`)) || { ...m, pack: null }; }));
-      return { index, modules, trends, related: related || {} };
-    })();
-    return commonP;
-  }
-
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const BLOOM = { remember: "기억", understand: "이해", apply: "적용", analyze: "분석" };
-  const DISC = { physics: "물리", mechanics: "역학", engineering_math: "공학수학", math: "수학", physics_mechanics: "물리·역학", cs: "CS", statistics: "통계", signal_processing: "신호처리", domain: "분야 지식" };
-  const LAYER = { cs: "CS", engineering_math: "공학수학", mechanics: "역학", physics: "물리" };
-  const TOOL_CAT = { library: "라이브러리", framework: "프레임워크", engine: "엔진", hardware: "하드웨어", sensor: "센서", dataset: "데이터셋", platform: "플랫폼", method: "기법" };
-  const list = (xs) => `<ul>${(xs || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
-
-  const cards = (l) => (l?.cards || []).map((c) => `
-      <article class="scard" data-card="${esc(c.title)}">
-        <div class="scard-head"><span class="disc">${esc(DISC[c.discipline] || c.discipline)}</span><h4>${esc(c.title)}</h4></div>
-        <p>${esc(c.body)}</p>
-        <div class="link">논문과의 연결: ${esc(c.links_to_paper)}</div>
-        ${c.linked_keywords?.length ? `<div class="kw">${c.linked_keywords.map((k) => `<span>${esc(k)}</span>`).join("")}</div>` : ""}
-        <div class="check">
-          <div class="q"><b>확인 (${esc(BLOOM[c.check?.bloom] || c.check?.bloom)})</b> ${esc(c.check?.question)}</div>
-          <button class="btn reveal" data-reveal>정답 보기</button>
-          <div class="a" hidden>${esc(c.check?.answer)}${c.check?.if_wrong_go_to ? `<div class="back">틀렸다면 → "${esc(c.check.if_wrong_go_to)}" 카드로</div>` : ""}</div>
-        </div>
-        ${c.next_resource ? `<div class="next">다음 자료: ${esc(c.next_resource)}</div>` : ""}
-      </article>`).join("");
-
-  // 논문 팩 공통 앞부분(개요·키워드·2차 이해)과 뒷부분(재구성)
-  function paperHead(p) {
-    const o = p.pass1_overview || {}, f = o.five_c || {}, u = p.pass2_understanding || {};
-    return [
-      { key: "overview", label: "1차 개요", html: `
-        <p class="lead">${esc(o.one_paragraph)}</p>
-        <div class="goal">이 논문에서 얻어 갈 것: ${esc(o.reading_goal)}</div>
-        <dl class="fivec">
-          <dt>분류</dt><dd>${esc(f.category)}</dd>
-          <dt>맥락</dt><dd>${esc(f.context)}</dd>
-          <dt>기여</dt><dd>${list(f.contributions)}</dd>
-          <dt>정확성</dt><dd>${esc(f.correctness)}</dd>
-          <dt>명확성</dt><dd>${esc(f.clarity)}</dd>
-        </dl>` },
-      { key: "keywords", label: "키워드", html: `
-        <ul class="kwlist">${(p.keywords || []).map((k) => `<li><b>${esc(k.term)}</b> <span class="where">${esc(k.where_in_paper)}</span><br>${esc(k.definition_one_line)}</li>`).join("")}</ul>` },
-      { key: "understand", label: "2차 이해", html: `
-        <h4>방법 흐름</h4><ol>${(u.method_flow || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
-        <h4>주장과 근거</h4>${(u.key_evidence || []).map((e) => `<div class="ev"><b>${esc(e.claim)}</b><br>근거: ${esc(e.evidence)}${e.caveat ? `<br><span class="caveat">주의: ${esc(e.caveat)}</span>` : ""}</div>`).join("")}
-        <h4>비판적으로 물어볼 것</h4>${list(u.critical_questions)}` },
-    ];
-  }
-  function paperTail(p) {
-    const r3 = p.pass3_reconstruct || {};
-    return { key: "reconstruct", label: "3차 재구성", html: `
-        <div class="goal">내 말로 다시 쓰기: ${esc(r3.restate_in_own_words_prompt)}</div>
-        <h4>도전해 볼 가정</h4>${list(r3.assumptions_to_challenge)}
-        <h4>재현하려면 필요한 것</h4>${list(r3.to_reproduce_you_need)}` };
-  }
-
-  function relatedStep(rel) {
-    const items = rel?.items || [];
-    if (!items.length) return { key: "related", label: "유사 논문", html: "<p>(수집된 유사 논문 없음)</p>" };
-    return { key: "related", label: "유사 논문", html: `
-      <p class="hintline">교수님 논문 밖에서 찾은 비슷한 연구입니다. 논문 추천 DB(Semantic Scholar 등)에서 가져온 실제 논문이며, AI가 만든 목록이 아닙니다.</p>
-      ${items.map((q) => `
-        <div class="rel">
-          <a href="${esc(q.url)}" target="_blank" rel="noopener"><b>${esc(q.title)}</b></a>
-          <div class="where">${esc(q.year ?? "-")} · ${esc(q.venue || "-")} · 인용 ${esc(q.cited)}${q.pdf ? ` · <a href="${esc(q.pdf)}" target="_blank" rel="noopener">PDF</a>` : ""}</div>
-          ${q.abstract ? `<details><summary>초록</summary><div class="abs">${esc(q.abstract)}</div></details>` : ""}
-        </div>`).join("")}
-      <div class="smeta">출처: ${[...new Set(items.map((q) => q.via))].map(esc).join(", ")} · ${esc(rel.fetched_at?.slice(0, 10) || "")}</div>` };
-  }
-
-  // 수식: KaTeX가 있으면 렌더, 없으면 LaTeX 원문
   const tex = (s, display) => {
     if (!s) return "";
     try { if (window.katex) return window.katex.renderToString(s, { displayMode: display, throwOnError: false }); } catch {}
     return `<code>${esc(s)}</code>`;
   };
-  const moduleOfCard = (common, title) => title && Object.values(common.modules).find((m) => (m.pack?.layers || []).some((l) => l.cards.some((c) => c.title === title)));
+  // 본문 속 인라인 수식 \( … \)은 KaTeX로, 나머지는 이스케이프
+  const rich = (s) => String(s ?? "").split(/\\\((.+?)\\\)/s).map((part, i) => (i % 2 ? tex(part, false) : esc(part))).join("");
 
-  // 기초과학·CS: 개념 → 표준 수식 → 논문 주제와의 연결 → 계산 문제
-  function foundationsStep(p, common) {
-    const list = p.foundations || [];
-    if (!list.length) return null;
-    return { key: "foundations", label: "기초과학·CS", html: `
-      <p class="hintline">이 논문 주제를 이해하는 데 필요한 기초입니다. 식은 교과서 표준 식이며, 논문 속 식 그대로는 아닙니다.</p>
-      ${list.map((f) => {
-        const mod = moduleOfCard(common, f.module_card);
-        return `
-        <article class="scard">
-          <div class="scard-head"><span class="disc">${esc(DISC[f.discipline] || f.discipline)}</span><h4>${esc(f.concept)}</h4></div>
-          <p>${esc(f.explain)}</p>
-          ${f.equation?.latex ? `<div class="eq">${tex(f.equation.latex, true)}</div>
-            <ul class="vars">${(f.equation.variables || []).map((v) => `<li>${tex(v.symbol)} ${esc(v.meaning)}</li>`).join("")}</ul>` : ""}
-          <div class="link">이 논문에서: ${esc(f.link_to_paper)} <span class="where">· ${f.evidence === "abstract" ? "초록에 명시" : "추정"}</span></div>
-          <div class="check">
-            <div class="q"><b>풀어 보기</b> ${esc(f.check?.question)}</div>
-            <button class="btn reveal" data-reveal>풀이 보기</button>
-            <div class="a" hidden>${esc(f.check?.answer)}</div>
-          </div>
-          ${mod ? `<button class="btn" data-module="${esc(mod.id)}" data-focus="${esc(f.module_card)}">공통 모듈에서 더 보기 →</button>` : ""}
-        </article>`;
-      }).join("")}` };
+  const LEVEL = { 1: "기초", 2: "전공", 3: "연구 기법" };
+  const FIELD = { math: "수학", physics: "물리", mechanics: "역학", signal: "신호처리", cs: "컴퓨터과학", ml: "기계학습", vision: "컴퓨터비전", graphics: "그래픽스", hci: "HCI", systems: "시스템", stats: "통계" };
+
+  // ---------- 데이터 ----------
+  let commonP = null;
+  function loadCommon() {
+    commonP ??= (async () => {
+      const related = await getJson("data/related-papers.json"); // 연구 주제(common.json)는 9/30 화면에서 삭제
+      return { related: related || {} };
+    })();
+    return commonP;
+  }
+  let graphP = null;
+  function loadGraph() {
+    graphP ??= getJson("data/study/graph.json").then((g) => { if (g) g.byId = Object.fromEntries(g.concepts.map((c) => [c.id, c])); return g; });
+    return graphP;
+  }
+  const cardCache = {}, pathCache = {};
+  const fetchConcept = (id) => (cardCache[id] ??= getJson(`data/study/concepts/${id}.json`));
+  const fetchPath = (pid) => (pathCache[pid] ??= getJson(`data/study/paths/${pid}.json`));
+  // 개념 → 그 개념이 학습 경로에 들어 있는 논문들 (역색인). 모든 경로를 한 번만 읽음
+  let usersP = null;
+  function conceptUsers(paperIds) {
+    usersP ??= Promise.all(paperIds.map(async (id) => [id, await fetchPath(id)])).then((list) => {
+      const m = {};
+      for (const [id, p] of list) for (const s of p?.path || []) (m[s.concept] ??= []).push({ paperId: id, role: s.role, core: (p.core || []).includes(s.concept) });
+      return m;
+    });
+    return usersP;
   }
 
-  function toolsStep(p) {
-    const list = p.tools || [];
-    if (!list.length) return null;
-    return { key: "tools", label: "사용 툴", html: `
-      <p class="hintline">이 논문 분야에서 쓰는 도구와, 직접 해 볼 첫걸음입니다.</p>
-      <ul class="kwlist">${list.map((t) => `<li><b>${esc(t.name)}</b> <span class="where">${esc(TOOL_CAT[t.category] || t.category)} · ${t.evidence === "abstract" ? "초록에 명시" : "추정"}</span><br>${esc(t.what_for)} ${esc(t.link_to_paper)}<br><span class="where">처음 해 볼 것: ${esc(t.first_step)}</span></li>`).join("")}</ul>` };
+  // ---------- HTML 조각 ----------
+  const lvBadge = (c) => `<span class="lv lv${c.level}">L${c.level} ${LEVEL[c.level]}</span>`;
+  const conceptBtn = (g, id, extra = "") => { const c = g.byId[id]; return c ? `<button class="chip" data-concept="${esc(id)}">${lvBadge(c)} ${esc(c.name)}${extra}</button>` : ""; };
+  // 참고 자료: 모델이 [제목](주소) 꼴로 쓰기도 해서 링크로 바꿈
+  const refHtml = (r) => {
+    const m = String(r.title).match(/^\[(.+?)\]\((https?:[^)\s]+)\)$/);
+    const title = m ? `<a href="${esc(m[2])}" target="_blank" rel="noopener">${esc(m[1])}</a>` : esc(r.title);
+    return `<li>${title} — ${esc(r.source)} <span class="where">${esc(r.where)}</span></li>`;
+  };
+
+  // 개념 카드 한 장. ctx: { role(이 논문에서 하는 일), paperId(지금 논문), users(역색인), paperTitle(id→제목) }
+  async function conceptHtml(id, ctx = {}) {
+    const g = await loadGraph(), c = g?.byId[id];
+    if (!c) return "<p>(개념 정보 없음)</p>";
+    const rec = await fetchConcept(id), k = rec?.card;
+    const pre = c.prerequisites.map((p) => conceptBtn(g, p)).join("") || `<span class="where">없음 — 여기서 시작해도 됩니다</span>`;
+    const apps = (c.applications || []).map((p) => conceptBtn(g, p)).join("") || `<span class="where">(가장 위 단계)</span>`;
+    const users = (ctx.users?.[id] || []).filter((u) => u.paperId !== ctx.paperId);
+    // 학습 단계 (사용자 결정 2026-09-29): ① 왜 → ② 직관 → ③ 정의·식 → ④ 핵심 → ⑤ 풀어 보기(문제마다 한 화면) → ⑥ 연결
+    // 상세 창(index.html)이 section.stage 단위로 한 화면씩 보여 주고, 위에 단계 표시를 그린다
+    const stage = (n, label, body) => `<section class="stage" data-stage="${n}" data-label="${label}">${body}</section>`;
+    const s1 = stage(1, "왜", `
+      <div class="cmeta">${lvBadge(c)} <span class="field">${esc(FIELD[c.field] || c.field)}</span> <span class="en">${esc(c.english)}</span></div>
+      <p class="lead">${esc(c.one_line)}</p>
+      ${ctx.role ? `<div class="goal"><b>이 논문에서</b> ${esc(ctx.role)}</div>` : ""}
+      <h4>먼저 알아야 할 개념</h4><div class="chips">${pre}</div>`);
+    const links = `
+      <h4>이 개념 위에 쌓이는 개념</h4><div class="chips">${apps}</div>
+      ${users.length ? `<h4>이 개념을 쓰는 교수님 논문</h4><ul class="plist">${users.slice(0, 8).map((u) => `<li><button class="plink" data-paper="${esc(u.paperId)}">${esc(ctx.paperTitle?.(u.paperId) || u.paperId)}</button><div class="where">${esc(u.role)}</div></li>`).join("")}</ul>` : ""}`;
+    if (!k) return s1 + stage(6, "연결", `<p class="where">이 개념의 카드는 아직 생성 중입니다.</p>` + links);
+    // 2026-09-30 (사용자 지적 "너무 획일화"): 식은 그 개념에 꼭 필요할 때만. 식이 없는 개념은 ③이 "정의·구조"(구성 요소·동작 흐름)
+    const f = k.formula?.latex ? k.formula : null, st = k.structure;
+    const formulaHtml = f ? `<h4>핵심 식</h4><div class="eq">${tex(f.latex, true)}</div>
+          <ul class="vars">${(f.symbols || []).map((v) => `<li>${tex(v.symbol, false)} ${rich(v.meaning)}</li>`).join("")}</ul>
+          ${f.reading ? `<p class="reading">${rich(f.reading)}</p>` : ""}` : "";
+    const structureHtml = st ? `<h4>구성과 흐름</h4><ul class="parts">${(st.parts || []).map((p) => `<li><b>${rich(p.name)}</b> ${rich(p.role)}</li>`).join("")}</ul>
+          ${st.flow ? `<p class="flow">${rich(st.flow)}</p>` : ""}` : "";
+    // ⑤ 문제: calc = 먼저 풀고 풀이 보기, choice = 보기를 핀치로 고르면 정답·해설 (예전 카드는 kind가 없으므로 calc)
+    const circled = (j) => String.fromCharCode(0x2460 + j);
+    const practiceHtml = (p, i, all) => p.kind === "choice" && p.choices?.length ? `
+        <div class="check"><h4>풀어 보기 ${i + 1} / ${all.length}</h4><div class="q">${rich(p.question)}</div>
+          <div class="choices" data-answer="${p.answer}">${p.choices.map((c, j) => `<button class="btn choice" data-choice="${j}">${circled(j)} ${rich(c)}</button>`).join("")}</div>
+          <div class="a" hidden>${rich(p.solution)}</div></div>` : `
+        <div class="check"><h4>풀어 보기 ${i + 1} / ${all.length}</h4><div class="q">${rich(p.question)}</div>
+          <p class="where">먼저 스스로 풀어 본 뒤 확인하세요.</p>
+          <button class="btn reveal" data-reveal>풀이 보기</button><div class="a" hidden>${rich(p.solution)}</div></div>`;
+    return s1
+      + stage(2, "직관", `<h4>직관</h4><p class="lead">${rich(k.intuition)}</p>`)
+      + stage(3, f ? "정의·식" : "정의·구조", `<h4>정의</h4><p>${rich(k.definition)}</p>${formulaHtml}${structureHtml}`)
+      + stage(4, "핵심", `<h4>꼭 기억할 점</h4><ul>${(k.key_points || []).map((x) => `<li>${rich(x)}</li>`).join("")}</ul>`)
+      + stage(5, "풀어 보기", (k.practice || []).map(practiceHtml).join(""))
+      + stage(6, "연결", `
+        ${k.code?.snippet ? `<h4>코드로 확인 (Python)</h4><pre class="code">${esc(k.code.snippet)}</pre><p class="where">${esc(k.code.what_it_shows)}</p>` : ""}
+        ${k.used_in_lab ? `<div class="goal"><b>이 연구실에서</b> ${esc(k.used_in_lab)}</div>` : ""}
+        ${k.references?.length ? `<h4>더 공부할 자료</h4><ul class="refs">${k.references.map(refHtml).join("")}</ul>` : ""}` + links);
   }
 
-  function buildPaperSteps(record, common) {
-    const p = record.pack; // 레코드는 {paperId, title, model, via, generated_at, pack}
-    const head = [...paperHead(p), foundationsStep(p, common), toolsStep(p)].filter(Boolean);
-    const refs = (p.module_refs || []).map((r) => {
-      const m = common.modules[r.module_id];
-      return `
-        <div class="mref">
-          <div class="mref-title">${esc(m?.title || r.module_id)}</div>
-          <p>${esc(r.why)}</p>
-          ${r.focus_cards?.length ? `<div class="kw">먼저 볼 카드: ${r.focus_cards.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
-          <button class="btn primary" data-module="${esc(r.module_id)}" data-focus="${esc(r.focus_cards?.[0] || "")}" ${m?.pack ? "" : "disabled"}>공통 모듈 열기 →</button>
-        </div>`;
-    }).join("");
-    return [...head,
-      { key: "modules", label: "공통 기초", html: `
-        <p class="hintline">더 깊게: 교수님 최근 논문들이 함께 쓰는 기초와 툴을 모은 공통 모듈입니다.</p>${refs || "<p>(연결된 모듈 없음)</p>"}` },
-      relatedStep(common.related[record.paperId]),
-      paperTail(p)];
+  // 논문 요약: 무엇을 어떻게 풀었는지 + 중심 개념 + 원문
+  async function summaryHtml(paper, path) {
+    const g = await loadGraph();
+    return `
+      <div class="cmeta"><span class="field">${esc(paper.year ?? "-")} · ${esc(paper.venue || "-")} · 인용 ${esc(paper.cited ?? 0)}</span></div>
+      <p class="lead">${esc(path?.summary || "(학습 경로 생성 중)")}</p>
+      ${path?.core?.length ? `<h4>이 논문의 중심 개념</h4><div class="chips">${path.core.map((id) => conceptBtn(g, id)).join("")}</div>` : ""}
+      ${paper.url ? `<p><a href="${esc(paper.url)}" target="_blank" rel="noopener">원문 (DOI) 열기</a></p>` : ""}
+      <p class="where">다음 ▶ 으로 학습 경로 → 개념 카드 순서로 넘어갑니다.</p>`;
   }
-
-  function buildModuleSteps(mod, common) {
-    const k = mod.pack || {};
-    const papers = (mod.paper_ids || []).map((id) => common.paperTitle?.(id) || id);
-    const byLevel = Object.fromEntries((k.layers || []).map((l) => [l.level, l]));
-    const trends = (common.trends?.items || []);
-    const mine = trends.filter((t) => t.related_modules?.includes(mod.id));
-    const others = trends.filter((t) => !t.related_modules?.includes(mod.id));
-    const trend = (t) => `
-      <div class="ev">
-        <b>${esc(t.title)}</b><br>${esc(t.summary)}
-        <div class="goal">연구실과의 연결: ${esc(t.why_it_matters)}</div>
-        <div class="where">${(t.sources || []).map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.publisher || s.title)}</a> ${esc(s.date || "")}${s.ok === false ? " (링크 확인 안 됨)" : ""}`).join(" · ")}</div>
-      </div>`;
-    return [
-      { key: "m-overview", label: "모듈 개요", html: `
-        <p class="lead">${esc(k.intro)}</p>
-        <h4>공부 순서</h4><ol>${(k.roadmap || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
-        <h4>이 모듈로 읽히는 교수님 논문</h4>${list(papers)}` },
-      { key: "m-keywords", label: "논문 키워드", html: `
-        <ul class="kwlist">${(k.keywords || []).map((w) => `<li><b>${esc(w.term)}</b> <span class="where">${w.appears_in?.length || 0}편</span><br>${esc(w.definition_one_line)}</li>`).join("")}</ul>` },
-      { key: "m-tools", label: "사용 툴", html: `
-        <ul class="kwlist">${(k.tools || []).map((t) => `<li><b>${esc(t.name)}</b> <span class="where">${esc(TOOL_CAT[t.category] || t.category)} · ${t.evidence === "abstract" ? "초록에 명시" : "추정"}</span><br>${esc(t.what_for)}<br><span class="where">처음 해 볼 것: ${esc(t.first_step)}</span></li>`).join("")}</ul>` },
-      ...["cs", "engineering_math", "mechanics", "physics"].map((lv) => ({ key: `m-${lv}`, label: LAYER[lv], html: cards(byLevel[lv]) || "<p>(없음)</p>" })),
-      { key: "m-trends", label: "부록: 피지컬 AI 동향", html: `
-        <p class="hintline">기초 학습 밖의 부록입니다. 웹 검색으로 모은 최근 동향이며, 출처 링크로 원문을 확인하세요.</p>
-        ${mine.length ? `<h4>이 모듈과 이어지는 동향</h4>${mine.map(trend).join("")}` : ""}
-        ${others.length ? `<h4>그 밖의 동향</h4>${others.map(trend).join("")}` : ""}
-        ${trends.length ? "" : "<p>(아직 수집되지 않음)</p>"}` },
-    ];
+  // 학습 경로: 기초부터 중심 개념까지, 단계마다 이 논문에서 하는 일
+  async function pathHtml(path) {
+    const g = await loadGraph();
+    if (!path?.path?.length) return "<p>(학습 경로 생성 중)</p>";
+    return `
+      <p class="hintline">이 논문을 읽기 위해 공부할 순서입니다. 아래(기초)부터 위(연구 기법)로 쌓입니다. 개념을 누르면 카드로 갑니다.</p>
+      <ol class="steps">${path.path.map((s) => { const c = g.byId[s.concept]; return c ? `<li>${conceptBtn(g, s.concept)}<div class="role">${esc(s.role)}</div></li>` : ""; }).join("")}</ol>`;
   }
-
-  // 컨테이너 하나에 논문 팩 ↔ 공통 모듈 화면을 오감. 클릭 처리기는 하나만 (다시 그려도 중복되지 않게 onclick 사용)
-  async function renderStudy(container, record, meta = {}) {
+  // 관련 논문: 같은 개념을 많이 공유하는 교수님 논문 + 웹 유사 논문
+  async function relatedHtml(paper, path, ctx) {
     const common = await loadCommon();
-    common.paperTitle = meta.paperTitle;
-    let view = { kind: "paper", steps: buildPaperSteps(record, common), i: 0 };
-    let paperView = view;
-    const genLine = (r) => `${r.via === "codex-cli" ? "Codex CLI · " : ""}${r.model || ""} · ${r.generated_at?.slice(0, 10) || ""}`;
-    const metaLine = (v) => esc(v.kind === "paper" ? `논문 팩 · ${genLine(record)}` : `공통 세트 · ${genLine(v.mod)}`);
-
-    const draw = (focus) => {
-      const s = view.steps[view.i];
-      container.innerHTML = `
-        ${view.kind === "module" ? `<div class="mbar"><button class="btn" data-back>← 논문 학습 팩으로</button><span class="mname">공통 모듈 · ${esc(view.mod.title)}</span></div>` : ""}
-        <div class="snav">
-          <button class="btn" data-nav="-1" ${view.i === 0 ? "disabled" : ""}>← 이전</button>
-          <div class="sdots">${view.steps.map((t, k) => `<button class="dot ${k === view.i ? "on" : ""}" data-go="${k}" title="${esc(t.label)}">${k + 1}</button>`).join("")}</div>
-          <button class="btn" data-nav="1" ${view.i === view.steps.length - 1 ? "disabled" : ""}>다음 →</button>
-        </div>
-        <div class="stitle">${view.i + 1}/${view.steps.length} · ${esc(s.label)}</div>
-        <div class="sbody">${s.html}</div>
-        <div class="smeta">${metaLine(view)}</div>`;
-      const target = focus && [...container.querySelectorAll("[data-card]")].find((el) => el.dataset.card === focus);
-      if (target) { target.classList.add("focus"); target.scrollIntoView({ block: "start" }); }
-      else container.closest("#preview")?.scrollTo?.({ top: container.offsetTop - 20 });
-    };
-
-    function openModule(id, focus) {
-      const mod = common.modules[id];
-      if (!mod?.pack) return;
-      const steps = buildModuleSteps(mod, common);
-      // 먼저 볼 카드가 있는 층으로 바로 이동
-      const lv = focus && (mod.pack.layers || []).find((l) => l.cards.some((c) => c.title === focus))?.level;
-      const i = lv ? Math.max(0, steps.findIndex((s) => s.key === `m-${lv}`)) : 0;
-      view = { kind: "module", mod, steps, i };
-      draw(focus);
-    }
-
-    container.onclick = (e) => {
-      const nav = e.target.closest("[data-nav]"); if (nav && !nav.disabled) { view.i = Math.max(0, Math.min(view.steps.length - 1, view.i + Number(nav.dataset.nav))); draw(); return; }
-      const go = e.target.closest("[data-go]"); if (go) { view.i = Number(go.dataset.go); draw(); return; }
-      const mod = e.target.closest("[data-module]"); if (mod && !mod.disabled) { paperView = view.kind === "paper" ? view : paperView; openModule(mod.dataset.module, mod.dataset.focus); return; }
-      if (e.target.closest("[data-back]")) { view = paperView; draw(); return; }
-      const rev = e.target.closest("[data-reveal]"); if (rev) { const a = rev.nextElementSibling; a.hidden = !a.hidden; rev.dataset.label ??= rev.textContent; rev.textContent = a.hidden ? rev.dataset.label : "가리기"; }
-    };
-    draw();
-    return { goto: (k) => { view.i = k; draw(); }, openModule };
+    const mine = new Set((path?.path || []).map((s) => s.concept));
+    const shared = {};
+    for (const id of mine) for (const u of ctx.users?.[id] || []) if (u.paperId !== paper.id) shared[u.paperId] = (shared[u.paperId] || 0) + 1;
+    const top = Object.entries(shared).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const web = common.related[paper.id]?.items || [];
+    return `
+      ${top.length ? `<h4>같은 개념을 많이 쓰는 교수님 논문</h4><ul class="plist">${top.map(([id, n]) => `<li><button class="plink" data-paper="${esc(id)}">${esc(ctx.paperTitle?.(id) || id)}</button><div class="where">공통 개념 ${n}개</div></li>`).join("")}</ul>` : ""}
+      ${web.length ? `<h4>웹 유사 논문 (논문 DB)</h4><ul class="plist">${web.map((q) => `<li><a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.title)}</a><div class="where">${esc(q.year ?? "-")} · ${esc(q.venue || "-")} · 인용 ${esc(q.cited ?? 0)}</div></li>`).join("")}</ul>` : ""}`;
   }
-
-  window.StudyPanel = { fetchPaperPack, renderStudy, loadCommon };
+  window.StudyPanel = { loadCommon, loadGraph, fetchConcept, fetchPath, conceptUsers, conceptHtml, summaryHtml, pathHtml, relatedHtml, esc, LEVEL, FIELD };
 })();

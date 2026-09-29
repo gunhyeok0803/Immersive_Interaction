@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:34:49.896Z",
+  "paper_id": "W4207052223",
+  "summary": "반복 시청과 장면 방향에 따른 사이버멀미 변화를 주관적 불편감, 뇌파·심장 신호·시선 궤적으로 측정하고 심장박동 유발 전위를 분석한다. 반복 시청과 역방향 장면에서 불편감과 메스꺼움이 줄었으며, 생리 반응에서는 정방향 조건의 전두-중심부 HEP 진폭 억제가 관찰된다.",
+  "core": [
+    "eeg-heartbeat-evoked-cybersickness"
+  ],
+  "path": [
+    {
+      "concept": "signals-time-series",
+      "role": "뇌파와 심장 신호가 시간에 따라 어떻게 변하는지 읽는 바탕이다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "신호의 주파수 성분을 구분해 생체신호 분석의 기초를 제공한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "심장 박동과 뇌 활동을 신체 반응으로 해석하는 데 쓰인다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "조건과 반복 시청에 따른 차이가 통계적으로 유의한지 판단한다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "장면 방향과 반복 시청 조건을 비교하는 실험 구성을 이해한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "주관적 불편감과 메스꺼움 보고를 지각 반응으로 해석한다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "뇌파와 심장 신호에서 분석할 신호 성분을 다룬다."
+    },
+    {
+      "concept": "biosignal-processing",
+      "role": "뇌파·심장 신호에서 심장박동 유발 전위와 같은 생체 반응을 분석한다."
+    },
+    {
+      "concept": "time-frequency-analysis",
+      "role": "생체신호의 시간적·주파수적 변화를 살펴 HEP 반응을 해석한다."
+    },
+    {
+      "concept": "cybersickness-models",
+      "role": "불편감과 생리 지표를 사이버멀미 관련 반응으로 연결한다."
+    },
+    {
+      "concept": "human-subject-usability",
+      "role": "참가자의 주관적 반응과 실험 경험을 평가하는 틀을 제공한다."
+    },
+    {
+      "concept": "eeg-heartbeat-evoked-cybersickness",
+      "role": "사이버멀미 경험과 심장박동 유발 전위의 변화를 연결해 분석한다."
+    }
+  ]
+}

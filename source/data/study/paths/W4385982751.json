@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:35:00.348Z",
+  "paper_id": "W4385982751",
+  "summary": "2D 영상, 360° 영상, 3D 재구성 뷰를 제공하는 XR 원격 협업 시스템을 구성하고, 참가자들이 목표물 찾기와 배치 과제를 수행하게 했다. 수행 시간과 주관적 협업 경험을 비교한 결과, 3D 뷰 조건에서 과제가 더 빨리 끝났고 협업 경험과 인터페이스 선호도도 높았다.",
+  "core": [
+    "xr-remote-collaboration-interface-evaluation"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "원격 협업 시스템과 인터페이스를 구현하는 소프트웨어 처리의 기초다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "2D·360° 영상과 3D 뷰가 화면에 제시되는 시각 자료의 기반을 다룬다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "3D 재구성 뷰를 XR 화면에 시각적으로 제시하는 과정을 이해한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "인터페이스를 사용하는 사람의 감각과 신체 반응을 이해하는 기초다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "참가자가 각 뷰에서 공간 정보를 지각하는 과정을 이해한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "2D·360°·3D 맥락 공유 뷰를 XR 협업 인터페이스로 제공한다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "수행 시간과 설문 응답에 나타나는 참가자 간 변동을 다루는 기초다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "인터페이스 조건별 수행 및 주관 평가의 차이를 비교하는 틀을 제공한다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "인터페이스 조건과 목표물 찾기·배치 과제의 비교 절차를 구성한다."
+    },
+    {
+      "concept": "human-subject-usability",
+      "role": "참가자의 과제 수행과 협업 경험을 함께 평가한다."
+    },
+    {
+      "concept": "psychometrics-questionnaires",
+      "role": "주관적 협업 경험과 인터페이스 선호도를 설문 응답으로 측정한다."
+    },
+    {
+      "concept": "xr-remote-collaboration-interface-evaluation",
+      "role": "세 가지 뷰 인터페이스의 과제 성과와 협업 경험을 사용자 실험으로 비교한다."
+    }
+  ]
+}

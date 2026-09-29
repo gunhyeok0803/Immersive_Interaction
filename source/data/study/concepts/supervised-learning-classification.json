@@ -1,0 +1,125 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:45:35.120Z",
+  "id": "supervised-learning-classification",
+  "name": "지도학습 분류",
+  "english": "Supervised Learning and Classification",
+  "level": 2,
+  "field": "ml",
+  "one_line": "지도학습 분류는 라벨이 붙은 예시를 이용해 새로운 입력의 범주를 예측한다.",
+  "prerequisites": [
+    "probability-random-variables",
+    "matrices-linear-maps",
+    "optimization-basics"
+  ],
+  "applications": [
+    "neural-networks",
+    "classification-metrics",
+    "esp32-csi-device-free-sensing"
+  ],
+  "card": {
+    "id": "supervised-learning-classification",
+    "intuition": "새 이메일이 스팸인지 판단하려면, 먼저 스팸과 정상 메일의 예시를 보고 어떤 특징이 각 범주와 연결되는지 배워야 한다. 지도학습은 입력과 정답 라벨이 짝지어진 예시를 제공해 이 관계를 익히게 한다. 분류기는 그 관계를 이용해 아직 라벨을 모르는 입력의 범주를 고른다. 라벨이 틀리거나 학습 예시가 한쪽 범주에 치우치면 예측도 그 영향을 받는다.",
+    "definition": "지도학습(supervised learning)은 입력과 그에 대응하는 정답 라벨이 있는 예시로 예측 모델을 학습하는 방법이다. 분류(classification)는 라벨이 이산적인 범주일 때 새 입력이 속할 범주를 예측하는 작업이다. 학습 때는 예측과 정답의 차이를 줄이고, 추론 때는 학습된 모델이 새 입력의 범주를 정한다.",
+    "formula": {
+      "latex": "\\hat{y}_i=\\arg\\max_{k\\in\\{1,\\ldots,K\\}}p_{\\theta}(y=k\\mid x_i),\\qquad \\mathcal{L}(\\theta)=-\\frac{1}{N}\\sum_{i=1}^{N}\\sum_{k=1}^{K}y_{ik}\\log p_{\\theta}(y=k\\mid x_i)",
+      "symbols": [
+        {
+          "symbol": "x_i",
+          "meaning": "i번째 예시의 입력 특징 벡터 (각 성분의 단위는 특징에 따라 다름)"
+        },
+        {
+          "symbol": "y_{ik}",
+          "meaning": "i번째 예시가 k번째 범주에 속하면 1, 아니면 0인 정답 표시 (단위 없음)"
+        },
+        {
+          "symbol": "p_{\\theta}(y=k\\mid x_i)",
+          "meaning": "모델이 입력 x_i를 k번째 범주로 예측한 확률 (0~1, 단위 없음)"
+        },
+        {
+          "symbol": "\\hat{y}_i",
+          "meaning": "i번째 입력에 대해 확률이 가장 큰 범주 라벨 (범주값, 단위 없음)"
+        },
+        {
+          "symbol": "K",
+          "meaning": "가능한 범주의 수 (개)"
+        },
+        {
+          "symbol": "N",
+          "meaning": "학습 예시의 수 (개)"
+        },
+        {
+          "symbol": "\\theta",
+          "meaning": "모델의 학습 가능한 매개변수 (단위는 모델 표현에 따름)"
+        },
+        {
+          "symbol": "\\mathcal{L}(\\theta)",
+          "meaning": "평균 교차 엔트로피 손실 (예시당 nat, 무차원 로그 값)"
+        }
+      ],
+      "reading": "모델은 가장 높은 확률을 준 범주를 예측으로 고른다. 학습에서는 정답 범주의 확률을 높이도록 평균 교차 엔트로피 손실을 줄인다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "라벨이 있는 예시",
+          "role": "각 입력 특징과 정답 범주를 짝지어 모델이 배울 기준을 제공한다."
+        },
+        {
+          "name": "분류 모델",
+          "role": "입력 특징을 받아 각 범주에 속할 확률을 계산한다."
+        },
+        {
+          "name": "손실과 최적화",
+          "role": "예측 확률과 정답을 비교해 손실을 구하고, 손실이 작아지도록 모델 매개변수를 조정한다."
+        },
+        {
+          "name": "추론",
+          "role": "학습에 쓰지 않은 새 입력의 범주 확률을 계산하고, 정해진 규칙에 따라 범주를 예측한다."
+        },
+        {
+          "name": "평가",
+          "role": "학습에 사용하지 않은 예시에서 예측을 확인해 새 입력에도 잘 맞는지 살핀다."
+        }
+      ],
+      "flow": "스팸 분류를 예로 들면, 메일의 단어 빈도 같은 특징 x와 스팸 여부 라벨 y를 모아 학습 예시를 만든다. 분류 모델은 각 메일이 스팸일 확률과 정상일 확률을 출력하고, 손실은 정답 범주의 확률이 낮을 때 커진다. 최적화는 손실을 줄이도록 모델 매개변수를 바꾼다. 학습에 쓰지 않은 메일을 넣어 성능을 평가한 뒤, 실제 새 메일에서는 가장 높은 확률의 범주를 예측한다."
+    },
+    "key_points": [
+      "지도학습의 정답은 라벨이며, 분류의 라벨은 범주다.",
+      "학습 예시의 정확도와 다양성이 새 입력의 예측 품질에 영향을 준다.",
+      "모델이 출력하는 확률과 최종 범주 예측은 다르다. 최종 범주는 보통 가장 높은 확률을 고른다.",
+      "학습 데이터로 평가하면 새 입력에서의 성능을 과대평가할 수 있다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "범주 순서가 고양이, 강아지, 새일 때 한 입력의 예측 확률이 각각 0.2, 0.7, 0.1이다. 예측 범주를 고르고, 정답이 강아지일 때 교차 엔트로피 손실을 자연로그 기준으로 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "가장 높은 확률은 강아지의 0.7이므로 예측 범주는 강아지다. 정답 범주의 확률도 0.7이므로 손실은 -ln(0.7) ≈ 0.357 nat다."
+      },
+      {
+        "kind": "choice",
+        "question": "입력은 CSI 신호의 특징이고 정답 라벨은 '사람 있음' 또는 '사람 없음'이다. 새 신호에서 두 범주 중 하나를 예측하려면 무엇을 사용하는가?",
+        "choices": [
+          "지도학습 분류기",
+          "지도학습 회귀 모델",
+          "라벨 없이 군집만 만드는 알고리즘",
+          "입력을 복원하는 오토인코더만 사용"
+        ],
+        "answer": 0,
+        "solution": "정답은 0번이다. 예시마다 범주 라벨이 있고 새 입력의 범주를 예측하는 문제이므로 지도학습 분류가 맞다. 1번 회귀는 보통 연속적인 수치를 예측한다. 2번 군집화는 정답 라벨 없이 유사한 입력을 묶는다. 3번 오토인코더는 입력의 압축 표현이나 복원을 학습하며, 그 자체가 범주 예측을 보장하지는 않는다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow",
+        "source": "Aurélien Géron",
+        "where": "3장, Classification"
+      }
+    ],
+    "used_in_lab": "ESP32에서 수집한 CSI 특징에 사람 유무 라벨을 붙여 학습하고, 새 신호 구간의 범주를 판정하는 데 쓴다."
+  }
+}

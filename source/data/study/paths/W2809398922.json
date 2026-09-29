@@ -1,0 +1,60 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:40:08.474Z",
+  "paper_id": "W2809398922",
+  "summary": "VR·AR·MR 협업에서 다양한 인간 인터페이스 장치를 웹 환경에 연결하는 상호작용 공간 구성법을 제안한다. 사용자 인증과 세션 관리를 두고, interaction adaptor가 VRPN·X3D 센서 데이터·HTML DOM 이벤트를 콘텐츠에 맞게 변환해 전달한다.",
+  "core": [
+    "webized-xr-apps-displays-and-devices"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "사용자 세션과 장치 이벤트를 처리하는 웹 애플리케이션의 기반이다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "VRPN, X3D, HTML DOM 이벤트를 표현하고 변환하는 데이터 형식의 기초다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "네트워크를 통해 장치 이벤트와 세션 정보를 전달하는 방식을 설명한다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "XR 장면의 시각 콘텐츠가 디지털 영상으로 표현되는 기초를 제공한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "XR 시점과 장면 좌표를 연결하는 시각화 배경이다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "XR 콘텐츠를 디스플레이에 표시하는 과정을 다룬다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "사람이 장치 입력에 반응하고 상호작용하는 신체적 기반을 설명한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "XR 사용자가 시각·장치 피드백을 지각하는 과정을 이해하는 데 쓰인다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 환경에서 여러 XR 콘텐츠와 장치 인터페이스를 연결하는 구조를 다룬다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "사용자 입력 이벤트를 세션 중 전달하는 실시간 데이터 흐름의 배경이다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "VR·AR·MR 환경에서 장치 입력에 따른 상호작용을 구성한다."
+    },
+    {
+      "concept": "webized-xr-apps-displays-and-devices",
+      "role": "웹 기반 XR 앱에서 디스플레이와 다양한 인터페이스 장치를 함께 지원하는 주제다."
+    }
+  ]
+}

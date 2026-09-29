@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:31:14.780Z",
+  "paper_id": "W4413820694",
+  "summary": "StreamSplat은 웹에서 신경 그래픽을 전달하기 위해 클라이언트와 서버의 역할을 나누는 하이브리드 구조를 다룬다. 깊이 기반 융합을 사용해 웹 클라이언트와 서버가 함께 장면을 제공하는 접근을 제시한다.",
+  "core": [
+    "gaussian-splatting-rendering",
+    "real-time-streaming",
+    "streamsplat-depth-fusion-web-architecture"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "클라이언트와 서버에서 장면 데이터를 처리하는 소프트웨어 기초가 된다."
+    },
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "3D 장면의 점과 시점 정보를 공간 좌표로 표현하는 바탕이다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "카메라 좌표와 장면 좌표 사이의 변환을 표현하는 기초가 된다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "렌더링된 장면과 깊이 정보를 영상 배열로 다룬다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "클라이언트와 서버 사이에서 장면 데이터를 주고받는 통신 기초가 된다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "웹에서 장면 및 깊이 데이터를 교환 가능한 형식으로 표현한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "영상의 픽셀 위치와 3D 장면 좌표 사이의 관계를 다룬다."
+    },
+    {
+      "concept": "three-dimensional-reconstruction",
+      "role": "여러 영상 정보를 이용해 스트리밍할 3D 장면을 구성하는 기반이 된다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "3D 장면 표현을 클라이언트가 표시할 영상으로 변환한다."
+    },
+    {
+      "concept": "gaussian-splatting-rendering",
+      "role": "가우시안 기반 장면 표현을 렌더링하는 신경 그래픽 기술을 제공한다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "장면 데이터를 클라이언트와 서버 사이에서 실시간으로 전달하는 방법을 다룬다."
+    },
+    {
+      "concept": "streamsplat-depth-fusion-web-architecture",
+      "role": "깊이 기반 융합으로 가우시안 장면의 웹 클라이언트·서버 구조를 구성한다."
+    }
+  ]
+}

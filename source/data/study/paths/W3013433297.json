@@ -1,0 +1,52 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:34.468Z",
+  "paper_id": "W3013433297",
+  "summary": "이기종 IoT 기기의 가상 복제본을 만들고 모니터링과 데이터 분석에 활용할 수 있도록 의미 기반 디지털 트윈 모델을 제안한다. 엣지의 컨테이너 기술을 사용해 기기를 모사하고 서로 다른 IoT 기기 간 상호운용성을 높이는 구성을 다룬다.",
+  "core": [
+    "semantic-digital-twin-me-centric-iot"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "IoT 기기 데이터와 컨테이너 기반 구성 요소를 처리하는 기초다."
+    },
+    {
+      "concept": "algorithms-complexity",
+      "role": "엣지에서 여러 기기와 가상 복제본의 작업을 처리하는 절차를 이해하는 바탕이다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "IoT 기기와 엣지 시스템이 데이터를 주고받는 통신 환경을 다룬다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "서로 다른 IoT 기기의 데이터를 공통 형식으로 표현하는 기초다."
+    },
+    {
+      "concept": "probability-random-variables",
+      "role": "센서 관측값의 변동을 다루는 기초다."
+    },
+    {
+      "concept": "measurement-noise",
+      "role": "이기종 센서에서 들어오는 측정값의 오차를 고려한다."
+    },
+    {
+      "concept": "distributed-edge-systems",
+      "role": "기기 모사와 데이터 처리를 엣지에 배치하는 시스템 구성을 이해한다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 기반 표준과 상호운용 가능한 데이터 모델의 배경을 제공한다."
+    },
+    {
+      "concept": "heterogeneous-sensor-data-modeling",
+      "role": "서로 다른 센서와 IoT 기기의 데이터를 함께 표현하고 다루는 방법을 연결한다."
+    },
+    {
+      "concept": "semantic-digital-twin-me-centric-iot",
+      "role": "엣지 컨테이너로 IoT 기기를 모사하는 의미 기반 디지털 트윈 모델을 구성한다."
+    }
+  ]
+}

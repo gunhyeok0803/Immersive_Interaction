@@ -1,0 +1,117 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:36:32.725Z",
+  "id": "digital-signal-processing",
+  "name": "디지털 신호처리",
+  "english": "Digital Signal Processing",
+  "level": 2,
+  "field": "signal",
+  "one_line": "디지털 신호처리는 표본화된 신호를 필터링하고 변환해 관심 있는 정보를 추출한다.",
+  "prerequisites": [
+    "signals-time-series",
+    "sampling-nyquist",
+    "fourier-transform"
+  ],
+  "applications": [
+    "time-frequency-analysis",
+    "filtering-feature-extraction",
+    "audio-speech-processing",
+    "video-motion-analysis",
+    "biosignal-processing",
+    "earthquake-ground-motion-reconstruction",
+    "esp32-csi-device-free-sensing"
+  ],
+  "card": {
+    "id": "digital-signal-processing",
+    "intuition": "아날로그 파형은 매 순간 이어지는 곡선이고, 디지털 신호는 그 곡선을 일정한 순간마다 읽은 숫자들의 줄이다. 이 숫자 줄에 계산을 적용하면 원치 않는 흔들림을 줄이거나 반복되는 패턴을 찾을 수 있다. 디지털 신호처리(Digital Signal Processing, DSP)는 이런 계산 도구들을 모아 신호에서 필요한 정보를 꺼내는 방법이다.",
+    "definition": "디지털 신호처리는 표본화된 이산시간 신호를 알고리즘으로 처리해 성분을 억제·강조하거나 다른 표현으로 변환하는 분야다. 선형 시불변 디지털 필터는 입력 신호와 임펄스 응답의 이산 컨볼루션으로 출력 신호를 만든다. 푸리에 변환은 신호를 주파수 성분의 관점으로 나타내는 대표적인 변환이다.",
+    "formula": {
+      "latex": "y[n]=\\sum_{k=-\\infty}^{\\infty}h[k]x[n-k]",
+      "symbols": [
+        {
+          "symbol": "x[n]",
+          "meaning": "n번째 입력 신호 표본의 값. 단위는 측정 신호에 따라 V, m/s² 등이다."
+        },
+        {
+          "symbol": "h[k]",
+          "meaning": "k 표본만큼 지연된 입력이 출력에 기여하는 정도인 임펄스 응답. 단위는 출력 단위/입력 단위이며, 입출력 단위가 같으면 무차원이다."
+        },
+        {
+          "symbol": "y[n]",
+          "meaning": "n번째 출력 신호 표본의 값. 단위는 출력 신호의 측정 단위다."
+        },
+        {
+          "symbol": "n, k",
+          "meaning": "신호 표본의 정수 인덱스. 단위는 표본(sample)이다."
+        }
+      ],
+      "reading": "각 출력 표본 y[n]은 입력 표본들을 서로 다른 지연만큼 옮겨 더한 값이다. 각 입력 표본에 곱하는 가중치가 필터의 임펄스 응답 h[k]다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "표본화된 신호 x[n]",
+          "role": "시간 순서에 따라 기록된 입력 표본을 제공한다."
+        },
+        {
+          "name": "처리 알고리즘",
+          "role": "필터나 푸리에 변환처럼 입력을 바꾸거나 다른 관점으로 표현한다."
+        },
+        {
+          "name": "출력 신호 또는 변환 결과",
+          "role": "처리 뒤의 표본이나 주파수 성분을 담는다."
+        },
+        {
+          "name": "해석",
+          "role": "결과에서 관심 성분, 사건 또는 특징을 찾는다."
+        }
+      ],
+      "flow": "예를 들어 마이크로 녹음한 음성 표본을 입력 x[n]으로 둔다. 임펄스 응답 h[k]를 정한 필터로 원치 않는 주파수 성분을 줄여 출력 y[n]을 만든다. 이어 푸리에 변환으로 출력의 주파수 성분을 살펴볼 수 있다. 마지막으로 주파수 성분이나 시간에 따른 변화를 음성의 특성 분석에 사용한다."
+    },
+    "key_points": [
+      "DSP는 표본화된 신호에 계산을 적용하는 방법이며, 푸리에 변환 하나만을 뜻하지 않는다.",
+      "필터는 통과시키거나 줄이려는 주파수 범위에 맞게 설계한다. 모든 잡음을 내용 신호와 완벽히 구분해 주는 것은 아니다.",
+      "필터링은 신호의 표본값을 바꾸고, 푸리에 변환은 같은 신호를 주파수 관점으로 표현한다.",
+      "컨볼루션 식의 출력 표본은 여러 입력 표본의 가중합이다. 지연과 가중치를 잘못 짝지으면 계산이 틀린다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "입력은 x[0]=1, x[1]=2이고 그 밖의 표본은 0이다. 필터는 h[0]=1, h[1]=1이고 그 밖의 표본은 0이다. 컨볼루션 식으로 y[1]을 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "y[1]=h[0]x[1]+h[1]x[0]이다. 값을 넣으면 1×2+1×1=3이므로 y[1]=3이다."
+      },
+      {
+        "kind": "choice",
+        "question": "표본화한 신호에서 원치 않는 빠른 진동 성분을 줄이고 싶다. 어떤 처리가 가장 알맞은가?",
+        "choices": [
+          "고주파 성분을 줄이는 저역통과 필터",
+          "저주파 성분을 줄이는 고역통과 필터",
+          "시간 표본의 순서를 뒤집는 처리",
+          "신호를 더 높은 표본화율로 다시 읽는 처리"
+        ],
+        "answer": 0,
+        "solution": "저역통과 필터는 낮은 주파수 성분을 통과시키고 높은 주파수 성분을 줄이도록 설계한다. 고역통과 필터는 저주파 성분을 줄이므로 목적과 반대일 수 있다. 표본 순서를 뒤집는 것은 빠른 진동을 골라 줄이지 않는다. 표본화율을 높여 다시 읽는 것만으로 이미 기록된 신호의 빠른 성분이 필터링되지는 않는다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nx = np.array([1.0, 2.0, 0.0])\nh = np.array([1.0, 1.0])\ny = np.convolve(x, h)\nprint(y)",
+      "what_it_shows": "입력 표본과 필터의 임펄스 응답을 컨볼루션해 출력 표본을 만든다. 출력은 [1, 3, 2, 0]으로, 각 표본이 입력 표본들의 가중합임을 확인할 수 있다."
+    },
+    "references": [
+      {
+        "title": "Discrete-Time Signal Processing",
+        "source": "Alan V. Oppenheim, Ronald W. Schafer",
+        "where": "이산시간 시스템과 디지털 필터를 다루는 장"
+      },
+      {
+        "title": "Digital Signal Processing: Principles, Algorithms, and Applications",
+        "source": "John G. Proakis, Dimitris G. Manolakis",
+        "where": "이산시간 신호와 디지털 필터를 다루는 장"
+      }
+    ],
+    "used_in_lab": "이 연구실에서는 표본화된 센서 신호의 잡음 성분을 줄이고 필요한 주파수 성분을 살필 때 디지털 신호처리를 쓴다."
+  }
+}

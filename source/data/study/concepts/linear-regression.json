@@ -1,0 +1,118 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:22:54.992Z",
+  "id": "linear-regression",
+  "name": "선형회귀",
+  "english": "Linear Regression",
+  "level": 1,
+  "field": "stats",
+  "one_line": "선형회귀는 입력 변수와 연속형 결과 사이의 관계를 직선 또는 선형식으로 추정한다.",
+  "prerequisites": [
+    "matrices-linear-maps",
+    "statistical-inference"
+  ],
+  "applications": [
+    "structural-equation-modeling",
+    "gaze-regression-cybersickness-prediction"
+  ],
+  "card": {
+    "id": "linear-regression",
+    "intuition": "산점도 위의 점들이 흩어져 있을 때, 그 가운데를 잘 지나가는 직선을 찾으면 입력과 연속형 결과의 관계를 요약할 수 있다. 선형회귀(linear regression)는 행렬과 선형변환으로 표현한 모델의 계수를 데이터에 맞춰 추정한다. 관측값과 예측값의 차이인 잔차(residual)가 작아지도록 계수를 고른다. 이렇게 얻은 선은 새로운 입력의 결과를 예측하거나 변수 사이의 관계를 설명하는 데 쓰인다.",
+    "definition": "선형회귀는 결과의 조건부 평균을 설명 변수의 선형 결합으로 나타내고, 잔차 제곱합을 최소화해 회귀계수(regression coefficients)를 추정하는 방법이다. 여기서 ‘선형’은 설명 변수 자체가 아니라 계수에 대해 선형이라는 뜻이다. 일반적인 최소제곱 해는 설계행렬의 열들이 선형독립일 때 아래 행렬식으로 구할 수 있다.",
+    "formula": {
+      "latex": "\\hat{\\boldsymbol{\\beta}}=\\arg\\min_{\\boldsymbol{\\beta}}\\lVert\\mathbf{y}-\\mathbf{X}\\boldsymbol{\\beta}\\rVert_2^2=(\\mathbf{X}^{\\mathsf{T}}\\mathbf{X})^{-1}\\mathbf{X}^{\\mathsf{T}}\\mathbf{y}",
+      "symbols": [
+        {
+          "symbol": "\\hat{\\boldsymbol{\\beta}}",
+          "meaning": "최소제곱으로 추정한 회귀계수 벡터. 각 계수의 단위는 결과 단위와 해당 설명 변수 단위에 따라 정해진다."
+        },
+        {
+          "symbol": "\\mathbf{X}",
+          "meaning": "설계행렬. n×p 크기이며, 절편을 포함할 때 보통 첫 열은 1이다. 각 열의 단위는 해당 설명 변수의 단위에 따른다."
+        },
+        {
+          "symbol": "\\mathbf{y}",
+          "meaning": "관측된 연속형 결과의 n×1 벡터. 결과 변수와 같은 단위."
+        },
+        {
+          "symbol": "n",
+          "meaning": "관측값의 개수. 단위 없음."
+        },
+        {
+          "symbol": "p",
+          "meaning": "계수의 개수. 절편을 포함하면 보통 설명 변수 개수보다 하나 많다. 단위 없음."
+        },
+        {
+          "symbol": "\\lVert\\cdot\\rVert_2^2",
+          "meaning": "잔차 벡터 각 성분을 제곱해 더한 값. 결과 단위의 제곱."
+        },
+        {
+          "symbol": "\\mathsf{T}",
+          "meaning": "행렬의 전치 연산. 물리적 단위 없음."
+        }
+      ],
+      "reading": "회귀계수는 관측 결과 y와 예측값 Xβ 사이의 잔차 제곱합이 가장 작아지도록 정한다. X가 열 선형독립이면 그 해를 역행렬을 사용한 식으로 계산할 수 있다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "설계행렬 X",
+          "role": "각 관측의 설명 변수 값을 행으로 모아 모델의 입력을 나타낸다."
+        },
+        {
+          "name": "계수 β",
+          "role": "각 설명 변수가 예측 결과에 어떻게 반영되는지 나타내며, 절편도 계수에 포함할 수 있다."
+        },
+        {
+          "name": "예측값 Xβ",
+          "role": "입력과 추정 계수를 결합해 각 관측의 결과를 예측한다."
+        },
+        {
+          "name": "잔차와 손실",
+          "role": "관측값에서 예측값을 뺀 잔차를 구하고, 그 제곱합을 최소화해 계수를 맞춘다."
+        }
+      ],
+      "flow": "설명 변수 x가 0, 1, 2이고 결과 y가 1, 3, 4라면 산점도에 세 점을 찍는다. 최소제곱은 각 점과 직선 사이의 세로 잔차를 제곱해 더한 값이 가장 작아지는 절편과 기울기를 찾는다. 이 자료의 직선은 약 y=1.17+1.5x이고, x가 2일 때 예측값은 약 4.17이다. 잔차를 살펴 모델이 자료에 맞는지 확인한 뒤 예측이나 관계 설명에 사용한다."
+    },
+    "key_points": [
+      "회귀계수는 모델 안에서 설명 변수와 예측 결과의 관계를 요약한다.",
+      "기울기의 단위는 결과 변수의 단위를 설명 변수의 단위로 나눈 값이다.",
+      "관측 자료에서 찾은 관계만으로 인과관계를 결론 내릴 수 없다.",
+      "이상치와 큰 잔차는 제곱 손실에 크게 영향을 줄 수 있다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "자료가 (x,y)=(0,1), (1,3), (2,4)이다. 절편을 포함한 최소제곱 직선의 기울기와 절편을 구하고, x=2일 때의 예측값을 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "평균은 x̄=1, ȳ=8/3이다. 기울기는 Σ(xᵢ−x̄)(yᵢ−ȳ)/Σ(xᵢ−x̄)²=3/2이다. 절편은 ȳ−(3/2)x̄=7/6이다. 따라서 직선은 ŷ=7/6+(3/2)x이고, x=2에서 예측값은 25/6≈4.17이다."
+      },
+      {
+        "kind": "choice",
+        "question": "훈련 자료의 회귀 직선에서 기울기가 1.5이고, x와 y의 단위가 각각 초와 점수다. 가장 알맞은 해석은 무엇인가?",
+        "choices": [
+          "x가 1초 큰 경우, 모델의 예측 점수는 평균적으로 1.5점 높다. 이 관계만으로 x가 점수를 높인다고 단정할 수는 없다.",
+          "각 관측에서 x가 1초 증가하면 y는 반드시 정확히 1.5점 증가한다.",
+          "절편이 1.5점이므로 x가 0초일 때의 예측 점수는 1.5점이다.",
+          "x와 y의 상관이 있으므로 x를 바꾸면 y가 변한다는 인과관계가 확인됐다."
+        ],
+        "answer": 0,
+        "solution": "첫 번째가 맞다. 기울기는 모델의 예측 관계를 나타내고 단위는 점수/초이며, 그 자체로 인과관계를 증명하지 않는다. 두 번째는 평균적 관계를 모든 관측의 정확한 변화로 오해한다. 세 번째는 기울기와 절편을 혼동한다. 네 번째는 상관이나 회귀 결과만으로 인과관계를 결론 내린다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nx = np.array([0.0, 1.0, 2.0])\ny = np.array([1.0, 3.0, 4.0])\nX = np.column_stack((np.ones(x.size), x))\nbeta = np.linalg.lstsq(X, y, rcond=None)[0]\nprediction = beta[0] + beta[1] * 2\nprint(f\"intercept={beta[0]:.3f}, slope={beta[1]:.3f}\")\nprint(f\"prediction at x=2: {prediction:.3f}\")",
+      "what_it_shows": "numpy의 최소제곱 계산으로 절편과 기울기를 데이터에서 구하고, 그 직선으로 새 결과를 예측하는 과정을 확인한다."
+    },
+    "references": [
+      {
+        "title": "An Introduction to Statistical Learning",
+        "source": "Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani",
+        "where": "제3장: Linear Regression"
+      }
+    ],
+    "used_in_lab": "시선 특징과 사이버멀미 점수 사이의 관계를 요약하고 연속형 점수를 예측할 때 쓴다."
+  }
+}

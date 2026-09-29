@@ -1,0 +1,95 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:28:05.696Z",
+  "id": "data-encoding-formats",
+  "name": "데이터 인코딩과 형식",
+  "english": "Data Encoding and Formats",
+  "level": 1,
+  "field": "cs",
+  "one_line": "데이터 인코딩과 형식은 정보를 파일이나 메시지로 표현해 저장·전송·해석하는 규칙이다.",
+  "prerequisites": [
+    "programming-data-processing"
+  ],
+  "applications": [
+    "real-time-streaming",
+    "web-interoperability-xr",
+    "heterogeneous-sensor-data-modeling"
+  ],
+  "card": {
+    "id": "data-encoding-formats",
+    "intuition": "문장을 보내려면 글자를 컴퓨터가 저장할 수 있는 바이트로 바꾸고, 여러 값을 담은 데이터라면 어떤 값이 어디에 놓였는지도 약속해야 합니다. 인코딩(encoding)은 글자나 기호를 바이트로 표현하는 규칙이고, 형식(format)은 데이터의 구조와 필드를 정하는 규칙입니다. 받는 쪽이 둘 중 하나라도 다른 규칙으로 해석하면 글자가 깨지거나 데이터를 읽지 못할 수 있습니다. 프로그래밍에서 쓰던 자료 구조를 파일이나 메시지로 바꾸고 다시 읽는 과정과 연결됩니다.",
+    "definition": "데이터 인코딩과 형식(Data Encoding and Formats)은 정보를 저장하거나 전송할 수 있는 표현으로 바꾸고 다시 해석하기 위한 규칙입니다. 문자 인코딩은 유니코드 문자 코드값을 UTF-8 같은 바이트열로 표현하고, 데이터 형식은 값의 구조·필드·표현 문법을 정합니다. 직렬화(serialization)는 프로그램 안의 값을 정한 형식으로 바꾸는 과정이고, 파싱(parsing)은 형식에 맞는 데이터 표현을 읽어 값으로 복원하는 과정입니다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "프로그램 안의 값 (in-memory value)",
+          "role": "정수, 문자열, 배열, 객체처럼 응용 프로그램이 처리하는 정보를 담습니다."
+        },
+        {
+          "name": "데이터 형식 (data format)",
+          "role": "JSON 같은 규칙으로 값의 종류와 구조, 필드 이름, 문법을 표현합니다."
+        },
+        {
+          "name": "문자 인코딩 (character encoding)",
+          "role": "JSON 같은 텍스트를 UTF-8 등의 규칙에 따라 바이트로 바꿉니다."
+        },
+        {
+          "name": "파싱과 검증 (parsing and validation)",
+          "role": "받은 바이트를 문자와 구조화된 값으로 복원한 뒤 응용 프로그램이 요구하는 필드와 의미를 확인합니다."
+        }
+      ],
+      "flow": "송신 프로그램의 {"
+    },
+    "key_points": [
+      "JSON은 객체와 배열 등의 구조 및 문법을 정하는 데이터 형식이고, UTF-8은 유니코드 텍스트를 바이트로 표현하는 문자 인코딩입니다.",
+      "인코딩이 맞아도 데이터 형식의 문법이 틀리면 파싱에 실패할 수 있습니다.",
+      "문법에 맞는 JSON이라도 응용 프로그램이 요구하는 필드나 단위가 없으면 의미 검증에서 거부될 수 있습니다.",
+      "텍스트를 읽을 때 송신 측과 수신 측의 문자 인코딩 해석이 다르면 글자가 깨질 수 있습니다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "한국어 문자열을 포함한 JSON 메시지를 전송합니다. JSON과 UTF-8의 역할을 올바르게 설명한 것은 무엇인가요?",
+        "choices": [
+          "JSON은 값의 구조와 문법을 정하고, UTF-8은 텍스트를 바이트로 인코딩한다.",
+          "UTF-8은 객체의 필드 순서를 정하고, JSON은 문자를 바이트로 인코딩한다.",
+          "JSON과 UTF-8은 모두 데이터를 압축하는 형식이다.",
+          "JSON은 네트워크 주소를 정하고, UTF-8은 숫자의 단위를 정한다."
+        ],
+        "answer": 0,
+        "solution": "정답은 0번입니다. JSON은 객체와 배열의 구조 및 문법을 표현하고, UTF-8은 그 텍스트의 문자를 바이트로 나타냅니다. 1번은 두 규칙의 역할을 서로 바꾸었습니다. 2번은 둘 다 압축 형식이라고 잘못 설명합니다. 3번은 JSON과 UTF-8의 역할을 네트워크 주소 및 단위와 혼동합니다."
+      },
+      {
+        "kind": "choice",
+        "question": "수신 프로그램이 메시지를 JSON으로 성공적으로 파싱했지만 필수 필드 time_s가 없어서 처리하지 못했습니다. 우선 확인할 것은 무엇인가요?",
+        "choices": [
+          "응용 프로그램의 필수 필드 규칙과 송신 데이터",
+          "수신 측의 UTF-8 디코더",
+          "라우터의 IP 경로",
+          "JSON 문법 파서의 따옴표 처리"
+        ],
+        "answer": 0,
+        "solution": "정답은 0번입니다. 파싱 성공은 JSON 문법에 맞는 구조라는 뜻일 뿐, 응용 프로그램이 요구하는 time_s 필드까지 있다는 뜻은 아닙니다. 1번의 UTF-8 디코더 문제라면 일반적으로 문자 복원 단계에서 문제가 드러납니다. 2번의 IP 경로 문제는 메시지가 도착한 뒤 필드가 빠진 상황을 설명하지 못합니다. 3번은 JSON 문법 파싱이 이미 성공했으므로 우선 원인으로 보기 어렵습니다."
+      }
+    ],
+    "code": {
+      "snippet": "import json\n\nvalue = {\"장치\": \"센서 A\", \"온도_C\": 24.5}\ntext = json.dumps(value, ensure_ascii=False)\nraw = text.encode(\"utf-8\")\nprint(\"JSON text:\", text)\nprint(\"UTF-8 bytes:\", raw)\n\nreceived_text = raw.decode(\"utf-8\")\nreceived_value = json.loads(received_text)\nprint(\"Parsed value:\", received_value)",
+      "what_it_shows": "JSON 직렬화가 값의 구조를 텍스트로 표현하고, UTF-8 인코딩이 그 텍스트를 바이트로 바꾸는 과정을 확인합니다. 수신 측은 바이트를 UTF-8로 디코딩한 뒤 JSON으로 파싱해 원래의 자료 구조를 복원합니다."
+    },
+    "references": [
+      {
+        "title": "RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format",
+        "source": "Internet Engineering Task Force (IETF)",
+        "where": "§2 JSON Grammar; §8.1 Character Encoding"
+      },
+      {
+        "title": "The Unicode Standard, Version 16.0",
+        "source": "Unicode Consortium",
+        "where": "Chapter 3, §3.9 Unicode Encoding Forms"
+      }
+    ],
+    "used_in_lab": "센서와 시선 분석 결과를 JSON 형식과 UTF-8 인코딩으로 교환할 때 데이터가 같은 구조와 문자로 복원되는지 확인하는 데 씁니다."
+  }
+}

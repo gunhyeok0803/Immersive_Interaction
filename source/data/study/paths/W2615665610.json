@@ -1,0 +1,41 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:45:16.272Z",
+  "paper_id": "W2615665610",
+  "summary": "SMV 무안경 3D 스트리밍 콘텐츠를 HTML 문서 안에서 웹화해 실제 사물, 3D 모델, HTML DOM 요소를 시간 동기화해 제시하는 방법을 구성한다. 전환과 애니메이션을 위한 사용자 정의 CSS 확장을 두고 웹 프로토타입으로 접근의 유용성을 보인다.",
+  "core": [
+    "real-time-streaming",
+    "web-interoperability-xr"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "웹 문서와 스트리밍 시스템의 동작을 구현하는 바탕을 제공한다."
+    },
+    {
+      "concept": "calculus-derivatives",
+      "role": "시간에 따라 변하는 콘텐츠의 변화를 이해하는 기초를 제공한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "3D 스트림과 문서 요소의 시간 동기화를 시간축에서 다룬다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "3D 콘텐츠와 HTML 요소를 웹에서 표현하는 형식을 이해하게 한다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "스트리밍 콘텐츠가 네트워크를 통해 전달되는 방식을 설명한다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "SMV 콘텐츠와 HTML 요소를 시간에 맞춰 전달하고 재생하는 구조를 다룬다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "HTML 문서와 사용자 정의 CSS를 3D 콘텐츠의 전환 및 애니메이션 표현에 연결한다."
+    }
+  ]
+}

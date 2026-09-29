@@ -1,0 +1,118 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:22:54.992Z",
+  "id": "statistical-inference",
+  "name": "통계적 추론",
+  "english": "Statistical Inference",
+  "level": 1,
+  "field": "stats",
+  "one_line": "통계적 추론은 표본에서 얻은 정보로 모집단의 특성이나 차이를 추정한다.",
+  "prerequisites": [
+    "probability-random-variables",
+    "descriptive-statistics"
+  ],
+  "applications": [
+    "linear-regression",
+    "experiment-design",
+    "classification-metrics",
+    "human-subject-usability",
+    "psychometrics-questionnaires",
+    "cybersickness-integrated-review"
+  ],
+  "card": {
+    "id": "statistical-inference",
+    "intuition": "모집단 전체를 매번 측정할 수 없을 때 표본은 그 모집단을 들여다보는 작은 창이 된다. 창을 통해 보이는 표본 평균은 표본을 다시 뽑을 때마다 달라진다. 통계적 추론은 확률과 표집분포(sampling distribution)를 이용해 이런 흔들림을 고려하면서 모집단의 평균이나 차이를 추정한다. 그래서 추정값뿐 아니라 그 값의 불확실성도 함께 표현한다.",
+    "definition": "통계적 추론(statistical inference)은 표본에서 계산한 통계량을 바탕으로 모집단 모수(parameter)를 추정하거나 모집단에 관한 가설을 평가하는 방법이다. 표집 변동(sampling variability)을 고려해 추정의 불확실성이나 가설에 대한 증거를 함께 나타낸다.",
+    "formula": {
+      "latex": "\\left[\\bar{x}-z_{1-\\alpha/2}\\frac{\\sigma}{\\sqrt{n}},\\ \\bar{x}+z_{1-\\alpha/2}\\frac{\\sigma}{\\sqrt{n}}\\right]",
+      "symbols": [
+        {
+          "symbol": "\\bar{x}",
+          "meaning": "표본 평균. 측정한 변수와 같은 단위."
+        },
+        {
+          "symbol": "z_{1-\\alpha/2}",
+          "meaning": "표준정규분포의 임계값. 단위 없음. 95% 구간에서는 약 1.96."
+        },
+        {
+          "symbol": "\\alpha",
+          "meaning": "구간이 모평균을 포함하지 않을 장기 비율. 단위 없음. 95% 구간에서는 0.05."
+        },
+        {
+          "symbol": "\\sigma",
+          "meaning": "모집단 표준편차로, 이 식에서는 알려져 있다고 가정한다. 측정한 변수와 같은 단위."
+        },
+        {
+          "symbol": "n",
+          "meaning": "표본 크기. 개수이며 단위 없음."
+        },
+        {
+          "symbol": "\\mu",
+          "meaning": "추정하려는 모집단 평균. 측정한 변수와 같은 단위."
+        }
+      ],
+      "reading": "정규 모집단에서 표준편차 σ를 알고 있을 때, 표본 평균을 중심으로 표준오차의 z배만큼 양쪽에 놓은 구간이 μ의 신뢰구간이다. 같은 절차를 반복하면 만들어진 구간 중 약 1−α 비율이 μ를 포함한다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "질문과 모집단",
+          "role": "어떤 모집단의 어떤 특성이나 차이를 알고 싶은지 정한다."
+        },
+        {
+          "name": "표본과 통계량",
+          "role": "모집단에서 얻은 표본으로 평균이나 비율 같은 통계량을 계산한다."
+        },
+        {
+          "name": "불확실성 모형",
+          "role": "표집분포를 이용해 표본 통계량이 얼마나 흔들릴지 정량화한다."
+        },
+        {
+          "name": "추정 또는 검정",
+          "role": "불확실성을 반영한 구간이나 검정 결과를 구하고 질문에 맞게 해석한다."
+        }
+      ],
+      "flow": "예를 들어, 모집단 평균을 알고 싶어 무작위 표본 100개에서 평균 50을 얻었다고 하자. 모집단 표준편차가 10으로 알려져 있다면 95% 신뢰구간은 약 [48.04, 51.96]이다. 이 절차를 반복했을 때 만들어지는 구간의 약 95%가 실제 모집단 평균을 포함한다는 뜻이다. 특정 표본에서 계산한 구간 안에 평균이 있을 확률이 95%라는 뜻은 아니다."
+    },
+    "key_points": [
+      "표본 통계량은 표본을 다시 뽑으면 달라지므로 불확실성을 함께 고려한다.",
+      "신뢰구간(confidence interval)의 포함률은 같은 표집 절차를 반복했을 때의 장기적인 성질이다.",
+      "가설검정(hypothesis test)은 자료가 특정 가설과 얼마나 잘 맞는지 평가한다.",
+      "통계적으로 유의한 차이가 실질적으로 중요한 차이라는 뜻은 아니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "정규 모집단의 표준편차가 σ=10으로 알려져 있다. 크기 n=100인 표본의 평균이 50일 때, z=1.96을 사용해 95% 신뢰구간을 구하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "표준오차는 10/√100=1이다. 오차 한계는 1.96×1=1.96이므로 신뢰구간은 50±1.96, 즉 [48.04, 51.96]이다."
+      },
+      {
+        "kind": "choice",
+        "question": "같은 95% 신뢰구간 절차를 여러 번 반복했더니 구간 100개 중 94개가 모평균을 포함했다. 가장 알맞은 해석은 무엇인가?",
+        "choices": [
+          "이 절차로 만든 구간은 반복 표집에서 모평균을 약 95% 포함하도록 설계됐으며, 94개라는 결과는 표본 변동으로 생길 수 있다.",
+          "현재 계산한 구간 안에 모평균이 있을 확률이 95%다.",
+          "모집단 관측값의 95%가 현재 계산한 평균 신뢰구간 안에 들어간다.",
+          "반복한 100개 중 정확히 95개가 모평균을 포함해야 하므로 절차가 실패했다."
+        ],
+        "answer": 0,
+        "solution": "첫 번째가 맞다. 신뢰수준은 절차를 반복했을 때의 장기 포함 비율이며, 100회에서 94개가 포함된 것은 자연스러운 표본 변동이다. 두 번째는 고정된 모평균에 확률을 직접 부여하는 해석이다. 세 번째는 평균의 신뢰구간과 개별 관측값의 분포를 혼동한다. 네 번째는 95%가 매번 정확히 지켜져야 한다고 잘못 가정한다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nrng = np.random.default_rng(7)\nmu, sigma, n, reps = 10.0, 2.0, 40, 5000\nsamples = rng.normal(mu, sigma, size=(reps, n))\nmeans = samples.mean(axis=1)\nhalf_width = 1.96 * sigma / np.sqrt(n)\ncovered = (means - half_width <= mu) & (mu <= means + half_width)\nprint(f\"95% intervals covering the mean: {covered.mean():.3f}\")",
+      "what_it_shows": "정규 모집단에서 표본을 반복 추출해 만든 95% 구간 중 실제 평균을 포함하는 비율을 확인한다. 실행 결과는 표본 변동에 따라 달라지지만 대체로 0.95에 가깝다."
+    },
+    "references": [
+      {
+        "title": "OpenIntro Statistics",
+        "source": "David M. Diez, Christopher D. Barr, Mine Çetinkaya-Rundel",
+        "where": "추론 단원: 신뢰구간과 가설검정"
+      }
+    ],
+    "used_in_lab": "사용자 실험에서 표본 설문 점수와 사용성 지표를 바탕으로 조건 간 차이와 추정의 불확실성을 평가할 때 쓴다."
+  }
+}

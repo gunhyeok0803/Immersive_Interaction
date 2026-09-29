@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:25.197Z",
+  "paper_id": "W3038372909",
+  "summary": "VR 멀미 연구에서 결과가 서로 다르게 나타나는 원인을 이해하기 위해 관련 요인을 하드웨어·콘텐츠·인간 요인으로 정리한다. 주관적·객관적 증상 측정법과 멀미 저감 접근을 함께 살펴보고, 감각 양식 간 충실도가 증상에 미치는 영향을 설명하는 가설을 제안한다.",
+  "core": [
+    "cybersickness-integrated-review",
+    "cybersickness-models",
+    "biosignal-processing"
+  ],
+  "path": [
+    {
+      "concept": "probability-random-variables",
+      "role": "멀미 증상과 측정값의 개인차 및 변동을 이해하는 기초를 제공한다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "서로 다른 연구의 측정 결과와 증상 차이를 비교하는 통계적 바탕이 된다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "연구마다 다른 VR 조건과 측정 절차가 결과에 미치는 영향을 살펴보는 틀을 제공한다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "눈 피로, 방향감각 상실, 메스꺼움 등 증상의 생리적 배경을 설명한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "시각 정보와 다른 감각 정보의 불일치가 VR 멀미와 연결되는 지각적 배경을 제공한다."
+    },
+    {
+      "concept": "signals-time-series",
+      "role": "생체신호를 시간에 따라 기록되는 측정 자료로 이해하는 기초가 된다."
+    },
+    {
+      "concept": "sampling-nyquist",
+      "role": "연속 생체신호를 디지털로 기록하고 해석하는 표본화의 기초를 제공한다."
+    },
+    {
+      "concept": "fourier-transform",
+      "role": "생체신호의 주파수 성분을 분석하는 방법을 이해하게 한다."
+    },
+    {
+      "concept": "digital-signal-processing",
+      "role": "디지털 생체신호에서 측정 특징을 추출하고 분석하는 기반을 제공한다."
+    },
+    {
+      "concept": "biosignal-processing",
+      "role": "멀미 연구에서 사용되는 객관적 생체신호 측정 접근을 이해하게 한다."
+    },
+    {
+      "concept": "cybersickness-models",
+      "role": "하드웨어·콘텐츠·인간 요인을 멀미의 원인과 측정 결과에 연결한다."
+    },
+    {
+      "concept": "cybersickness-integrated-review",
+      "role": "사이버멀미의 원인, 측정법, 저감 접근을 종합하고 다중 모달 충실도 가설을 제안한다."
+    }
+  ]
+}

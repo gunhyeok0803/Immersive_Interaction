@@ -1,0 +1,1453 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T08:58:25.186Z",
+  "concepts": [
+    {
+      "id": "calculus-derivatives",
+      "name": "미분과 변화율",
+      "english": "Calculus and Derivatives",
+      "level": 1,
+      "field": "math",
+      "one_line": "미분은 입력의 작은 변화가 함수의 출력에 미치는 순간적인 영향을 나타낸다.",
+      "prerequisites": [],
+      "applications": [
+        "optimization-basics",
+        "signals-time-series",
+        "rigid-body-kinematics",
+        "heat-transfer"
+      ]
+    },
+    {
+      "id": "vectors-coordinate-systems",
+      "name": "벡터와 좌표계",
+      "english": "Vectors and Coordinate Systems",
+      "level": 1,
+      "field": "math",
+      "one_line": "벡터는 크기와 방향을 가진 양이며 좌표계는 공간의 위치를 수로 표현한다.",
+      "prerequisites": [],
+      "applications": [
+        "matrices-linear-maps",
+        "rigid-body-kinematics",
+        "coordinate-geometry"
+      ]
+    },
+    {
+      "id": "matrices-linear-maps",
+      "name": "행렬과 선형변환",
+      "english": "Matrices and Linear Maps",
+      "level": 1,
+      "field": "math",
+      "one_line": "행렬은 여러 수를 묶어 표현하며 벡터를 회전하거나 늘리는 선형변환을 나타낸다.",
+      "prerequisites": [
+        "vectors-coordinate-systems"
+      ],
+      "applications": [
+        "eigenvalues-eigenvectors",
+        "linear-regression",
+        "optimization-basics",
+        "digital-images-arrays",
+        "matrix-decomposition",
+        "camera-model-calibration",
+        "point-cloud-mesh-representation",
+        "supervised-learning-classification"
+      ]
+    },
+    {
+      "id": "eigenvalues-eigenvectors",
+      "name": "고유값과 고유벡터",
+      "english": "Eigenvalues and Eigenvectors",
+      "level": 1,
+      "field": "math",
+      "one_line": "고유벡터는 선형변환 뒤에도 방향이 유지되고 고유값은 그 크기가 변하는 비율이다.",
+      "prerequisites": [
+        "matrices-linear-maps"
+      ],
+      "applications": [
+        "matrix-decomposition"
+      ]
+    },
+    {
+      "id": "probability-random-variables",
+      "name": "확률과 확률변수",
+      "english": "Probability and Random Variables",
+      "level": 1,
+      "field": "stats",
+      "one_line": "확률은 불확실한 사건의 가능성을 수량화하고 확률변수는 결과를 수로 나타낸다.",
+      "prerequisites": [],
+      "applications": [
+        "descriptive-statistics",
+        "statistical-inference",
+        "measurement-noise",
+        "supervised-learning-classification"
+      ]
+    },
+    {
+      "id": "descriptive-statistics",
+      "name": "기술통계",
+      "english": "Descriptive Statistics",
+      "level": 1,
+      "field": "stats",
+      "one_line": "기술통계는 자료의 중심, 퍼짐, 분포를 요약해 데이터의 전반적인 특성을 보여준다.",
+      "prerequisites": [
+        "probability-random-variables"
+      ],
+      "applications": [
+        "statistical-inference"
+      ]
+    },
+    {
+      "id": "statistical-inference",
+      "name": "통계적 추론",
+      "english": "Statistical Inference",
+      "level": 1,
+      "field": "stats",
+      "one_line": "통계적 추론은 표본에서 얻은 정보로 모집단의 특성이나 차이를 추정한다.",
+      "prerequisites": [
+        "probability-random-variables",
+        "descriptive-statistics"
+      ],
+      "applications": [
+        "linear-regression",
+        "experiment-design",
+        "classification-metrics",
+        "human-subject-usability",
+        "psychometrics-questionnaires",
+        "cybersickness-integrated-review"
+      ]
+    },
+    {
+      "id": "linear-regression",
+      "name": "선형회귀",
+      "english": "Linear Regression",
+      "level": 1,
+      "field": "stats",
+      "one_line": "선형회귀는 입력 변수와 연속형 결과 사이의 관계를 직선 또는 선형식으로 추정한다.",
+      "prerequisites": [
+        "matrices-linear-maps",
+        "statistical-inference"
+      ],
+      "applications": [
+        "structural-equation-modeling",
+        "gaze-regression-cybersickness-prediction"
+      ]
+    },
+    {
+      "id": "optimization-basics",
+      "name": "최적화 기초",
+      "english": "Optimization Basics",
+      "level": 1,
+      "field": "math",
+      "one_line": "최적화는 제약 조건 안에서 목적 함수의 값을 가장 작게 또는 크게 만드는 변수 값을 찾는다.",
+      "prerequisites": [
+        "calculus-derivatives",
+        "matrices-linear-maps"
+      ],
+      "applications": [
+        "robot-pose-planning",
+        "neural-radiance-fields",
+        "supervised-learning-classification",
+        "sparse-field-reconstruction"
+      ]
+    },
+    {
+      "id": "signals-time-series",
+      "name": "신호와 시계열",
+      "english": "Signals and Time Series",
+      "level": 1,
+      "field": "signal",
+      "one_line": "신호는 시간이나 공간에 따라 변하는 측정값이며 시계열은 시간 순서대로 기록한 신호다.",
+      "prerequisites": [
+        "calculus-derivatives"
+      ],
+      "applications": [
+        "sampling-nyquist",
+        "fourier-transform",
+        "waves-electromagnetism",
+        "acoustics",
+        "digital-signal-processing",
+        "filtering-feature-extraction",
+        "wireless-channel-state-information",
+        "biosignal-processing",
+        "multimodal-fusion",
+        "reduced-order-modeling",
+        "gaze-behavior-analysis"
+      ]
+    },
+    {
+      "id": "sampling-nyquist",
+      "name": "표본화와 나이퀴스트 원리",
+      "english": "Sampling and the Nyquist Principle",
+      "level": 1,
+      "field": "signal",
+      "one_line": "표본화는 연속 신호를 일정한 간격으로 측정하며 나이퀴스트 원리는 복원에 필요한 최소 표본 속도를 설명한다.",
+      "prerequisites": [
+        "signals-time-series"
+      ],
+      "applications": [
+        "digital-signal-processing",
+        "sparse-field-reconstruction"
+      ]
+    },
+    {
+      "id": "fourier-transform",
+      "name": "푸리에 변환",
+      "english": "Fourier Transform",
+      "level": 1,
+      "field": "signal",
+      "one_line": "푸리에 변환은 신호를 여러 주파수 성분의 조합으로 표현한다.",
+      "prerequisites": [
+        "signals-time-series"
+      ],
+      "applications": [
+        "digital-signal-processing",
+        "time-frequency-analysis"
+      ]
+    },
+    {
+      "id": "digital-images-arrays",
+      "name": "디지털 영상과 배열",
+      "english": "Digital Images and Arrays",
+      "level": 1,
+      "field": "vision",
+      "one_line": "디지털 영상은 밝기나 색상 값이 격자 형태의 픽셀 배열에 저장된 데이터다.",
+      "prerequisites": [
+        "matrices-linear-maps"
+      ],
+      "applications": [
+        "video-motion-analysis",
+        "three-dimensional-reconstruction",
+        "rendering-rasterization",
+        "neural-radiance-fields",
+        "convolutional-neural-networks",
+        "semantic-segmentation-object-detection"
+      ]
+    },
+    {
+      "id": "programming-data-processing",
+      "name": "프로그래밍과 데이터 처리",
+      "english": "Programming and Data Processing",
+      "level": 1,
+      "field": "cs",
+      "one_line": "프로그램은 명령을 실행해 데이터를 읽고 변환하며 결과를 저장한다.",
+      "prerequisites": [],
+      "applications": [
+        "algorithms-complexity",
+        "network-communication-basics",
+        "data-encoding-formats",
+        "xr-rendering-interaction",
+        "real-time-streaming",
+        "neural-networks",
+        "web-interoperability-xr",
+        "heterogeneous-sensor-data-modeling"
+      ]
+    },
+    {
+      "id": "algorithms-complexity",
+      "name": "알고리즘과 계산 복잡도",
+      "english": "Algorithms and Computational Complexity",
+      "level": 1,
+      "field": "cs",
+      "one_line": "알고리즘은 문제를 푸는 절차이며 계산 복잡도는 입력 크기에 따른 시간과 메모리 사용량을 나타낸다.",
+      "prerequisites": [
+        "programming-data-processing"
+      ],
+      "applications": [
+        "view-planning",
+        "three-dimensional-scanning",
+        "distributed-edge-systems"
+      ]
+    },
+    {
+      "id": "measurement-noise",
+      "name": "측정과 오차",
+      "english": "Measurement and Noise",
+      "level": 1,
+      "field": "physics",
+      "one_line": "측정값은 실제 상태의 근삿값이며 오차와 잡음은 센서와 환경에서 발생하는 불확실성을 나타낸다.",
+      "prerequisites": [
+        "probability-random-variables"
+      ],
+      "applications": [
+        "heat-transfer",
+        "spatial-thermal-comfort-modeling",
+        "heterogeneous-sensor-data-modeling",
+        "lucas-kanade-postural-sway-assessment"
+      ]
+    },
+    {
+      "id": "rigid-body-kinematics",
+      "name": "강체 운동학",
+      "english": "Rigid-Body Kinematics",
+      "level": 1,
+      "field": "mechanics",
+      "one_line": "강체 운동학은 물체의 위치와 방향이 시간에 따라 어떻게 변하는지 기술한다.",
+      "prerequisites": [
+        "vectors-coordinate-systems",
+        "calculus-derivatives"
+      ],
+      "applications": [
+        "robot-pose-planning"
+      ]
+    },
+    {
+      "id": "waves-electromagnetism",
+      "name": "파동과 전자기학 기초",
+      "english": "Waves and Electromagnetism",
+      "level": 1,
+      "field": "physics",
+      "one_line": "파동과 전자기학은 에너지가 공간을 통해 전달되는 방식과 전파·반사 현상을 설명한다.",
+      "prerequisites": [
+        "signals-time-series"
+      ],
+      "applications": [
+        "acoustics",
+        "wireless-channel-state-information"
+      ]
+    },
+    {
+      "id": "coordinate-geometry",
+      "name": "좌표기하",
+      "english": "Coordinate Geometry",
+      "level": 1,
+      "field": "math",
+      "one_line": "좌표기하는 점, 선, 면의 기하학적 관계를 좌표와 방정식으로 표현한다.",
+      "prerequisites": [
+        "vectors-coordinate-systems"
+      ],
+      "applications": [
+        "optical-flow",
+        "camera-model-calibration",
+        "spatial-thermal-comfort-modeling",
+        "gaze-behavior-analysis"
+      ]
+    },
+    {
+      "id": "network-communication-basics",
+      "name": "네트워크 통신 기초",
+      "english": "Network Communication Basics",
+      "level": 1,
+      "field": "systems",
+      "one_line": "네트워크 통신은 연결된 장치 사이에서 데이터를 주소 지정하고 전달하는 기본 원리를 다룬다.",
+      "prerequisites": [
+        "programming-data-processing"
+      ],
+      "applications": [
+        "wireless-channel-state-information",
+        "real-time-streaming",
+        "web-interoperability-xr",
+        "distributed-edge-systems"
+      ]
+    },
+    {
+      "id": "data-encoding-formats",
+      "name": "데이터 인코딩과 형식",
+      "english": "Data Encoding and Formats",
+      "level": 1,
+      "field": "cs",
+      "one_line": "데이터 인코딩과 형식은 정보를 파일이나 메시지로 표현해 저장·전송·해석하는 규칙이다.",
+      "prerequisites": [
+        "programming-data-processing"
+      ],
+      "applications": [
+        "real-time-streaming",
+        "web-interoperability-xr",
+        "heterogeneous-sensor-data-modeling"
+      ]
+    },
+    {
+      "id": "heat-transfer",
+      "name": "열전달",
+      "english": "Heat Transfer",
+      "level": 1,
+      "field": "physics",
+      "one_line": "열전달은 전도, 대류, 복사를 통해 열에너지가 물체와 공간 사이에서 이동하는 현상이다.",
+      "prerequisites": [
+        "calculus-derivatives",
+        "measurement-noise"
+      ],
+      "applications": [
+        "spatial-thermal-comfort-modeling"
+      ]
+    },
+    {
+      "id": "acoustics",
+      "name": "음향학 기초",
+      "english": "Acoustics",
+      "level": 1,
+      "field": "signal",
+      "one_line": "음향학은 소리의 생성, 전파, 반사와 이를 마이크로 측정한 신호의 특성을 다룬다.",
+      "prerequisites": [
+        "waves-electromagnetism",
+        "signals-time-series"
+      ],
+      "applications": [
+        "audio-speech-processing"
+      ]
+    },
+    {
+      "id": "human-physiology",
+      "name": "인체 생리 기초",
+      "english": "Human Physiology Basics",
+      "level": 1,
+      "field": "physics",
+      "one_line": "인체 생리는 호흡, 심장, 신경계가 작동하며 몸의 상태를 조절하는 방식을 설명한다.",
+      "prerequisites": [],
+      "applications": [
+        "human-perception-basics",
+        "biosignal-processing",
+        "gaze-behavior-analysis"
+      ]
+    },
+    {
+      "id": "experiment-design",
+      "name": "실험 설계 기초",
+      "english": "Experimental Design Basics",
+      "level": 1,
+      "field": "stats",
+      "one_line": "실험 설계는 조건, 표본, 측정 절차를 정해 비교 결과를 신뢰할 수 있게 만드는 방법이다.",
+      "prerequisites": [
+        "statistical-inference"
+      ],
+      "applications": [
+        "human-subject-usability",
+        "psychometrics-questionnaires",
+        "cybersickness-models"
+      ]
+    },
+    {
+      "id": "matrix-decomposition",
+      "name": "행렬 분해",
+      "english": "Matrix Decomposition",
+      "level": 1,
+      "field": "math",
+      "one_line": "행렬 분해는 복잡한 행렬을 더 단순한 행렬들의 곱으로 나타내 분석과 계산을 돕는다.",
+      "prerequisites": [
+        "eigenvalues-eigenvectors",
+        "matrices-linear-maps"
+      ],
+      "applications": [
+        "neural-networks",
+        "autoencoders-latent-representation",
+        "sparse-field-reconstruction",
+        "reduced-order-modeling"
+      ]
+    },
+    {
+      "id": "human-perception-basics",
+      "name": "인간 지각 기초",
+      "english": "Human Perception Basics",
+      "level": 1,
+      "field": "hci",
+      "one_line": "인간 지각은 시각·청각·균형 감각이 감각 정보를 조직해 공간과 사건을 이해하는 과정이다.",
+      "prerequisites": [
+        "human-physiology"
+      ],
+      "applications": [
+        "xr-rendering-interaction",
+        "human-subject-usability",
+        "cybersickness-models"
+      ]
+    },
+    {
+      "id": "digital-signal-processing",
+      "name": "디지털 신호처리",
+      "english": "Digital Signal Processing",
+      "level": 2,
+      "field": "signal",
+      "one_line": "디지털 신호처리는 표본화된 신호를 필터링하고 변환해 관심 있는 정보를 추출한다.",
+      "prerequisites": [
+        "signals-time-series",
+        "sampling-nyquist",
+        "fourier-transform"
+      ],
+      "applications": [
+        "time-frequency-analysis",
+        "filtering-feature-extraction",
+        "audio-speech-processing",
+        "video-motion-analysis",
+        "biosignal-processing",
+        "earthquake-ground-motion-reconstruction",
+        "esp32-csi-device-free-sensing"
+      ]
+    },
+    {
+      "id": "time-frequency-analysis",
+      "name": "시간-주파수 분석",
+      "english": "Time-Frequency Analysis",
+      "level": 2,
+      "field": "signal",
+      "one_line": "시간-주파수 분석은 신호의 주파수 성분이 시간에 따라 어떻게 변하는지 보여준다.",
+      "prerequisites": [
+        "digital-signal-processing",
+        "fourier-transform"
+      ],
+      "applications": [
+        "lucas-kanade-postural-sway-assessment",
+        "eeg-heartbeat-evoked-cybersickness"
+      ]
+    },
+    {
+      "id": "filtering-feature-extraction",
+      "name": "신호 필터링과 특징 추출",
+      "english": "Signal Filtering and Feature Extraction",
+      "level": 2,
+      "field": "signal",
+      "one_line": "필터링은 잡음이나 불필요한 성분을 줄이고 특징 추출은 분석에 유용한 요약값을 만든다.",
+      "prerequisites": [
+        "digital-signal-processing",
+        "signals-time-series"
+      ],
+      "applications": []
+    },
+    {
+      "id": "audio-speech-processing",
+      "name": "음성·오디오 처리",
+      "english": "Audio and Speech Processing",
+      "level": 2,
+      "field": "signal",
+      "one_line": "음성·오디오 처리는 녹음 신호에서 발화, 음절, 소리 사건과 시간적 구조를 찾아낸다.",
+      "prerequisites": [
+        "acoustics",
+        "digital-signal-processing"
+      ],
+      "applications": [
+        "segnet-sound-activity-segmentation",
+        "syllable-speech-dysphagia-detection"
+      ]
+    },
+    {
+      "id": "video-motion-analysis",
+      "name": "영상 움직임 분석",
+      "english": "Video Motion Analysis",
+      "level": 2,
+      "field": "vision",
+      "one_line": "영상 움직임 분석은 연속 프레임의 변화에서 물체의 이동과 동작 정보를 추정한다.",
+      "prerequisites": [
+        "digital-images-arrays",
+        "digital-signal-processing"
+      ],
+      "applications": [
+        "optical-flow",
+        "mhi-multimodal-abuse-detection",
+        "yolo-elderly-activity-video-tagging"
+      ]
+    },
+    {
+      "id": "optical-flow",
+      "name": "광학 흐름",
+      "english": "Optical Flow",
+      "level": 2,
+      "field": "vision",
+      "one_line": "광학 흐름은 연속 영상에서 픽셀이나 영역이 이동한 방향과 크기를 추정한다.",
+      "prerequisites": [
+        "video-motion-analysis",
+        "coordinate-geometry"
+      ],
+      "applications": [
+        "lucas-kanade-postural-sway-assessment"
+      ]
+    },
+    {
+      "id": "wireless-channel-state-information",
+      "name": "무선 채널 상태 정보",
+      "english": "Wireless Channel State Information",
+      "level": 2,
+      "field": "systems",
+      "one_line": "채널 상태 정보(CSI)는 무선 신호가 여러 경로를 거쳐 수신기에 도달하며 겪은 진폭과 위상 변화를 나타낸다.",
+      "prerequisites": [
+        "waves-electromagnetism",
+        "network-communication-basics",
+        "signals-time-series"
+      ],
+      "applications": [
+        "esp32-csi-device-free-sensing"
+      ]
+    },
+    {
+      "id": "biosignal-processing",
+      "name": "생체신호 처리",
+      "english": "Biosignal Processing",
+      "level": 2,
+      "field": "signal",
+      "one_line": "생체신호 처리는 뇌파와 심장 신호처럼 몸에서 측정한 약한 신호를 정제하고 분석한다.",
+      "prerequisites": [
+        "digital-signal-processing",
+        "human-physiology",
+        "signals-time-series"
+      ],
+      "applications": [
+        "cybersickness-models",
+        "eeg-heartbeat-evoked-cybersickness",
+        "cybersickness-integrated-review"
+      ]
+    },
+    {
+      "id": "camera-model-calibration",
+      "name": "카메라 모델과 보정",
+      "english": "Camera Models and Calibration",
+      "level": 2,
+      "field": "vision",
+      "one_line": "카메라 모델은 3D 공간을 2D 영상에 투영하는 과정을 기술하고 보정은 카메라의 내부·외부 파라미터를 구한다.",
+      "prerequisites": [
+        "coordinate-geometry",
+        "matrices-linear-maps"
+      ],
+      "applications": [
+        "three-dimensional-reconstruction",
+        "rendering-rasterization",
+        "neural-radiance-fields"
+      ]
+    },
+    {
+      "id": "three-dimensional-reconstruction",
+      "name": "3D 재구성",
+      "english": "3D Reconstruction",
+      "level": 2,
+      "field": "vision",
+      "one_line": "3D 재구성은 여러 영상이나 센서 측정값에서 장면의 입체 형태와 카메라 위치를 추정한다.",
+      "prerequisites": [
+        "camera-model-calibration",
+        "digital-images-arrays"
+      ],
+      "applications": [
+        "point-cloud-mesh-representation",
+        "view-planning",
+        "gaussian-splatting-rendering",
+        "reference-guided-gaussian-scene-inpainting",
+        "streamsplat-depth-fusion-web-architecture"
+      ]
+    },
+    {
+      "id": "point-cloud-mesh-representation",
+      "name": "점군과 메시 표현",
+      "english": "Point-Cloud and Mesh Representation",
+      "level": 2,
+      "field": "graphics",
+      "one_line": "점군은 3D 위치의 모음이고 메시는 점들을 면으로 연결해 표면을 표현한다.",
+      "prerequisites": [
+        "three-dimensional-reconstruction",
+        "matrices-linear-maps"
+      ],
+      "applications": [
+        "three-dimensional-scanning",
+        "lidar-point-cloud-webrtc-streaming"
+      ]
+    },
+    {
+      "id": "rendering-rasterization",
+      "name": "렌더링과 래스터화",
+      "english": "Rendering and Rasterization",
+      "level": 2,
+      "field": "graphics",
+      "one_line": "렌더링은 장면을 영상으로 만들고 래스터화는 기하 도형을 화면의 픽셀로 변환한다.",
+      "prerequisites": [
+        "camera-model-calibration",
+        "digital-images-arrays"
+      ],
+      "applications": [
+        "gaussian-splatting-rendering",
+        "xr-rendering-interaction",
+        "reference-guided-gaussian-scene-inpainting"
+      ]
+    },
+    {
+      "id": "view-planning",
+      "name": "시점 계획",
+      "english": "View Planning",
+      "level": 2,
+      "field": "vision",
+      "one_line": "시점 계획은 관측하지 못한 영역을 줄이도록 다음에 촬영할 위치와 방향을 선택한다.",
+      "prerequisites": [
+        "three-dimensional-reconstruction",
+        "algorithms-complexity"
+      ],
+      "applications": [
+        "autonomous-nbv-robotic-scanning"
+      ]
+    },
+    {
+      "id": "robot-pose-planning",
+      "name": "로봇 자세 계획",
+      "english": "Robot Pose Planning",
+      "level": 2,
+      "field": "mechanics",
+      "one_line": "로봇 자세 계획은 목표 위치와 제약 조건을 고려해 로봇의 관절 및 센서 자세를 정한다.",
+      "prerequisites": [
+        "rigid-body-kinematics",
+        "optimization-basics"
+      ],
+      "applications": [
+        "autonomous-nbv-robotic-scanning"
+      ]
+    },
+    {
+      "id": "three-dimensional-scanning",
+      "name": "3D 스캐닝 절차",
+      "english": "3D Scanning Workflow",
+      "level": 2,
+      "field": "vision",
+      "one_line": "3D 스캐닝은 여러 시점의 측정값을 정합하고 합쳐 물체 표면의 디지털 모델을 만든다.",
+      "prerequisites": [
+        "point-cloud-mesh-representation",
+        "algorithms-complexity"
+      ],
+      "applications": [
+        "autonomous-nbv-robotic-scanning"
+      ]
+    },
+    {
+      "id": "neural-radiance-fields",
+      "name": "신경 방사장",
+      "english": "Neural Radiance Fields",
+      "level": 2,
+      "field": "graphics",
+      "one_line": "신경 방사장(NeRF)은 여러 사진으로부터 공간 위치와 시선 방향에 따른 색과 빛을 학습해 새 시점의 영상을 합성한다.",
+      "prerequisites": [
+        "camera-model-calibration",
+        "optimization-basics",
+        "digital-images-arrays"
+      ],
+      "applications": [
+        "hybrid-nerf-asset-cloud-rendering"
+      ]
+    },
+    {
+      "id": "gaussian-splatting-rendering",
+      "name": "가우시안 스플래팅 렌더링",
+      "english": "Gaussian Splatting Rendering",
+      "level": 2,
+      "field": "graphics",
+      "one_line": "가우시안 스플래팅은 장면을 3D 가우시안 요소들의 집합으로 표현해 빠르게 렌더링한다.",
+      "prerequisites": [
+        "three-dimensional-reconstruction",
+        "rendering-rasterization"
+      ],
+      "applications": [
+        "reference-guided-gaussian-scene-inpainting",
+        "streamsplat-depth-fusion-web-architecture"
+      ]
+    },
+    {
+      "id": "xr-rendering-interaction",
+      "name": "XR 렌더링과 상호작용",
+      "english": "XR Rendering and Interaction",
+      "level": 2,
+      "field": "hci",
+      "one_line": "XR 렌더링과 상호작용은 가상·현실 공간을 표시하고 사용자의 시선, 손짓, 입력 장치에 반응하게 한다.",
+      "prerequisites": [
+        "rendering-rasterization",
+        "human-perception-basics",
+        "programming-data-processing"
+      ],
+      "applications": [
+        "hybrid-nerf-asset-cloud-rendering",
+        "lidar-point-cloud-webrtc-streaming",
+        "xr-remote-collaboration-interface-evaluation",
+        "interoperable-xr-content-and-decentralized-web",
+        "webized-xr-apps-displays-and-devices",
+        "poi-density-smartglass-zooming"
+      ]
+    },
+    {
+      "id": "real-time-streaming",
+      "name": "실시간 스트리밍",
+      "english": "Real-Time Streaming",
+      "level": 2,
+      "field": "systems",
+      "one_line": "실시간 스트리밍은 영상·공간 데이터를 네트워크로 연속 전송하며 지연과 대역폭을 관리한다.",
+      "prerequisites": [
+        "network-communication-basics",
+        "programming-data-processing",
+        "data-encoding-formats"
+      ],
+      "applications": [
+        "hybrid-nerf-asset-cloud-rendering",
+        "streamsplat-depth-fusion-web-architecture",
+        "lidar-point-cloud-webrtc-streaming",
+        "webized-xr-apps-displays-and-devices",
+        "ipfs-mqtt-hybrid-iot-storage"
+      ]
+    },
+    {
+      "id": "supervised-learning-classification",
+      "name": "지도학습 분류",
+      "english": "Supervised Learning and Classification",
+      "level": 2,
+      "field": "ml",
+      "one_line": "지도학습 분류는 라벨이 붙은 예시를 이용해 새로운 입력의 범주를 예측한다.",
+      "prerequisites": [
+        "probability-random-variables",
+        "matrices-linear-maps",
+        "optimization-basics"
+      ],
+      "applications": [
+        "neural-networks",
+        "classification-metrics",
+        "esp32-csi-device-free-sensing"
+      ]
+    },
+    {
+      "id": "neural-networks",
+      "name": "신경망",
+      "english": "Neural Networks",
+      "level": 2,
+      "field": "ml",
+      "one_line": "신경망은 층으로 연결된 계산 단위의 가중치를 학습해 복잡한 입력과 출력의 관계를 근사한다.",
+      "prerequisites": [
+        "supervised-learning-classification",
+        "programming-data-processing",
+        "matrix-decomposition"
+      ],
+      "applications": [
+        "autoencoders-latent-representation",
+        "convolutional-neural-networks",
+        "multimodal-fusion"
+      ]
+    },
+    {
+      "id": "autoencoders-latent-representation",
+      "name": "오토인코더와 잠재 표현",
+      "english": "Autoencoders and Latent Representations",
+      "level": 2,
+      "field": "ml",
+      "one_line": "오토인코더는 입력을 잠재 표현으로 압축한 뒤 복원하며 데이터의 저차원 구조를 학습한다.",
+      "prerequisites": [
+        "neural-networks",
+        "matrix-decomposition"
+      ],
+      "applications": [
+        "gappy-autoencoder-reconstruction"
+      ]
+    },
+    {
+      "id": "convolutional-neural-networks",
+      "name": "합성곱 신경망",
+      "english": "Convolutional Neural Networks",
+      "level": 2,
+      "field": "ml",
+      "one_line": "합성곱 신경망은 국소 패턴을 단계적으로 결합해 영상과 시계열의 공간적 특징을 학습한다.",
+      "prerequisites": [
+        "neural-networks",
+        "digital-images-arrays"
+      ],
+      "applications": [
+        "semantic-segmentation-object-detection",
+        "syllable-speech-dysphagia-detection",
+        "mhi-multimodal-abuse-detection"
+      ]
+    },
+    {
+      "id": "semantic-segmentation-object-detection",
+      "name": "의미론적 분할과 객체 검출",
+      "english": "Semantic Segmentation and Object Detection",
+      "level": 2,
+      "field": "vision",
+      "one_line": "의미론적 분할은 각 픽셀의 범주를 예측하고 객체 검출은 영상 속 물체의 위치와 종류를 찾는다.",
+      "prerequisites": [
+        "convolutional-neural-networks",
+        "digital-images-arrays"
+      ],
+      "applications": [
+        "segnet-sound-activity-segmentation",
+        "syllable-speech-dysphagia-detection",
+        "yolo-elderly-activity-video-tagging"
+      ]
+    },
+    {
+      "id": "classification-metrics",
+      "name": "분류 성능 지표",
+      "english": "Classification Metrics",
+      "level": 2,
+      "field": "stats",
+      "one_line": "정확도, 정밀도, 재현율, F1 점수는 분류기가 만든 예측의 서로 다른 오류 측면을 요약한다.",
+      "prerequisites": [
+        "statistical-inference",
+        "supervised-learning-classification"
+      ],
+      "applications": [
+        "segnet-sound-activity-segmentation",
+        "syllable-speech-dysphagia-detection",
+        "mhi-multimodal-abuse-detection",
+        "yolo-elderly-activity-video-tagging"
+      ]
+    },
+    {
+      "id": "multimodal-fusion",
+      "name": "다중 모달 정보 융합",
+      "english": "Multimodal Information Fusion",
+      "level": 2,
+      "field": "ml",
+      "one_line": "다중 모달 융합은 영상·음성·센서처럼 서로 다른 형태의 데이터를 결합해 상호 보완적인 정보를 얻는다.",
+      "prerequisites": [
+        "neural-networks",
+        "signals-time-series"
+      ],
+      "applications": [
+        "mhi-multimodal-abuse-detection",
+        "heterogeneous-health-sensor-log-fusion"
+      ]
+    },
+    {
+      "id": "sparse-field-reconstruction",
+      "name": "희소 관측장 복원",
+      "english": "Sparse-Observation Field Reconstruction",
+      "level": 2,
+      "field": "ml",
+      "one_line": "희소 관측장 복원은 일부 위치에서만 측정한 값으로 전체 공간장의 상태를 추정한다.",
+      "prerequisites": [
+        "matrix-decomposition",
+        "sampling-nyquist",
+        "optimization-basics"
+      ],
+      "applications": [
+        "gappy-pod-reconstruction",
+        "gappy-autoencoder-reconstruction",
+        "earthquake-ground-motion-reconstruction"
+      ]
+    },
+    {
+      "id": "reduced-order-modeling",
+      "name": "저차원 축소 모델링",
+      "english": "Reduced-Order Modeling",
+      "level": 2,
+      "field": "mechanics",
+      "one_line": "저차원 축소 모델링은 고차원 상태의 주요 변동을 소수의 기저 벡터로 표현해 계산량을 줄인다.",
+      "prerequisites": [
+        "matrix-decomposition",
+        "signals-time-series"
+      ],
+      "applications": [
+        "gappy-pod-reconstruction",
+        "gappy-autoencoder-reconstruction"
+      ]
+    },
+    {
+      "id": "spatial-thermal-comfort-modeling",
+      "name": "공간 열쾌적성 모델링",
+      "english": "Spatial Thermal Comfort Modeling",
+      "level": 2,
+      "field": "mechanics",
+      "one_line": "공간 열쾌적성 모델링은 온도와 기류 등 환경 변수가 위치마다 달라지는 실내 열환경을 분석한다.",
+      "prerequisites": [
+        "heat-transfer",
+        "measurement-noise",
+        "coordinate-geometry"
+      ],
+      "applications": [
+        "thermal-field-reconstruction-evaluation"
+      ]
+    },
+    {
+      "id": "human-subject-usability",
+      "name": "사용자 실험과 사용성 평가",
+      "english": "Human-Subject Experiments and Usability Evaluation",
+      "level": 2,
+      "field": "hci",
+      "one_line": "사용자 실험은 과업, 조건, 참여자 반응을 측정해 인터페이스의 성능과 사용 경험을 비교한다.",
+      "prerequisites": [
+        "experiment-design",
+        "statistical-inference",
+        "human-perception-basics"
+      ],
+      "applications": [
+        "lucas-kanade-postural-sway-assessment",
+        "eeg-heartbeat-evoked-cybersickness",
+        "xr-remote-collaboration-interface-evaluation",
+        "aeri-empathy-sem-validation",
+        "poi-density-smartglass-zooming"
+      ]
+    },
+    {
+      "id": "psychometrics-questionnaires",
+      "name": "심리측정과 설문 척도",
+      "english": "Psychometrics and Questionnaires",
+      "level": 2,
+      "field": "hci",
+      "one_line": "심리측정은 설문 문항이 공감, 불편감, 선호와 같은 잠재 특성을 얼마나 일관되게 측정하는지 다룬다.",
+      "prerequisites": [
+        "statistical-inference",
+        "experiment-design"
+      ],
+      "applications": [
+        "structural-equation-modeling",
+        "xr-remote-collaboration-interface-evaluation",
+        "aeri-empathy-sem-validation"
+      ]
+    },
+    {
+      "id": "structural-equation-modeling",
+      "name": "구조방정식모형",
+      "english": "Structural Equation Modeling",
+      "level": 2,
+      "field": "stats",
+      "one_line": "구조방정식모형은 관측 변수와 잠재 변수 사이의 측정 관계 및 가설적 경로를 함께 추정한다.",
+      "prerequisites": [
+        "linear-regression",
+        "psychometrics-questionnaires"
+      ],
+      "applications": [
+        "aeri-empathy-sem-validation"
+      ]
+    },
+    {
+      "id": "cybersickness-models",
+      "name": "사이버멀미의 원인과 측정",
+      "english": "Cybersickness Causes and Measurement",
+      "level": 2,
+      "field": "hci",
+      "one_line": "사이버멀미 모델은 VR 콘텐츠, 기기, 사용자 특성과 지각·생리 반응 및 주관적 증상의 관계를 설명한다.",
+      "prerequisites": [
+        "human-perception-basics",
+        "experiment-design",
+        "biosignal-processing"
+      ],
+      "applications": [
+        "eeg-heartbeat-evoked-cybersickness",
+        "gaze-regression-cybersickness-prediction",
+        "cybersickness-integrated-review"
+      ]
+    },
+    {
+      "id": "gaze-behavior-analysis",
+      "name": "시선 행동 분석",
+      "english": "Gaze Behavior Analysis",
+      "level": 2,
+      "field": "vision",
+      "one_line": "시선 행동 분석은 응시 위치와 지속 시간의 변화를 이용해 사용자의 주의와 시각적 탐색을 추정한다.",
+      "prerequisites": [
+        "human-physiology",
+        "signals-time-series",
+        "coordinate-geometry"
+      ],
+      "applications": [
+        "gaze-regression-cybersickness-prediction"
+      ]
+    },
+    {
+      "id": "web-interoperability-xr",
+      "name": "웹 상호운용성과 XR",
+      "english": "Web Interoperability and XR",
+      "level": 2,
+      "field": "systems",
+      "one_line": "웹 상호운용성은 공개 데이터 형식과 웹 표준을 이용해 서로 다른 XR 앱과 장치가 콘텐츠를 공유하게 한다.",
+      "prerequisites": [
+        "data-encoding-formats",
+        "programming-data-processing",
+        "network-communication-basics"
+      ],
+      "applications": [
+        "interoperable-xr-content-and-decentralized-web",
+        "webized-xr-apps-displays-and-devices",
+        "semantic-digital-twin-me-centric-iot",
+        "poi-density-smartglass-zooming"
+      ]
+    },
+    {
+      "id": "distributed-edge-systems",
+      "name": "분산·엣지 시스템",
+      "english": "Distributed and Edge Systems",
+      "level": 2,
+      "field": "systems",
+      "one_line": "분산·엣지 시스템은 데이터를 여러 장치와 서버에 나누어 처리해 지연, 확장성, 저장 제약을 관리한다.",
+      "prerequisites": [
+        "network-communication-basics",
+        "algorithms-complexity"
+      ],
+      "applications": [
+        "interoperable-xr-content-and-decentralized-web",
+        "ipfs-mqtt-hybrid-iot-storage",
+        "semantic-digital-twin-me-centric-iot"
+      ]
+    },
+    {
+      "id": "heterogeneous-sensor-data-modeling",
+      "name": "이기종 센서 데이터 모델링",
+      "english": "Heterogeneous Sensor Data Modeling",
+      "level": 2,
+      "field": "systems",
+      "one_line": "이기종 센서 데이터 모델링은 출처와 단위가 다른 측정 기록을 공통 구조와 메타데이터로 정리한다.",
+      "prerequisites": [
+        "data-encoding-formats",
+        "measurement-noise",
+        "programming-data-processing"
+      ],
+      "applications": [
+        "ipfs-mqtt-hybrid-iot-storage",
+        "semantic-digital-twin-me-centric-iot",
+        "heterogeneous-health-sensor-log-fusion"
+      ]
+    },
+    {
+      "id": "gappy-pod-reconstruction",
+      "name": "Gappy POD와 센서 위치 선택",
+      "english": "Gappy POD and Sensor Placement",
+      "level": 3,
+      "field": "ml",
+      "one_line": "Gappy POD는 희소 센서값에 맞도록 저차원 POD 기저의 계수를 추정해 빠진 공간장을 복원하며 센서 위치 선택은 복원에 유리한 관측 지점을 고른다.",
+      "prerequisites": [
+        "reduced-order-modeling",
+        "sparse-field-reconstruction"
+      ],
+      "applications": [
+        "thermal-field-reconstruction-evaluation"
+      ]
+    },
+    {
+      "id": "gappy-autoencoder-reconstruction",
+      "name": "Gappy 오토인코더",
+      "english": "Gappy Autoencoder",
+      "level": 3,
+      "field": "ml",
+      "one_line": "Gappy 오토인코더는 희소 관측값으로 비선형 잠재 표현을 추정해 데이터를 복원하며 선형 축소의 한계와 Kolmogorov N-width를 비교한다.",
+      "prerequisites": [
+        "autoencoders-latent-representation",
+        "sparse-field-reconstruction",
+        "reduced-order-modeling"
+      ],
+      "applications": [
+        "thermal-field-reconstruction-evaluation",
+        "earthquake-ground-motion-reconstruction"
+      ]
+    },
+    {
+      "id": "thermal-field-reconstruction-evaluation",
+      "name": "열환경장 복원과 열쾌적성 평가",
+      "english": "Thermal-Field Reconstruction and Comfort Evaluation",
+      "level": 3,
+      "field": "mechanics",
+      "one_line": "희소 센서와 Gappy POD·오토인코더로 실내 온열 환경장을 복원하고 DesignBuilder·EnergyPlus 자료를 활용해 공간 열쾌적성과 열제어를 평가한다.",
+      "prerequisites": [
+        "gappy-pod-reconstruction",
+        "gappy-autoencoder-reconstruction",
+        "spatial-thermal-comfort-modeling"
+      ],
+      "applications": []
+    },
+    {
+      "id": "earthquake-ground-motion-reconstruction",
+      "name": "지진 지반운동 실시간 복원",
+      "english": "Real-Time Earthquake Ground-Motion Reconstruction",
+      "level": 3,
+      "field": "mechanics",
+      "one_line": "SW4로 생성한 소규모 지진 지반운동 자료에서 Gappy 오토인코더로 희소 관측장을 복원하고 진도 척도인 MMI와 연결한다.",
+      "prerequisites": [
+        "gappy-autoencoder-reconstruction",
+        "sparse-field-reconstruction",
+        "digital-signal-processing"
+      ],
+      "applications": []
+    },
+    {
+      "id": "lucas-kanade-postural-sway-assessment",
+      "name": "Lucas–Kanade 기반 자세 흔들림 평가",
+      "english": "Lucas–Kanade Postural-Sway Assessment",
+      "level": 3,
+      "field": "vision",
+      "one_line": "Lucas–Kanade 광학 흐름으로 단일 카메라 영상의 머리·몸통 움직임을 추적해 균형판 CoP 궤적과 시간·주파수 영역에서 비교한다.",
+      "prerequisites": [
+        "optical-flow",
+        "time-frequency-analysis",
+        "human-subject-usability",
+        "measurement-noise"
+      ],
+      "applications": []
+    },
+    {
+      "id": "segnet-sound-activity-segmentation",
+      "name": "SegNet 기반 소리 활동 분할",
+      "english": "SegNet-Based Sound Activity Segmentation",
+      "level": 3,
+      "field": "ml",
+      "one_line": "시간·주파수 특징을 영상처럼 입력해 SegNet으로 소리 구간을 픽셀 단위로 분할하고 활동 라벨과 F1 점수로 평가한다.",
+      "prerequisites": [
+        "semantic-segmentation-object-detection",
+        "audio-speech-processing",
+        "classification-metrics"
+      ],
+      "applications": []
+    },
+    {
+      "id": "syllable-speech-dysphagia-detection",
+      "name": "음절 기반 음성 연하장애 탐지",
+      "english": "Syllable-Based Speech Dysphagia Detection",
+      "level": 3,
+      "field": "ml",
+      "one_line": "음성인식으로 일상 대화를 음절 단위로 나누고 CNN으로 연하장애를 분류해 비디오투시 연하검사 결과와 개인 단위로 비교한다.",
+      "prerequisites": [
+        "audio-speech-processing",
+        "convolutional-neural-networks",
+        "semantic-segmentation-object-detection",
+        "classification-metrics"
+      ],
+      "applications": []
+    },
+    {
+      "id": "esp32-csi-device-free-sensing",
+      "name": "ESP32 기반 CSI 비접촉 감지",
+      "english": "ESP32-Based CSI Device-Free Sensing",
+      "level": 3,
+      "field": "systems",
+      "one_line": "ESP32가 수집한 Wi-Fi CSI의 부반송파 변화를 선택·융합해 별도 착용 장치 없이 호흡수와 사람 활동을 추정한다.",
+      "prerequisites": [
+        "wireless-channel-state-information",
+        "supervised-learning-classification",
+        "digital-signal-processing"
+      ],
+      "applications": []
+    },
+    {
+      "id": "eeg-heartbeat-evoked-cybersickness",
+      "name": "EEG·심장유발전위 사이버멀미 분석",
+      "english": "EEG and Heartbeat-Evoked Cybersickness Analysis",
+      "level": 3,
+      "field": "signal",
+      "one_line": "VR 경험 중 기록한 EEG와 심장 신호에서 시간·주파수 특성과 심장박동유발전위(HEP)를 추출해 불편감 변화와 비교한다.",
+      "prerequisites": [
+        "biosignal-processing",
+        "time-frequency-analysis",
+        "cybersickness-models",
+        "human-subject-usability"
+      ],
+      "applications": []
+    },
+    {
+      "id": "gaze-regression-cybersickness-prediction",
+      "name": "시선 기반 사이버멀미 예측",
+      "english": "Gaze-Based Cybersickness Prediction",
+      "level": 3,
+      "field": "ml",
+      "one_line": "응시 지속시간과 시선·물체 위치 시퀀스의 차이를 특징으로 삼아 회귀 모델로 VR 사이버멀미 수준을 예측한다.",
+      "prerequisites": [
+        "gaze-behavior-analysis",
+        "cybersickness-models",
+        "linear-regression"
+      ],
+      "applications": []
+    },
+    {
+      "id": "mhi-multimodal-abuse-detection",
+      "name": "MHI·다중 모달 학대 행동 감지",
+      "english": "MHI-Based Multimodal Abuse Detection",
+      "level": 3,
+      "field": "vision",
+      "one_line": "Motion History Image(MHI)가 나타내는 움직임과 음향 특징을 CNN으로 결합해 학대 행동을 탐지하고 단일 모달 성능과 비교한다.",
+      "prerequisites": [
+        "multimodal-fusion",
+        "convolutional-neural-networks",
+        "classification-metrics",
+        "video-motion-analysis"
+      ],
+      "applications": []
+    },
+    {
+      "id": "yolo-elderly-activity-video-tagging",
+      "name": "YOLO 기반 노인 활동 영상 태깅",
+      "english": "YOLO-Based Elderly Activity Video Tagging",
+      "level": 3,
+      "field": "vision",
+      "one_line": "YOLO 계열 객체 검출을 영상에 적용해 노인의 일상 활동을 기계 보조로 태깅하고 정밀도와 실시간 성능을 평가한다.",
+      "prerequisites": [
+        "semantic-segmentation-object-detection",
+        "video-motion-analysis",
+        "classification-metrics"
+      ],
+      "applications": []
+    },
+    {
+      "id": "reference-guided-gaussian-scene-inpainting",
+      "name": "참조 영상 유도 가우시안 장면 인페인팅",
+      "english": "Reference-Guided Gaussian Scene Inpainting",
+      "level": 3,
+      "field": "graphics",
+      "one_line": "참조 영상을 이용해 Gaussian splatting 장면의 빈 영역을 채우고 여러 시점에서 일관되고 사실적인 3D 결과를 만든다.",
+      "prerequisites": [
+        "gaussian-splatting-rendering",
+        "three-dimensional-reconstruction",
+        "rendering-rasterization"
+      ],
+      "applications": []
+    },
+    {
+      "id": "hybrid-nerf-asset-cloud-rendering",
+      "name": "NeRF·3D 에셋 하이브리드 클라우드 렌더링",
+      "english": "Hybrid NeRF and 3D-Asset Cloud Rendering",
+      "level": 3,
+      "field": "graphics",
+      "one_line": "클라우드 NeRF 장면과 기존 3D 에셋을 함께 렌더링하고 XR 기기로 실시간 전달해 모델링과 전송 부담을 줄인다.",
+      "prerequisites": [
+        "neural-radiance-fields",
+        "xr-rendering-interaction",
+        "real-time-streaming"
+      ],
+      "applications": []
+    },
+    {
+      "id": "streamsplat-depth-fusion-web-architecture",
+      "name": "StreamSplat 깊이 융합 웹 아키텍처",
+      "english": "StreamSplat Depth-Fusion Web Architecture",
+      "level": 3,
+      "field": "systems",
+      "one_line": "클라이언트와 서버의 렌더링을 나누고 깊이 기반 융합으로 Gaussian 장면을 결합해 웹에서 신경 그래픽스를 전달한다.",
+      "prerequisites": [
+        "gaussian-splatting-rendering",
+        "real-time-streaming",
+        "three-dimensional-reconstruction"
+      ],
+      "applications": []
+    },
+    {
+      "id": "lidar-point-cloud-webrtc-streaming",
+      "name": "LiDAR 점군 WebRTC 스트리밍",
+      "english": "LiDAR Point-Cloud WebRTC Streaming",
+      "level": 3,
+      "field": "systems",
+      "one_line": "LiDAR로 재구성한 주변 물체의 점군을 WebRTC로 연속 전송해 원격 XR 협업자가 현장 공간을 함께 살펴보게 한다.",
+      "prerequisites": [
+        "point-cloud-mesh-representation",
+        "real-time-streaming",
+        "xr-rendering-interaction"
+      ],
+      "applications": []
+    },
+    {
+      "id": "autonomous-nbv-robotic-scanning",
+      "name": "자율 NBV 로봇 스캐닝",
+      "english": "Autonomous Next-Best-View Robotic Scanning",
+      "level": 3,
+      "field": "mechanics",
+      "one_line": "Next-Best-View(NBV)는 미관측 표면을 보완할 다음 스캔 자세를 고르며 거친 초기 스캔과 정밀 스캔 경로를 연결한다.",
+      "prerequisites": [
+        "view-planning",
+        "three-dimensional-scanning",
+        "robot-pose-planning"
+      ],
+      "applications": []
+    },
+    {
+      "id": "xr-remote-collaboration-interface-evaluation",
+      "name": "XR 원격 협업 인터페이스 평가",
+      "english": "XR Remote-Collaboration Interface Evaluation",
+      "level": 3,
+      "field": "hci",
+      "one_line": "2D·360도·3D 재구성 화면, 손짓, 3D 드로잉과 가상 복제물을 비교해 조립 과업 시간, 협업 경험, 선호도를 측정한다.",
+      "prerequisites": [
+        "xr-rendering-interaction",
+        "human-subject-usability",
+        "psychometrics-questionnaires"
+      ],
+      "applications": []
+    },
+    {
+      "id": "interoperable-xr-content-and-decentralized-web",
+      "name": "상호운용 XR 콘텐츠와 분산 웹",
+      "english": "Interoperable XR Content and the Decentralized Web",
+      "level": 3,
+      "field": "systems",
+      "one_line": "공통 XR 표현과 좌표계를 웹 기반 지리정보·기존 기기 서비스에 연결하고 중앙 서버 또는 P2P 방식으로 협업 콘텐츠를 공유한다.",
+      "prerequisites": [
+        "web-interoperability-xr",
+        "xr-rendering-interaction",
+        "distributed-edge-systems"
+      ],
+      "applications": []
+    },
+    {
+      "id": "webized-xr-apps-displays-and-devices",
+      "name": "웹화 XR 앱·디스플레이·장치",
+      "english": "Webized XR Apps, Displays, and Devices",
+      "level": 3,
+      "field": "hci",
+      "one_line": "HTML DOM·CSS와 장치 어댑터를 이용해 인테리어·CAD·공간 상호작용을 웹으로 제공하고 다중시점 3D 디스플레이의 콘텐츠를 동기화한다.",
+      "prerequisites": [
+        "web-interoperability-xr",
+        "xr-rendering-interaction",
+        "real-time-streaming"
+      ],
+      "applications": []
+    },
+    {
+      "id": "ipfs-mqtt-hybrid-iot-storage",
+      "name": "IPFS·MQTT 하이브리드 IoT 저장",
+      "english": "IPFS and MQTT Hybrid IoT Storage",
+      "level": 3,
+      "field": "systems",
+      "one_line": "IoT 데이터를 IPFS에 분산 저장하고 CID·출처 메타데이터는 중앙 관리해 조건 검색과 안전한 삭제를 지원한다.",
+      "prerequisites": [
+        "distributed-edge-systems",
+        "real-time-streaming",
+        "heterogeneous-sensor-data-modeling"
+      ],
+      "applications": []
+    },
+    {
+      "id": "semantic-digital-twin-me-centric-iot",
+      "name": "의미 기반 디지털 트윈과 ME 중심 IoT",
+      "english": "Semantic Digital Twins and ME-Centric IoT",
+      "level": 3,
+      "field": "systems",
+      "one_line": "이기종 IoT 장치를 의미론적 디지털 트윈으로 연결하고 엣지 처리, 분산 저장, 블록체인·온톨로지로 데이터 상호운용성을 높인다.",
+      "prerequisites": [
+        "distributed-edge-systems",
+        "web-interoperability-xr",
+        "heterogeneous-sensor-data-modeling"
+      ],
+      "applications": []
+    },
+    {
+      "id": "heterogeneous-health-sensor-log-fusion",
+      "name": "이기종 건강 센서 활동 기록 융합",
+      "english": "Heterogeneous Healthcare Sensor-Log Fusion",
+      "level": 3,
+      "field": "systems",
+      "one_line": "웨어러블과 모바일 앱의 활동 기록을 공통 모델로 정렬·집계·추상화해 개인 건강 데이터를 계층적으로 보여준다.",
+      "prerequisites": [
+        "multimodal-fusion",
+        "heterogeneous-sensor-data-modeling"
+      ],
+      "applications": []
+    },
+    {
+      "id": "aeri-empathy-sem-validation",
+      "name": "AERI와 공감 구조방정식 검증",
+      "english": "AERI and Empathy SEM Validation",
+      "level": 3,
+      "field": "hci",
+      "one_line": "적극적 경청, 개인화, 감정 표현, 페르소나 매력을 AERI 특성으로 측정하고 IRI와 구조방정식모형으로 인지·정서적 공감과의 관계를 검증한다.",
+      "prerequisites": [
+        "structural-equation-modeling",
+        "psychometrics-questionnaires",
+        "human-subject-usability"
+      ],
+      "applications": []
+    },
+    {
+      "id": "cybersickness-integrated-review",
+      "name": "사이버멀미 통합 모델과 범위 문헌고찰",
+      "english": "Integrated Cybersickness Model and Scoping Review",
+      "level": 3,
+      "field": "hci",
+      "one_line": "문헌고찰은 VR 기기·콘텐츠·사용자 요인과 지각·생리 반응, 주관적·객관적 측정을 함께 정리해 사이버멀미의 원인과 증거를 비교한다.",
+      "prerequisites": [
+        "cybersickness-models",
+        "biosignal-processing",
+        "statistical-inference"
+      ],
+      "applications": []
+    },
+    {
+      "id": "poi-density-smartglass-zooming",
+      "name": "POI 밀도 기반 스마트글래스 줌",
+      "english": "POI-Density-Based Smart-Glass Zooming",
+      "level": 3,
+      "field": "hci",
+      "one_line": "관심 지점(POI)의 밀도에 맞춰 지도 확대 수준을 조절해 스마트글래스에서 주변 장소를 탐색하게 한다.",
+      "prerequisites": [
+        "xr-rendering-interaction",
+        "human-subject-usability",
+        "web-interoperability-xr"
+      ],
+      "applications": []
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:46:01.483Z",
+  "paper_id": "W2614057990",
+  "summary": "웹 기반 상호작용형 CAD 검토 시스템을 슈퍼 멀티뷰 오토스테레오 디스플레이와 결합하는 주제를 다룬다. CAD 형상을 웹 인터페이스에서 검토하고 여러 시점의 무안경 입체 표시로 확인하는 시스템 구성이 중심이다.",
+  "core": [
+    "xr-rendering-interaction",
+    "webized-xr-apps-displays-and-devices"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "CAD 검토 기능과 웹 인터페이스의 동작을 구성하는 구현 바탕이다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "웹 기반 검토 화면과 CAD 자료가 오가는 통신 경로를 이해한다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "CAD 형상과 검토 정보를 시스템 사이에서 표현하고 전달하는 형식을 다룬다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "디스플레이에 나타나는 CAD 형상의 시각 정보를 픽셀 배열로 이해한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "다중 시점 표시에서 시점과 화면 투영이 연결되는 관계를 이해한다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "CAD 형상을 화면의 다중 시점 입체 영상으로 그리는 과정을 설명한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "사용자가 무안경 입체 화면에서 깊이와 시점 차이를 지각하는 측면을 다룬다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "CAD 형상을 입체 화면에 제시하고 검토 중 상호작용하는 방식의 바탕이다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 기반 CAD 검토 기능과 XR 표시 환경을 연결하는 구조를 이해한다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "검토 중 바뀌는 화면 정보와 조작 결과가 전달되는 흐름을 이해하는 배경이다."
+    },
+    {
+      "concept": "webized-xr-apps-displays-and-devices",
+      "role": "웹화한 CAD 검토 기능과 다중 시점 무안경 표시를 묶은 시스템 개념이다."
+    }
+  ]
+}

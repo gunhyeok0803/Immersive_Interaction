@@ -1,0 +1,62 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:34:44.299Z",
+  "paper_id": "W4367662842",
+  "summary": "Webized XR 시스템에서 2D 영상, 360도 영상, 3D 재구성 인터페이스로 작업 공간의 환경 맥락을 공유하도록 확장한다. 파일럿 사용자 연구로 시스템의 품질을 평가한다.",
+  "core": [
+    "xr-rendering-interaction",
+    "human-subject-usability",
+    "xr-remote-collaboration-interface-evaluation"
+  ],
+  "path": [
+    {
+      "concept": "matrices-linear-maps",
+      "role": "영상과 공간 정보를 배열 및 변환으로 표현하는 기초를 익힌다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "공유 공간의 위치와 시점 관계를 이해하는 바탕이 된다."
+    },
+    {
+      "concept": "digital-images-arrays",
+      "role": "2D·360도 영상과 재구성 장면을 디지털 영상 데이터로 다룬다."
+    },
+    {
+      "concept": "human-physiology",
+      "role": "공간 정보를 받아들이는 인간의 감각 처리에 관한 기초를 제공한다."
+    },
+    {
+      "concept": "statistical-inference",
+      "role": "파일럿 연구에서 관찰한 사용자 평가 결과를 해석하는 기반이 된다."
+    },
+    {
+      "concept": "experiment-design",
+      "role": "인터페이스 조건을 비교하는 사용자 연구의 구성을 이해한다."
+    },
+    {
+      "concept": "camera-model-calibration",
+      "role": "카메라 시점과 공간 좌표가 3D 재구성 장면에 연결되는 방식을 다룬다."
+    },
+    {
+      "concept": "rendering-rasterization",
+      "role": "영상과 3D 장면을 화면에 표시하는 과정을 설명한다."
+    },
+    {
+      "concept": "human-perception-basics",
+      "role": "참가자가 각 인터페이스에서 공간 맥락을 어떻게 지각하는지 이해한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "2D 영상, 360도 영상, 3D 재구성을 XR 작업 공간에 표시하는 방식을 다룬다."
+    },
+    {
+      "concept": "human-subject-usability",
+      "role": "사용자 연구를 통해 인터페이스의 사용 경험과 품질을 평가한다."
+    },
+    {
+      "concept": "xr-remote-collaboration-interface-evaluation",
+      "role": "서로 다른 환경 맥락 공유 인터페이스를 원격 협업 상황에서 비교하고 평가한다."
+    }
+  ]
+}

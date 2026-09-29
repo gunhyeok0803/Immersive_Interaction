@@ -1,0 +1,126 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:04:13.119Z",
+  "id": "esp32-csi-device-free-sensing",
+  "name": "ESP32 기반 CSI 비접촉 감지",
+  "english": "ESP32-Based CSI Device-Free Sensing",
+  "level": 3,
+  "field": "systems",
+  "one_line": "ESP32가 수집한 Wi-Fi CSI의 부반송파 변화를 선택·융합해 별도 착용 장치 없이 호흡수와 사람 활동을 추정한다.",
+  "prerequisites": [
+    "wireless-channel-state-information",
+    "supervised-learning-classification",
+    "digital-signal-processing"
+  ],
+  "applications": [],
+  "card": {
+    "id": "esp32-csi-device-free-sensing",
+    "intuition": "Wi-Fi 신호는 벽과 물체에 반사되어 수신기에 여러 경로로 도착합니다. CSI는 이 무선 경로의 변화를 부반송파별로 살펴보는 방법입니다. 사람이 숨을 쉴 때 가슴의 작은 움직임도 경로를 조금 바꾸므로 CSI에 반복적인 흔적이 생길 수 있습니다. 사람은 센서를 착용하지 않아도 되지만, 신호를 주고받는 ESP32 같은 무선 장치는 필요합니다.",
+    "definition": "채널 상태 정보(CSI)는 Wi-Fi 연결의 무선 채널을 부반송파별 복소 응답으로 나타낸 값입니다. 비접촉 감지(device-free sensing)는 사람에게 별도 센서를 착용시키지 않고, CSI의 시간 변화를 분석해 호흡이나 활동을 추정하는 방법입니다.",
+    "formula": {
+      "latex": "\\hat{H}_k(t) = \\frac{Y_k(t)}{X_k(t)}",
+      "symbols": [
+        {
+          "symbol": "\\hat{H}_k(t)",
+          "meaning": "시각 t, 부반송파 k에서 추정한 복소 채널 이득. 같은 척도의 송수신 진폭을 나눈 값이라 무차원입니다."
+        },
+        {
+          "symbol": "Y_k(t)",
+          "meaning": "부반송파 k에서 받은 복소 기저대역 심벌. 단위는 송신 심벌과 같은 진폭 단위이며, 디지털 상대 단위일 수도 있습니다."
+        },
+        {
+          "symbol": "X_k(t)",
+          "meaning": "수신기가 알고 있는 부반송파 k의 송신 복소 심벌. 단위는 수신 심벌과 같은 진폭 단위입니다."
+        },
+        {
+          "symbol": "k",
+          "meaning": "부반송파 번호를 나타내는 정수 인덱스. 단위가 없습니다."
+        },
+        {
+          "symbol": "t",
+          "meaning": "패킷을 받은 시각 또는 표본 시각. 초 단위입니다."
+        }
+      ],
+      "reading": "알고 있는 송신 심벌에 비해 수신 심벌이 얼마나 크고 위상이 달라졌는지를 나누어 채널 응답을 추정합니다. 실제 측정값에는 잡음과 하드웨어 오차도 반영될 수 있습니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "Wi-Fi 패킷 수신",
+          "role": "ESP32가 무선 패킷을 받고 CSI 측정값을 수집합니다."
+        },
+        {
+          "name": "부반송파 응답",
+          "role": "각 패킷에서 부반송파별 복소 응답을 시간 순서로 기록합니다."
+        },
+        {
+          "name": "전처리와 부반송파 선택",
+          "role": "불안정한 측정값을 다루고 감지에 유용한 부반송파를 고릅니다."
+        },
+        {
+          "name": "특징 융합",
+          "role": "여러 부반송파의 변화를 결합해 더 안정적인 시간 신호를 만듭니다."
+        },
+        {
+          "name": "추정 또는 분류",
+          "role": "시간 신호에서 호흡수를 추정하거나 사람 활동을 분류합니다."
+        }
+      ],
+      "flow": "방 안의 ESP32가 패킷을 받으면 부반송파마다 CSI 응답을 기록합니다. 사람의 가슴 움직임은 여러 부반송파의 진폭이나 위상에 작고 반복적인 변화를 만듭니다. 잡음이 큰 부반송파를 걸러내고 유용한 부반송파를 융합한 뒤, 주기 신호를 분석해 호흡수를 추정하거나 활동 분류기에 입력합니다. 걷기처럼 큰 움직임은 호흡처럼 규칙적인 흔적과 다른 시간 패턴으로 나타날 수 있습니다."
+    },
+    "key_points": [
+      "CSI는 수신 신호 세기 하나만 보는 RSSI보다 부반송파별 채널 변화를 자세히 담습니다.",
+      "device-free는 사람이 착용 장치를 쓰지 않는다는 뜻이지, ESP32나 Wi-Fi 송수신기가 필요 없다는 뜻은 아닙니다.",
+      "호흡수는 CSI 값 자체가 아니라 CSI의 시간 변화를 처리해 추정합니다.",
+      "패킷 수신 간격, 측정 잡음, 부반송파 선택과 장치 배치가 추정 결과에 영향을 줍니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "어느 부반송파에서 송신 심벌이 X=2이고 수신 심벌이 Y=1+j이다. 잡음을 무시하고 채널 응답 추정값을 구하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "공식에 대입하면 H=Y/X=(1+j)/2=0.5+0.5j입니다. 복소 채널 응답의 크기는 √(0.5²+0.5²)≈0.71입니다."
+      },
+      {
+        "kind": "choice",
+        "question": "이 상황에서 device-free sensing의 의미를 가장 정확히 설명한 것은 무엇인가?",
+        "choices": [
+          "사람이 스마트워치를 착용해 그 센서값으로 호흡을 측정한다.",
+          "사람은 센서를 착용하지 않고, 고정된 Wi-Fi 송수신기의 CSI 변화를 분석한다.",
+          "ESP32를 없애고 음성인식만으로 사람 활동을 추정한다.",
+          "Wi-Fi 패킷을 사용하지 않고 카메라 영상만 분류한다."
+        ],
+        "answer": 1,
+        "solution": "정답은 1번입니다. 비접촉 감지는 사람이 별도 센서를 착용하지 않은 상태에서 무선 채널 변화를 이용합니다. 0번은 착용형 센서를 쓰는 방식입니다. 2번은 CSI를 측정할 무선 장치를 없애므로 설명과 맞지 않습니다. 3번은 Wi-Fi CSI 대신 카메라를 사용하는 다른 감지 방식입니다."
+      },
+      {
+        "kind": "choice",
+        "question": "여러 부반송파의 CSI를 선택하고 융합하는 이유로 가장 알맞은 것은 무엇인가?",
+        "choices": [
+          "모든 부반송파가 항상 같은 잡음과 변화를 가지므로 계산량을 늘리기 위해서",
+          "측정이 불안정한 부반송파의 영향을 줄이고, 유용한 변화를 더 안정적으로 잡기 위해서",
+          "부반송파 번호를 사람의 음절 번호로 바꾸기 위해서",
+          "Wi-Fi 채널의 시간 정보를 제거하기 위해서"
+        ],
+        "answer": 1,
+        "solution": "정답은 1번입니다. 부반송파마다 감지 민감도와 잡음이 다를 수 있어, 선택과 융합으로 쓸 만한 변화를 강조할 수 있습니다. 0번은 부반송파가 모두 같은 특성을 가진다고 잘못 가정합니다. 2번은 음절 처리와 무관합니다. 3번은 호흡·활동처럼 시간에 따른 변화를 감지하는 데 필요한 정보를 버리게 됩니다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "[Wireless Communications: Principles and Practice](https://www.informit.com/store/wireless-communications-principles-and-practice-9780130422323)",
+        "source": "Theodore S. Rappaport",
+        "where": "2nd edition, Chapter 5: Small-Scale Fading and Multipath"
+      },
+      {
+        "title": "[Discrete-Time Signal Processing](https://www.pearson.com/subject-catalog/p/discrete-time-signal-processing/P200000003226/9780137549771)",
+        "source": "Alan V. Oppenheim, Ronald W. Schafer",
+        "where": "주파수 응답과 디지털 필터링 관련 절"
+      }
+    ],
+    "used_in_lab": "연구실에서는 ESP32가 수집한 CSI의 시간 변화를 분석해 착용 센서 없이 호흡 주기와 사람 활동을 추정하는 데 씁니다."
+  }
+}

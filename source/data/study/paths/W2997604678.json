@@ -1,0 +1,40 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:38:34.467Z",
+  "paper_id": "W2997604678",
+  "summary": "디지털 어스 콘텐츠를 웹 표준과 웹 아키텍처에 기반한 정보 모델로 구성해 지리 시각화와 상호작용을 XR 브라우저에서 지원하도록 제안한다. 이를 통해 기존 지리 브라우저와 AR 브라우저의 앱별 콘텐츠 형식 간 상호운용성을 높이고 웹 기반 콘텐츠 제작 환경을 활용한다.",
+  "core": [
+    "web-interoperability-xr"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "웹 콘텐츠를 만들고 처리하는 개발 환경을 이해하는 바탕이다."
+    },
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "지리 콘텐츠의 위치와 방향을 좌표로 표현하는 기초다."
+    },
+    {
+      "concept": "coordinate-geometry",
+      "role": "지리 정보를 공간 좌표에 대응시켜 시각화하는 데 필요한 개념이다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "서로 다른 공간 좌표 표현 사이의 변환을 이해하는 기초다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "웹 기반 브라우저와 콘텐츠가 연결되고 공유되는 통신 환경을 다룬다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "여러 XR 브라우저가 공통으로 해석할 수 있는 콘텐츠 표현 형식을 이해한다."
+    },
+    {
+      "concept": "web-interoperability-xr",
+      "role": "웹 표준과 아키텍처를 이용해 지리 콘텐츠와 XR 환경 사이의 상호운용성을 지원한다."
+    }
+  ]
+}

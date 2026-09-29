@@ -1,0 +1,52 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T10:34:49.898Z",
+  "paper_id": "W4200313021",
+  "summary": "물리 작업공간의 관심 대상은 사전에 다각형 메시로 만들고, 주변 물체는 LiDAR 점군으로 실시간 재구성해 구분한다. 수신한 점군을 원격 참가자들이 모아 가상 공간을 구성하도록 WebRTC로 전달한다.",
+  "core": [
+    "lidar-point-cloud-webrtc-streaming"
+  ],
+  "path": [
+    {
+      "concept": "programming-data-processing",
+      "role": "스캔 데이터와 가상 공간을 수집·처리하는 시스템 흐름을 이해한다."
+    },
+    {
+      "concept": "network-communication-basics",
+      "role": "원격 참가자 사이에서 점군을 전송하는 통신 기반을 다룬다."
+    },
+    {
+      "concept": "data-encoding-formats",
+      "role": "점군 데이터를 전달하고 수신할 때 필요한 표현 형식을 이해한다."
+    },
+    {
+      "concept": "vectors-coordinate-systems",
+      "role": "물리 작업공간의 위치와 방향을 좌표로 나타내는 바탕이다."
+    },
+    {
+      "concept": "matrices-linear-maps",
+      "role": "점군과 가상 공간 사이의 좌표 변환을 다루는 수학적 바탕이다."
+    },
+    {
+      "concept": "three-dimensional-reconstruction",
+      "role": "스캔 관측으로 물리 공간의 3D 형상을 구성하는 과정을 이해한다."
+    },
+    {
+      "concept": "point-cloud-mesh-representation",
+      "role": "LiDAR로 얻은 주변 물체를 점들의 집합으로 표현한다."
+    },
+    {
+      "concept": "real-time-streaming",
+      "role": "재구성된 점군을 낮은 지연으로 원격 참가자에게 전달한다."
+    },
+    {
+      "concept": "xr-rendering-interaction",
+      "role": "수신한 물리 공간 정보를 XR 가상 공간에서 공유하고 상호작용하는 방식을 다룬다."
+    },
+    {
+      "concept": "lidar-point-cloud-webrtc-streaming",
+      "role": "LiDAR 점군을 WebRTC로 스트리밍해 원격 XR 협업 공간을 구성한다."
+    }
+  ]
+}

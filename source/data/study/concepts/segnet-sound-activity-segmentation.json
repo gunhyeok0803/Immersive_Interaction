@@ -1,0 +1,113 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:04:13.113Z",
+  "id": "segnet-sound-activity-segmentation",
+  "name": "SegNet 기반 소리 활동 분할",
+  "english": "SegNet-Based Sound Activity Segmentation",
+  "level": 3,
+  "field": "ml",
+  "one_line": "시간·주파수 특징을 영상처럼 입력해 SegNet으로 소리 구간을 픽셀 단위로 분할하고 활동 라벨과 F1 점수로 평가한다.",
+  "prerequisites": [
+    "semantic-segmentation-object-detection",
+    "audio-speech-processing",
+    "classification-metrics"
+  ],
+  "applications": [],
+  "card": {
+    "id": "segnet-sound-activity-segmentation",
+    "intuition": "시간과 주파수로 펼친 스펙트로그램은 가로세로 좌표가 있는 지도처럼 볼 수 있습니다. 그 지도에서 소리는 특정 시간과 주파수에 걸친 무늬로 나타납니다. SegNet은 무늬를 압축해 넓은 문맥을 살핀 뒤, 원래 크기의 라벨 지도로 되돌립니다. 그래서 소리 활동이 무엇이고 언제 나타났는지 촘촘히 표시할 수 있습니다.",
+    "definition": "SegNet은 합성곱 인코더가 특징 지도를 축소하고, 대응하는 디코더가 인코더의 최대 풀링 위치 정보를 이용해 지도를 확대하는 인코더-디코더 네트워크입니다. 소리 활동 분할에서는 시간-주파수 특징 지도의 각 칸에 활동 라벨을 예측하고, 그 결과를 시간 구간으로 정리합니다.",
+    "formula": {
+      "latex": "F_1 = \\frac{2PR}{P+R} = \\frac{2TP}{2TP+FP+FN}",
+      "symbols": [
+        {
+          "symbol": "F_1",
+          "meaning": "F1 점수. 정밀도와 재현율을 함께 나타내며 단위가 없습니다."
+        },
+        {
+          "symbol": "P",
+          "meaning": "정밀도(precision), 예측한 활동 칸 중 실제 활동인 비율. 단위가 없습니다."
+        },
+        {
+          "symbol": "R",
+          "meaning": "재현율(recall), 실제 활동 칸 중 찾아낸 비율. 단위가 없습니다."
+        },
+        {
+          "symbol": "TP",
+          "meaning": "활동이라고 맞게 예측한 시간-주파수 칸의 수. 단위는 칸입니다."
+        },
+        {
+          "symbol": "FP",
+          "meaning": "활동이라고 잘못 예측한 시간-주파수 칸의 수. 단위는 칸입니다."
+        },
+        {
+          "symbol": "FN",
+          "meaning": "활동인데 놓친 시간-주파수 칸의 수. 단위는 칸입니다."
+        }
+      ],
+      "reading": "활동 라벨 하나를 양성으로 두었을 때, 정밀도와 재현율의 조화평균이 F1입니다. F1은 거짓 양성과 놓친 양성을 모두 반영합니다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "입력 특징 지도",
+          "role": "시간-주파수 축에 음향 특징을 배열해 네트워크 입력으로 만듭니다."
+        },
+        {
+          "name": "인코더",
+          "role": "합성곱과 풀링으로 크기를 줄이며 주변의 음향 문맥을 추출합니다."
+        },
+        {
+          "name": "디코더",
+          "role": "풀링 위치 정보를 사용해 특징 지도를 입력과 비슷한 해상도로 되돌립니다."
+        },
+        {
+          "name": "칸별 분류기",
+          "role": "각 시간-주파수 칸에 음성, 음악, 무활동 같은 라벨을 할당합니다."
+        },
+        {
+          "name": "구간 정리와 평가",
+          "role": "칸별 결과를 시간 구간으로 정리하고 정답 라벨과 비교해 F1을 계산합니다."
+        }
+      ],
+      "flow": "예를 들어 가로축이 시간, 세로축이 주파수인 입력에서 짧은 발화가 특정 시간대의 여러 주파수 칸에 나타납니다. 인코더는 그 무늬와 주변 문맥을 압축하고, 디코더는 풀링 위치를 이용해 원래 격자에 가까운 크기로 복원합니다. 칸별 분류기는 각 위치에 활동 라벨을 붙이고, 같은 시간대의 라벨을 모아 발화 구간을 얻습니다. 이 결과를 수작업 정답과 비교해 활동별 F1을 계산합니다."
+    },
+    "key_points": [
+      "분할은 입력의 각 칸에 라벨을 붙이는 밀집 예측(dense prediction)입니다. 객체 검출은 보통 물체의 위치를 경계 상자 등으로 나타냅니다.",
+      "스펙트로그램을 이미지처럼 다뤄도 축은 화면의 가로·세로가 아니라 시간과 주파수입니다.",
+      "SegNet 디코더는 대응 인코더의 풀링 위치 정보를 업샘플링에 이용합니다.",
+      "여러 활동 클래스가 있으면 클래스별 F1과 평균 방식을 함께 확인하고, 평가 단위가 칸·프레임·이벤트 중 무엇인지 정해야 합니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "한 활동 라벨을 양성으로 평가했다. TP=72, FP=18, FN=12일 때 F1을 계산하라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "F1 = 2TP/(2TP+FP+FN) = 144/(144+18+12) = 144/174 ≈ 0.83이다."
+      },
+      {
+        "kind": "choice",
+        "question": "스펙트로그램을 SegNet에 넣었을 때 분할의 기본 출력은 무엇인가?",
+        "choices": [
+          "입력 전체가 음성인지 아닌지를 나타내는 단일 라벨",
+          "활동이 있을 법한 시간대만 둘러싼 경계 상자",
+          "각 시간-주파수 칸에 대한 활동 라벨 지도",
+          "음성을 글자로 바꾼 전사문"
+        ],
+        "answer": 2,
+        "solution": "정답은 2번입니다. 분할은 각 입력 칸마다 라벨을 예측합니다. 0번은 입력 전체를 한 번 분류하는 방식이고, 1번은 객체 검출의 경계 상자 출력에 가깝습니다. 3번은 음성인식의 전사 결과입니다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "[CS231n: Convolutional Neural Networks for Visual Recognition](https://cs231n.stanford.edu/2021/schedule.html)",
+        "source": "Stanford University",
+        "where": "Lecture 15: Detection and Segmentation"
+      }
+    ],
+    "used_in_lab": "연구실에서는 스펙트로그램의 칸별 활동 라벨을 모아 발화나 소리 이벤트가 나타난 시간 구간을 정리하는 데 씁니다."
+  }
+}

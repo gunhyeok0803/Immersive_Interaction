@@ -1,0 +1,139 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T16:17:42.546Z",
+  "id": "aeri-empathy-sem-validation",
+  "name": "AERI와 공감 구조방정식 검증",
+  "english": "AERI and Empathy SEM Validation",
+  "level": 3,
+  "field": "hci",
+  "one_line": "적극적 경청, 개인화, 감정 표현, 페르소나 매력을 AERI 특성으로 측정하고 IRI와 구조방정식모형으로 인지·정서적 공감과의 관계를 검증한다.",
+  "prerequisites": [
+    "structural-equation-modeling",
+    "psychometrics-questionnaires",
+    "human-subject-usability"
+  ],
+  "applications": [],
+  "card": {
+    "id": "aeri-empathy-sem-validation",
+    "intuition": "대화형 에이전트가 공감적으로 느껴져도 그 이유는 여러 가지일 수 있다. 한 개의 공감 점수만으로는 잘 들어주는지, 개인화하는지, 감정을 표현하는지, 페르소나가 매력적인지 구별하기 어렵다. AERI는 대화 중 지각된 에이전트의 공감 반응을 살펴보고, IRI는 응답자의 공감 성향을 측정하는 데 쓴다. 구조방정식모형(SEM)은 이 측정과 변수 간 관계를 한 모형 안에서 다룬다.",
+    "definition": "AERI는 사용자가 대화형 에이전트의 공감 반응을 평가하는 지표이며, 에이전트가 실제 감정을 가진다는 뜻은 아니다. 적극적 경청(active listening), 개인화(personalization), 감정 표현(emotional expressivity), 페르소나 매력(persona attractiveness)은 에이전트 특성이고, IRI(Interpersonal Reactivity Index)는 사람의 공감 성향을 재는 척도다. 확인적 요인분석(CFA)으로 문항이 의도한 잠재 변수를 측정하는지 점검한 뒤, SEM으로 특성들과 공감 반응의 관계를 추정한다.",
+    "formula": {
+      "latex": "\\begin{aligned}\\mathbf{y} &= \\mathbf{\\Lambda}\\boldsymbol{\\eta}+\\boldsymbol{\\epsilon},\\\\\\boldsymbol{\\eta} &= \\mathbf{B}\\boldsymbol{\\eta}+\\mathbf{\\Gamma}\\boldsymbol{\\xi}+\\boldsymbol{\\zeta}\\end{aligned}",
+      "symbols": [
+        {
+          "symbol": "\\mathbf{y}",
+          "meaning": "관측된 설문 문항 응답 벡터. Likert 척도 응답 단위(점)."
+        },
+        {
+          "symbol": "\\mathbf{\\Lambda}",
+          "meaning": "문항과 잠재 변수의 요인부하량 행렬. 비표준화일 때 문항 점수/잠재 변수 단위."
+        },
+        {
+          "symbol": "\\boldsymbol{\\eta}",
+          "meaning": "모형에서 설명하려는 내생 잠재 변수 벡터. 예를 들어 AERI로 측정한 공감 반응이며, 잠재 변수 단위 또는 표준화 시 표준편차(SD) 단위."
+        },
+        {
+          "symbol": "\\boldsymbol{\\epsilon}",
+          "meaning": "문항별 측정 오차 벡터. 문항 응답과 같은 점수 단위."
+        },
+        {
+          "symbol": "\\mathbf{B}",
+          "meaning": "내생 잠재 변수 사이의 경로계수 행렬. 표준화 계수는 무차원이며, 비표준화 계수는 출력 단위/입력 단위."
+        },
+        {
+          "symbol": "\\mathbf{\\Gamma}",
+          "meaning": "외생 잠재 변수에서 내생 잠재 변수로 가는 경로계수 행렬. 표준화 계수는 무차원이며, 비표준화 계수는 출력 단위/입력 단위."
+        },
+        {
+          "symbol": "\\boldsymbol{\\xi}",
+          "meaning": "외생 잠재 변수 벡터. 에이전트 특성이나 응답자의 IRI 공감 성향 등이 될 수 있으며, 잠재 변수 단위 또는 표준편차(SD) 단위."
+        },
+        {
+          "symbol": "\\boldsymbol{\\zeta}",
+          "meaning": "구조 모형에서 설명되지 않은 잠재 변수의 잔차. 잠재 변수와 같은 단위."
+        }
+      ],
+      "reading": "첫 식은 설문 문항 응답이 잠재 변수와 측정 오차로 이루어짐을 나타낸다. 둘째 식은 에이전트 특성이나 응답자 성향이 공감 반응과 어떻게 연결되는지 나타낸다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "구성 개념",
+          "role": "에이전트 특성, 사용자가 지각한 공감 반응, 응답자의 공감 성향을 구분한다."
+        },
+        {
+          "name": "문항 설계",
+          "role": "각 개념을 묻는 설문 문항을 정하고, 응답 척도와 문항 방향을 확인한다."
+        },
+        {
+          "name": "측정 모형",
+          "role": "CFA로 각 문항이 의도한 잠재 변수에 연결되는지 점검한다."
+        },
+        {
+          "name": "구조 모형",
+          "role": "에이전트 특성이나 IRI 성향과 공감 반응 사이의 경로를 추정한다."
+        },
+        {
+          "name": "해석",
+          "role": "경로의 방향과 크기를 해석하되, 모형 적합도가 인과성을 증명한다고 보지 않는다."
+        }
+      ],
+      "flow": "예를 들어 사용자가 에이전트의 적극적 경청을 여러 문항으로 평가하고, 대화 후 공감 반응도 문항으로 평가한다고 하자. 먼저 CFA로 각 문항 묶음이 의도한 개념을 측정하는지 확인한다. 그다음 SEM에서 적극적 경청과 공감 반응 사이의 경로를 추정한다. 한 시점의 설문에서 경로가 나타나도, 경청이 공감을 일으켰다고 단정할 수는 없다."
+    },
+    "key_points": [
+      "AERI는 상호작용에서 지각된 에이전트 공감 반응을, IRI는 응답자의 공감 성향을 측정한다.",
+      "적극적 경청·개인화·감정 표현·페르소나 매력은 AERI와 구별되는 에이전트 특성이다.",
+      "IRI에는 관점 수용(perspective taking), 공감적 관심(empathic concern), 개인적 고통(personal distress) 등 구별되는 하위 척도가 있다.",
+      "측정 모형이 타당한지 먼저 살펴본 뒤 구조 경로를 해석한다.",
+      "흔한 오해: SEM의 경로계수나 좋은 모형 적합도만으로 인과관계가 입증되지는 않는다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "어떤 변수를 어느 위치에 두는 것이 알맞은가?",
+        "choices": [
+          "에이전트의 적극적 경청은 설명 변수, 사용자가 평가한 공감 반응은 결과 변수, 응답자의 IRI 성향은 응답자 특성으로 구분한다.",
+          "IRI는 에이전트의 언어 유창성을 재고, AERI는 응답자의 일반 공감 성향만 잰다.",
+          "적극적 경청과 개인화는 IRI의 하위 척도이므로 따로 모형에 넣지 않는다.",
+          "AERI 점수는 에이전트가 실제로 감정을 느끼는 정도를 객관적으로 나타낸다."
+        ],
+        "answer": 0,
+        "solution": "첫 번째가 알맞다. 적극적 경청은 에이전트 특성, 공감 반응 평가는 상호작용 결과, IRI는 응답자 성향으로 구분한다. 두 번째는 AERI와 IRI의 역할을 뒤바꾼다. 세 번째는 에이전트 특성과 사람의 공감 척도를 혼동한다. 네 번째는 설문 평가를 에이전트의 실제 내적 감정으로 잘못 해석한다."
+      },
+      {
+        "kind": "calc",
+        "question": "표준화 경로계수 γ가 0.30이고, 다른 변수를 고정한 채 적극적 경청 평가가 0.5 SD 증가했다. 모형이 예측하는 공감 반응의 변화는 몇 SD인가?",
+        "choices": [],
+        "answer": -1,
+        "solution": "표준화 경로에서는 예측 변화가 경로계수와 입력 변화량의 곱이다. 0.30 × 0.5 = 0.15이므로 공감 반응이 0.15 SD 증가한다고 예측한다."
+      },
+      {
+        "kind": "choice",
+        "question": "한 시점에 수집한 설문에서 적극적 경청과 공감 반응의 경로가 양수로 나왔다. 가장 타당한 해석은?",
+        "choices": [
+          "적극적 경청이 공감 반응을 일으킨다는 인과관계가 증명되었다.",
+          "자료와 모형이 맞는다는 전제에서 두 변수의 양의 관계가 관찰되었지만, 시간 순서와 다른 설명 가능성은 남아 있다.",
+          "경로계수가 양수이면 설문 문항의 측정 타당도도 자동으로 확인된다.",
+          "IRI 점수가 높으면 모든 사용자가 에이전트를 공감적으로 평가한다."
+        ],
+        "answer": 1,
+        "solution": "두 번째가 타당하다. 단면 설문 경로는 변수의 연관성을 나타내지만 인과성을 확정하지 않는다. 첫 번째는 상관적 자료를 인과로 과장한다. 세 번째는 구조 경로와 측정 타당도를 혼동한다. 네 번째는 개인차의 평균적 관계를 모든 사용자에게 일반화한다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "[Empathy: A Social Psychological Approach](https://books.google.com/books?id=0A8RAQAAIAAJ)",
+        "source": "Mark H. Davis, Brown & Benchmark Publishers, 1994",
+        "where": "공감의 다차원적 개념과 측정 논의"
+      },
+      {
+        "title": "[Principles and Practice of Structural Equation Modeling, 5th ed.](https://www.guilford.com/books/Principles-and-Practice-of-Structural-Equation-Modeling/Rex-Kline/9781462551910)",
+        "source": "Rex B. Kline, Guilford Press, 2023",
+        "where": "14장 Confirmatory Factor Analysis; 15장 Structural Regression Models"
+      }
+    ],
+    "used_in_lab": "실험실에서는 대화형 에이전트의 특성과 사용자가 지각한 공감 반응 사이의 관계를 설문과 SEM으로 분석할 때 사용한다."
+  }
+}

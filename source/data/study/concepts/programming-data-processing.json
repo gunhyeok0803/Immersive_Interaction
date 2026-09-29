@@ -1,0 +1,93 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:26:28.454Z",
+  "id": "programming-data-processing",
+  "name": "프로그래밍과 데이터 처리",
+  "english": "Programming and Data Processing",
+  "level": 1,
+  "field": "cs",
+  "one_line": "프로그램은 명령을 실행해 데이터를 읽고 변환하며 결과를 저장한다.",
+  "prerequisites": [],
+  "applications": [
+    "algorithms-complexity",
+    "network-communication-basics",
+    "data-encoding-formats",
+    "xr-rendering-interaction",
+    "real-time-streaming",
+    "neural-networks",
+    "web-interoperability-xr",
+    "heterogeneous-sensor-data-modeling"
+  ],
+  "card": {
+    "id": "programming-data-processing",
+    "intuition": "센서가 측정값을 내놓아도, 컴퓨터가 어떤 값을 골라 어떻게 바꿀지 정해 주지 않으면 원하는 결과를 얻기 어렵습니다. 프로그램은 재료를 받아 정해 둔 순서로 처리하는 조립 공정과 비슷합니다. 데이터는 변수와 배열 같은 형태로 메모리에 놓이고, 명령은 그 값을 읽거나 바꿉니다. 같은 명령을 반복 실행하면 많은 데이터도 일정한 방식으로 처리할 수 있습니다.",
+    "definition": "프로그램(program)은 컴퓨터가 수행할 수 있도록 작성한 명령의 모음입니다. 명령은 데이터를 입력받아 표현하고, 조건과 반복을 포함한 실행 흐름(control flow)에 따라 처리한 뒤 결과를 출력하거나 저장할 수 있습니다. 프로그래밍은 이 명령을 설계하고 구현하는 일입니다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "입력 (input)",
+          "role": "키보드, 파일, 센서 등에서 처리할 데이터를 가져옵니다."
+        },
+        {
+          "name": "표현 (representation)",
+          "role": "가져온 데이터를 변수, 숫자, 문자열, 배열 등으로 메모리에 나타냅니다."
+        },
+        {
+          "name": "명령과 실행 흐름 (instructions and control flow)",
+          "role": "계산·조건·반복으로 데이터를 읽고 필요한 형태로 바꿉니다."
+        },
+        {
+          "name": "출력 (output)",
+          "role": "처리 결과를 화면에 표시하거나 파일·장치에 전달합니다."
+        }
+      ],
+      "flow": "예를 들어 센서가 숫자 문자열 \"12\", \"15\"를 전달한다고 해 봅시다. 프로그램은 이를 입력으로 받은 뒤 문자열에서 숫자로 변환해 계산 가능한 형태로 만듭니다. 반복문으로 각 값을 살펴보고 조건에 맞는 값만 새 배열에 모을 수 있습니다. 마지막으로 그 배열을 화면에 출력하거나 파일에 저장합니다."
+    },
+    "key_points": [
+      "변수는 이름과 값의 연결입니다. 변수 이름 자체가 데이터 값은 아닙니다.",
+      "자료형(data type)은 데이터의 표현과 사용할 수 있는 연산에 영향을 줍니다. 숫자처럼 보이는 문자열은 변환 전에는 숫자 계산에 바로 쓸 수 없습니다.",
+      "입력·표현·처리·출력은 흔한 데이터 처리 흐름입니다. 모든 프로그램이 반드시 네 단계를 모두 거치는 것은 아닙니다.",
+      "알고리즘은 문제 풀이 절차이고, 프로그램은 그 절차를 컴퓨터가 실행할 수 있게 표현한 것입니다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "센서 파일에서 읽은 값이 문자열 \"12\", \"15\"입니다. 두 값의 평균을 계산해 화면에 보이려면 어떤 순서가 알맞나요?",
+        "choices": [
+          "문자열 읽기 → 숫자로 변환 → 평균 계산 → 결과 출력",
+          "평균 계산 → 문자열 읽기 → 결과 출력 → 숫자로 변환",
+          "문자열 읽기 → 결과 출력 → 평균 계산 → 숫자로 변환",
+          "숫자로 변환 → 평균 계산 → 파일 읽기 → 결과 출력"
+        ],
+        "answer": 0,
+        "solution": "정답은 문자열을 읽고 숫자로 변환한 뒤 계산하고 출력하는 순서입니다. 두 번째는 값을 읽기 전에 계산하고, 세 번째는 처리 전에 결과를 출력합니다. 네 번째는 숫자로 변환할 입력을 읽기 전에 변환한다고 했으므로 순서가 맞지 않습니다."
+      },
+      {
+        "kind": "choice",
+        "question": "다음 코드가 출력하는 값은 무엇인가요?\n\nreadings = [12, 4, 18, 7]\nkept = []\nfor value in readings:\n    if value >= 10:\n        kept.append(value)\nprint(kept)",
+        "choices": [
+          "[4, 7]",
+          "[12, 18]",
+          "[12, 4, 18, 7]",
+          "[10, 10]"
+        ],
+        "answer": 1,
+        "solution": "정답은 [12, 18]입니다. 반복문은 모든 값을 하나씩 확인하고, 조건 value >= 10을 만족하는 값만 kept에 추가합니다. [4, 7]은 조건을 반대로 적용했고, 원래 목록 전체나 [10, 10]은 코드가 저장하는 값과 다릅니다."
+      }
+    ],
+    "code": {
+      "snippet": "readings = [12, 4, 18, 7]\nkept = []\n\nfor value in readings:\n    if value >= 10:\n        kept.append(value)\n\nprint(kept)",
+      "what_it_shows": "목록을 입력 데이터로 보고 반복문과 조건문으로 값을 걸러냅니다. 실행 결과 [12, 18]을 통해 입력 데이터가 명령에 따라 새 목록으로 변환되는 과정을 확인할 수 있습니다."
+    },
+    "references": [
+      {
+        "title": "Think Python, 2nd ed.",
+        "source": "Allen B. Downey",
+        "where": "Chapter 1, The Way of the Program; Chapter 2, Variables"
+      }
+    ],
+    "used_in_lab": "연구실에서는 센서 스트림을 읽어 필요한 값을 추출하고, 다음 분석 단계가 쓸 수 있는 자료형과 구조로 변환합니다."
+  }
+}

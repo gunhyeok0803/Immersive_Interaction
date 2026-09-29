@@ -1,0 +1,120 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:33:07.961Z",
+  "id": "matrix-decomposition",
+  "name": "행렬 분해",
+  "english": "Matrix Decomposition",
+  "level": 1,
+  "field": "math",
+  "one_line": "행렬 분해는 복잡한 행렬을 더 단순한 행렬들의 곱으로 나타내 분석과 계산을 돕는다.",
+  "prerequisites": [
+    "eigenvalues-eigenvectors",
+    "matrices-linear-maps"
+  ],
+  "applications": [
+    "neural-networks",
+    "autoencoders-latent-representation",
+    "sparse-field-reconstruction",
+    "reduced-order-modeling"
+  ],
+  "card": {
+    "id": "matrix-decomposition",
+    "intuition": "행렬은 벡터를 돌리고 늘리고 섞는 하나의 복잡한 동작처럼 보인다. 행렬 분해(matrix decomposition)는 그 동작을 더 단순한 단계들로 풀어 보여 주는 방법이다. 선형변환과 고유값·고유벡터를 배웠다면, 분해는 어떤 방향이 얼마나 변하는지 더 넓은 행렬에서 찾아내는 도구로 볼 수 있다. 계산을 단순하게 하거나 데이터의 주요 패턴을 찾을 때 유용하다.",
+    "definition": "행렬 분해는 행렬을 여러 행렬의 곱으로 표현하는 방법이다. 목적과 행렬의 성질에 따라 LU, QR, 고유값 분해, 특이값 분해(Singular Value Decomposition, SVD) 등을 사용하며, 각 분해는 계산을 돕거나 행렬의 구조를 드러낸다.",
+    "formula": {
+      "latex": "A = U\\Sigma V^{\\mathsf T}",
+      "symbols": [
+        {
+          "symbol": "A",
+          "meaning": "분해할 실수 행렬, 크기 m×n; 원소는 원래 데이터의 단위를 따른다."
+        },
+        {
+          "symbol": "U",
+          "meaning": "왼쪽 특이벡터를 열로 갖는 직교행렬, 크기 m×m; 무차원이다."
+        },
+        {
+          "symbol": "\\Sigma",
+          "meaning": "특이값을 대각선에 갖는 직사각 대각행렬, 크기 m×n; 특이값은 A 원소와 같은 단위를 갖는다."
+        },
+        {
+          "symbol": "V",
+          "meaning": "오른쪽 특이벡터를 열로 갖는 직교행렬, 크기 n×n; 무차원이다."
+        },
+        {
+          "symbol": "m, n",
+          "meaning": "A의 행과 열 개수이며, 개수이므로 무차원이다."
+        },
+        {
+          "symbol": "\\mathsf T",
+          "meaning": "전치 연산으로, 행과 열을 바꾼다."
+        }
+      ],
+      "reading": "A는 입력 공간의 방향을 V로 정렬하고, Σ로 각 방향을 늘이거나 줄인 뒤, U가 결과를 출력 공간의 방향으로 옮기는 변환으로 표현된다. 실수 행렬의 SVD에서는 특이값이 0 이상이다."
+    },
+    "structure": {
+      "parts": [
+        {
+          "name": "A",
+          "role": "분해하려는 선형변환 또는 데이터 행렬이다."
+        },
+        {
+          "name": "V^{\\mathsf T}",
+          "role": "입력 벡터를 오른쪽 특이벡터 방향의 좌표로 바꾼다."
+        },
+        {
+          "name": "\\Sigma",
+          "role": "각 특이벡터 방향을 해당 특이값만큼 늘이거나 줄인다."
+        },
+        {
+          "name": "U",
+          "role": "변환된 결과를 출력 공간의 방향으로 옮긴다."
+        },
+        {
+          "name": "큰 특이값부터 유지",
+          "role": "작은 특이값에 대응하는 성분을 버리면 저랭크 근사를 만들어 저장량이나 잡음을 줄일 수 있다."
+        }
+      ],
+      "flow": "열벡터 x에 A를 적용할 때는 먼저 V^{\\mathsf T}x로 좌표를 바꾸고, Σ가 각 방향의 크기를 조정한 뒤, U가 결과를 출력 공간으로 옮긴다. 예를 들어 A=diag(4,2,0)이면 세 방향의 크기 변화는 4, 2, 0이다. 가장 큰 특이값 4에 해당하는 성분만 남기면 첫 번째 방향만 보존하는 랭크 1 근사가 된다."
+    },
+    "key_points": [
+      "SVD는 모든 실수 행렬에 적용할 수 있고, 입력 방향·크기 변화·출력 방향을 분리해 보여 준다.",
+      "특이값(singular value)이 클수록 해당 방향의 성분이 변환 결과에 크게 기여한다.",
+      "작은 특이값을 버리는 저랭크 근사는 저장 공간이나 잡음을 줄일 수 있지만, 버린 성분의 정보도 잃는다.",
+      "LU, QR, 고유값 분해, SVD는 목적과 적용 조건이 서로 다르다. 모든 행렬에 같은 분해를 쓸 수 있는 것은 아니다."
+    ],
+    "practice": [
+      {
+        "kind": "calc",
+        "question": "A=diag(4,2,0)인 3×3 행렬에서 특이값을 구하고, 가장 큰 특이값 하나만 남긴 랭크 1 근사 A₁을 적어라.",
+        "choices": [],
+        "answer": -1,
+        "solution": "A가 대각행렬이고 대각 원소가 음수가 아니므로 U=V=I, Σ=diag(4,2,0)로 둘 수 있다. 따라서 특이값은 4, 2, 0이다. 가장 큰 값 4만 남기면 A₁=diag(4,0,0)이다. A의 원소가 어떤 단위를 가진다면 특이값도 그 단위를 갖는다."
+      },
+      {
+        "kind": "choice",
+        "question": "큰 관측 행렬을 압축하면서 주요한 변동 패턴을 보존하고 싶다. 가장 알맞은 방법은 무엇인가?",
+        "choices": [
+          "LU 분해로 행렬을 하삼각행렬과 상삼각행렬의 곱으로 나타낸다.",
+          "SVD에서 큰 특이값에 대응하는 성분만 남겨 저랭크 근사를 만든다.",
+          "QR 분해에서 Q만 저장하고 R을 버린다.",
+          "고유값 분해를 모든 직사각행렬에 바로 적용한다."
+        ],
+        "answer": 1,
+        "solution": "1번은 SVD의 큰 특이값 성분을 보존하는 저랭크 근사로, 데이터의 주요 패턴을 압축해 나타내는 데 쓸 수 있다. 0번의 LU 분해는 주로 선형방정식 풀이를 돕지만 이 압축 목표를 직접 반영하지 않는다. 2번은 R을 버리면 원래 행렬을 복원하거나 근사하는 데 필요한 정보가 일반적으로 사라진다. 3번은 고유값 분해가 모든 행렬에 적용되는 것이 아니며, 특히 직사각행렬에는 그대로 적용할 수 없다."
+      }
+    ],
+    "code": {
+      "snippet": "import numpy as np\n\nA = np.array([[4., 0., 0.],\n              [0., 2., 0.],\n              [0., 0., 0.]])\nU, s, Vt = np.linalg.svd(A, full_matrices=False)\nprint(\"singular values:\", s)\nfor k in (1, 2):\n    Ak = (U[:, :k] * s[:k]) @ Vt[:k, :]\n    print(f\"rank-{k} approximation:\\n{Ak}\")",
+      "what_it_shows": "특이값을 출력하고, 가장 큰 성분부터 하나 또는 둘 남겼을 때 행렬 근사가 어떻게 달라지는지 확인한다."
+    },
+    "references": [
+      {
+        "title": "Linear Algebra",
+        "source": "Gilbert Strang, MIT OpenCourseWare",
+        "where": "18.06, Lecture 29: Singular Value Decomposition"
+      }
+    ],
+    "used_in_lab": "센서 관측이나 이미지에서 주요 패턴을 추출하고, 저차원 모델과 잠재 표현을 구성할 때 쓴다."
+  }
+}

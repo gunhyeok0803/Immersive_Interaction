@@ -1,0 +1,88 @@
+{
+  "model": "gpt-6-luna (max)",
+  "via": "codex-cli",
+  "generated_at": "2026-09-29T15:47:06.544Z",
+  "id": "semantic-segmentation-object-detection",
+  "name": "의미론적 분할과 객체 검출",
+  "english": "Semantic Segmentation and Object Detection",
+  "level": 2,
+  "field": "vision",
+  "one_line": "의미론적 분할은 각 픽셀의 범주를 예측하고 객체 검출은 영상 속 물체의 위치와 종류를 찾는다.",
+  "prerequisites": [
+    "convolutional-neural-networks",
+    "digital-images-arrays"
+  ],
+  "applications": [
+    "segnet-sound-activity-segmentation",
+    "syllable-speech-dysphagia-detection",
+    "yolo-elderly-activity-video-tagging"
+  ],
+  "card": {
+    "id": "semantic-segmentation-object-detection",
+    "intuition": "사진을 색칠 지도처럼 만들면 모든 픽셀이 무엇인지 알 수 있지만, 화면 속 물체가 어디에 있는지만 알면 상자로 표시해도 충분할 때가 있다. 픽셀마다 범주를 붙이는 문제와 물체마다 위치·종류를 찾는 문제는 필요한 답의 모양이 다르다. 원하는 출력이 윤곽과 영역인지, 물체별 위치인지에 따라 의미론적 분할과 객체 검출을 고른다.",
+    "definition": "의미론적 분할(semantic segmentation)은 영상의 각 픽셀에 범주 레이블을 할당한다. 같은 범주의 서로 다른 물체를 각각 구별하는 정보는 기본 출력에 포함되지 않는다. 객체 검출(object detection)은 각 물체의 위치를 경계 상자(bounding box)로 나타내고 범주와 신뢰도 점수를 함께 예측한다.",
+    "formula": null,
+    "structure": {
+      "parts": [
+        {
+          "name": "영상 입력",
+          "role": "공통 CNN 백본(backbone)이 분할과 검출에 쓸 시각 특성을 계산한다."
+        },
+        {
+          "name": "분할 헤드",
+          "role": "영상의 각 픽셀 위치에 범주 점수를 내고 픽셀별 레이블 지도를 만든다."
+        },
+        {
+          "name": "검출 헤드",
+          "role": "객체 후보마다 위치, 범주, 신뢰도 점수를 예측한다."
+        },
+        {
+          "name": "후처리",
+          "role": "검출에서는 점수 기준 필터링이나 겹치는 상자 정리를 적용할 수 있고, 분할에서는 점수 지도를 픽셀 레이블로 바꾼다."
+        }
+      ],
+      "flow": "사람과 자전거가 있는 거리 영상을 두 작업에 넣는다고 하자. 분할 모델은 도로·사람·자전거 범주를 픽셀마다 지정해 색칠 지도처럼 출력한다. 같은 범주의 두 사람이 붙어 있어도 기본 의미론적 분할 결과는 이들을 별도 개체 ID로 구분하지 않는다. 검출 모델은 사람과 자전거 각각에 상자·범주·점수를 출력하고, 겹치는 상자는 후처리로 정리할 수 있다."
+    },
+    "key_points": [
+      "분할 출력은 픽셀별 범주 지도이고, 검출 출력은 객체별 상자·범주·점수 목록이다.",
+      "의미론적 분할은 같은 범주의 개별 객체를 기본적으로 구분하지 않으며, 개체별 구분이 필요하면 인스턴스 분할(instance segmentation)을 고려한다.",
+      "검출 상자는 물체의 대략적인 위치를 나타내며 정확한 픽셀 윤곽을 주지는 않는다.",
+      "두 작업은 CNN 백본을 공유할 수 있지만, 원하는 출력이 달라 헤드와 후처리도 달라진다."
+    ],
+    "practice": [
+      {
+        "kind": "choice",
+        "question": "도로 영상의 모든 픽셀을 도로·보도·사람·차 범주 중 하나로 표시하고 싶다. 어떤 작업을 선택하는가?",
+        "choices": [
+          "의미론적 분할",
+          "객체 검출",
+          "이미지 분류",
+          "인스턴스 분할"
+        ],
+        "answer": 0,
+        "solution": "정답은 0이다. 원하는 출력이 모든 픽셀의 범주 레이블이므로 의미론적 분할에 해당한다. 1은 객체별 경계 상자를 찾는다. 2는 영상 전체의 범주를 예측한다. 3은 픽셀 레이블과 함께 같은 범주의 개별 객체도 구분하므로, 문제에서 요구한 기본 범주 지도보다 더 많은 정보를 낸다."
+      },
+      {
+        "kind": "choice",
+        "question": "의미론적 분할과 객체 검출의 차이를 정확히 설명한 것은 무엇인가?",
+        "choices": [
+          "검출 상자는 물체의 정확한 픽셀 윤곽을 항상 나타낸다.",
+          "의미론적 분할은 같은 범주의 두 물체에 항상 서로 다른 개체 ID를 준다.",
+          "분할은 픽셀별 범주를, 검출은 물체별 위치와 범주를 예측한다.",
+          "의미론적 분할은 영상 전체에 범주 하나만 붙인다."
+        ],
+        "answer": 2,
+        "solution": "정답은 2이다. 분할은 픽셀 위치마다 범주를 정하고, 검출은 객체별 위치와 범주를 찾는다. 0은 상자와 정확한 윤곽을 혼동한다. 1은 기본 의미론적 분할이 개체 ID를 주지 않는다는 점과 다르다. 3은 픽셀별 레이블이 아닌 영상 수준 분류를 설명한다."
+      }
+    ],
+    "code": null,
+    "references": [
+      {
+        "title": "CS231n: Convolutional Neural Networks for Visual Recognition",
+        "source": "Stanford University",
+        "where": "Lecture 11, Detection and Segmentation"
+      }
+    ],
+    "used_in_lab": "SegNet 기반 소리 활동 분할은 구간별 활동 범주를 표시하고, YOLO 기반 노인 활동 영상 태깅은 영상 속 객체의 위치와 종류를 찾아낸다."
+  }
+}
