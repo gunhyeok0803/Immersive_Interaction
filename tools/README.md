@@ -22,4 +22,4 @@
 | `concept-prompts.mjs` | 개념 그래프·개념 카드·학습 경로의 스키마·프롬프트 (초록·논문 해설 금지 규칙 포함) |
 | `paper-prompts.mjs` | 논문 팩의 스키마·프롬프트, 카드 스키마(공통) |
 
-AI 생성은 API 키 없이 ChatGPT 로그인된 Codex CLI로 돌립니다. 모델·추론 단계는 `--model`/`--effort` 또는 `CODEX_MODEL`/`CODEX_EFFORT`로 바꿉니다.
+AI 생성은 API 키 없이 Codex CLI로 돌립니다. 모델·추론 단계는 `--model`/`--effort` 또는 `CODEX_MODEL`/`CODEX_EFFORT`로 바꿉니다.
