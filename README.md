@@ -5,4 +5,4 @@
 
 - **체험**: <https://gunhyeok0803.github.io/Immersive_Interaction/> (Chrome·Edge, 웹캠 허용. 손이 안 잡히면 마우스로 동작)
 - **발표 자료**: [PDF](presentation/slides.pdf) · [PPTX](presentation/slides.pptx)
-- **손 동작**: 돌리기 = 편 손 좌우 · 선택 = 핀치 · 뒤로 = 주먹
+- **손 동작**: 돌리기 = 편 손 좌우 / 선택 = 핀치(엄지와 검지) / 뒤로가기 = 주먹 쥐고 대기
