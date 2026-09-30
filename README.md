@@ -37,6 +37,6 @@
 | `papers.json` | 교수님 논문 44편 (연구실 페이지 DOI → OpenAlex) | `tools/fetch-papers.mjs` |
 | `related-papers.json` | 논문마다 웹 유사 논문 5편 (논문 DB) | `tools/fetch-related.mjs` |
 | `study/graph.json` | 개념 그래프: 개념 90개(L1 기초 · L2 전공 · L3 연구 기법)와 선수 관계 | `tools/build-concept-graph.mjs graph` |
-| `study/concepts/<id>.json` | 개념 카드: 직관·정의·식(필요할 때만)·구조·핵심·연습 문제(계산/보기 고르기)·코드(필요할 때만)·참고 자료 | `tools/build-concept-graph.mjs cards` |
+| `study/concepts/<id>.json` | 개념 카드: 직관·정의·식(필요할 때만)·구조·핵심·연습 문제·코드(필요할 때만)·참고 자료 | `tools/build-concept-graph.mjs cards` |
 | `study/paths/<paperId>.json` | 논문 요약 + 이 논문을 읽기 위한 개념 학습 경로 | `tools/build-concept-graph.mjs paths` |
 | `study/common.json`, `study/modules/`, `study/papers/` | 이전 단계의 생성물. 화면에선 쓰지 않고, 개념 그래프를 만들 때 논문 키워드(방법 힌트)의 입력 기록 | `tools/build-common-set.mjs`, `tools/build-paper-packs.mjs` |
