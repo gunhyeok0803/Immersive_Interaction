@@ -1,14 +1,15 @@
 /* hud: 자비스형 홀로그램 HUD. 원리: docs/13-how-and-why.md
  * 2026-09-29 개편 (사용자 결정): 핀치 클릭만 사용, 학습 내용은 개념 그래프(기초 학문 ↔ 논문 연결), 글자·패널 크게.
  *
- *  3D 코어    (2026-09-30 사용자 결정) 코어 링·칩 대신 논문 44편의 은하 (js/paper-galaxy.js). 편 손 좌우로 돌려
- *              앞의 조준 카드에 온 논문을 핀치하면 로드되고 패널이 펼쳐진다. 위쪽 연구 주제 분류는 삭제.
+ *  3D 코어    (2026-09-30 사용자 결정) 코어 링·칩 대신 논문 44편의 은하 (js/paper-galaxy.js). 편 손 좌우로 돌리고
+ *              (초기 화면에서만), 앞의 조준 카드에 온 논문을 핀치하면 로드된다. 위쪽 연구 주제 분류는 삭제.
+ *              손 동작 원칙 (9/30 사용자): 돌리기 = 편 손 좌우, 선택 = 핀치, 뒤로 = 주먹
  *  논문 패널   왼쪽 = 논문 요약 · 학습 경로 · 중심 개념 / 오른쪽 = 기초 개념 · 전공 개념 · 관련 논문.
  *              패널을 핀치하면 가운데로 커지고 상세 창이 뜬다. 상세 창의 ◀ ▶는 요약 → 경로 → 개념 카드(공부 순서) → 관련 논문.
  *  연결        개념 카드 안의 개념 버튼(선수·응용)과 논문 버튼으로 개념 ↔ 논문을 오간다.
- *  층 구조     조준 카드를 핀치한 뒤 손을 활짝 펴면 편 만큼 학습 경로가 L3 → L2 → L1 층으로 나에게 다가오며 펼쳐진다.
- *              끝까지 펴면 고정, 편 손 좌우 = 층 구조 회전. 펼친 뒤 노드를 핀치하면 그 개념 카드.
- *              구현은 A-Frame 컴포넌트로 분리 (js/concept-stack.js: concept-stack · stack-layer · concept-node · pullable).
+ *  층 구조     논문을 고른 뒤 손바닥을 펴면(또는 카드를 한 번 더 핀치) 학습 경로가 연구 기법 · 전공 · 기초 층으로 펼쳐지고,
+ *              이어서 좌우 패널이 뒤에 펼쳐진다 (9/30 사용자: 가운데가 먼저, 사이드는 그 뒤). 펼친 뒤 편 손 좌우 = 층 회전.
+ *              노드를 핀치하면 그 개념 카드. 구현은 A-Frame 컴포넌트로 분리 (js/concept-stack.js: concept-stack · stack-layer · concept-node).
  *              이 파일은 논문이 바뀔 때 setPath / clear, 화면 상태(visibility·interactive·highlight)만 알려 준다.
  *  되돌리기    상세 창의 "돌아가기", 빈 곳 핀치 없음(오작동 방지), 키보드 Esc = 한 단계 뒤로.
  *
@@ -32,6 +33,8 @@ const PAPER_LEFT = [["summary", "논문 요약"], ["path", "학습 경로"]];
 const PAPER_RIGHT = [["concepts", "필요한 개념"], ["related", "관련 논문"]];
 // 화면 가장자리의 HTML 상자(왼쪽 위 정보, 아래 안내·버튼) 높이(px). 패널은 그 사이에만 놓아 가려지지 않게
 const UI_TOP = 170, UI_BOTTOM = 110;
+// 손바닥 펴기 = 층 펼치기 (9/30): 편 정도 기준, 유지 시간(ms), 층이 펼쳐지고 좌우 패널이 뜨기까지(ms)
+const PALM_OPEN = 0.5, PALM_HOLD = 200, PANELS_AFTER = 900;
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const ease = (t) => t * t * (3 - 2 * t);
@@ -167,11 +170,10 @@ AFRAME.registerComponent("hud", {
       const i = this.paperSteps.findIndex((st) => st.concept === e.detail.concept);
       if (i >= 0) this.showSteps("paper", this.paperSteps, i, this.paperFan);
     });
-    // 조준 카드 핀치: 다른 논문이면 로드. 이미 고른 논문을 그냥 클릭(펴지 않고 놓음)하면 층 접기 또는 패널 접기·펴기
-    sc.addEventListener("paper-select", (e) => { this.wasLoaded = this.paper?.id === e.detail.id; if (!this.wasLoaded) this.loadPaper(e.detail.id); });
-    sc.addEventListener("pull-end", (e) => {
-      if (!e.detail.tap || e.detail.source?.id !== "focus-card" || !this.paper || !this.wasLoaded) return;
-      if (this.stack().uTarget > 0) this.stack().fold(); else this.paperFan.uTarget = this.paperFan.uTarget > 0.5 ? 0 : 1;
+    // 조준 카드 핀치: 다른 논문이면 로드하고 '손바닥 펴기'를 기다림. 이미 고른 논문이면 층 펼치기·접기 (손바닥 인식이 안 될 때의 예비)
+    sc.addEventListener("paper-select", (e) => {
+      if (this.paper?.id !== e.detail.id) { this.loadPaper(e.detail.id); this.armPalm = true; this.palmT = null; return; }
+      if (this.stack().uTarget > 0) this.foldStack(); else this.openStack();
     });
     sc.addEventListener("hud-hit-dirty", () => (this.hitDirty = true));
     this.galaxy()?.setPapers(this.papers, this.users); // 3D 코어: 논문 은하 (연도 나선)
@@ -278,7 +280,8 @@ AFRAME.registerComponent("hud", {
     if (this.paper !== p) {
       this.paper = p; this.pathRec = null; this.paperSteps = []; this.pathConcepts = [];
       this.stack().clear();
-      this.paperFan.u = 0; this.paperFan.uTarget = 1; // 핀치 한 번이면 바로 펼침
+      // (9/30 사용자) 가운데 층 구조가 먼저, 좌우 패널은 그 뒤에: 카드로 고른 논문은 층이 펼쳐진 뒤(openStack) 패널을 펼친다
+      this.paperFan.u = 0; this.paperFan.uTarget = openSummary ? 1 : 0;
       this.redrawPanels();
       this.galaxy()?.setSelected(p.id, []);
       this.el.emit("hud-log", { msg: `논문: ${p.title.slice(0, 40)}` });
@@ -286,7 +289,7 @@ AFRAME.registerComponent("hud", {
       if (this.paper !== p) return;
       this.pathRec = rec;
       this.buildPaperSteps();
-      // 잡고 당기는 중에 경로가 도착해도 그 자리에서 이어서 펼쳐지게 펼침·회전 상태는 유지
+      // 펼치기가 경로 도착보다 먼저 시작돼도 이어서 펼쳐지게 펼침·회전 상태는 유지
       const st = this.stack(), keep = { u: st.u, uTarget: st.uTarget, yaw: st.yaw, yawTarget: st.yawTarget };
       st.setPath(this.pathConcepts, rec?.core);
       this.galaxy()?.setSelected(p.id, this.pathConcepts.map((c) => c.id)); // 은하에서 이 논문의 개념이 밝아지고 빛줄기
@@ -334,7 +337,7 @@ AFRAME.registerComponent("hud", {
     for (const id of mine) for (const u of this.users?.[id] || []) if (u.paperId !== this.paper.id) shared[u.paperId] = (shared[u.paperId] || 0) + 1;
     return Object.entries(shared).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([id, n]) => `${this.papersById[id]?.title} (공통 ${n})`);
   },
-  unload() { this.paper = null; this.pathRec = null; this.paperSteps = []; this.paperFan.uTarget = 0; this.stack().clear(); this.galaxy()?.setSelected(null); },
+  unload() { this.armPalm = false; this.panelsAt = null; this.paper = null; this.pathRec = null; this.paperSteps = []; this.paperFan.uTarget = 0; this.stack().clear(); this.galaxy()?.setSelected(null); },
   stack() { return this.stackEl.components["concept-stack"]; },
   galaxy() { return document.getElementById("galaxy")?.components["paper-galaxy"]; },
 
@@ -398,10 +401,18 @@ AFRAME.registerComponent("hud", {
     // 논문 고르기는 조준 카드(paper-galaxy.js)가 paper-select로 알림. 여기서는 패널만
     if (k === "panel") this.showSteps("paper", this.paperSteps, el.hudItem.stepIndex, this.paperFan);
   },
-  // Esc: 한 단계 뒤로
+  // 가운데 층 구조를 펼치고, 그다음 좌우 패널을 뒤에 펼침
+  openStack() {
+    if (!this.paper) return;
+    this.armPalm = false; this.palmT = null;
+    this.stack().open();
+    if (this.paperFan.uTarget === 0) this.panelsAt = performance.now() + PANELS_AFTER;
+  },
+  foldStack() { this.stack().fold(); this.panelsAt = null; this.armPalm = false; },
+  // 주먹·Esc: 한 단계 뒤로
   back() {
     if (this.focusFan) return this.unfocus();
-    if (this.stack().uTarget > 0) { this.stack().fold(); return; }
+    if (this.stack().uTarget > 0) { this.foldStack(); return; }
     if (this.paperFan.uTarget > 0) { this.paperFan.uTarget = 0; return; }
     if (this.paper) this.unload();
   },
@@ -415,6 +426,8 @@ AFRAME.registerComponent("hud", {
       this.el.emit("hud-hover", { text: hov?.hudLabel ?? "", kind: hov?.hudKind ?? "" });
     }
     this.tickFan(this.paperFan, dt);
+    this.tickPalm(hc);
+    if (this.panelsAt && performance.now() >= this.panelsAt) { this.panelsAt = null; this.paperFan.uTarget = 1; }
     // 층 구조에 지금 화면 상태를 알려 줌: 상세 창이 열리면 흐리게, 학습 경로·개념 패널을 가리키면 노드 반응
     const st = this.stack();
     st.visibility = this.focusFan ? 0.06 : 1;
@@ -425,12 +438,22 @@ AFRAME.registerComponent("hud", {
     if (gx) {
       const busy = this.focusFan || st.u > 0.3;
       gx.dim = busy ? 0.08 : this.paper ? 0.2 : 1;
-      // 층 구조가 펼쳐져 있으면 편 손은 층 구조를 돌림. 패널이 열려 있어도 은하는 돌 수 있되,
-      // 손이 패널·카드 위에 있으면 돌지 않음 (z-버퍼처럼 가리키는 가장 앞의 것만 반응: paper-galaxy.rotateByHand)
-      gx.canRotate = !busy;
+      // (9/30 사용자) 은하는 초기 화면에서만 돎: 상세 창·층 구조·좌우 패널이 모두 닫혀 있고, 논문을 막 골라 손바닥(= 펼치기)을 기다리는 중도 아닐 때.
+      // 다른 논문은 주먹(뒤로)으로 접은 뒤 돌려서
+      gx.canRotate = !this.focusFan && st.uTarget === 0 && st.u < 0.05 && this.paperFan.uTarget === 0 && !this.panelsAt && !this.armPalm;
       gx.detailOpen = !!this.focusFan;
       gx.compact = st.u > 0.3 && !this.focusFan; // 층이 펼쳐지면 조준 카드는 작은 "층 접기" 버튼으로
     }
     if (this.hitDirty) { this.rayEl.components.raycaster?.refreshObjects(); this.hitDirty = false; }
+  },
+  // 논문을 고른 뒤 손바닥을 펴면(편 정도 PALM_OPEN 이상을 PALM_HOLD ms 유지) 층 구조를 끝까지 펼침. 시간 제한 없음.
+  // 편 만큼 조금씩 펼치던 방식은 실제 손에서 편 정도가 낮고 흔들려(진단 칸 37%) 끝까지 가지 못했음 → 한 번 넘으면 끝까지
+  tickPalm(hc) {
+    const armed = this.armPalm && this.paper && !this.focusFan && this.stack().uTarget === 0 && hc?.mode === "hand" && !hc.pinching;
+    if (!armed) { if (this.palmShown) { hc && (hc.pullProgress = null); this.palmShown = false; } this.palmT = null; return; }
+    const o = hc.openness ?? 0, now = performance.now();
+    this.palmT = o >= PALM_OPEN ? (this.palmT ?? now) : null;
+    hc.pullProgress = Math.min(1, o / PALM_OPEN); this.palmShown = true; // 커서 원호 = 손바닥 편 정도 (가득 차면 펼침)
+    if (this.palmT && now - this.palmT >= PALM_HOLD) { hc.pullProgress = null; this.palmShown = false; this.openStack(); }
   },
 });

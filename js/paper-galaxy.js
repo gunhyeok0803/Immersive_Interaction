@@ -3,12 +3,13 @@
  * 사용자 결정
  *   - 코어를 대체 (겹치지 않게), 위쪽 연구 주제 분류는 삭제
  *   - 배치: 연도 = 나선 (가운데 2016 → 바깥 2026). 논문 주변의 작은 점 = 그 논문이 쓰는 개념 (여러 논문이 쓰면 그 사이에)
- *   - 고르기: 편 손을 좌우로 돌리면 논문이 앞의 "조준 자리"를 지나가고, 앞에 온 논문을 핀치 (작은 점을 겨누지 않음)
+ *   - 고르기: 편 손을 좌우로 돌리면 논문이 앞의 "조준 자리"를 지나가고, 앞에 온 논문(카드)을 핀치 (작은 점을 겨누지 않음)
+ *     (9/30 사용자 결정: 돌리기 = 편 손 좌우, 선택 = 핀치, 뒤로 = 주먹. 은하는 초기 화면(아무것도 안 펼쳐지고 손바닥 대기도 아닐 때)에서만 돎)
  *   - 가독성: 상황별로 물러남 (첫 화면 100% / 논문 선택 20% / 상세 창·층 구조 8%), 글자는 고정된 조준 카드 하나에만
  *
  * <a-entity id="galaxy" position="0 1.35 -7" paper-galaxy="radius: 4.2; tilt: 0.42"> (index.html)
  * 조준 카드(#focus-card)는 이 컴포넌트가 장면에 만든다: 크고 고정된 대상이라 흔들리는 손 추적에도 누르기 쉬움.
- *   카드 핀치 → paper-select {id} (hud가 논문 로드), 카드에는 pullable이 붙어 "핀치 후 손 펴기 = 층 펼치기"가 그대로 동작.
+ *   카드 핀치 → paper-select {id} (hud가 논문 로드 / 이미 고른 논문이면 층 펼치기·접기).
  * hud가 알려 주는 것: setPapers(papers, users), setSelected(id, conceptIds), dim(0~1), canRotate
  * 그리기 도우미(canvasOf, texOf, flatMesh, hitMesh, fit, wrapLines, brackets, clamp01, HUD, FT, FK)는 hud.js 것 → hud.js 다음에 로드
  */
@@ -44,7 +45,7 @@ function drawFocusCard(c, { paper, selected, hot, compact }) {
   g.fillStyle = "#ffffff"; g.font = `600 44px ${FT}`;
   wrapLines(g, paper.title, W - 80, 2).forEach((l, i) => g.fillText(l, 40, 134 + i * 54));
   g.fillStyle = HUD.cyan2; g.font = `600 32px ${FK}`; g.textAlign = "center";
-  g.fillText(selected ? "선택됨 · 핀치 = 패널 접기·펴기 · 핀치 후 손 펴기 = 층 펼치기" : "◀ 편 손 좌우 = 돌리기 ▶    핀치 = 이 논문 선택", W / 2, H - 34);
+  g.fillText(selected ? "선택됨 · 손바닥 펴기(또는 한 번 더 핀치) = 층 펼치기" : "◀ 편 손 좌우 = 돌리기 ▶    핀치 = 이 논문 선택", W / 2, H - 34);
 }
 const galaxyEase = (t) => 1 - Math.pow(1 - clamp01(t), 3);
 
@@ -134,7 +135,7 @@ AFRAME.registerComponent("paper-galaxy", {
     this.t0 = performance.now(); // 퍼지는 연출 시작
     this.snapTo(this.papers.length - 1, true); // 처음엔 최신 논문이 앞에
   },
-  // 조준 카드 (장면에 고정). hud의 대상 규칙과 같게: .target 클래스, hudKind/hudLabel, press-feedback, pullable
+  // 조준 카드 (장면에 고정). hud의 대상 규칙과 같게: .target 클래스, hudKind/hudLabel, press-feedback
   buildCard() {
     const d = this.data, w = d.cardW, h = w * 0.3;
     this.cardCv = canvasOf(1100, Math.round(1100 * 0.3)); this.cardTex = texOf(this.cardCv);
@@ -147,7 +148,6 @@ AFRAME.registerComponent("paper-galaxy", {
     el.object3D.position.set(d.cardPos.x, d.cardPos.y, d.cardPos.z);
     el.hudKind = "focus"; el.hudLabel = "";
     el.setAttribute("press-feedback", "");
-    el.setAttribute("pullable", "");
     el.addEventListener("pinchstart", () => { const n = this.papers[this.focus]; if (n) this.el.emit("paper-select", { id: n.p.id }); });
     this.card = el; this.cardHot = null;
   },
@@ -249,14 +249,13 @@ AFRAME.registerComponent("paper-galaxy", {
     o.geometry.setDrawRange(0, list.length);
     a.needsUpdate = true;
   },
-  // 편 손 좌우 = 돌리기. 돌리는 동안 커서는 멈춤 (hand-cursor.hold)
+  // 편 손 좌우 = 돌리기. 돌리는 동안 커서는 멈춤 (hand-cursor.hold). 초기 화면에서만 (hud가 canRotate로 알려 줌)
   rotateByHand(dt) {
     const hc = this.el.sceneEl.components["hand-cursor"];
-    const busy = hc?.holdOwner && hc.holdOwner !== "galaxy"; // 층 구조를 잡고 펼치는 중이면 양보
+    const busy = hc?.holdOwner && hc.holdOwner !== "galaxy"; // 층 구조를 돌리는 중이면 양보
     // 편 손 기준 (9/30 "돌리기가 안 됨": 모델의 Open_Palm 점수는 편 손도 0.6~0.8이라 0.8 기준을 거의 못 넘었음) → 시작 0.55 / 멈춤 0.35
     const o = hc?.openness ?? 0, openEnough = this.rot ? o > 0.35 : o > 0.55;
-    // z-버퍼처럼 (9/30 사용자 지적 "패널과 은하가 동시에 멈춤"): 회전은 커서가 빈 공간(= 뒤의 은하)을 가리킬 때만 시작.
-    // 패널·카드·노드 위(더 앞의 대상)나 HTML 위에서는 그 대상이 우선. 한번 돌기 시작하면 커서는 멈춰 있으므로 계속 돔
+    // 회전은 커서가 빈 공간(= 뒤의 은하)을 가리킬 때만 시작. 카드·HTML 위에서는 그 대상이 우선. 한번 돌기 시작하면 커서는 멈춰 있으므로 계속 돔
     const overSomething = !!hc?.target || !!hc?.overUi;
     const open = hc?.mode === "hand" && openEnough && !hc.pinching && this.canRotate && !busy && hc.filtered && (this.rot || !overSomething);
     if (open) {
