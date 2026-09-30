@@ -85,30 +85,26 @@ async function captureCurrent(b, out) {
   await b.js(`for (let k = 0; k < 80 && !document.getElementById("hud")?.components?.hud?.ready; k++) await new Promise(r => setTimeout(r, 250));`); // HUD 준비될 때까지 (페이지가 늦게 떠도)
   await sleep(2500);
   await b.shot(path.join(out, "01-첫화면-논문-은하.png"));
-  // 은하 돌리기 (마우스·키보드 대체: ← 키. 손은 편 손 좌우) → 조준 카드에 다른 논문
+  // 은하 돌리기 (손 = 초기 화면에서 편 손 좌우, 마우스·키보드 대체 = 휠·← 키) → 조준 카드에 다른 논문
   const G_ = `document.getElementById("galaxy").components["paper-galaxy"]`;
   await b.js(`${G_}.focusPaper("${SAMPLE}");`); await sleep(1500);
   await b.shot(path.join(out, "02-은하-돌려-조준-카드.png"));
-  // 조준 카드 핀치 = 논문 선택. 핀치 순간: 카드가 번쩍이고 커서 자리에 파문 (press-feedback)
+  // 조준 카드 핀치 = 논문 선택만. 핀치 순간: 카드가 번쩍이고 커서 자리에 파문 (press-feedback)
   const card = await b.js(`${screenOf('document.getElementById("focus-card")')}`);
   await b.press(card[0], card[1], 90);
   await b.shot(path.join(out, "02b-핀치-순간-피드백.png"));
   await b.release(card[0], card[1]); await sleep(1200);
   await b.move(W - 5, 5); await sleep(800);
-  await b.shot(path.join(out, "03-논문-선택-패널-4장.png"));
-  // 층 펼치기: 카드를 잡고 아래로 끌기 (마우스 = 손을 활짝 펴기 대신) → 절반 → 끝 → 놓기 → 잡고 좌우로 돌리기
-  await b.press(card[0], card[1]);
-  await b.dragTo(card[0], card[1], card[0], card[1] + H * 0.06, 8);
-  await b.shot(path.join(out, "03a-펼치는-중-절반.png"));
-  await b.dragTo(card[0], card[1] + H * 0.06, card[0], card[1] + H * 0.13, 8);
-  await b.release(card[0], card[1] + H * 0.13);
-  await b.move(W - 5, 5); await sleep(700);
+  await b.shot(path.join(out, "03-논문-선택-빛줄기.png"));
+  // 층 펼치기: 손 = 손바닥 펴기, 마우스 = 선택된 카드를 한 번 더 클릭 → 가운데 층이 먼저, 0.9초 뒤 좌우 패널
+  await b.move(W - 5, 5); await b.js(`${H_}.openStack();`); await sleep(350); // 선택된 카드 한 번 더 핀치·손바닥과 같은 함수 (release의 대기 1.2초 없이 중간을 찍으려고)
+  await b.shot(path.join(out, "03a-층-먼저-펼쳐짐.png"));
+  await sleep(1600);
   await b.shot(path.join(out, "03b-층-구조-펼침.png"));
-  await b.press(card[0], card[1]);
-  await b.dragTo(card[0], card[1], card[0] + W * 0.2, card[1], 10);
-  await b.release(card[0] + W * 0.2, card[1]);
-  await b.move(W - 5, 5); await sleep(700);
+  // 층 돌리기 (손 = 펼쳐진 동안 편 손 좌우. 마우스에는 없어 같은 상태를 직접 지정)
+  await b.js(`${H_}.stack().yawTarget = 0.45;`); await sleep(900);
   await b.shot(path.join(out, "03c-층-구조-회전.png"));
+  await b.js(`${H_}.stack().yawTarget = 0;`); await sleep(700);
   const node = await b.js(`const n = [...document.querySelectorAll('#stack [concept-node]')].find(e => e.getAttribute('concept-node').level === 1); ${screenOf("n")}`);
   await b.move(node[0], node[1]); await sleep(700);
   await b.shot(path.join(out, "03d-기초-개념-가리키기.png"));
@@ -121,7 +117,7 @@ async function captureCurrent(b, out) {
   for (let i = 0; i < stages.length; i++) {
     await b.shot(path.join(out, `05-개념카드-단계${stages[i]}.png`));
     // ⑤: 보기 고르기 문제면 첫 보기를 눌러 정답·해설, 계산 문제면 풀이 보기
-    if (i === 4) { await b.js(`const pg = document.querySelector('#dBody .page:not([hidden])'); (pg.querySelector('[data-choice]') || pg.querySelector('[data-reveal]'))?.click();`); await sleep(600); await b.shot(path.join(out, `05-개념카드-단계5-답-확인.png`)); }
+    if (i === 4) { await b.js(`const pg = document.querySelector('#dBody .page:not([hidden])'); (pg?.querySelector('[data-choice]') || pg?.querySelector('[data-reveal]'))?.click();`); await sleep(600); await b.shot(path.join(out, `05-개념카드-단계5-답-확인.png`)); }
     // 같은 단계 안의 다음 화면(문제 2 등)은 건너뛰고 다음 단계로
     await b.js(`const now = document.querySelector('#dSteps .now')?.textContent; for (let k = 0; k < 8; k++) { document.querySelector('[data-dnav="1"]').click(); await new Promise(r => setTimeout(r, 150)); if (document.querySelector('#dSteps .now')?.textContent !== now) break; }`);
     await sleep(600);
