@@ -137,7 +137,7 @@ AFRAME.registerComponent("hand-cursor", {
     // 핀치 직전 고정 (2026-09-30 사용자 보고 "핀치하는 동안 커서가 다른 곳으로 이동해 정확한 핀치가 안 된다"):
     //  locked = 손가락이 모이는 중 → 커서를 고정 지점에 둠 / drag = 핀치 중 → 고정 지점 + 핀치 순간 이후 손이 움직인 만큼
     let nx = ax, ny = ay;
-    // hold: 논문을 잡고 펼치기·돌리기 하는 동안 커서를 잡은 자리에 멈춤 (pullable이 켜고 끔). 손을 펴는 동안 커서가 떠돌던 문제
+    // hold: 논문을 잡고 펼치기·돌리기 하는 동안 커서를 잡은 자리에 멈춤 (concept-stack이 층을 손바닥으로 돌리는 동안 켜고 끔). 손을 펴는 동안 커서가 떠돌던 문제
     if (this.mode === "hand" && this.hold) { nx = this.hold[0]; ny = this.hold[1]; }
     else if (this.mode === "hand" && this.lock) {
       nx = this.lock.pt[0] + (this.lock.from ? ax - this.lock.from[0] : 0);

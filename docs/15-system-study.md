@@ -19,7 +19,7 @@
         │                                                                  │
  build-concept-graph.mjs ─ Codex CLI(GPT-6-Luna)에게                       ├ hand-cursor   웹캠 손 → 커서·핀치·편 손·주먹
         │   graph  : 개념 90개 + 선수 관계                                 ├ paper-galaxy  논문 은하 (돌리기·조준 카드)
-        │   cards  : 개념 카드 90장 (6단계 내용)                           ├ pullable + concept-stack  손 펴서 층 펼치기
+        │   cards  : 개념 카드 90장 (6단계 내용)                           ├ concept-stack  손바닥 펴기 = 층 펼치기    
         │   paths  : 논문별 학습 경로 44개                                 ├ hud           상태 관리 (패널·상세 창·뒤로)
         │   + 코드 검사: 순환 제거, 경로 정렬, 보기 번호 통일                └ study-panel   JSON → 상세 창 HTML
         ▼
@@ -44,7 +44,7 @@ A-Frame = three.js 위에 HTML 태그로 3D 장면을 쓰는 프레임워크. �
 | `init()` | 붙을 때 한 번 | 메시 만들기, 이벤트 등록 |
 | `tick(t, dt)` | **매 프레임** (dt = 지난 프레임부터 ms) | 애니메이션, 손 값 읽기 |
 | `remove()` | 떨어질 때 | 텍스처 정리 |
-| 이벤트 | `el.emit("이름", detail)` → 부모로 버블링 → `addEventListener` | `pull-end`, `paper-select` |
+| 이벤트 | `el.emit("이름", detail)` → 부모로 버블링 → `addEventListener` | `paper-select`, `concept-select` |
 
 등록: `AFRAME.registerComponent("이름", { schema, init, tick, remove })`.
 
@@ -108,7 +108,7 @@ A-Frame = three.js 위에 HTML 태그로 3D 장면을 쓰는 프레임워크. �
 | 히스테리시스 | 켜짐 0.28 / 꺼짐 0.45 | 경계에서 켜졌다 꺼졌다 떨리지 않게 |
 | One Euro 필터 | `cutoff = minCutoff + beta·|속도|` (minCutoff 4, beta 0.6) | 가만히 있으면 강하게 평활(떨림 제거), 빨리 움직이면 약하게(지연 없음) |
 | 핀치 직전 고정 | `lock = { pt, from, t }` | 손가락을 모으는 동작 자체가 커서를 흔들어 옆 대상이 눌리던 문제 |
-| hold | `hc.hold`, `hc.holdOwner = "pull" \| "galaxy"` | 펼치기·돌리기 동안 커서를 잡은 자리에 멈춤 |
+| hold | `hc.hold`, `hc.holdOwner = "stack"` | 손바닥으로 층을 돌리는 동안 커서를 잡은 자리에 멈춤 |
 | 대상 유지 | `graceMs: 300` | 레이가 살짝 벗어나도 직전 대상으로 핀치 인정 (조준과 확정 분리) |
 | 가림막 | `if (first?.classList.contains("blocker")) first = null;` | z-버퍼처럼: 가장 앞에 맞은 게 층 프레임이면 뒤 패널은 못 잡음 |
 | 매 프레임 읽기 | `readRay()` | raycaster 이벤트는 "새로 들어온" 대상이 있을 때만 나서, 겹친 대상에서 누락됨 |
@@ -122,36 +122,36 @@ A-Frame = three.js 위에 HTML 태그로 3D 장면을 쓰는 프레임워크. �
 - **배치(나선)**: 논문을 연도순으로 i = 0..N-1, `t = i/(N-1)`, 각도 `th = t·2π·0.92`, 반지름 `r = R·(0.32 + 0.68t)`. 안쪽 = 오래된 논문, 바깥 = 최신. `turns 0.92` < 1이라 한 방향에 두 논문이 겹치지 않음.
 - **개념 점**: 그 개념을 쓰는 논문들 위치의 **평균** + 약간 흩뿌림 → 여러 논문이 공유하는 개념은 그 사이에.
 - **퍼지는 연출**: 처음 1.8초, 가운데에서 바깥으로 (안쪽부터 먼저).
-- **돌리기** (`rotateByHand`): 조건이 모두 맞을 때만
-  - 손 모드, 편 정도 > 0.55 (이미 도는 중이면 > 0.35), 핀치 아님
-  - `canRotate` (hud가 정함: 상세 창·층 구조가 열려 있으면 false)
-  - 층 구조가 커서를 잡고 있지 않음 (`holdOwner`가 "galaxy" 외면 양보)
-  - **커서가 빈 공간을 가리킴** (`!hc.target && !hc.overUi`) — 패널·카드 위에서는 그 대상이 우선
+- **돌리기** (`rotateByHand`): **편 손 좌우** (9/30 사용자 원칙: 돌리기 = 편 손, 선택 = 핀치, 뒤로 = 주먹)
+  - 손 모드, 편 정도 > 0.55 (이미 도는 중이면 > 0.35), 핀치 아님, 커서가 빈 공간(카드·HTML 위가 아님)
+  - **초기 화면에서만**: `canRotate` = 상세 창·층 구조·좌우 패널이 모두 닫혀 있고, 논문을 막 골라 손바닥(= 펼치기)을 기다리는 중도 아닐 때 (hud가 정함). 다른 논문은 주먹으로 접은 뒤 돌림
+  - 돌리는 동안 커서는 `hold`로 멈춤
   - 속도: `vel = 0.7·vel + 0.3·(dx · rotateGain · 1000/dt)` (rotateGain 3 = 사용자 지정)
   - 손을 멈추면 감속(`exp(-dt/350)`) → 속도 < 0.25면 **가장 가까운 논문으로 스냅**. 끝없이 돎(최신 다음 = 가장 오래된 논문).
-- **조준 카드** `#focus-card`: 화면 아래 가운데 고정. 앞에 온 논문의 연도·제목. 핀치 → `paper-select {id}`. 카드에 `pullable`이 붙어 있어 **핀치 후 손 펴기 = 층 펼치기**가 여기서 시작. 층이 펼쳐지면 작은 "▼ 핀치 = 층 접기" 버튼으로 바뀜(`compact`).
+  - 전에는 패널이 열려 있어도 돌아 "손을 펴면 은하가 돈다"(펼치기와 겹침)는 문제가 있었음. 잠깐 '빈 곳 핀치 끌기'로 바꿨다가, 핀치는 선택만 하게 하고 편 손으로 되돌림
+- **조준 카드** `#focus-card`: 화면 아래 가운데 고정. 앞에 온 논문의 연도·제목. 핀치 → `paper-select {id}`. 층이 펼쳐지면 작은 "▼ 핀치 = 층 접기" 버튼으로 바뀜(`compact`).
 - **밝기**(hud가 정함): 첫 화면 1 / 논문 선택 0.2 / 상세 창·층 구조 0.08. 은하는 배경으로 물러나고 글자는 카드 하나에만.
 - 마우스·키보드 대체: 휠, ←/→.
 
-### 2.4 `js/concept-stack.js` — 손 펴서 층 펼치기
+### 2.4 `js/concept-stack.js` — 층 구조
 
-**`pullable`** (잡을 수 있는 것에 붙는 컴포넌트, 지금은 조준 카드) — 상태 기계:
+펼치기·접기는 hud가 정한다 (9/30 변경, 아래 2.5의 `tickPalm`):
 
 ```text
- pinchstart ─▶ [pinch] 잡은 동안 (커서 hold)
-                 │ 핀치를 놓음
-                 ▼
-              [spread] openness만큼 펼침 (pull-move {u})
-                 ├ 600ms 안에 0.2도 안 폄 ─────────▶ 끝 {tap: true}      (그냥 클릭)
-                 ├ 0.75 이상 폄 ──────────────────▶ [rotate] 끝까지 펼쳐 고정
-                 └ 1.5초 지나거나 다시 오므림 ─────▶ 끝 {commit: false} (되감김)
-              [rotate] 편 손 좌우 = 회전 (pull-move {u:1, dx})
-                 └ 손을 0.35 아래로 오므리거나 핀치 ─▶ 끝 {commit: true}
- 마우스: 누른 채 아래로 끌기 (화면 높이 25% = 끝까지), 놓으면 절반 기준
+ 카드 핀치(새 논문) ─▶ 논문 로드, '손바닥 펴기'를 기다림 (armPalm)
+                          │ 편 정도 ≥ 0.5 를 0.2초 유지 (시간 제한 없음)
+                          │   또는 선택된 카드를 한 번 더 핀치 (예비)
+                          ▼
+                     층 구조를 끝까지 펼침 (open) ─▶ 0.9초 뒤 좌우 패널이 뒤에 펼쳐짐
+ 펼쳐진 동안: 편 손 좌우 = 층 회전 / 노드 핀치 = 개념 카드
+ 주먹·Esc: 층 접기 → 한 번 더 = 패널 접기 → 한 번 더 = 논문 해제
 ```
 
+- 전에는 `pullable` 컴포넌트가 "핀치 → 놓음 → 편 만큼 펼침 → 0.75 넘으면 고정"을 처리했지만, 실제 손의 편 정도가 낮고 흔들려(진단 칸 37%) 끝까지 가지 못해 없앰.
+
 **`concept-stack`** (`#stack`):
-- `pull-start/move/end`를 듣고 `uTarget`(펼침 0~1)과 `yawTarget`(회전)을 정함. 매 프레임 `u += (uTarget - u)·(1 - e^(-dt/90))`로 부드럽게 따라감.
+- `open()` / `fold()`로 `uTarget`(펼침 0 또는 1)을 정하고, 매 프레임 `u += (uTarget - u)·(1 - e^(-dt/90))`로 부드럽게 따라감.
+- `rotate()`: 펼쳐진 동안 편 손 좌우(0.55 넘게 펴고 빈 곳을 가리킬 때 시작, 커서는 `hold`로 멈춤) → `yawTarget` (±0.6rad). 핀치로는 돌지 않음.
 - `setPath(concepts)`: 논문의 학습 경로로 **엔티티를 동적으로 생성** — 수준마다 `stack-layer`, 그 안에 개념마다 `concept-node` + `press-feedback`. 선수 관계선은 레이 판정에서 뺌(`lines.raycast = () => {}`: 선의 기본 판정 폭이 다른 대상을 가로챔).
 - 층 자리 `LEVEL_POSE`: L3 z 0.15 / L2 0.5 / L1 0.8 → **기초(L1)가 나에게 가장 가깝게** (사용자 결정).
 
@@ -166,15 +166,14 @@ A-Frame = three.js 위에 HTML 태그로 3D 장면을 쓰는 프레임워크. �
 
 | 들어오는 이벤트 | 하는 일 |
 | --- | --- |
-| `paper-select {id}` | 다른 논문이면 `loadPaper` (경로 JSON 읽기 → `buildPaperSteps` → `stack.setPath` → 은하 `setSelected`로 빛줄기) |
-| `pull-end` (tap, 조준 카드, 이미 고른 논문) | 층이 펼쳐져 있으면 접기, 아니면 패널 접기·펴기 |
+| `paper-select {id}` | 다른 논문이면 `loadPaper` (경로 JSON 읽기 → `buildPaperSteps` → `stack.setPath` → 은하 `setSelected`로 빛줄기) + 손바닥 기다림. 이미 고른 논문이면 층 펼치기·접기 |
 | `concept-select` | 그 개념 카드 단계로 상세 창 열기 |
 | 패널 `pinchstart` | 그 패널의 단계로 상세 창 열기 |
 | `close-all` (주먹·Esc) | `back()`: 상세 창 → 층 구조 → 패널 → 논문 해제, **한 단계씩** |
 
 - **상세 창 단계** (`buildPaperSteps`): 논문 요약 → 학습 경로 → 개념 카드들(**L3 → L2 → L1, top-down**) → 관련 논문. `StudyPanel.topDown()`이 순서를 정함.
 - **상세 창이 열리면** `lockRay(true)`: 레이 대상을 `.hud-locked`(아무것도 없음)로 → 3D는 전혀 안 잡히고 HTML만 누름.
-- `tick()`: 매 프레임 은하 밝기·`canRotate`·`compact`, 층 구조 `visibility`·`interactive`를 정함. `hitDirty`면 레이 대상 목록 새로 읽기.
+- `tick()`: 매 프레임 은하 밝기·`canRotate`·`compact`, 층 구조 `visibility`·`interactive`를 정함. `tickPalm()`: 손바닥 편 정도를 커서 원호로 보여 주고 기준을 넘으면 `openStack()`. `hitDirty`면 레이 대상 목록 새로 읽기.
 
 ### 2.6 `js/study-panel.js` — JSON → HTML
 
@@ -186,18 +185,18 @@ A-Frame = three.js 위에 HTML 태그로 3D 장면을 쓰는 프레임워크. �
 
 ## 3. 전체 흐름 한 번 따라가기 (이벤트 추적)
 
-"논문을 고르고 → 손을 펴서 층을 펼치고 → 개념을 누르고 → 주먹으로 뒤로"
+"은하를 돌리고 → 논문을 고르고 → 손바닥을 펴서 층을 펼치고 → 개념을 누르고 → 주먹으로 뒤로"
 
 | # | 손 | 코드에서 일어나는 일 |
 | --- | --- | --- |
-| 1 | 빈 공간에서 편 손을 좌우로 | `paper-galaxy.rotateByHand`: openness > 0.55, 대상 없음 → `hold`, 속도 → 멈추면 스냅. 조준 카드 글자 갱신 |
+| 1 | 빈 공간에서 편 손을 좌우로 | `paper-galaxy.rotateByHand`: 편 정도 > 0.55, 대상 없음 → `hold`, 속도 → 멈추면 스냅. 조준 카드 글자 갱신 (초기 화면에서만) |
 | 2 | 카드 위에서 엄지·검지를 모음 | 비율 < 0.36 → `lock`(커서 고정). 원호가 차오름 |
-| 3 | 붙임 (< 0.28) | `setPinch(true)` → 카드에 `pinchstart` → ① `press-feedback` 번쩍 ② `paper-galaxy`가 `paper-select` ③ `pullable.onStart`가 `pull-start` + `hold` |
-| 4 | | `hud.loadPaper` → 경로 JSON → 패널 4장 펼침, `stack.setPath`, 은하 빛줄기 |
-| 5 | 손가락을 뗌 | `pinchend-any` → `pullable` [spread] |
-| 6 | 손을 활짝 | `pull-move {u}` → `concept-stack.uTarget` ↑ → 층이 L3 → L1로 다가옴. `stack-layer`가 `.blocker`가 됨 |
-| 7 | 끝까지 (≥ 0.75) | [rotate]: 편 손 좌우 = 층 회전. 은하는 `canRotate = false`라 안 돎 |
-| 8 | 손을 오므림 | `pull-end {commit: true}` → 펼친 채 고정, 노드가 `.target` |
+| 3 | 붙임 (< 0.28) | `setPinch(true)` → 카드에 `pinchstart` → ① `press-feedback` 번쩍 ② `paper-galaxy`가 `paper-select` |
+| 4 | | `hud.loadPaper` → 경로 JSON → `stack.setPath`, 은하 빛줄기. `armPalm = true` (아직 아무것도 안 펼침) |
+| 5 | 손바닥을 폄 | `tickPalm`: 커서 원호 = 편 정도. 0.5 이상 0.2초 → `openStack()` → 층이 펼쳐짐, `stack-layer`가 `.blocker`가 됨 |
+| 6 | | 0.9초 뒤 좌우 패널이 뒤에 펼쳐짐 (`panelsAt`). 은하는 `canRotate = false` |
+| 7 | 편 손 좌우 | `concept-stack.rotate()` → 층 회전, 노드가 `.target` |
+| 8 | 손을 오므림 | 회전 끝, 커서 `hold` 풀림 |
 | 9 | 노드 핀치 | `concept-select` → `hud.showSteps` → `lockRay(true)` → `hud-focus` → index.html이 쪽 나눠 표시 |
 | 10 | 주먹 0.6초 | `close-all {via:"fist"}` → `hud.back()` → 상세 창 닫힘. 한 번 더 → 층 접힘 |
 
@@ -236,7 +235,7 @@ AI 결과를 그대로 믿지 않는 장치 (**코드가 검사**):
 <details><summary>답</summary>그리기 도우미(`canvasOf`, `texOf`, `flatMesh`, `hitMesh`, `fit`, `HUD` 색 등)가 hud.js에 정의되어 있어서.</details>
 
 4. 컴포넌트끼리 직접 함수를 부르지 않고 주로 무엇으로 대화하나? 예를 두 개.
-<details><summary>답</summary>이벤트. `paper-select`(은하 → hud), `pull-start/move/end`(pullable → concept-stack·hud), `concept-select`(노드 → hud), `close-all`(손·키보드 → hud).</details>
+<details><summary>답</summary>이벤트. `paper-select`(은하 → hud), `pinch-empty`(손 → index.html: 3D 대상 없는 핀치 = HTML 버튼 누르기), `concept-select`(노드 → hud), `close-all`(손·키보드 → hud).</details>
 
 5. `tick(t, dt)`의 dt는 무엇이고, `u += (uTarget - u)·(1 - e^(-dt/90))`는 무슨 효과인가?
 <details><summary>답</summary>지난 프레임부터 흐른 ms. 목표값을 지수적으로 부드럽게 따라가며, 프레임 속도가 달라도 같은 속도로 움직인다(시정수 90ms).</details>
@@ -278,14 +277,14 @@ AI 결과를 그대로 믿지 않는 장치 (**코드가 검사**):
 16. 은하 나선에서 오래된 논문과 최신 논문은 각각 어디에? 반지름 식은?
 <details><summary>답</summary>오래된 논문 = 안쪽, 최신 = 바깥. `r = R·(0.32 + 0.68t)`, t = i/(N-1), 각도 `th = t·2π·0.92`.</details>
 
-17. 패널이 열려 있을 때 편 손을 움직였는데 은하가 돌지 않는 경우는? (조건 두 가지 이상)
-<details><summary>답</summary>커서가 패널·카드·노드 위에 있음(대상 우선, z-버퍼처럼) / 커서가 HTML 위 / 상세 창 또는 층 구조가 열려 `canRotate = false` / 층 구조가 커서를 잡고 있음(`holdOwner = "pull"`) / 편 정도가 0.55 미만.</details>
+17. 은하가 돌지 않는 경우는? (조건 두 가지 이상)
+<details><summary>답</summary>빈 곳이 아니라 카드·패널·노드 위에서 핀치함(그건 선택) / 커서가 HTML 위 / 상세 창·층 구조·좌우 패널 중 하나라도 열려 있음(`canRotate = false`, 초기 화면이 아님) / 핀치하지 않고 손만 움직임(편 손으로는 돌지 않음).</details>
 
 18. 은하가 멈출 때 어중간한 각도가 아니라 논문 하나에 딱 맞는 원리는?
 <details><summary>답</summary>손을 떼면 속도가 감쇠하고, 0.25 미만이 되면 `nearest()`로 가장 가까운 논문의 각도(2π 배수 중 가장 가까운 것)로 스냅.</details>
 
-19. `pullable`의 세 단계 이름과, "그냥 클릭"으로 판정되는 조건은?
-<details><summary>답</summary>pinch → spread → rotate. 놓은 뒤 600ms 안에 편 정도가 0.2도 안 되면 tap(클릭).</details>
+19. 논문을 고른 뒤 층이 펼쳐지는 두 가지 방법과, 주먹으로 층을 접은 뒤 손을 펴도 다시 안 펼쳐지는 이유는?
+<details><summary>답</summary>손바닥 펴기(편 정도 0.5 이상 0.2초) 또는 선택된 카드를 한 번 더 핀치. 손바닥 대기(`armPalm`)는 카드를 핀치할 때만 켜지고, 한 번 펼치거나 접으면 꺼지기 때문.</details>
 
 20. 층 구조가 펼쳐졌을 때 뒤의 패널이 눌리지 않는 이유는?
 <details><summary>답</summary>보이는 층(`stack-layer`)이 `.blocker` 클래스를 가짐. 레이가 가장 먼저 맞은 것이 blocker면 hand-cursor가 대상을 null로 둔다.</details>
@@ -336,7 +335,7 @@ AI 결과를 그대로 믿지 않는 장치 (**코드가 검사**):
 4. **층 배치**: `concept-stack.js` `LEVEL_POSE`의 L1 `z: 0.8` → 0.5. 기초 층이 덜 다가옴.
 5. **이벤트 엿보기** (코드 수정 없이): 브라우저 개발자 도구(F12) 콘솔에
    ```js
-   ["paper-select", "pull-start", "pull-end", "concept-select", "close-all"].forEach((n) =>
+   ["paper-select", "pinch-empty", "concept-select", "close-all"].forEach((n) =>
      document.querySelector("a-scene").addEventListener(n, (e) => console.log(n, e.detail)));
    ```
    입력하고 3장의 흐름을 따라 해 보면 이벤트가 순서대로 찍힌다.
@@ -382,6 +381,7 @@ AI가 처음 만든 것을 써 보고 바꾼 것 (문제 → 전·후 → 확인
 | 몸쪽으로 당기기가 잘 인식 안 됨 | 손 크기로 당기기 → 핀치로 잡은 뒤 손을 펴는 만큼 펼치기 (`pullable`) | 합성 |
 | 은하 돌리기가 안 됨 | 나선 끝에서 멈춤 → 끝없이 돎 / 시작 기준 0.8 → 0.55(유지 0.35) / 속도 이득 5 → 10 → 6 → 3 (내가 지정) | **실제 손** |
 | 패널이 열려도 은하가 돌고, 패널과 은하가 동시에 멈춤 | 전체 잠금 → z-버퍼처럼: 보이는 층 프레임은 가림막(`.blocker`), 은하는 커서가 빈 공간일 때만 돎 | 합성 |
+| 핀치 후 손을 펴면 층 대신 은하가 돎, 좌우 패널이 먼저 떠서 가운데가 안 보임 | 은하 돌리기: 패널이 열려 있어도 편 손 좌우 → **편 손 좌우는 그대로, 초기 화면에서만 (손바닥 대기 중에도 안 돎)** / 층 펼치기: 편 만큼 조금씩(0.75에서 고정, 시간 제한) → **손바닥 0.5 이상 0.2초면 한 번에 끝까지, 시간 제한 없음, 카드 한 번 더 핀치도 가능** / 순서: 층 → 0.9초 뒤 좌우 패널 (`pullable` 삭제) | 합성 |
 
 ### 학습 내용 (`tools/`, `study-panel.js`)
 
@@ -400,13 +400,13 @@ AI가 처음 만든 것을 써 보고 바꾼 것 (문제 → 전·후 → 확인
 | 값 | 파일 | 변화 | 왜 |
 | --- | --- | --- | --- |
 | 은하 회전 이득 `rotateGain` | `paper-galaxy.js` | 4 → 5 → 10 → 6 → **3** | "돌리기 안 됨" → 올림 → 너무 빠름 → 줄임 → 내가 3으로 지정 |
-| 은하 돌리기 시작 기준 (편 정도) | `paper-galaxy.js` `openEnough` | 0.8 → **0.55** (도는 중 유지 0.35) | 모델의 Open_Palm 점수는 편 손도 0.6~0.8이라 0.8을 거의 못 넘음 |
+| 은하 돌리기 시작 기준 (편 정도) | `paper-galaxy.js` `openEnough` | 0.8 → 0.55 (도는 중 유지 0.35) (그대로, 대신 초기 화면에서만) | 모델의 Open_Palm 점수는 편 손도 0.6~0.8이라 0.8을 거의 못 넘음 |
 | 은하 크기·자리 | `index.html` `#galaxy` | 반지름 3.2 → 4.2 → 3.2 → **4.6**, 자리 `0 1.5 -5.4` → `0 1.35 -7` → `0 1.95 -7.5` → **`0 2.75 -7.5`**, 기울기 0.55 → 0.42 → **0.5** | 패널과 겹침·글자 가림을 피해 뒤·위로, "은하 크기 키워줘" |
 | 조준 카드 흐림 조건 | `paper-galaxy.js` `cardOp` | `canRotate ? 1 : 0.35` → **`detailOpen ? 0.35 : 1`** | 패널이 열리면 카드가 흐려져 은하와 같이 멈춘 것처럼 보임 → 상세 창일 때만 흐리게 |
 | 핀치 직전 고정 `lockAt` | `hand-cursor.js` | 0.42 → **0.36** (+ `lockMs` 600 시간 초과 추가) | 편하게 둔 손도 0.42 아래라 고정이 안 풀림 |
 | 주먹 유지 시간 `fistMs` | `hand-cursor.js` | 3000 → **600** ms | 3초는 너무 김. 주먹 = 한 단계 뒤로 |
-| 층 끝까지 펼침 `commitAt` | `concept-stack.js` `pullable` | 0.9 → **0.75** | 편 손 점수가 0.9까지 잘 안 올라감 |
-| 층 회전 끝 `rotateUntil` | `concept-stack.js` `pullable` | 0.5 → **0.35** | 편 손 판정을 모델 점수로 바꾸면서 `commitAt`과 함께 그 점수 범위에 맞춤 |
+| 층 끝까지 펼침 `commitAt` | `concept-stack.js` `pullable` | 0.9 → 0.75 → **손바닥 0.5 이상 0.2초면 한 번에 (`PALM_OPEN`, hud.js)** | 편 손 점수가 0.9·0.75까지 잘 안 올라감 (실제 37%) |
+| 층 회전 끝 `rotateUntil` | `concept-stack.js` `pullable` → `rotate()` | 0.5 → **0.35** | 편 손 판정을 모델 점수로 바꾸면서 `commitAt`과 함께 그 점수 범위에 맞춤 |
 | One Euro `minCutoff` / `beta` | `hand-cursor.js` | 1.0 → 1.8 → **4.0** / 0.3 → 0.5 → **0.6** | 멈춘 뒤 커서가 늦게 도착 (1Hz면 수렴 약 0.8초 → 4Hz면 0.2초) |
 | 핀치 켜짐 / 꺼짐 | `index.html` `hand-cursor` | 0.25 → **0.28** / 0.40 → **0.45** | 첫 프로토타입(9/21)에서 조정. 켜짐은 조금 쉽게, 꺼짐은 더 벌려야 풀리게 (구체적 이유는 기록 없음) |
 | 레이 대상 | `index.html` `#ray` | `.target` → **`.target, .blocker`** | 가림막(층 프레임)도 레이가 맞게 해서 뒤를 막음 |
@@ -462,12 +462,13 @@ const block = op > 0.3;
 if (this.el.classList.contains("blocker") !== block) { this.el.classList.toggle("blocker", block); this.el.emit("hud-hit-dirty"); }
 ```
 
-**⑥ 은하는 빈 공간에서만 돎** (`paper-galaxy.js` `rotateByHand`)
+**⑥ 은하는 초기 화면에서만** (`hud.js` `tick`)
 
 ```js
-// 추가: 커서가 패널·카드·노드(더 앞의 대상)나 HTML 위면 회전을 시작하지 않음
-const overSomething = !!hc?.target || !!hc?.overUi;
-const open = hc?.mode === "hand" && openEnough && !hc.pinching && this.canRotate && !busy && hc.filtered && (this.rot || !overSomething);
+// 전: 패널이 열려 있어도 빈 공간이면 편 손으로 돎 → 손바닥 펴기(층 펼치기)와 겹침
+gx.canRotate = !busy;
+// 후: 상세 창·층 구조·좌우 패널이 모두 닫혀 있고, 손바닥(= 펼치기) 대기 중도 아닐 때만
+gx.canRotate = !this.focusFan && st.uTarget === 0 && st.u < 0.05 && this.paperFan.uTarget === 0 && !this.panelsAt && !this.armPalm;
 ```
 
 **⑦ 학습 경로 순서** (`study-panel.js`, `hud.js`)
@@ -511,7 +512,8 @@ p.solution = p.solution.replace(/(^|[^0-9])(\d)번/g, (m, pre, d) => { const j =
 | 카드 | 식 51 · 구조 90 · 코드 29, 문제 계산 54 · 보기 145, 수식 369개 KaTeX 오류 0 |
 | 핀치 | 켜짐 0.28 / 꺼짐 0.45, 고정 0.36 (600ms), 해제 0.55 |
 | 필터 | One Euro minCutoff 4, beta 0.6 |
-| 편 손 | 은하 시작 0.55 / 유지 0.35, 층 고정 0.75, 클릭 판정 0.2 (600ms), 되감김 1.5초 |
+| 손바닥 | 층 펼치기 0.5 이상 0.2초, 층 회전 시작 0.55 / 유지 0.35, 좌우 패널은 층 뒤 0.9초 |
+| 손 동작 원칙 | 돌리기 = 편 손 좌우 (은하는 초기 화면에서만, 층은 펼쳐진 동안), 선택 = 핀치, 뒤로 = 주먹 |
 | 주먹 | Closed_Fist ≥ 0.6, 600ms |
 | 은하 | 반지름 4.6, 0.92바퀴, 회전 이득 3, 밝기 1 / 0.2 / 0.08 |
 | 층 | L3 z 0.15 · L2 0.5 · L1 0.8 (L1이 가장 앞) |

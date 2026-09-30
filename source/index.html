@@ -199,7 +199,7 @@
     <a-entity id="galaxy" position="0 2.75 -7.5" paper-galaxy="radius: 4.6; tilt: 0.5; cardW: 1.7"></a-entity>
     <a-entity id="hud" hud="src: data/papers.json"></a-entity>
     <!-- 잡고 당겨 층 펼치기: 코어 위치에서 학습 경로가 L3 → L2 → L1 층으로 나에게 다가옴 (js/concept-stack.js).
-         논문을 고르면 이 아래에 stack-layer · concept-node 엔티티가 만들어진다. 칩·코어에는 pullable이 붙어 있다 -->
+         논문을 고르면 이 아래에 stack-layer · concept-node 엔티티가 만들어진다. 손바닥 펴기(또는 선택한 카드 한 번 더 핀치)로 펼친다 -->
     <a-entity id="stack" position="0 1.5 -2.6" concept-stack="yawMax: 0.6; yawGain: 2.4; cols: 3"></a-entity>
   </a-scene>
 
@@ -217,7 +217,7 @@
       $("author").textContent = `${e.detail.author?.name || "저자 미상"} 연구실`;
       $("count").textContent = `· 논문 ${e.detail.count}편`;
     });
-    const HINT = "편 손 좌우 = 은하 돌리기 · 아래 카드 핀치 = 논문 선택 · 핀치 후 손 활짝 = 기초까지 펼치기 · 주먹(또는 Esc) = 뒤로";
+    const HINT = "편 손 좌우 = 돌리기 · 핀치 = 선택 · 논문 고른 뒤 손바닥 펴기 = 기초까지 펼치기 · 주먹(또는 Esc) = 뒤로";
     $("hint").textContent = HINT;
     // 논문 칩·연구 주제를 가리키면 전체 이름을 커서 바로 옆에 (시선이 손을 따라가므로 화면 끝이 아니라 그 자리에)
     scene.addEventListener("hud-hover", (e) => {
