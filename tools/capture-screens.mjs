@@ -69,7 +69,15 @@ async function openBrowser() {
     async dragTo(x0, y0, x1, y1, steps = 12) { for (let i = 1; i <= steps; i++) { const t = i / steps; await c.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: x0 + (x1 - x0) * t, y: y0 + (y1 - y0) * t, button: "left", buttons: 1 }); await sleep(60); } await sleep(700); },
     async release(x, y) { await c.send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", buttons: 0, clickCount: 1 }); await sleep(1200); },
     async shot(file) { const r = await c.send("Page.captureScreenshot", { format: "png" }); await writeFile(file, Buffer.from(r.data, "base64")); console.log("  ✓", path.relative(ROOT, file)); },
-    async close() { c.close(); proc.kill(); await sleep(500); await rm(profile, { recursive: true, force: true }).catch(() => {}); },
+    // proc.kill()만으로는 Windows에서 렌더러·GPU 프로세스가 남아 3D를 계속 그리며 CPU를 씀
+    // (10/1: 남은 헤드리스 Edge 때문에 실제 앱의 손 추적이 7fps로 떨어짐) → DevTools Browser.close로 브라우저 전체를 닫음
+    async close() {
+      try {
+        const { webSocketDebuggerUrl } = await (await fetch(`http://127.0.0.1:${port}/json/version`)).json();
+        const w = new WebSocket(webSocketDebuggerUrl); await new Promise((r, j) => { w.onopen = r; w.onerror = j; });
+        w.send(JSON.stringify({ id: 1, method: "Browser.close" }));
+      } catch {}
+      c.close(); proc.kill(); await sleep(1500); await rm(profile, { recursive: true, force: true }).catch(() => {}); },
   };
   return api;
 }
