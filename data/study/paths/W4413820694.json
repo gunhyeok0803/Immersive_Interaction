@@ -58,5 +58,15 @@
       "concept": "streamsplat-depth-fusion-web-architecture",
       "role": "깊이 기반 융합으로 가우시안 장면의 웹 클라이언트·서버 구조를 구성한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "WebGL과 WebGPU 같은 웹 기술로 별도 설치 없이 브라우저에서 3D를 보여줄 수 있지만, 신경 렌더링(neural rendering)은 실시간 처리 요구가 높고 클라이언트 자원이 제한돼 웹에 통합하기 어렵다.",
+    "method": "3D Gaussian Splatting(3DGS)과 4D Gaussian Splatting(4DGS)의 고품질 처리는 서버에 맡기고, 가벼운 메시 렌더링과 최종 이미지 합성은 클라이언트에서 수행하는 혼합 구조를 제안했다. 깊이 기반 화면 공간 융합(depth-based screen-space fusion)으로 두 결과를 결합한다.",
+    "result": "실험에서 클라이언트의 계산 부담과 메모리 사용을 줄이면서 여러 종류의 기기에서 성능을 일관되게 유지했다.",
+    "meaning": "렌더링 로직을 클라이언트와 분리해 신경 모델이 바뀌어도 클라이언트를 자주 다시 설계하지 않고 통합할 수 있다. 다양한 웹 플랫폼에서 접근 가능한 고품질 신경 렌더링을 제공하는 실용적인 방법이 될 가능성을 보였다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:49:29.975Z"
+  }
 }

@@ -45,5 +45,15 @@
       "concept": "reference-guided-gaussian-scene-inpainting",
       "role": "참조 영상 정보를 이용해 장면의 빠진 영역을 채우고 시점 간 일관성을 추구한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "3차원 장면의 빈 곳을 채울 때, 결과가 사실적이고 시점이 달라져도 일관되게 보여야 한다.",
+    "method": "참조 정보를 이용해 가우시안 스플래팅(Gaussian splatting)으로 3차원 장면의 빈 영역을 채우는 방법을 다룬다.",
+    "result": "",
+    "meaning": "",
+    "from_title": true,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:52:30.928Z"
+  }
 }

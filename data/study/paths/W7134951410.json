@@ -58,5 +58,15 @@
       "concept": "aeri-empathy-sem-validation",
       "role": "네 가지 에이전트 특성과 사용자 공감 평가를 통합한 공감 반응 프레임워크를 검증한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "대화형 에이전트(conversational agent, CA)의 공감이 중요해졌지만, 어떤 특성이 사용자에게 공감으로 받아들여지는지는 분명하지 않다.",
+    "method": "미국과 한국의 설문 166건을 분석해 적극적 경청, 개인화, 감정 표현, 페르소나 매력이라는 네 특성을 찾았다. 한국 응답자 200명 자료를 구조방정식 모형(structural equation modeling, SEM)으로 분석하고, 대인 반응성 지수(Interpersonal Reactivity Index, IRI)를 바탕으로 만든 에이전트 공감 반응 지수(Agent Empathic Reactivity Index, AERI)로 공감의 네 차원을 평가했다.",
+    "result": "가설 경로 12개가 모두 확인됐다. 적극적 경청과 개인화는 관점 취하기와 공감적 관심을 높였고, 개인화는 개인적 고통을 줄였다. 감정 표현과 페르소나 매력은 환상을 높이는 동시에 에이전트가 개인적 고통을 느낀다는 인식도 높였다.",
+    "meaning": "에이전트의 공감 특성은 긍정적인 반응과 부담을 함께 일으킬 수 있다. 정서 표현을 세심하게 조절하는 일이 신뢰와 장기적 관계를 돕는 설계에 중요하다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:52:30.722Z"
+  }
 }

@@ -56,5 +56,15 @@
       "concept": "thermal-field-reconstruction-evaluation",
       "role": "복원된 열환경장을 공간적 쾌적성 관점에서 열제어 평가에 연결한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "건물의 열제어는 쾌적함과 에너지 효율을 함께 맞춰야 한다. 고정된 위치의 센서에 의존하는 예측 평균 투표(Predicted Mean Vote, PMV)는 실내 공간 차이를 놓쳐 사람별 쾌적함을 정확히 추정하기 어렵다.",
+    "method": "희소 센서 값으로 실내 온도 분포를 복원하는 Gappy Proper Orthogonal Decomposition(Gappy POD)을 PMV 계산에 적용했다. 사람 위치별 PMV를 구한 뒤 통계적으로 묶어 여러 거주자의 열환경을 제어하는 방법을 다인 실험실에서 평가했다.",
+    "result": "온도 복원의 평균 상대 오차는 3% 미만이었다. 사람 위치에 따라 PMV 분포가 최대 1.26 척도 단위까지 달랐고, 사용하는 집단 PMV 집계법에 따라서도 열적 만족도가 달라졌다.",
+    "meaning": "열제어에는 실내 위치에 따른 차이와 사람별 차이를 함께 반영해야 한다. 이런 접근은 거주자 중심의 건물 운영과 적응형 열제어 설계에 참고가 된다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:52:31.154Z"
+  }
 }

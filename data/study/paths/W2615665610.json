@@ -37,5 +37,15 @@
       "concept": "web-interoperability-xr",
       "role": "HTML 문서와 사용자 정의 CSS를 3D 콘텐츠의 전환 및 애니메이션 표현에 연결한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "360도 파노라마와 가상현실(virtual reality, VR) 영상이 널리 퍼졌지만, 안경이나 머리 착용형 디스플레이(head-mounted display, HMD)는 이용에 부담이 되고 무안경 초다시점(super multi-view, SMV) 3D 디스플레이는 콘텐츠 종류가 제한된다.",
+    "method": "시간을 맞춰 재생하는 SMV 3D 스트리밍을 웹화했다. 실제 사물, 3D 모델, HTML 문서 요소를 함께 담고 전환과 애니메이션 효과를 위한 CSS(Cascading Style Sheets) 확장을 정의했다.",
+    "result": "웹 프로토타입으로 스트리밍 콘텐츠 예제를 구현해 접근의 유용성을 확인하고자 했다.",
+    "meaning": "HTML 문서에서 여러 종류의 콘텐츠를 동기화해 제공함으로써, 안경 없는 SMV 화면의 콘텐츠를 풍부하게 하는 방향을 제안했다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:59:35.772Z"
+  }
 }

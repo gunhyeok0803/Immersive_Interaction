@@ -111,15 +111,31 @@
         ${k.references?.length ? `<h4>더 공부할 자료</h4><ul class="refs">${k.references.map(refHtml).join("")}</ul>` : ""}` + links);
   }
 
-  // 논문 요약: 무엇을 어떻게 풀었는지 + 중심 개념 + 원문
+  // 논문 요약: 문제 · 방법 · 결과 · 의미 + 중심 개념 + 원문 링크 + 초록 원문 (10/1 사용자 "요약이 너무 간단, 원문 링크가 접근 제한")
+  // 원문은 무료 PDF → 저장소 사본 → 출판사 페이지 순 (DOI는 출판사로 가서 학교 밖에서는 막히는 경우가 많음)
+  const BRIEF = [["problem", "문제"], ["method", "방법"], ["result", "결과"], ["meaning", "의미"]];
   async function summaryHtml(paper, path) {
     const g = await loadGraph();
+    const b = path?.brief;
+    const brief = b
+      ? `<dl class="brief">${BRIEF.filter(([k]) => b[k]?.trim()).map(([k, name]) => `<dt>${name}</dt><dd>${esc(b[k])}</dd>`).join("")}</dl>
+         ${b.from_title ? `<p class="where">초록을 찾지 못해 제목만으로 만든 요약입니다.</p>` : ""}`
+      : `<p class="lead">${esc(path?.summary || "(학습 경로 생성 중)")}</p>`;
+    const links = [
+      paper.pdf_url && ["무료 PDF", paper.pdf_url],
+      paper.repo_url && ["저장소 사본 (무료)", paper.repo_url],
+      paper.url && [paper.is_oa ? "출판사 페이지 (무료 공개)" : "출판사 페이지 (학교 로그인이 필요할 수 있음)", paper.url],
+    ].filter(Boolean);
+    // 초록은 두 문장씩 나눠 둠: 한 덩어리가 창보다 길면 쪽 나누기가 못 자르고 잘림
+    const sents = (paper.abstract || "").replace(/^\s*abstract[\s:.]+/i, "").split(/(?<=[.!?])\s+(?=[A-Z0-9(])/).filter(Boolean);
+    const abs = Array.from({ length: Math.ceil(sents.length / 2) }, (_, i) => `<p class="abs">${esc(sents.slice(i * 2, i * 2 + 2).join(" "))}</p>`).join("");
     return `
       <div class="cmeta"><span class="field">${esc(paper.year ?? "-")} · ${esc(paper.venue || "-")} · 인용 ${esc(paper.cited ?? 0)}</span></div>
-      <p class="lead">${esc(path?.summary || "(학습 경로 생성 중)")}</p>
+      ${brief}
       ${path?.core?.length ? `<h4>이 논문의 중심 개념</h4><div class="chips">${path.core.map((id) => conceptBtn(g, id)).join("")}</div>` : ""}
-      ${paper.url ? `<p><a href="${esc(paper.url)}" target="_blank" rel="noopener">원문 (DOI) 열기</a></p>` : ""}
-      <p class="where">다음 ▶ 으로 학습 경로 → 개념 카드 순서로 넘어갑니다.</p>`;
+      ${links.length ? `<h4>원문</h4><div class="chips">${links.map(([name, url]) => `<a class="chip olink" href="${esc(url)}" target="_blank" rel="noopener">${esc(name)}</a>`).join("")}</div>` : ""}
+      <p class="where">다음 ▶ 으로 학습 경로 → 개념 카드 순서로 넘어갑니다.</p>
+      <h4>초록 원문</h4>${abs || `<p class="where">초록 없음 (OpenAlex · Semantic Scholar · Crossref)</p>`}`;
   }
   // top-down 순서 (사용자 정의 "상위 계층부터 학습하고 기초 개념으로 내려가는 학습", 2026-09-30):
   // 저장된 경로는 선수 개념이 앞(기초 → 연구 기법)이라 뒤집고, 수준 L3 → L2 → L1으로 정렬. 선수 개념은 항상 같거나 낮은 수준이라
@@ -128,13 +144,14 @@
     const list = (path?.path || []).filter((s) => g?.byId[s.concept]).reverse();
     return list.map((s, i) => [s, i]).sort((a, b) => g.byId[b[0].concept].level - g.byId[a[0].concept].level || a[1] - b[1]).map(([s]) => s);
   }
-  // 학습 경로: 중심 개념(연구 기법)에서 기초까지, 단계마다 이 논문에서 하는 일
+  // 학습 경로: 중심 개념(연구 기법)에서 기초까지. 전체 경로가 한 화면에 보이게 개념 이름만 두 줄로 (10/1 사용자 결정, 안 A).
+  // 개념마다 "이 논문에서 하는 일"은 개념 카드 ① 왜(ctx.role)에 있으므로 여기서는 뺌
   async function pathHtml(path) {
     const g = await loadGraph();
     if (!path?.path?.length) return "<p>(학습 경로 생성 중)</p>";
     return `
       <p class="hintline">이 논문에서 시작해 필요한 개념으로 내려갑니다: 연구 기법(L3) → 전공(L2) → 기초(L1, 학부 1~2학년). 아는 개념은 건너뛰고, 막히는 개념에서 아래로 내려가세요. 개념을 누르면 카드로 갑니다.</p>
-      <ol class="steps">${topDown(path, g).map((s) => { const c = g.byId[s.concept]; return c ? `<li>${conceptBtn(g, s.concept)}<div class="role">${esc(s.role)}</div></li>` : ""; }).join("")}</ol>`;
+      <ol class="steps two">${topDown(path, g).map((s) => g.byId[s.concept] ? `<li>${conceptBtn(g, s.concept)}</li>` : "").join("")}</ol>`;
   }
   // 관련 논문: 같은 개념을 많이 공유하는 교수님 논문 + 웹 유사 논문
   async function relatedHtml(paper, path, ctx) {

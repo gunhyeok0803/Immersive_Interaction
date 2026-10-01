@@ -59,8 +59,9 @@
     #diag .bar s { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); }
     #diag .log { margin-top: 6px; max-height: 110px; overflow: auto; opacity: .9; }
 
-    /* 상세 창: 가운데로 다가온 3D 패널(화면 높이의 82%, 같은 비율) 위에 겹쳐 그 패널이 읽을 수 있게 커진 것처럼 */
-    #detail { left: 50%; top: 50%; height: 82vh; width: min(calc(82vh * 1.857), 95vw); transform: translate(-50%, -50%); box-sizing: border-box;
+    /* 상세 창: 가운데로 다가온 3D 패널(화면 높이의 82%) 위에 겹쳐 그 패널이 읽을 수 있게 커진 것처럼.
+       폭은 1000px까지: 넓으면 한 줄이 85자를 넘어 다음 줄을 놓침 (10/1 사용자 결정, 안 C) */
+    #detail { left: 50%; top: 50%; height: 82vh; width: min(1000px, calc(82vh * 1.857), 95vw); transform: translate(-50%, -50%); box-sizing: border-box;
       display: flex; flex-direction: column; background: rgba(4,16,24,.96); border: 1px solid var(--line); padding: 18px 26px 12px;
       opacity: 0; transition: opacity .25s ease .15s; }
     #detail.on { opacity: 1; }
@@ -68,7 +69,7 @@
     .dhead { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
     #dCode { color: var(--cyan); font-weight: 700; font-size: 20px; }
     #dTitle { font-size: 22px; font-weight: 600; margin: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    #dCtx { font-size: 14px; color: var(--muted); margin: 6px 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #dCtx { font-size: 15px; color: var(--muted); margin: 6px 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .dnav { display: flex; gap: 10px; justify-content: space-between; margin: 6px 0 10px; }
     #dBody { flex: 1; overflow: hidden; padding-right: 8px; } /* 스크롤 없음: 손은 핀치 클릭만 쓰므로 쪽으로 나눠 넘김 */
     #dBody > .page[hidden] { display: none; }
@@ -87,12 +88,12 @@
     .hand-hover { outline: 3px solid var(--cyan2) !important; outline-offset: 2px; }
 
     /* 학습 내용 (study-panel.js가 만드는 HTML) */
-    .sbody { font-size: 16.5px; line-height: 1.75; }
-    .sbody h4 { font-size: 16px; margin: 18px 0 6px; color: var(--cyan); letter-spacing: .02em; }
+    .sbody { font-size: 19px; line-height: 1.75; }
+    .sbody h4 { font-size: 17px; margin: 18px 0 6px; color: var(--cyan); letter-spacing: .02em; }
     .sbody p { margin: 6px 0; }
     .sbody ul, .sbody ol { padding-left: 22px; margin: 4px 0; }
     .sbody a { color: var(--cyan2); }
-    .lead { font-size: 18px; line-height: 1.7; }
+    .lead { font-size: 20px; line-height: 1.7; }
     .goal { background: rgba(63,208,240,.09); border-left: 3px solid var(--cyan); padding: 10px 14px; margin: 10px 0; }
     .where { font-size: 14px; color: var(--muted); }
     .hintline { font-size: 15px; color: var(--muted); margin: 4px 0 10px; }
@@ -101,12 +102,21 @@
     .lv { display: inline-block; font-size: 13px; font-weight: 600; padding: 1px 8px; border: 1px solid; white-space: nowrap; }
     .lv1 { color: #9ff3ff; border-color: #9ff3ff; } .lv2 { color: #7fe0b0; border-color: #7fe0b0; } .lv3 { color: #f2c46d; border-color: #f2c46d; }
     .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
-    .chip { font-family: inherit; font-size: 15px; color: var(--text); background: rgba(8,30,42,.9); border: 1px solid var(--line); padding: 8px 12px; min-height: 44px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
+    .chip { font-family: inherit; font-size: 16px; color: var(--text); background: rgba(8,30,42,.9); border: 1px solid var(--line); padding: 8px 12px; min-height: 44px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
     .chip:hover { border-color: var(--cyan); }
+    .chip.olink { color: var(--cyan2); text-decoration: none; }
+    /* 논문 요약: 문제 · 방법 · 결과 · 의미 */
+    .brief { display: grid; grid-template-columns: 52px 1fr; gap: 8px 14px; margin: 8px 0 4px; }
+    .brief dt { color: var(--cyan); font-weight: 700; }
+    .brief dd { margin: 0; }
+    .abs { font-size: 17px; line-height: 1.65; color: var(--muted); }
     .steps { list-style: none; padding: 0 !important; counter-reset: s; }
     .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 4px 10px; align-items: start; padding: 8px 0; border-bottom: 1px dashed var(--line); }
     .steps li::before { content: counter(s); color: var(--cyan); font-weight: 700; font-size: 18px; text-align: right; padding-top: 8px; }
-    .steps .role { grid-column: 2; color: var(--muted); font-size: 15px; }
+    .steps .role { grid-column: 2; color: var(--muted); font-size: 16px; }
+    /* 학습 경로: 두 줄(1~6 | 7~12)로 한 화면에. 번호는 위→아래, 왼쪽→오른쪽 */
+    .steps.two { column-count: 2; column-gap: 36px; }
+    .steps.two li { break-inside: avoid; padding: 4px 0; }
     .plist { list-style: none; padding: 0 !important; }
     .plist li { padding: 6px 0; border-bottom: 1px dashed var(--line); }
     .plink { font-family: inherit; font-size: 16px; text-align: left; color: var(--cyan2); background: transparent; border: 0; padding: 6px 0; min-height: 40px; cursor: pointer; }

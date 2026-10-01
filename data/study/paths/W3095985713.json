@@ -58,5 +58,15 @@
       "concept": "yolo-elderly-activity-video-tagging",
       "role": "YOLO 기반 활동 인식 결과를 돌봄 기록을 위한 영상 태깅에 연결한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "알츠하이머병(Alzheimer’s disease, AD) 환자를 돌보는 시설에서 돌봄 인력(caregivers, CG)은 노인의 일상생활활동(Activities of Daily Living, ADL)을 자세히 기록한다. 기록 업무가 과중해지면 돌봄의 질이 떨어지거나 추가 인력이 필요할 수 있다.",
+    "method": "인간 활동 인식(Human Activity Recognition, HAR)에 YOLO-v3 기반 물체 탐지를 적용했다. 기계가 활동 태그를 보조하고 사람이 확인하는 영상 기록 방식을 만들고, K-Log Centre의 실시간 영상으로 시험했다.",
+    "result": "알고리즘의 정밀도는 98.4%였고, 실시간 영상에서 정확도는 81.4%였다. 이 방식은 돌봄 인력의 기록 작업을 줄였다.",
+    "meaning": "K-Log Centre에서 노인의 활동 영상을 일상 기록으로 옮길 때 태깅을 보조하는 데 쓸 수 있다. 영상에서 활동을 인식해 기록 부담을 줄이는 접근을 보여준다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:54:49.262Z"
+  }
 }

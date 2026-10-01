@@ -46,5 +46,15 @@
       "concept": "semantic-digital-twin-me-centric-iot",
       "role": "분산 IoT 자원과 디지털 트윈을 시맨틱 데이터로 연결하는 ME 중심 구조를 다룬다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "소비자 사물인터넷(Consumer Internet of Things, CIoT)은 기기와 응용 프로그램 사이의 호환성이 부족하고 데이터가 지속적으로 활용되기 어렵다. 기기, 게이트웨이, 중앙 클라우드로 구성된 기존 방식은 데이터를 서로 단절된 저장소에 가둔다.",
+    "method": "분산형 ME 중심(ME-centric) 구조를 제안했다. 시제품에 에지 컴퓨팅(edge computing), 분산 저장소, 디지털 트윈(digital twin), 블록체인(blockchain), 의미 기반 온톨로지(semantic ontology)를 결합했다.",
+    "result": "분산형 ME 중심 시제품에 여러 기술을 통합해 소비자를 위한 CIoT 구조를 설계했다. 초록에는 성능을 측정한 실험 결과가 제시되어 있지 않다.",
+    "meaning": "응용 프로그램 사이에서 데이터를 연결해 CIoT를 더 통합된 생태계로 발전시키는 구조를 제안했다. 이 구조는 CIoT 시스템의 민첩성, 확장성, 복원력, 보안을 높이도록 고안됐다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:53:46.489Z"
+  }
 }

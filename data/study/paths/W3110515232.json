@@ -54,5 +54,15 @@
       "concept": "webized-xr-apps-displays-and-devices",
       "role": "웹 브라우저에서 VR·AR 양쪽으로 동작하는 XR 콘텐츠 표현과 렌더링 구성을 다룬다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "가상현실(VR)과 증강현실(AR)을 아우르는 확장현실(eXtended reality, XR) 콘텐츠에는 통일된 제작 방식이 없었다. 기존 플랫폼은 VR·AR용 콘텐츠를 따로 만들고 연결하게 하며, 기존 마크업 언어는 작성 전에 사용할 환경을 정하도록 요구했다.",
+    "method": "HTML을 확장한 통합 XR 표현 방식과 이를 화면에 그리는 렌더러를 제안했다. 렌더러는 VR과 AR에서 각각 다른 절차로 콘텐츠를 처리한다.",
+    "result": "하나의 XR 콘텐츠가 VR과 AR 환경 모두에서 작동한다. 표현 방식은 기존 웹 문서에 포함되고 월드 와이드 웹 자료를 활용할 수 있다.",
+    "meaning": "사용자는 웹 브라우저에서 상황이 VR인지 AR인지와 관계없이 같은 콘텐츠를 이용할 수 있다. VR·AR 사용자가 동일한 콘텐츠를 공유해 실제 사물과 협업하는 데 쓰일 수 있다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:54:49.195Z"
+  }
 }

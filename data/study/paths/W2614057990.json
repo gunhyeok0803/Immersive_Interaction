@@ -53,5 +53,15 @@
       "concept": "webized-xr-apps-displays-and-devices",
       "role": "웹화한 CAD 검토 기능과 다중 시점 무안경 표시를 묶은 시스템 개념이다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "대화형 컴퓨터 지원 설계(computer-aided design, CAD) 검토 시스템을 웹 환경에서 이용하도록 하는 과제를 다룬다.",
+    "method": "초다시점 무안경식 디스플레이(super multiview autostereoscopic display)를 이용해 대화형 CAD 검토 시스템을 웹화하는 방법이다.",
+    "result": "",
+    "meaning": "",
+    "from_title": true,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T11:00:22.847Z"
+  }
 }
