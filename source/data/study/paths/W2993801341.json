@@ -56,5 +56,15 @@
       "concept": "heterogeneous-health-sensor-log-fusion",
       "role": "이기종 건강·활동 자료를 돌봄 모니터링에 결합하는 응용 주제다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "기대수명이 늘면서 고령 인구가 많아지고, 보호자가 계속 살피지 않으면 사고 징후를 놓칠 수 있다. 사고가 난 뒤에는 돌봄 부담과 비용이 커질 수 있어 생활을 끊김 없이 관찰할 필요가 있다.",
+    "method": "요양시설에 KLog-Home을 적용해 사물인터넷(Internet of Things, IoT), 통신 기술, 영상을 함께 사용하는 다중 모달 방식으로 거주자를 지속 관찰한다. 중요 사건이 발생하면 보호자에게 알리도록 구성했다.",
+    "result": "영상 기능을 더해 보조생활(Ambient Assisted Living, AAL)을 영상 지원 보조생활(Video Assisted Ambient Living, VAAL)로 확장한다. 이를 통해 보호자가 중요 사건을 알고 신속히 대응할 수 있도록 한다.",
+    "meaning": "생활 패턴과 위험 징후를 살펴 사고를 예방하는 데 도움을 주고, 어르신이 독립적이고 안전하게 지내도록 지원하는 돌봄 방향을 제시한다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:56:42.892Z"
+  }
 }

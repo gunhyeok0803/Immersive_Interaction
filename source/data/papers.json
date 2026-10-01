@@ -12,9 +12,11 @@
     "pages_fetched": 14,
     "dois_found": 44,
     "works_resolved": 44,
-    "with_abstract": 37,
+    "with_abstract": 39,
     "open_access": 27,
-    "missing_dois": []
+    "missing_dois": [],
+    "with_pdf": 19,
+    "with_repo": 8
   },
   "papers": [
     {
@@ -34,7 +36,9 @@
         "Yechan Yang",
         "Eunhee Chang",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://www.nature.com/articles/s41598-026-68104-6_reference.pdf",
+      "repo_url": ""
     },
     {
       "id": "W7134951410",
@@ -53,7 +57,9 @@
         "Bumho Lee",
         "Youngsoo Shin",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W7207805119",
@@ -72,7 +78,9 @@
         "Ji Hyun Seo",
         "Byounhyun Yoo",
         "Gerard Jounghyun Kim"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4415751904",
@@ -83,7 +91,7 @@
       "cited": 2,
       "venue": "Journal of Building Engineering",
       "topic": "Building Energy and Comfort Optimization",
-      "abstract": "",
+      "abstract": "Achieving thermal comfort while maintaining energy efficiency is a critical objective in building system control. Conventional thermal comfort models, such as the Predicted Mean Vote (PMV), rely on both environmental and personal variables. However, the use of fixed-location sensors limits the ability to capture spatial variability, which reduces the accuracy of occupant-specific comfort estimation. To address this limitation, this study proposes a new PMV estimation method that incorporates spatial environmental data reconstructed using the Gappy Proper Orthogonal Decomposition (Gappy POD) algorithm. In addition, a group PMV-based control framework is developed to account for the thermal comfort of multiple occupants. The Gappy POD method enables fast and accurate reconstruction of indoor temperature fields from sparse sensor measurements. Using these reconstructed fields and occupant location data, spatially resolved PMV values are calculated. Group-level thermal conditions are then derived through statistical aggregation methods and used to control indoor temperature in a multi-occupant living lab environment. Experimental results show that the Gappy POD algorithm achieves an average relative error below 3\\% in temperature reconstruction. PMV distributions varied by up to 1.26 scale units depending on occupant location. Moreover, thermal satisfaction outcomes varied depending on the group PMV method employed. These findings underscore the importance for adaptive thermal control strategies that incorporate both spatial and individual variability, offering valuable insights for future occupant-centric building operations.",
       "is_oa": false,
       "oa_url": "",
       "url": "https://doi.org/10.1016/j.jobe.2025.114512",
@@ -95,7 +103,10 @@
         "Sehyeon Park",
         "Jin Woo Moon",
         "Eun Ji Choi"
-      ]
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2505.00468",
+      "repo_url": "http://arxiv.org/abs/2505.00468",
+      "abstract_src": "Semantic Scholar"
     },
     {
       "id": "W4413820694",
@@ -106,7 +117,7 @@
       "cited": 0,
       "venue": "",
       "topic": "Computer Graphics and Visualization Techniques",
-      "abstract": "",
+      "abstract": "Neural rendering has recently emerged as a powerful technique for generating photorealistic 3D content, enabling high levels of visual fidelity. In parallel, web technologies such as WebGL and WebGPU support platform-independent, in-browser rendering, allowing broad accessibility without the need for platform-specific installations. The convergence of these two advancements opens up new possibilities for delivering immersive, high-fidelity 3D experiences directly through the web. However, achieving such integration remains challenging due to strict real-time performance requirements and limited client-side resources. To address this, we propose a hybrid rendering framework that offloads high-fidelity 3D Gaussian Splatting(3DGS)/4D Gaussian Splatting(4DGS) processing to a server, while delegating lightweight mesh rendering and final image composition to the client via depth-based screen-space fusion. This architecture ensures consistent performance across heterogeneous devices, reduces client-side memory usage, and decouples rendering logic from the client, allowing seamless integration of evolving neural models without frequent re-engineering. Empirical evaluations show that the proposed hybrid architecture reduces the computational burden on client devices while consistently maintaining performance across diverse platforms. These results highlight the potential of our framework as a practical solution for accessible, high-quality neural rendering across diverse web platforms. (The project page is available at: https://streamsplat.pengpark.com/)",
       "is_oa": true,
       "oa_url": "https://doi.org/10.1145/3746237.3746316",
       "url": "https://doi.org/10.1145/3746237.3746316",
@@ -115,7 +126,10 @@
         "Yechan Yang",
         "Myeongseong Kim",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": "",
+      "abstract_src": "Semantic Scholar"
     },
     {
       "id": "W4413143040",
@@ -136,7 +150,9 @@
         "Youngsoo Choi",
         "Arben Pitarka",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2504.11752",
+      "repo_url": "http://arxiv.org/abs/2504.11752"
     },
     {
       "id": "W4412698102",
@@ -154,7 +170,9 @@
       "authors": [
         "Jisoo Kim",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://academic.oup.com/jcde/advance-article-pdf/doi/10.1093/jcde/qwaf075/63862340/qwaf075.pdf",
+      "repo_url": ""
     },
     {
       "id": "W4405266536",
@@ -174,7 +192,9 @@
         "Youngkyu Kim",
         "Jin-Woo Moon",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4402094861",
@@ -197,7 +217,9 @@
         "Byounghyun Yoo",
         "Jisoo Kim",
         "Jongmin Lee"
-      ]
+      ],
+      "pdf_url": "https://www.nature.com/articles/s41598-024-70774-z.pdf",
+      "repo_url": "https://pubmed.ncbi.nlm.nih.gov/39217249"
     },
     {
       "id": "W4399556957",
@@ -217,7 +239,9 @@
         "Yongjae Lee",
         "Mark Billinghurst",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": "https://find.library.unisa.edu.au/discovery/fulldisplay/alma9916878430101831/61USOUTHAUS_INST:ROR"
     },
     {
       "id": "W4394676192",
@@ -236,7 +260,9 @@
         "Youngkyu Kim",
         "Youngsoo Choi",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://arxiv.org/pdf/2312.07902",
+      "repo_url": "http://arxiv.org/abs/2312.07902"
     },
     {
       "id": "W4391461004",
@@ -255,7 +281,9 @@
         "Inhwan Dennis Lee",
         "Ji Hyun Seo",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4392248749",
@@ -274,7 +302,9 @@
         "Muhammad Atif",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4389000805",
@@ -294,7 +324,9 @@
         "Ji‐Soo Kim",
         "Heedong Ko",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4385982751",
@@ -313,7 +345,9 @@
         "Eunhee Chang",
         "Yongjae Lee",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://www.tandfonline.com/doi/pdf/10.1080/10447318.2023.2241294?needAccess=true&role=button",
+      "repo_url": "https://find.library.unisa.edu.au/discovery/fulldisplay/alma9916791527401831/61USOUTHAUS_INST:ROR"
     },
     {
       "id": "W4372259901",
@@ -332,7 +366,9 @@
         "Jisoo Kim",
         "Hyebin Ahn",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4365150374",
@@ -351,7 +387,9 @@
         "Eunhee Chang",
         "Mark Billinghurst",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://link.springer.com/content/pdf/10.1007/s10055-023-00795-y.pdf",
+      "repo_url": "https://pubmed.ncbi.nlm.nih.gov/37360812"
     },
     {
       "id": "W4367662842",
@@ -371,7 +409,9 @@
         "Yongjae Lee",
         "Byounghyun Yoo",
         "Hojeong Im"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4307472776",
@@ -391,7 +431,9 @@
         "Byounghyun Yoo",
         "Jee Young Moon",
         "Ji Hyun Seo"
-      ]
+      ],
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3564533.3564565",
+      "repo_url": ""
     },
     {
       "id": "W4226099965",
@@ -411,7 +453,9 @@
         "Shapna Muralidharan",
         "Heedong Ko",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4212903058",
@@ -430,7 +474,9 @@
         "Shapna Muralidharan",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W4207052223",
@@ -449,7 +495,9 @@
         "Eunhee Chang",
         "Hyun Taek Kim",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://link.springer.com/content/pdf/10.1007/s10055-021-00622-2.pdf",
+      "repo_url": ""
     },
     {
       "id": "W4200313021",
@@ -468,7 +516,9 @@
         "Yongjae Lee",
         "Byounghyun Yoo",
         "Soo-Hong Lee"
-      ]
+      ],
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3485444.3487642",
+      "repo_url": ""
     },
     {
       "id": "W3201292497",
@@ -487,7 +537,9 @@
         "Ji Hyun Seo",
         "Inhwan Dennis Lee",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://academic.oup.com/jcde/article-pdf/8/5/1332/40481271/qwab049.pdf",
+      "repo_url": ""
     },
     {
       "id": "W3136467879",
@@ -505,7 +557,9 @@
       "authors": [
         "Yongjae Lee",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://academic.oup.com/jcde/article-pdf/8/2/756/37562008/qwab012.pdf",
+      "repo_url": ""
     },
     {
       "id": "W3134586965",
@@ -524,7 +578,9 @@
         "Eunhee Chang",
         "Hyun Taek Kim",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://academic.oup.com/jcde/article-pdf/8/2/728/37562475/qwab010.pdf",
+      "repo_url": ""
     },
     {
       "id": "W3110515232",
@@ -545,7 +601,9 @@
         "Heedong Ko",
         "Soo-Hong Lee",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3424616.3424695",
+      "repo_url": ""
     },
     {
       "id": "W3095985713",
@@ -567,7 +625,9 @@
         "Heedong Ko",
         "Byounghyun Yoo",
         "Gerard Jounghyun Kim"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W3038372909",
@@ -586,7 +646,9 @@
         "Eunhee Chang",
         "Hyun Taek Kim",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://www.tandfonline.com/doi/pdf/10.1080/10447318.2020.1778351?needAccess=true",
+      "repo_url": ""
     },
     {
       "id": "W3023139129",
@@ -608,7 +670,9 @@
         "Jonghyun Choi",
         "Soonhung Han",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "https://ieeexplore.ieee.org/ielx7/8860/9159950/09089042.pdf",
+      "repo_url": "https://hdl.handle.net/10371/218056"
     },
     {
       "id": "W3093448691",
@@ -628,7 +692,9 @@
         "Shapna Muralidharan",
         "Heedong Ko",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2997604678",
@@ -646,7 +712,9 @@
       "authors": [
         "Daeil Seo",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W3013433297",
@@ -665,7 +733,9 @@
         "Shapna Muralidharan",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2993801341",
@@ -686,7 +756,9 @@
         "Chanwoong Lee",
         "Jia Lee",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2963237354",
@@ -706,7 +778,9 @@
         "Shapna Muralidharan",
         "Heedong Ko",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2809398922",
@@ -725,7 +799,9 @@
         "Daeil Seo",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "https://dl.acm.org/doi/pdf/10.1145/3208806.3208808",
+      "repo_url": ""
     },
     {
       "id": "W2801545084",
@@ -745,7 +821,9 @@
         "Daeil Seo",
         "Hyun Taek Kim",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2737383479",
@@ -764,7 +842,9 @@
         "고희동",
         "Byounghyun Yoo",
         "Daeil Seo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2615665610",
@@ -783,7 +863,9 @@
         "Daeil Seo",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "http://dl.acm.org/ft_gateway.cfm?id=3075940&type=pdf",
+      "repo_url": ""
     },
     {
       "id": "W2613287532",
@@ -802,7 +884,9 @@
         "Daeil Seo",
         "Jongho Lee",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2614596603",
@@ -822,7 +906,9 @@
         "Daeil Seo",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2599954028",
@@ -842,7 +928,9 @@
         "Doyeon Kim",
         "Byounghyun Yoo",
         "Heedong Ko"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2614057990",
@@ -861,7 +949,9 @@
         "Daeil Seo",
         "Yongjae Lee",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     },
     {
       "id": "W2567242639",
@@ -880,7 +970,10 @@
         "Heedong Ko",
         "Daeil Seo",
         "Byounghyun Yoo"
-      ]
+      ],
+      "pdf_url": "",
+      "repo_url": ""
     }
-  ]
+  ],
+  "links_at": "2026-10-01T10:46:29.131Z"
 }

@@ -109,7 +109,13 @@ async function captureCurrent(b, out) {
   await b.move(node[0], node[1]); await sleep(700);
   await b.shot(path.join(out, "03d-기초-개념-가리키기.png"));
   const panel = async (key) => b.js(`const it = ${H_}.paperFan.items.find(i => i.key === "${key}"); ${screenOf("it.el")}`);
-  let p = await panel("path"); await b.click(p[0], p[1]); await sleep(1200);
+  // 논문 요약: 문제·방법·결과·의미 → 다음 쪽에 원문 링크(무료 PDF → 저장소 → 출판사)와 초록 원문
+  let p = await panel("summary"); await b.click(p[0], p[1]); await sleep(1200);
+  await b.shot(path.join(out, "04a-상세-논문-요약.png"));
+  await b.js(`document.querySelector('[data-dnav="1"]').click();`); await sleep(600);
+  await b.shot(path.join(out, "04b-상세-원문-링크-초록.png"));
+  await b.js(`document.querySelector('[data-dback]').click();`); await sleep(1000);
+  p = await panel("path"); await b.click(p[0], p[1]); await sleep(1200);
   await b.shot(path.join(out, "04-상세-학습-경로.png"));
   // 개념 카드: 학습 단계 ① 왜 → ② 직관 → ③ 정의·식(또는 정의·구조) → ④ 핵심 → ⑤ 풀어 보기 → ⑥ 연결을 한 장씩
   await b.js(`[...document.querySelectorAll('#dBody .page:not([hidden]) [data-concept]')][3]?.click();`); await sleep(1800);

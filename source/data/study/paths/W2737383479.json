@@ -32,5 +32,15 @@
       "concept": "web-interoperability-xr",
       "role": "웹 기반 접근을 공간 상호작용에 연결하는 핵심 개념이다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "유형 공간(tangible space)을 웹 환경에서 다루는 주제를 제시한다.",
+    "method": "유형 공간을 웹화(webizing)하는 접근을 다룬다.",
+    "result": "",
+    "meaning": "",
+    "from_title": true,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:59:35.389Z"
+  }
 }

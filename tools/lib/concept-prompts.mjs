@@ -158,3 +158,34 @@ export const PATH_PROMPT = `너는 학부생의 논문 읽기 지도교수다. �
 2. role은 이 논문 안에서 그 개념이 하는 일 한 문장. 구체적으로 (예: "발 압력 중심의 흔들림을 주파수 성분으로 나눠 비교한다").
 3. summary는 무엇을 어떻게 풀었는지. "초록", "명시", "이 논문은 ~라고 한다" 같은 해설조 표현을 쓰지 않는다.
 4. 제목·초록에서 짐작할 수 있는 범위 안에서 쓰되, 모르는 수치는 쓰지 않는다.`;
+
+// 4) 논문 요약 (구조): 상세 창 1쪽. 짧은 summary(2~3문장)는 좌우 패널에 그대로 씀 (10/1 사용자 "논문 요약이 너무 간단")
+const part = (what) => ({ type: "string", description: `${what} 1~2문장. 근거가 없으면 빈 문자열` });
+export const BRIEF_SCHEMA = {
+  type: "object", additionalProperties: false,
+  required: ["papers"],
+  properties: {
+    papers: {
+      type: "array",
+      items: {
+        type: "object", additionalProperties: false,
+        required: ["paper_id", "problem", "method", "result", "meaning"],
+        properties: {
+          paper_id: { type: "string" },
+          problem: part("무엇이 문제였나 (기존 방법의 한계, 풀려는 상황)"),
+          method: part("어떻게 풀었나 (제안한 방법·시스템·실험 설계)"),
+          result: part("무엇을 보였나 (실험·평가 결과, 초록에 있는 수치는 그대로)"),
+          meaning: part("왜 중요한가 (어디에 쓰이나, 무엇이 달라지나)"),
+        },
+      },
+    },
+  },
+};
+
+export const BRIEF_PROMPT = `너는 학부생에게 논문을 설명하는 지도교수다. 한국어로 쓴다(전문 용어는 처음에만 영어 병기).
+논문마다 제목·초록을 읽고 problem(문제) · method(방법) · result(결과) · meaning(의미)를 각각 1~2문장으로 쓴다. 넷을 합쳐 400~500자 안팎.
+규칙:
+1. 초록에 있는 내용만 쓴다. 초록에 없는 수치·대상·결과를 지어내지 않는다. 초록에 수치가 있으면 그대로 옮긴다.
+2. 초록이 "(없음)"이면 제목에서 확실히 알 수 있는 problem·method만 쓰고, result·meaning은 빈 문자열로 둔다.
+3. "초록에는", "명시", "이 논문은 ~라고 한다" 같은 해설조 표현을 쓰지 않는다. 주어 없이 내용만 ("~을 제안했다", "~에서 ~를 보였다").
+4. 학부 2학년이 읽고 이해할 수 있게: 긴 명사구를 풀어 쓰고, 한 문장에 한 가지만.`;

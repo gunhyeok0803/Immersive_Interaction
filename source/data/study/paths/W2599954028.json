@@ -53,5 +53,15 @@
       "concept": "webized-xr-apps-displays-and-devices",
       "role": "웹화한 AR 매시업으로 기존 사물에 접속하는 시스템 수준의 개념이다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "사물인터넷(internet of things, IoT) 기기는 생활을 더 편리하게 만들 수 있다. 하지만 기존 장비를 IoT 기기로 바꿔야 연결할 수 있어 비용 부담이 생긴다.",
+    "method": "기존 장비를 교체하지 않고 이미 쓰는 사물과 웹 서비스를 이어 주는 웹 기반 증강현실(augmented reality) 매시업(mashup)을 제안했다. 장비 교체 비용 없이 연동하도록 구성했다.",
+    "result": "기존 웹 서비스와 이미 사용하는 사물을 연결할 수 있는 방식을 제시했다. IoT 기기로 기존 장비를 바꾸는 데 드는 비용이 발생하지 않는다.",
+    "meaning": "기존 설비를 계속 쓰면서 웹 서비스를 연결할 수 있다. 장비 교체 부담을 줄여 사물인터넷 기능을 기존 환경에 적용하는 데 도움을 준다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T11:00:22.463Z"
+  }
 }

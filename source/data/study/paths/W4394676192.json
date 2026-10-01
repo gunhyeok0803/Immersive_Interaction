@@ -56,5 +56,15 @@
       "concept": "gappy-autoencoder-reconstruction",
       "role": "오토인코더의 비선형 표현으로 희소 측정에서 전체 데이터를 복원하는 중심 방법이다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "Gappy 고유직교분해(Gappy proper orthogonal decomposition, Gappy POD)는 희소 측정이나 결측값을 이용한 복원에 쓰이지만, 선형 부분공간(linear subspace)에 의존해 Kolmogorov N-width가 천천히 줄어드는 해를 정확히 표현하기 어렵다.",
+    "method": "비선형 다양체(nonlinear manifold)를 이용하는 Gappy 자동인코더(Gappy auto-encoder, Gappy AE)를 제안해 희소 측정값으로 상태를 실시간 예측하고 누락된 값을 복원했다. 2차원 확산·방사형 이류·파동 방정식 예제에서 이산 경험 보간법(discrete empirical interpolation method), S-OPT, 라틴 하이퍼큐브 표본추출(Latin hypercube sampling), 균등 표본추출을 비교했다.",
+    "result": "희소 측정 조건에서 Gappy AE가 Gappy POD보다 데이터를 더 잘 복원했다. 네 가지 표본추출법이 복원 정확도에 미치는 영향도 평가했다.",
+    "meaning": "디지털 트윈과 이미지 보정처럼 적은 측정값으로 상태를 복원해야 하는 응용 분야에 활용될 수 있다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:50:30.908Z"
+  }
 }

@@ -56,5 +56,15 @@
       "concept": "poi-density-smartglass-zooming",
       "role": "관심 지점 밀도에 따라 스마트글래스 지도 탐색의 줌을 조정하는 인터페이스 문제를 다룬다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "스마트 글래스에서 지도를 탐색할 때 확대 방식을 정하는 문제를 다룬다.",
+    "method": "관심 지점(Points of Interest, POI) 밀도에 기반한 지도 확대 인터페이스를 다룬다.",
+    "result": "",
+    "meaning": "",
+    "from_title": true,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:59:36.845Z"
+  }
 }

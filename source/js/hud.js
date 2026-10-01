@@ -409,10 +409,10 @@ AFRAME.registerComponent("hud", {
     if (this.paperFan.uTarget === 0) this.panelsAt = performance.now() + PANELS_AFTER;
   },
   foldStack() { this.stack().fold(); this.panelsAt = null; this.armPalm = false; },
-  // 주먹·Esc: 한 단계 뒤로
+  // 주먹·Esc: 한 단계 뒤로. 층과 좌우 패널은 손바닥 한 번에 같이 펼쳐지므로 닫을 때도 같이 (10/1 영상: 패널만 남는 단계가 주먹 한 번을 더 씀)
   back() {
     if (this.focusFan) return this.unfocus();
-    if (this.stack().uTarget > 0) { this.foldStack(); return; }
+    if (this.stack().uTarget > 0) { this.foldStack(); this.paperFan.uTarget = 0; return; }
     if (this.paperFan.uTarget > 0) { this.paperFan.uTarget = 0; return; }
     if (this.paper) this.unload();
   },

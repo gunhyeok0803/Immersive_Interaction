@@ -5,10 +5,11 @@
 | 순서 | 스크립트 | 하는 일 | AI 사용 |
 | --- | --- | --- | --- |
 | 1 | `fetch-papers.mjs <연구실 URL>` | 연구실 페이지의 DOI → OpenAlex 조회 → `papers.json` | 없음 |
+| 1-2 | `fetch-links.mjs` | `papers.json`에 무료 원문 주소(PDF·저장소 사본) 추가, 빈 초록을 Semantic Scholar → Crossref로 채움 | 없음 |
 | 2 | `fetch-related.mjs` | 논문마다 유사 논문 수집 (Semantic Scholar 추천 → Crossref 폴백) → `related-papers.json` | 없음 |
 | 3 | `build-common-set.mjs [plan\|modules]` | 최근 논문 → 연구 주제 묶기(`common.json`, HUD 상단 덱) → 주제별 모듈 세트(`modules/`) | Codex CLI |
 | 4 | `build-paper-packs.mjs [--foundations]` | 논문별 학습 팩 → `study/papers/` (3단계 모듈이 있어야 함). 지금은 5단계의 키워드 입력으로만 씀 | Codex CLI |
-| 5 | `build-concept-graph.mjs [graph\|cards\|paths]` | 개념 그래프(`graph.json`) → 개념 카드(`concepts/`) → 논문별 학습 경로(`paths/`). 화면이 읽는 학습 내용 | Codex CLI |
+| 5 | `build-concept-graph.mjs [graph\|cards\|paths\|briefs]` | 개념 그래프(`graph.json`) → 개념 카드(`concepts/`) → 논문별 학습 경로(`paths/`) → 논문 요약(경로 파일의 `brief`). 화면이 읽는 학습 내용 | Codex CLI |
 | - | `capture-screens.mjs [--history]` | 발표용 화면 캡처 (헤드리스 Edge, 1600×900) → `evidence/screens/` | 없음 |
 
 다른 교수님으로 바꾸려면 1~5를 새 URL로 다시 실행합니다.

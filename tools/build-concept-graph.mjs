@@ -3,6 +3,7 @@
 //   node tools/build-concept-graph.mjs graph                 개념 그래프 (source/data/study/graph.json)
 //   node tools/build-concept-graph.mjs cards [--only a,b,c]  개념 카드 (source/data/study/concepts/<id>.json), 한 번에 --batch개씩
 //   node tools/build-concept-graph.mjs paths [--only W..]    논문 → 학습 경로 (source/data/study/paths/<paperId>.json)
+//   node tools/build-concept-graph.mjs briefs [--only W..]   논문 요약(문제·방법·결과·의미)을 경로 파일에 brief로 추가 (paths 다음)
 //   공통: [--force] [--concurrency 3] [--batch 4] [--model 이름] [--effort 단계]
 // 이미 있는 결과는 건너뜀. 그래프는 코드가 검사함: 없는 id 버림, 순환 끊기, 수준 1까지 이어지는지.
 
@@ -11,7 +12,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { codexJson, pool, parseArgs, DEFAULT_MODEL, DEFAULT_EFFORT } from "./lib/codex.mjs";
-import { GRAPH_SCHEMA, GRAPH_PROMPT, CARDS_SCHEMA, CARDS_PROMPT, PATH_SCHEMA, PATH_PROMPT } from "./lib/concept-prompts.mjs";
+import { GRAPH_SCHEMA, GRAPH_PROMPT, CARDS_SCHEMA, CARDS_PROMPT, PATH_SCHEMA, PATH_PROMPT, BRIEF_SCHEMA, BRIEF_PROMPT } from "./lib/concept-prompts.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DATA = path.join(ROOT, "source", "data");
@@ -136,7 +137,31 @@ async function paths() {
   });
 }
 
+// 논문 요약(구조): 초록 전체를 읽혀 문제·방법·결과·의미. 초록이 없는 논문은 제목만으로 쓰고 from_title로 표시
+async function briefs() {
+  const todo = papers.filter((p) => existsSync(path.join(PATH_DIR, `${p.id}.json`)) && (!only || only.has(p.id)));
+  const pending = [];
+  for (const p of todo) if (opt.force || !(await readJson(path.join(PATH_DIR, `${p.id}.json`))).brief) pending.push(p);
+  console.log(`briefs: 논문 ${pending.length}편 (${opt.batch}편씩)`);
+  await pool(chunk(pending, Number(opt.batch)), Number(opt.concurrency), async (batch) => {
+    const t0 = Date.now();
+    try {
+      const text = batch.map((p) => `[${p.id}] ${p.title} (${p.year}, ${p.venue || "-"})\n초록: ${p.abstract?.trim() || "(없음)"}`).join("\n\n");
+      const res = await codexJson({ prompt: `${BRIEF_PROMPT}\n\n논문:\n${text}`, schema: BRIEF_SCHEMA, model: opt.model, effort: opt.effort });
+      for (const r of res.papers) {
+        const p = batch.find((x) => x.id === r.paper_id);
+        if (!p) continue;
+        const f = path.join(PATH_DIR, `${p.id}.json`), rec = await readJson(f);
+        rec.brief = { problem: r.problem, method: r.method, result: r.result, meaning: r.meaning, from_title: !p.abstract?.trim(), ...stamp() };
+        await save(f, rec);
+      }
+      console.log(`  ${batch.map((p) => p.id).join(", ")}  ${((Date.now() - t0) / 1000).toFixed(0)}s`);
+    } catch (e) { if (e.usageLimit) throw e; console.error(`  [실패] ${batch.map((p) => p.id).join(",")} ${e.message}`); }
+  });
+}
+
 if (step === "graph") await graph();
 else if (step === "cards") await cards();
 else if (step === "paths") await paths();
+else if (step === "briefs") await briefs();
 else console.error(`알 수 없는 단계: ${step}`);

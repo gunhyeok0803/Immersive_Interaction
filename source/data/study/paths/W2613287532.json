@@ -48,5 +48,15 @@
       "concept": "xr-rendering-interaction",
       "role": "웹에서 VR 인테리어 장면을 표시하고 사용자의 상호작용을 다룬다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "가상현실 기반 대화형 실내 디자인 시스템을 웹에서 제공하는 주제를 다룬다.",
+    "method": "가상현실 기반의 대화형 실내 디자인 시스템을 웹화하는 접근을 제시한다.",
+    "result": "",
+    "meaning": "",
+    "from_title": true,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:59:36.528Z"
+  }
 }

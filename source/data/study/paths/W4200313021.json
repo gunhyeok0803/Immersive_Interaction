@@ -48,5 +48,15 @@
       "concept": "lidar-point-cloud-webrtc-streaming",
       "role": "LiDAR 점군을 WebRTC로 스트리밍해 원격 XR 협업 공간을 구성한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "확장현실(extended reality, XR) 협업에서는 관심 대상(object of interest, OOI)뿐 아니라 주변 물체(ambient objects, AOs)도 공유해야 원격 참여자가 현장을 이해할 수 있다. 기존 3차원 복원은 사전 모델 제작에 시간이 걸리거나 많은 센서 설치가 필요했고, 복원된 공간 밖의 협업에는 쓰기 어려웠다.",
+    "method": "관심 대상은 미리 다각형 메시(polygon mesh)로 만들고, 주변 물체는 라이다(LiDAR)로 스캔해 점 구름(point cloud)으로 실시간 복원했다. 점 구름을 저지연 웹 통신(WebRTC)으로 공유해 원격 참여자가 가상 공간을 구성하게 하고, 프로토타입과 예시 시나리오를 제시했다.",
+    "result": "모든 현장 물체를 메시로 만들지 않아 준비 시간을 줄이고, 많은 센서를 설치할 필요도 없앴다. 프로토타입과 예시 시나리오를 통해 접근의 실용성을 보였다.",
+    "meaning": "원격 참여자가 주변 물체까지 포함한 현장 상황을 직관적으로 이해할 수 있다. 준비 부담을 줄이면서 실제 XR 협업에 적용할 수 있는 방식을 제시한다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:56:30.302Z"
+  }
 }

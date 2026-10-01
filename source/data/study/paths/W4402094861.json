@@ -56,5 +56,15 @@
       "concept": "syllable-speech-dysphagia-detection",
       "role": "음절 단위 대화 음성 특징으로 연하장애 여부를 이진 판별한다."
     }
-  ]
+  ],
+  "brief": {
+    "problem": "삼킴장애(dysphagia)는 노년층에 흔하고 심각한 건강 문제로 이어질 수 있어 조기 발견이 중요하다. 기존 연구에서 다루지 않은 음절 단위 대화 음성 분석의 진단 효과를 확인한다.",
+    "method": "환자 16명과 대조군 24명의 일상 대화를 모으고, 비디오투시 삼킴검사(videofluoroscopic swallowing study)로 진단을 확인했다. 음성-문자 변환(speech-to-text) 모델로 음절을 나누고 합성곱 신경망(CNN)으로 두 집단을 분류했다.",
+    "result": "음절 단위 분석의 정확도는 0.794였고, 민감도(sensitivity)는 0.901, 특이도(specificity)는 0.687, 양성 예측도(positive predictive value)는 0.742, 음성 예측도(negative predictive value)는 0.874였다. 개인별 정확도는 0.900, 곡선 아래 면적(AUC)은 0.953이었다.",
+    "meaning": "일상 대화 음성으로 삼킴장애를 조기에 찾는 비침습적이고 간단한 방법의 가능성을 보였다. 일상 환경에서의 조기 발견에 활용될 수 있다.",
+    "from_title": false,
+    "model": "gpt-6-luna (max)",
+    "via": "codex-cli",
+    "generated_at": "2026-10-01T10:50:30.906Z"
+  }
 }
